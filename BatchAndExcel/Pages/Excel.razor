@@ -1,0 +1,83 @@
+﻿@page "/excel"
+@using R_BlazorFrontEnd.Controls.Enums;
+@using R_BlazorFrontEnd;
+@using R_BlazorFrontEnd.Exceptions;
+@using R_BlazorFrontEnd.Helpers;
+@inject R_JsInterop _jsClass;
+
+<R_GroupBox Title="Excel">
+    <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
+    <R_Button OnClick="@OnClickHandler">Download Template Excel</R_Button>
+</R_GroupBox>
+
+@code {
+    #region FILE SELECT
+    private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
+
+    [Inject] private R_IExcel ExcelProvider { get; set; }
+
+    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            //read excel as byte
+            var loMS = new MemoryStream();
+            await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
+            var loByteFile = loMS.ToArray();
+
+            //import from excel
+            var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+
+            var resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataSet.Tables[0]);
+            var resultGender = R_FrontUtility.R_ConvertTo<GenderDTO>(loDataSet.Tables[1]);
+
+            Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
+            Console.WriteLine(R_FrontUtility.Dump(resultGender));
+
+            //export to excel
+            loByteFile = ExcelProvider.R_WriteToExcel(loDataSet);
+            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
+
+            await _jsClass.downloadFileFromStreamHandler(saveFileName, loByteFile);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(R_FrontUtility.Dump(ex));
+        }
+    }
+
+    private async Task OnClickHandler()
+    {
+        try
+        {
+            var loDataTable = R_FrontUtility.R_ConvertTo(new List<EmployeeDTO>());
+            loDataTable.TableName = "Employee";
+
+            //export to excel
+            var loByteFile = ExcelProvider.R_WriteToExcel(loDataTable);
+            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
+
+            await _jsClass.downloadFileFromStreamHandler(saveFileName, loByteFile);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public class EmployeeDTO
+    {
+        public string Id { get; set; }
+        public string FirstName { get; set; }
+        public int Gender { get; set; }
+    }
+
+    public class GenderDTO
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+    }
+    #endregion
+}

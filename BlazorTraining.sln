@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33712.159
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Batch and Excel", "Batch and Excel", "{8FB99B33-F136-4FFA-A4E8-4779DE07B65F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTrainingApi", "BlazorTrainingApi\BlazorTrainingApi.csproj", "{7ADCD49C-AAC5-4AEA-A937-2F2D902A1FF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcel", "BatchAndExcel\BatchAndExcel.csproj", "{A83DCB15-B949-4F88-AC59-9FBF9CCCF9D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7ADCD49C-AAC5-4AEA-A937-2F2D902A1FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ADCD49C-AAC5-4AEA-A937-2F2D902A1FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ADCD49C-AAC5-4AEA-A937-2F2D902A1FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ADCD49C-AAC5-4AEA-A937-2F2D902A1FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A83DCB15-B949-4F88-AC59-9FBF9CCCF9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83DCB15-B949-4F88-AC59-9FBF9CCCF9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83DCB15-B949-4F88-AC59-9FBF9CCCF9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A83DCB15-B949-4F88-AC59-9FBF9CCCF9D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A83DCB15-B949-4F88-AC59-9FBF9CCCF9D6} = {8FB99B33-F136-4FFA-A4E8-4779DE07B65F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {326F6793-B282-4539-8298-FACE822E7925}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Realta.BackCollectionNuGet" Version="1.0.0" />
+    <PackageReference Include="Realta.CommonCollectionNuGet" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="R_APIStartUp">
+      <HintPath>..\Dll\Dll Back\R_APIStartUp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
