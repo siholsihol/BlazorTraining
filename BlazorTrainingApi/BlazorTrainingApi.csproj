@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Compile Remove="WeatherForecast.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Realta.BackCollectionNuGet" Version="1.0.0" />
@@ -15,6 +20,17 @@
     <Reference Include="R_APIStartUp">
       <HintPath>..\Dll\Dll Back\R_APIStartUp.dll</HintPath>
     </Reference>
+    <Reference Include="R_HelperController">
+      <HintPath>..\Dll\Dll Back\R_HelperController.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BatchAndExcel\Back\BatchAndExcelBack\BatchAndExcelBack.csproj" />
   </ItemGroup>
 
 </Project>

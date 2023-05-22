@@ -1,6 +1,8 @@
 ﻿@page "/excel"
+@using BatchAndExcelCommon.DTOs;
 @using R_BlazorFrontEnd.Controls.Enums;
 @using R_BlazorFrontEnd;
+@using R_BlazorFrontEnd.Controls;
 @using R_BlazorFrontEnd.Exceptions;
 @using R_BlazorFrontEnd.Helpers;
 @inject R_JsInterop _jsClass;
@@ -65,19 +67,6 @@
         {
             throw;
         }
-    }
-
-    public class EmployeeDTO
-    {
-        public string Id { get; set; }
-        public string FirstName { get; set; }
-        public int Gender { get; set; }
-    }
-
-    public class GenderDTO
-    {
-        public int Id { get; set; }
-        public string Description { get; set; }
     }
     #endregion
 }
