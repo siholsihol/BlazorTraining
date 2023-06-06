@@ -7,7 +7,7 @@ namespace BatchAndExcelBack
 {
     public class BatchAndExcelCls : R_IBatchProcess
     {
-        public async void R_BatchProcess(R_BatchProcessPar poBatchProcessPar)
+        public void R_BatchProcess(R_BatchProcessPar poBatchProcessPar)
         {
             var loEx = new R_Exception();
 

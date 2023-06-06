@@ -5,9 +5,35 @@
 @using R_BlazorFrontEnd.Controls;
 @using R_BlazorFrontEnd.Exceptions;
 @using R_BlazorFrontEnd.Helpers;
-@inject R_JsInterop _jsClass;
+@using System.Collections.ObjectModel
+@using R_BlazorFrontEnd.Controls.Grid.Columns
+@using R_BlazorFrontEnd.Controls.Events
+@inject IJSRuntime JS;
 
 <R_GroupBox Title="Excel">
+    <R_Grid @ref="@GridRef" DataSource="@GridList"
+            R_GridType="@R_eGridType.Batch"
+            AllowAddNewRow="true"
+            AllowEditRow="true"
+            AllowDeleteRow="true" R_ServiceGetListRecord="@R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridTextColumn FieldName="@nameof(EmployeeDTO.Id)"
+                              HeaderText="User Id" />
+
+            <R_GridTextColumn FieldName="@nameof(EmployeeDTO.FirstName)"
+                              HeaderText="First Name"
+                              R_EnableAdd
+                              R_EnableEdit />
+
+            <R_GridDropDownListColumn Data="@GenderList"
+                                      ValueField="@nameof(GenderDTO.Id)"
+                                      TextField="@nameof(GenderDTO.Description)"
+                                      FieldName="@nameof(EmployeeDTO.Gender)"
+                                      HeaderText="Gender"
+                                      R_EnableAdd
+                                      R_EnableEdit />
+        </R_GridColumns>
+    </R_Grid>
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
     <R_Button OnClick="@OnClickHandler">Download Template Excel</R_Button>
 </R_GroupBox>
@@ -17,6 +43,10 @@
     private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
 
     [Inject] private R_IExcel ExcelProvider { get; set; }
+
+    private ObservableCollection<EmployeeDTO> GridList = new();
+    private List<GenderDTO> GenderList = new();
+    private R_Grid<EmployeeDTO> GridRef;
 
     private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
     {
@@ -35,6 +65,8 @@
             var resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataSet.Tables[0]);
             var resultGender = R_FrontUtility.R_ConvertTo<GenderDTO>(loDataSet.Tables[1]);
 
+            await GridRef.R_RefreshGrid(resultEmployee);
+
             Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
             Console.WriteLine(R_FrontUtility.Dump(resultGender));
 
@@ -42,7 +74,7 @@
             loByteFile = ExcelProvider.R_WriteToExcel(loDataSet);
             var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
 
-            await _jsClass.downloadFileFromStreamHandler(saveFileName, loByteFile);
+            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
         }
         catch (Exception ex)
         {
@@ -50,18 +82,29 @@
         }
     }
 
+    private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+    {
+        eventArgs.ListEntityResult = eventArgs.Parameter;
+    }
+
     private async Task OnClickHandler()
     {
         try
         {
-            var loDataTable = R_FrontUtility.R_ConvertTo(new List<EmployeeDTO>());
+            var loEmployeList = new List<EmployeeDTO>()
+            {
+                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Sihol", Gender=1},
+                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Siholwati", Gender=2}
+            };
+
+            var loDataTable = R_FrontUtility.R_ConvertTo(loEmployeList);
             loDataTable.TableName = "Employee";
 
             //export to excel
             var loByteFile = ExcelProvider.R_WriteToExcel(loDataTable);
             var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
 
-            await _jsClass.downloadFileFromStreamHandler(saveFileName, loByteFile);
+            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
         }
         catch (Exception)
         {

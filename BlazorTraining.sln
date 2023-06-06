@@ -7,11 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Batch and Excel", "Batch an
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTrainingApi", "BlazorTrainingApi\BlazorTrainingApi.csproj", "{7ADCD49C-AAC5-4AEA-A937-2F2D902A1FF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcel", "BatchAndExcel\Front\BatchAndExcel\BatchAndExcel.csproj", "{671F4052-8BC3-48A4-9D83-AD220C33B443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatchAndExcel", "BatchAndExcel\Front\BatchAndExcel\BatchAndExcel.csproj", "{671F4052-8BC3-48A4-9D83-AD220C33B443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcelCommon", "BatchAndExcel\Common\BatchAndExcelCommon\BatchAndExcelCommon.csproj", "{75D50690-A891-4A66-AFDE-BAA3B6EC337E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatchAndExcelCommon", "BatchAndExcel\Common\BatchAndExcelCommon\BatchAndExcelCommon.csproj", "{75D50690-A891-4A66-AFDE-BAA3B6EC337E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcelBack", "BatchAndExcel\Back\BatchAndExcelBack\BatchAndExcelBack.csproj", "{FA498D69-C8B3-460F-9416-3EFDB57376F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatchAndExcelBack", "BatchAndExcel\Back\BatchAndExcelBack\BatchAndExcelBack.csproj", "{FA498D69-C8B3-460F-9416-3EFDB57376F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
