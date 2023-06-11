@@ -34,9 +34,9 @@ namespace BatchAndExcelBack
                     $"{i}, 'Process {loObject[i].FirstName}', {0}";
                     loDb.SqlExecNonQuery(lcQuery, loConn, false);
 
-                    var t = Task.Run(async delegate
+                    var t = Task.Run(async () =>
                     {
-                        await Task.Delay(300);
+                        await Task.Delay(100);
                     });
 
                     t.Wait();

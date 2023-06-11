@@ -1,0 +1,25 @@
+﻿@inherits ComponentBase
+
+<CascadingValue Value="this" Name="currentMainBody">
+    <R_Tabs @ref="@_tabRef" 
+            OnTabRemoved="@OnTabRemoved"
+            OnTabRemoving="@OnTabRemoving" 
+            OnActiveTabChanged="@OnActiveTabChanged">
+        @foreach (var loTab in Tabs)
+        {
+            @if (loTab.Body != null)
+            {
+                <R_Tab Title="@loTab.Title" Id="@loTab.Id.ToString()" IsCloseable="@loTab.Closeable" IsActive="@loTab.IsActive">
+                    <CascadingValue Value="@loTab" Name="currentTab" TValue="R_TabProgram" IsFixed>
+                        <R_PopupContainer />
+
+                        @if (loTab.Body != null)
+                        {
+                            @loTab.Body
+                        }
+                    </CascadingValue>
+                </R_Tab>
+            }
+        }
+    </R_Tabs>
+</CascadingValue>
