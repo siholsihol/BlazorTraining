@@ -14,42 +14,42 @@
                 R_ServiceGetListRecord="@R_ServiceGetListRecord">
             <R_GridColumns>
                 <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
-                                    HeaderText="Id" 
-                                    R_EnableAdd R_EnableEdit />
+                                     HeaderText="Id"
+                                     R_EnableAdd R_EnableEdit />
 
-                <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)" 
-                                HeaderText="Name" 
-                                R_EnableAdd 
-                                R_EnableEdit 
-                                MaxLength="5"/>
+                <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
+                                  HeaderText="Name"
+                                  R_EnableAdd
+                                  R_EnableEdit
+                                  MaxLength="5" />
 
                 <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
-                                     HeaderText="Price" 
-                                     R_EnableAdd 
+                                     HeaderText="Price"
+                                     R_EnableAdd
                                      R_EnableEdit Min="0" />
 
                 <R_GridDateTimePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
-                                        HeaderText="Release Date" 
-                                        R_EnableAdd 
-                                        R_EnableEdit />
+                                            HeaderText="Release Date"
+                                            R_EnableAdd
+                                            R_EnableEdit />
 
                 <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Active)"
-                                      HeaderText="Active" 
-                                      R_EnableAdd 
+                                      HeaderText="Active"
+                                      R_EnableAdd
                                       R_EnableEdit />
 
-                <R_GridDropDownListColumn Data=@_viewModel.Categories 
-                                        ValueField="@nameof(CategoryDTO.Id)" 
-                                        TextField="@nameof(CategoryDTO.Name)" 
-                                        FieldName="@nameof(ProductDTO.CategoryId)" 
-                                        HeaderText="Category"
-                                        R_EnableAdd
-                                        R_EnableEdit />
+                <R_GridDropDownListColumn Data=@_viewModel.Categories
+                                          ValueField="@nameof(CategoryDTO.Id)"
+                                          TextField="@nameof(CategoryDTO.Name)"
+                                          FieldName="@nameof(ProductDTO.CategoryId)"
+                                          HeaderText="Category"
+                                          R_EnableAdd
+                                          R_EnableEdit />
             </R_GridColumns>
         </R_Grid>
 
         <R_ItemLayout>
-            <R_Button R_ConductorGridSource="@_conGridProductRef" OnClick="@OnClickGenerate">Generate Data</R_Button>
+            <R_Button R_ConductorGridSource="@_conGridProductRef" OnClick="@OnClickGenerate">Save Batch</R_Button>
         </R_ItemLayout>
     </R_GroupBox>
 </R_StackLayout>

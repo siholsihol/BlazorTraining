@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMenu", "BlazorMenu\Bl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{36CEE55E-1DA5-41A3-A018-F0AA78A317E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDummyProvider", "Example\DataDummyProvider\DataDummyProvider.csproj", "{DC06BBD8-0FFE-4E27-81FF-609E2FE241E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataDummyProvider", "Example\DataDummyProvider\DataDummyProvider.csproj", "{DC06BBD8-0FFE-4E27-81FF-609E2FE241E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB01000Front", "Example\SAB01000Front\SAB01000Front.csproj", "{6DE5C7C1-2BA1-4B1F-93A9-62D842B240CD}"
 EndProject
