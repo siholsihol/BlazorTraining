@@ -31,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Example\SAB00900Front\SAB00900Front.csproj" />
+    <ProjectReference Include="..\Example\SAB01000Front\SAB01000Front.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="BlazorMenuCommon">
       <HintPath>..\Dll\Dll Menu\BlazorMenuCommon.dll</HintPath>
     </Reference>

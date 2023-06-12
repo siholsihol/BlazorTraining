@@ -1,0 +1,124 @@
+﻿@page "/SAB00900"
+@inherits R_Page
+
+<R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Product Id</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_NumericTextBox @bind-Value="@ViewModel.Data.Id"
+                              R_ConductorSource="@_conductorRef"
+                              R_EnableAdd="true"
+                              R_EnableEdit="false"></R_NumericTextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Product Name</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_TextBox Id="txtName" @bind-Value="@ViewModel.Data.Name"
+                       R_ConductorSource="@_conductorRef"
+                       R_EnableAdd="true"
+                       R_EnableEdit="true"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Category</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_DropDownList Data="@ViewModel.CategoryList"
+                            ValueField="@nameof(CategoryDTO.Id)"
+                            TextField="@nameof(CategoryDTO.Name)"
+                            @bind-Value="@ViewModel.Data.CategoryId"
+                            R_ConductorSource="@_conductorRef"
+                            R_EnableAdd="true"
+                            R_EnableEdit="true"></R_DropDownList>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Price</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_NumericTextBox @bind-Value="@ViewModel.Data.Price"
+                              R_ConductorSource="@_conductorRef"
+                              R_EnableAdd="true"
+                              R_EnableEdit="true" Decimals="2"></R_NumericTextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Release Date</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_DatePicker @bind-Value="@ViewModel.Data.ReleaseDate"
+                              R_ConductorSource="@_conductorRef"
+                              R_EnableAdd="true"
+                              R_EnableEdit="true"></R_DatePicker>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Active</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_CheckBox @bind-Value="@ViewModel.Data.Active"
+                        R_ConductorSource="@_conductorRef"
+                        R_EnableAdd="true"
+                        R_EnableEdit="true"></R_CheckBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="1">
+            <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_Find R_ConductorSource="@_conductorRef"
+                    R_Before_Open_Find="@R_Before_Open_Find"
+                    R_After_Open_Find="@R_After_Open_Find"
+                    R_EnableOther>Find Product</R_Find>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_Conductor @ref="@_conductorRef"
+             R_ViewModel="@ViewModel"
+             R_IsHeader 
+             R_ServiceGetRecord="@Conductor_ServiceGetRecord" 
+             R_AfterAdd="@Conductor_AfterAdd" 
+             R_Validation="@Conductor_Validation" 
+             R_ServiceSave="@Conductor_ServiceSave" 
+             R_AfterSave="@Conductor_AfterSave" 
+             R_ServiceDelete="@Conductor_ServiceDelete"></R_Conductor>

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SAB00900Front": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:1561;http://localhost:1563"
+    }
+  }
+}

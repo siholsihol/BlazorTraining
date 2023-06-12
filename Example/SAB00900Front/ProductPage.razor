@@ -1,0 +1,16 @@
+﻿@inherits R_Page
+
+<R_GroupBox ShowBorder="false">
+    <R_Grid @ref="@_gridRef"
+            DataSource="@GridViewModel.ProductList"
+            Pageable
+            PageSize="10"
+            R_ServiceGetListRecord="@R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)" HeaderText="Product Id"></R_GridNumericColumn>
+            <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)" HeaderText="Product Name"></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+
+    <R_Button OnClick="@OnClose">Close</R_Button>
+</R_GroupBox>

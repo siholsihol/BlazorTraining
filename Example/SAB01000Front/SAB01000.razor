@@ -1,0 +1,64 @@
+﻿@page "/SAB01000"
+@inherits R_Page
+
+<R_StackLayout>
+    <R_GroupBox Title="GridView Batch" ShowBorder="false">
+        <R_Grid @ref="@_gridRef"
+                DataSource="@_viewModel.Products"
+                Pageable
+                R_ConductorGridSource="@_conGridProductRef"
+                R_GridType="@R_eGridType.Batch"
+                AllowAddNewRow="true"
+                AllowEditRow="true"
+                AllowDeleteRow="true"
+                R_ServiceGetListRecord="@R_ServiceGetListRecord">
+            <R_GridColumns>
+                <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
+                                    HeaderText="Id" 
+                                    R_EnableAdd R_EnableEdit />
+
+                <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)" 
+                                HeaderText="Name" 
+                                R_EnableAdd 
+                                R_EnableEdit 
+                                MaxLength="5"/>
+
+                <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
+                                     HeaderText="Price" 
+                                     R_EnableAdd 
+                                     R_EnableEdit Min="0" />
+
+                <R_GridDateTimePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
+                                        HeaderText="Release Date" 
+                                        R_EnableAdd 
+                                        R_EnableEdit />
+
+                <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Active)"
+                                      HeaderText="Active" 
+                                      R_EnableAdd 
+                                      R_EnableEdit />
+
+                <R_GridDropDownListColumn Data=@_viewModel.Categories 
+                                        ValueField="@nameof(CategoryDTO.Id)" 
+                                        TextField="@nameof(CategoryDTO.Name)" 
+                                        FieldName="@nameof(ProductDTO.CategoryId)" 
+                                        HeaderText="Category"
+                                        R_EnableAdd
+                                        R_EnableEdit />
+            </R_GridColumns>
+        </R_Grid>
+
+        <R_ItemLayout>
+            <R_Button R_ConductorGridSource="@_conGridProductRef" OnClick="@OnClickGenerate">Generate Data</R_Button>
+        </R_ItemLayout>
+    </R_GroupBox>
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_conGridProductRef"
+                 R_ViewModel="@_viewModel"
+                 R_IsHeader
+                 R_ServiceGetRecord="@R_ServiceGetRecord"
+                 R_AfterAdd="@R_AfterAdd" 
+                 R_BeforeSaveBatch="@R_BeforeSaveBatch" 
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch" 
+                 R_AfterSaveBatch="@R_AfterSaveBatch" />
