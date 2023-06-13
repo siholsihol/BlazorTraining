@@ -1,15 +1,15 @@
-﻿using DataDummyProvider.DTOs;
-using R_BlazorFrontEnd.Controls;
+﻿using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
+using SAB01000Front.DTOs;
 
 namespace SAB01000Front
 {
     public partial class SAB01000 : R_Page
     {
         private R_ConductorGrid _conGridProductRef;
-        private R_Grid<ProductDTO> _gridRef;
+        private R_Grid<SelectedProductDTO> _gridRef;
 
         private SAB01000ViewModel _viewModel = new();
 
@@ -55,7 +55,7 @@ namespace SAB01000Front
 
         private void R_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
-            var loData = (ProductDTO)eventArgs.Data;
+            var loData = (SelectedProductDTO)eventArgs.Data;
 
             loData.ReleaseDate = DateTime.Now;
         }
@@ -90,9 +90,9 @@ namespace SAB01000Front
         }
         #endregion
 
-        private async Task OnClickGenerate()
+        private async Task OnClickSave()
         {
-            await _gridRef.R_RefreshGrid(null);
+            await _conGridProductRef.R_SaveBatch();
         }
     }
 }
