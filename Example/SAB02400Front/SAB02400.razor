@@ -1,0 +1,72 @@
+﻿@page "/SAB02400"
+@inherits R_Page
+
+<h3>SAB02400</h3>
+
+<R_StackLayout>
+    <R_GroupBox Title="Read Excel">
+        <R_Grid @ref="@_gridRef"
+                DataSource="@_viewModel.UserList"
+                Pageable="true"
+                R_ConductorGridSource="@_conGridEmployeeRef"
+                R_GridType="@R_eGridType.Batch"
+                AllowAddNewRow="true"
+                AllowEditRow="true"
+                AllowDeleteRow="true"
+                R_ServiceGetListRecord="@R_ServiceGetListRecord">
+            <R_GridColumns>
+                <R_GridTextColumn FieldName="@nameof(UserDTO.Id)"
+                                  HeaderText="User Id" R_EnableAdd />
+
+                <R_GridTextColumn FieldName="@nameof(UserDTO.FirstName)"
+                                  HeaderText="First Name" 
+                                  R_EnableAdd 
+                                  R_EnableEdit />
+
+                <R_GridDropDownListColumn Data="@_viewModel.GenderList"
+                                          ValueField="@nameof(GenderDTO.Code)"
+                                          TextField="@nameof(GenderDTO.Description)"
+                                          FieldName="@nameof(UserDTO.Gender)"
+                                          HeaderText="Gender" 
+                                          R_EnableAdd 
+                                          R_EnableEdit />
+            </R_GridColumns>
+        </R_Grid>
+
+        <R_Button R_ConductorGridSource="@_conGridEmployeeRef" 
+                  R_EnableHasData 
+                  OnClick="@OnClickBatch">
+            Save Batch
+        </R_Button>
+        
+        <R_InputFile OnChange="@OnChange" />
+    </R_GroupBox>
+    
+    <R_GroupBox Title="Write Excel">
+        <R_StackLayout Row>
+            <R_ItemLayout>
+                <R_Button R_ConductorGridSource="@_conGridEmployeeRef" OnClick="@OnClickGenerate">Generate Data</R_Button>
+            </R_ItemLayout>
+
+            <R_ItemLayout>
+                <R_Button R_ConductorGridSource="@_conGridEmployeeRef" OnClick="@OnClickGrouping">Group By Gender</R_Button>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_GroupBox>
+
+    <br />
+    <br />
+
+    @*<R_Button R_ConductorGridSource="@_conGridEmployeeRef" OnClick="@OnClickErrorSP">
+        Error Stored Procedure
+    </R_Button>*@
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_conGridEmployeeRef"
+                 R_ViewModel="@_viewModel"
+                 R_IsHeader
+                 R_ServiceGetRecord="@R_ServiceGetRecord"
+                 R_AfterAdd="@R_AfterAdd" 
+                 R_BeforeSaveBatch="@R_BeforeSaveBatch" 
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch" 
+                 R_AfterSaveBatch="@R_AfterSaveBatch" />

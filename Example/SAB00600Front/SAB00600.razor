@@ -1,0 +1,43 @@
+﻿@page "/SAB00600"
+@inherits R_Page
+
+<R_StackLayout>
+    <R_Grid @ref="@_gridRef"
+            DataSource="@CustomerViewModel.CustomerList"
+            Pageable="true"
+            R_ConductorGridSource="@_conGridCustomerRef"
+            R_GridType="@R_eGridType.Original"
+            AllowAddNewRow="true"
+            AllowEditRow="true"
+            AllowDeleteRow="false"
+            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)" HeaderText="Customer Id" R_EnableAdd></R_GridTextColumn>
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)" HeaderText="Company Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)" HeaderText="Contact Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_conGridCustomerRef"
+                 R_ViewModel="@CustomerViewModel"
+                 R_IsHeader 
+                 R_ServiceGetRecord="@Grid_ServiceGetRecord" 
+                 R_BeforeEdit="@Grid_BeforeEdit" 
+                 R_BeforeCancel="@Grid_BeforeCancel" 
+                 R_BeforeAdd="@Grid_BeforeAdd" 
+                 R_AfterAdd="@Grid_AfterAdd" 
+                 R_Validation="@Grid_Validation" 
+                 R_Saving="@Grid_Saving" 
+                 R_ServiceSave="@Grid_ServiceSave" 
+                 R_AfterSave="@Grid_AfterSave" 
+                 R_BeforeDelete="@Grid_BeforeDelete" 
+                 R_ServiceDelete="@Grid_ServiceDelete" 
+                 R_AfterDelete="@Grid_AfterDelete" 
+                 R_Display="R_Display" 
+                 R_CheckAdd="R_CheckAdd" 
+                 R_CheckEdit="R_CheckEdit" 
+                 R_CheckDelete="R_CheckDelete" 
+                 R_CheckGridAdd="R_CheckGridAdd" 
+                 R_CheckGridEdit="R_CheckGridEdit" 
+                 R_CheckGridDelete="R_CheckGridDelete"></R_ConductorGrid>

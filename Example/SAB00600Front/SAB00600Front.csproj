@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="A.razor" />
+    <Compile Remove="ViewModels\**" />
+    <Content Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="SAB00600Client.cs" />
   </ItemGroup>
 
 
@@ -16,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,14 +37,9 @@
     <Reference Include="R_BlazorFrontEnd.Controls">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="A.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="A.razor" />
+    <Reference Include="R_CommonFrontBackAPI">
+      <HintPath>..\..\Dll\Dll Front\R_CommonFrontBackAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

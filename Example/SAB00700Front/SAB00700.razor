@@ -1,0 +1,93 @@
+﻿@page "/SAB00700"
+@inherits R_Page
+
+<R_StackLayout Spacing="3" Class="mb-4">
+    <R_StackLayout>
+        <R_Grid @ref="@_gridRef"
+                DataSource="@_viewModel.CategoryList"
+                Pageable="true"
+                R_ConductorSource="@_conductorRef"
+                R_GridType="@R_eGridType.Navigator"
+                R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+            <R_GridColumns>
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridTextColumn>
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)" HeaderText="Category Name"></R_GridTextColumn>
+            </R_GridColumns>
+        </R_Grid>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_StackLayout>
+    <R_StackLayout Row="true" Spacing="3">
+        <h2>Category Detail</h2>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Category Id</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_NumericTextBox @bind-Value="@_viewModel.Data.Id"
+                              R_ConductorSource="@_conductorRef"
+                              Enabled="false"></R_NumericTextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Category Name</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@_viewModel.Data.Name"
+                       R_ConductorSource="@_conductorRef"
+                       R_EnableAdd="true"
+                       R_EnableEdit="true"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Description</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="4">
+            <R_TextArea @bind-Value="@_viewModel.Data.Description"
+                        R_ConductorSource="@_conductorRef"
+                        R_EnableAdd="true"
+                        R_EnableEdit="true"></R_TextArea>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true" Spacing="3">
+        <R_ItemLayout xs="1">
+            <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="1">
+            <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_Conductor @ref="@_conductorRef" 
+             R_ViewModel="@_viewModel" 
+             R_IsHeader="true"
+             R_ServiceGetRecord="@Conductor_ServiceGetRecord"
+             R_Validation="@Conductor_Validation"
+             R_ServiceSave="@Conductor_ServiceSave"
+             R_ServiceDelete="@Conductor_ServiceDelete" 
+             R_ConvertToGridEntity="@R_ConvertToGridEntity"></R_Conductor>
