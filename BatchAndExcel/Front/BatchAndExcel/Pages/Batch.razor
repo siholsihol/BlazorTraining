@@ -1,13 +1,4 @@
 ﻿@page "/batch"
-@using BatchAndExcelCommon.DTOs;
-@using Bogus;
-@using R_APICommonDTO;
-@using R_BlazorFrontEnd.Controls;
-@using R_BlazorFrontEnd.Exceptions;
-@using R_BlazorFrontEnd.Helpers;
-@using R_CommonFrontBackAPI;
-@using R_ProcessAndUploadFront;
-@using R_BlazorFrontEnd.Controls.Enums;
 @implements R_IProcessProgressStatus
 
 <R_GroupBox Title="Batch Data">
@@ -103,7 +94,6 @@
         var loEx = new R_Exception();
         R_UploadPar loUploadPar;
         R_ProcessAndUploadClient loCls;
-        string lcGuid = "";
 
         try
         {
@@ -116,14 +106,17 @@
                 plSendWithToken: false,
                 poProcessProgressStatus: this);
 
+            //add filebyte to DTO
+            var loUploadFile = new UploadFileDTO { FileBytes = fileByte };
+
             //preapare Batch Parameter
             loUploadPar = new R_UploadPar();
             loUploadPar.COMPANY_ID = "RCD";
             loUploadPar.USER_ID = "cp";
             loUploadPar.ClassName = "BatchAndExcelBack.AttachFileCls";
-            loUploadPar.BigObject = fileByte;
+            loUploadPar.BigObject = loUploadFile;
 
-            await loCls.R_AttachFile<object>(loUploadPar);
+            await loCls.R_AttachFile<UploadFileDTO>(loUploadPar);
         }
         catch (Exception ex)
         {
