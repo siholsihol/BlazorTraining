@@ -11,37 +11,38 @@
                 AllowAddNewRow="true"
                 AllowEditRow="true"
                 AllowDeleteRow="true"
-                R_ServiceGetListRecord="@R_ServiceGetListRecord">
+                R_ServiceGetListRecord="@R_ServiceGetListRecord" Height="300px" Width="1000px">
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
                                             R_EnableEdit 
-                                            ShowSelectAllHeader />
+                                            ShowSelectAllHeader Width="200px" />
 
                 <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Id)"
                                      HeaderText="Id"
-                                    R_EnableAdd R_EnableEdit />
+                                     R_EnableAdd 
+                                     R_EnableEdit Width="200px" />
 
                 <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
                                   HeaderText="Name"
                                   R_EnableAdd
                                   R_EnableEdit
-                                  MaxLength="5" />
+                                  MaxLength="5" Width="200px" />
 
                 <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Price)"
                                      HeaderText="Price"
                                      R_EnableAdd
-                                     R_EnableEdit Min="0" />
+                                     R_EnableEdit Min="0" Width="200px" />
 
                 <R_GridDateTimePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
                                             HeaderText="Release Date"
                                             R_EnableAdd
-                                            R_EnableEdit />
+                                            R_EnableEdit Width="200px" />
 
                 <R_GridCheckBoxColumn FieldName="@nameof(SelectedProductDTO.Active)"
                                       HeaderText="Active"
                                       R_EnableAdd
-                                      R_EnableEdit />
+                                      R_EnableEdit  Width="200px"/>
 
                 <R_GridDropDownListColumn Data=@_viewModel.Categories
                                           ValueField="@nameof(CategoryDTO.Id)"
@@ -49,7 +50,7 @@
                                           FieldName="@nameof(SelectedProductDTO.CategoryId)"
                                           HeaderText="Category"
                                           R_EnableAdd
-                                          R_EnableEdit />
+                                          R_EnableEdit Width="200px" />
             </R_GridColumns>
         </R_Grid>
 
