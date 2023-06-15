@@ -1,0 +1,47 @@
+﻿@inherits ComponentBase
+
+@if (isInit)
+{
+    @Content
+}
+
+@code {
+    [Parameter] public Type PageType { get; set; }
+    [Parameter] public bool Render { get; set; } = true;
+    [Parameter] public string TEST { get; set; }
+
+    private RenderFragment Content;
+    private bool isInit = false;
+
+    protected override void OnInitialized()
+    {
+        isInit = Render;
+        Content = ToRenderFragment(PageType);
+
+        base.OnInitialized();
+    }
+
+    private RenderFragment ToRenderFragment(Type poType)
+    {
+        return new RenderFragment(x =>
+        {
+            x.OpenComponent(1, poType);
+            x.CloseComponent();
+        });
+    }
+
+    public void RenderPage(bool shouldRender)
+    {
+        isInit = shouldRender;
+    }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        foreach (var loParam in parameters)
+        {
+            var a = loParam;
+        }
+
+        return base.SetParametersAsync(parameters);
+    }
+}

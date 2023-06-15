@@ -84,6 +84,35 @@ namespace BlazorMenu.Services
             return Task.CompletedTask;
         }
 
+        public void CreateControlsProgram(List<MenuListDTO> poExistingList)
+        {
+            poExistingList.Add(new MenuListDTO
+            {
+                CMENU_ID = "CT",
+                CMENU_NAME = "Controls",
+                CPARENT_SUB_MENU_ID = "CT",
+                CSUB_MENU_ACCESS = "A,U,D,P,V",
+                CSUB_MENU_ID = "G002",
+                CSUB_MENU_NAME = "Tab",
+                CSUB_MENU_TYPE = "G",
+                IFAVORITE_INDEX = 0,
+                IGROUP_INDEX = 2
+            });
+
+            poExistingList.Add(new MenuListDTO
+            {
+                CMENU_ID = "CT",
+                CMENU_NAME = "Controls",
+                CPARENT_SUB_MENU_ID = "G002",
+                CSUB_MENU_ACCESS = "A,U,D,P,V",
+                CSUB_MENU_ID = "SAB03000",
+                CSUB_MENU_NAME = "Tab",
+                CSUB_MENU_TYPE = "P",
+                IFAVORITE_INDEX = 0,
+                IGROUP_INDEX = 0
+            });
+        }
+
         public Task<List<MenuListDTO>> GetMenuAsync()
         {
             var loEx = new R_Exception();
@@ -145,58 +174,6 @@ namespace BlazorMenu.Services
                     IGROUP_INDEX = 0
                 });
 
-                //loResult.Add(new MenuListDTO
-                //{
-                //    CMENU_ID = "Ex",
-                //    CMENU_NAME = "Example",
-                //    CPARENT_SUB_MENU_ID = "G001",
-                //    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                //    CSUB_MENU_ID = "SAB01300",
-                //    CSUB_MENU_NAME = "Original and Navigator",
-                //    CSUB_MENU_TYPE = "P",
-                //    IFAVORITE_INDEX = 0,
-                //    IGROUP_INDEX = 0
-                //});
-
-                //loResult.Add(new MenuListDTO
-                //{
-                //    CMENU_ID = "Ex",
-                //    CMENU_NAME = "Example",
-                //    CPARENT_SUB_MENU_ID = "G001",
-                //    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                //    CSUB_MENU_ID = "SAB01400",
-                //    CSUB_MENU_NAME = "Find and Navigator",
-                //    CSUB_MENU_TYPE = "P",
-                //    IFAVORITE_INDEX = 0,
-                //    IGROUP_INDEX = 0
-                //});
-
-                //loResult.Add(new MenuListDTO
-                //{
-                //    CMENU_ID = "Ex",
-                //    CMENU_NAME = "Example",
-                //    CPARENT_SUB_MENU_ID = "G001",
-                //    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                //    CSUB_MENU_ID = "SAB00100",
-                //    CSUB_MENU_NAME = "Training Find With Conductor",
-                //    CSUB_MENU_TYPE = "P",
-                //    IFAVORITE_INDEX = 0,
-                //    IGROUP_INDEX = 0
-                //});
-
-                //loResult.Add(new MenuListDTO
-                //{
-                //    CMENU_ID = "Ex",
-                //    CMENU_NAME = "Example",
-                //    CPARENT_SUB_MENU_ID = "G001",
-                //    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                //    CSUB_MENU_ID = "SAB00200",
-                //    CSUB_MENU_NAME = "Training Gridview Original",
-                //    CSUB_MENU_TYPE = "P",
-                //    IFAVORITE_INDEX = 0,
-                //    IGROUP_INDEX = 0
-                //});
-
                 loResult.Add(new MenuListDTO
                 {
                     CMENU_ID = "Ex",
@@ -222,6 +199,8 @@ namespace BlazorMenu.Services
                     IFAVORITE_INDEX = 0,
                     IGROUP_INDEX = 0
                 });
+
+                CreateControlsProgram(loResult);
             }
             catch (Exception ex)
             {
