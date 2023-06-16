@@ -1,9 +1,10 @@
 ﻿@page "/SAB03000"
 @inherits R_Page
 
-<R_TabStrip OnActiveTabIndexChanging="@OnActiveTabIndexChanging" @ref="@tabStripRef">
+<R_TabStrip OnActiveTabIndexChanging="@OnActiveTabIndexChanging" @ref="@tabStripRef" OnActiveTabIndexChanged="@OnActiveTabIndexChanged">
     <R_TabStripTab Title="Tab 1" Id="Tab1">
-        <R_Component @ref="@componentRef" PageType="@typeof(PageA)" Render></R_Component>
+        @*<R_TabPage PageType="@typeof(PageA)"></R_TabPage>*@
+        <PageA></PageA>
     </R_TabStripTab>
 
     <R_TabStripTab Title="Tab 2" Id="Tab2">
@@ -11,20 +12,20 @@
     </R_TabStripTab>
 
     <R_TabStripTab Title="Tab 3" Id="Tab3">
+        @*<R_TabPage PageType="@typeof(PageC)"></R_TabPage>*@
         <PageC></PageC>
     </R_TabStripTab>
 </R_TabStrip>
 
 <R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
-<R_Button OnClick="@OnClickRender">Render</R_Button>
 
 @code{
     private R_TabStrip tabStripRef;
 
     private void OnActiveTabIndexChanging(R_TabStripActiveTabIndexChangingEventArgs eventArgs)
     {
-        if (eventArgs.TabStripTab.Id == "Tab2")
-            eventArgs.Cancel = true;
+        //if (eventArgs.TabStripTab.Id == "Tab2")
+        //    eventArgs.Cancel = true;
     }
 
     private async Task OnClick()
@@ -32,11 +33,11 @@
         await tabStripRef.SetActiveTabAsync("Tab3");
     }
 
-    private R_Component componentRef;
-    private bool isRender = false;
-    private void OnClickRender()
+    private void OnActiveTabIndexChanged(R_TabStripTab tabStripTab)
     {
-        isRender = !isRender;
-        componentRef.RenderPage(isRender);
+        //if (tabStripTab.Id == "Tab3")
+        //{
+        //    componentRef3.Refresh();
+        //}
     }
 }

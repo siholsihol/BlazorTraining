@@ -36,6 +36,8 @@
     <ProjectReference Include="..\Example\SAB00700Front\SAB00700Front.csproj" />
     <ProjectReference Include="..\Example\SAB00900Front\SAB00900Front.csproj" />
     <ProjectReference Include="..\Example\SAB01000Front\SAB01000Front.csproj" />
+    <ProjectReference Include="..\Example\SAB01200Front\SAB01200Front.csproj" />
+    <ProjectReference Include="..\Example\SAB01400Front\SAB01400Front.csproj" />
     <ProjectReference Include="..\Example\SAB02400Front\SAB02400Front.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,37 @@
+﻿@page "/SAB01200"
+@inherits R_Page
+
+<R_TabStrip>
+    <R_TabStripTab Title="Category">
+        <R_StackLayout>
+            <R_Grid @ref="@_gridRef"
+                    DataSource="@CategoryViewModel.Categories"
+                    Pageable="true"
+                    R_ConductorGridSource="@_conGridCategoryRef"
+                    R_GridType="@R_eGridType.Original"
+                    AllowAddNewRow="true"
+                    AllowEditRow="true"
+                    AllowDeleteRow="true"
+                    R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+                <R_GridColumns>
+                    <R_GridNumericColumn FieldName="@nameof(CategoryDTO.Id)" HeaderText="Category Id" R_EnableAdd></R_GridNumericColumn>
+                    <R_GridTextColumn FieldName="@nameof(CategoryDTO.Name)" HeaderText="Category Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="@nameof(CategoryDTO.Description)" HeaderText="Description" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+                </R_GridColumns>
+            </R_Grid>
+        </R_StackLayout>
+    </R_TabStripTab>
+
+    <R_TabStripTab Title="Product">
+        <R_TabPage PageType="@typeof(SAB01200Product)" Parameter="@_tabParameter"></R_TabPage>
+    </R_TabStripTab>
+</R_TabStrip>
+
+<R_ConductorGrid @ref="@_conGridCategoryRef"
+                 R_ViewModel="@CategoryViewModel"
+                 R_IsHeader
+                 R_ServiceGetRecord="@Grid_ServiceGetRecord"
+                 R_Validation="@Grid_Validation"
+                 R_ServiceSave="@Grid_ServiceSave"
+                 R_ServiceDelete="@Grid_ServiceDelete" 
+                 R_Display="@Grid_Display"></R_ConductorGrid>

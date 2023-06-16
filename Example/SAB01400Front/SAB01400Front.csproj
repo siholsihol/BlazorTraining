@@ -6,21 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="A.razor" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DataDummyProvider\DataDummyProvider.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.18" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,14 +22,6 @@
     <Reference Include="R_BlazorFrontEnd.Controls">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="A.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="A.razor" />
   </ItemGroup>
 
 </Project>

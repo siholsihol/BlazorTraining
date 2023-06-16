@@ -200,6 +200,32 @@ namespace BlazorMenu.Services
                     IGROUP_INDEX = 0
                 });
 
+                loResult.Add(new MenuListDTO
+                {
+                    CMENU_ID = "Ex",
+                    CMENU_NAME = "Example",
+                    CPARENT_SUB_MENU_ID = "G001",
+                    CSUB_MENU_ACCESS = "A,U,D,P,V",
+                    CSUB_MENU_ID = "SAB01200",
+                    CSUB_MENU_NAME = "Grid and Grid",
+                    CSUB_MENU_TYPE = "P",
+                    IFAVORITE_INDEX = 0,
+                    IGROUP_INDEX = 0
+                });
+
+                loResult.Add(new MenuListDTO
+                {
+                    CMENU_ID = "Ex",
+                    CMENU_NAME = "Example",
+                    CPARENT_SUB_MENU_ID = "G001",
+                    CSUB_MENU_ACCESS = "A,U,D,P,V",
+                    CSUB_MENU_ID = "SAB01400",
+                    CSUB_MENU_NAME = "Detail",
+                    CSUB_MENU_TYPE = "P",
+                    IFAVORITE_INDEX = 0,
+                    IGROUP_INDEX = 0
+                });
+
                 CreateControlsProgram(loResult);
             }
             catch (Exception ex)
