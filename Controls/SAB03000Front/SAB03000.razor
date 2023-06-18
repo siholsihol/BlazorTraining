@@ -1,23 +1,25 @@
 ﻿@page "/SAB03000"
 @inherits R_Page
 
-<R_TabStrip OnActiveTabIndexChanging="@OnActiveTabIndexChanging" @ref="@tabStripRef" OnActiveTabIndexChanged="@OnActiveTabIndexChanged">
+<R_TabStrip @ref="@tabStripRef" 
+    OnActiveTabIndexChanging="@OnActiveTabIndexChanging" 
+    OnActiveTabIndexChanged="@OnActiveTabIndexChanged">
     <R_TabStripTab Title="Tab 1" Id="Tab1">
-        @*<R_TabPage PageType="@typeof(PageA)"></R_TabPage>*@
-        <PageA></PageA>
+        Tab 1
     </R_TabStripTab>
 
-    <R_TabStripTab Title="Tab 2" Id="Tab2">
-        <PageB></PageB>
+    <R_TabStripTab Title="Tab 2" Id="Tab2" Enabled="false">
+        Tab 2
     </R_TabStripTab>
 
     <R_TabStripTab Title="Tab 3" Id="Tab3">
-        @*<R_TabPage PageType="@typeof(PageC)"></R_TabPage>*@
-        <PageC></PageC>
+        Tab 3
     </R_TabStripTab>
 </R_TabStrip>
 
 <R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
+
+<R_PredefinedDock R_InstantiateDock="@R_InstantiateDock"></R_PredefinedDock>
 
 @code{
     private R_TabStrip tabStripRef;
@@ -35,9 +37,11 @@
 
     private void OnActiveTabIndexChanged(R_TabStripTab tabStripTab)
     {
-        //if (tabStripTab.Id == "Tab3")
-        //{
-        //    componentRef3.Refresh();
-        //}
+
+    }
+
+    private void R_InstantiateDock(R_PredefinedDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(SAB03000TabPage);
     }
 }

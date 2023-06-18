@@ -1,10 +1,10 @@
-﻿@inherits ComponentBase
+﻿@inherits R_Page
 
 <h3>PageC</h3>
 
-@code { 
-    protected override void OnInitialized()
+@code {
+    protected override Task R_Init_From_Master(object poParameter)
     {
-        base.OnInitialized();
+        return base.R_Init_From_Master(poParameter);
     }
 }

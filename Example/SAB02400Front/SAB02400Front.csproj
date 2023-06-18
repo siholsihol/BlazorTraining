@@ -30,7 +30,7 @@
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Controls">
-      <HintPath>..\..\..\..\BahanTraining\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
+      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Excel">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Excel.dll</HintPath>
