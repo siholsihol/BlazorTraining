@@ -109,21 +109,6 @@ namespace SAB00900Front
                 R_MessageBox.Show("", $"Edit {loData.Id} success.", R_eMessageBoxButtonType.OK);
         }
 
-        #region Find
-        public void R_Before_Open_Find(R_BeforeOpenFindEventArgs eventArgs)
-        {
-            eventArgs.TargetPageType = typeof(ProductPage);
-        }
-
-        public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
-        {
-            var loData = (ProductDTO)eventArgs.Result;
-            var loParam = new ProductDTO { Id = loData.Id };
-
-            await _conductorRef.R_GetEntity(loParam);
-        }
-        #endregion
-
         public void Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -140,5 +125,53 @@ namespace SAB00900Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        #region Find
+        public void R_Before_Open_Find(R_BeforeOpenFindEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.Parameter = "Dari Find";
+        }
+
+        public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
+        {
+            var loData = (ProductDTO)eventArgs.Result;
+            var loParam = new ProductDTO { Id = loData.Id };
+
+            await _conductorRef.R_GetEntity(loParam);
+        }
+        #endregion
+
+        #region Lookup
+        public void R_Before_Open_Lookup(R_BeforeOpenLookupEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.Parameter = "Dari Lookup";
+        }
+
+        public async Task R_After_Open_Lookup(R_AfterOpenLookupEventArgs eventArgs)
+        {
+            var loData = (ProductDTO)eventArgs.Result;
+            var loParam = new ProductDTO { Id = loData.Id };
+
+            await _conductorRef.R_GetEntity(loParam);
+        }
+        #endregion
+
+        #region Popup
+        public void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.Parameter = "Dari Popup";
+        }
+
+        public async Task R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
+        {
+            var loData = (ProductDTO)eventArgs.Result;
+            var loParam = new ProductDTO { Id = loData.Id };
+
+            await _conductorRef.R_GetEntity(loParam);
+        }
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace SAB00900Front
     {
         private ProductPageViewModel GridViewModel = new();
         private R_Grid<ProductDTO> _gridRef;
+        private string Parameter = "";
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -16,6 +17,7 @@ namespace SAB00900Front
 
             try
             {
+                Parameter = (string)poParameter;
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
