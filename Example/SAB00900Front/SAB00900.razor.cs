@@ -151,6 +151,8 @@ namespace SAB00900Front
 
         public async Task R_After_Open_Lookup(R_AfterOpenLookupEventArgs eventArgs)
         {
+            if (eventArgs.Result is null) return;
+
             var loData = (ProductDTO)eventArgs.Result;
             var loParam = new ProductDTO { Id = loData.Id };
 
@@ -167,6 +169,8 @@ namespace SAB00900Front
 
         public async Task R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
         {
+            if (!eventArgs.Success || eventArgs.Result is null) return;
+
             var loData = (ProductDTO)eventArgs.Result;
             var loParam = new ProductDTO { Id = loData.Id };
 
