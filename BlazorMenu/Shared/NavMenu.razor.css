@@ -7,6 +7,19 @@
     background-color: rgba(0,0,0,0.4);
 }
 
+.bottom-row {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 10px;
+    text-align: right;
+    width: 100%;
+    padding-right: 28px;
+}
+
+.icon-menu-arrow {
+    text-align: right;
+}
+
 .navbar-brand {
     font-size: 1.1rem;
 }
@@ -52,17 +65,23 @@
     }
 
 @media (min-width: 641px) {
-    /*.navbar-toggler {
+    .navbar-toggler {
         display: none;
-    }*/
+    }
 
     .collapse {
          /*Never collapse the sidebar for wide screens*/ 
         display: block;
     }
 
-    .nav-item a.active::after {
+    /*.nav-item a.active::after {
         content:"*";
         margin-left:0.5em;
+    }*/
+}
+
+@media (max-width: 640px) {
+    .bottom-row {
+        display: block;
     }
 }
