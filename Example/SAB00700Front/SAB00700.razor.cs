@@ -138,5 +138,27 @@ namespace SAB00700Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        private async Task buttonOnClick()
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loData = _conductorRef.R_GetCurrentData() as CategoryDTO; //get current data
+
+                _viewModel.ChangeCategoryName(loData.Id);
+
+                var loCategory = _viewModel.GetCategory(loData.Id);
+
+                await _conductorRef.R_SetCurrentData(loCategory);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
     }
 }

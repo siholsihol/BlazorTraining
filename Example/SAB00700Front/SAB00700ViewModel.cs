@@ -90,5 +90,17 @@ namespace SAB00700Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        public void ChangeCategoryName(int piCategoryId)
+        {
+            var loCategory = CategoryService.GetCategory(piCategoryId);
+
+            loCategory.Name = "ganti nama kategori";
+        }
+
+        public CategoryDTO GetCategory(int piCategoryId)
+        {
+            return CategoryService.GetCategory(piCategoryId);
+        }
     }
 }
