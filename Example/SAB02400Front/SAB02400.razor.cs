@@ -60,7 +60,7 @@ namespace SAB02400Front
 
             loData.Id = Guid.NewGuid().ToString();
             loData.FirstName = "Sihol";
-            loData.Gender = 1;
+            loData.GenderId = "M";
         }
 
         #region Upload
@@ -155,7 +155,18 @@ namespace SAB02400Front
 
         private async Task OnClickGenerate()
         {
-            await _gridRef.R_RefreshGrid("generate");
+            var loEx = new R_Exception();
+
+            try
+            {
+                await _gridRef.R_RefreshGrid("generate");
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            this.R_DisplayException(loEx);
         }
 
         private async Task OnClickGrouping()

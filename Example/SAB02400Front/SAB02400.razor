@@ -15,21 +15,27 @@
                 AllowDeleteRow="true"
                 R_ServiceGetListRecord="@R_ServiceGetListRecord">
             <R_GridColumns>
-                <R_GridTextColumn FieldName="@nameof(UserDTO.Id)"
-                                  HeaderText="User Id" R_EnableAdd />
+                @*<R_GridTextColumn FieldName="@nameof(UserDTO.Id)"
+                          HeaderText="User Id" R_EnableAdd />
 
                 <R_GridTextColumn FieldName="@nameof(UserDTO.FirstName)"
-                                  HeaderText="First Name" 
-                                  R_EnableAdd 
-                                  R_EnableEdit />
+                                  HeaderText="First Name"
+                                  R_EnableAdd
+                                  R_EnableEdit />*@
 
                 <R_GridDropDownListColumn Data="@_viewModel.GenderList"
-                                          ValueField="@nameof(GenderDTO.Code)"
-                                          TextField="@nameof(GenderDTO.Description)"
-                                          FieldName="@nameof(UserDTO.Gender)"
-                                          HeaderText="Gender" 
-                                          R_EnableAdd 
+                                          ValueField="@nameof(GenderDTO.Id)"
+                                          TextField="@nameof(GenderDTO.Name)"
+                                          FieldName="@nameof(UserDTO.GenderId)"
+                                          HeaderText="Gender"
+                                          R_EnableAdd
                                           R_EnableEdit />
+
+                <R_GridTextColumn FieldName="@nameof(UserDTO.Id)" 
+                                  HeaderText="User Id" />
+
+                <R_GridTextColumn FieldName="@nameof(UserDTO.FirstName)"
+                                  HeaderText="First Name" />
             </R_GridColumns>
         </R_Grid>
 

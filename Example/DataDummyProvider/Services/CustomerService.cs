@@ -8,6 +8,19 @@ namespace DataDummyProvider.Services
     public static class CustomerService
     {
         private static List<CustomerDTO> _customer = new List<CustomerDTO>();
+        private static List<GenderDTO> _gender = new List<GenderDTO>();
+
+        public static List<GenderDTO> GetGenders()
+        {
+            if (_gender.Count > 0)
+                return _gender;
+
+            return new List<GenderDTO>
+            {
+                new GenderDTO { Id = "M", Name = "Male"},
+                new GenderDTO { Id = "F", Name = "Female"}
+            };
+        }
 
         public static List<CustomerDTO> GenerateCustomer(int count)
         {
@@ -21,7 +34,8 @@ namespace DataDummyProvider.Services
             .RuleFor(u => u.ContactTitle, f => f.Name.JobTitle())
             .RuleFor(u => u.Address, f => f.Address.FullAddress())
             .RuleFor(u => u.City, f => f.Address.City())
-            .RuleFor(u => u.Country, f => f.Address.Country());
+            .RuleFor(u => u.Country, f => f.Address.Country())
+            .RuleFor(x => x.GenderId, x => x.PickRandom(new[] { "F", "M" }));
 
             _customer = faker.Generate(count);
 

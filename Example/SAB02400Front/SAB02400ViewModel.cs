@@ -4,7 +4,6 @@ using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Excel;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
-using SAB02400Front.DTOs;
 using System.Collections.ObjectModel;
 
 namespace SAB02400Front
@@ -83,11 +82,7 @@ namespace SAB02400Front
 
             try
             {
-                GenderList = new List<GenderDTO>()
-                {
-                    new GenderDTO{Code = 1, Description="Male"},
-                    new GenderDTO{Code = 2, Description="Female"}
-                };
+                GenderList = CustomerService.GetGenders();
             }
             catch (Exception ex)
             {

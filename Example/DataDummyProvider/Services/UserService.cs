@@ -17,7 +17,7 @@ namespace DataDummyProvider.Services
             var loFake = new Faker<UserDTO>()
                 .CustomInstantiator(x => new UserDTO())
                 .RuleFor(x => x.FirstName, x => x.Name.FirstName())
-                .RuleFor(x => x.Gender, x => x.PickRandom(new[] { 1, 2 }))
+                .RuleFor(x => x.GenderId, x => x.PickRandom(new[] { "F", "M" }))
                 .RuleFor(x => x.Id, x => Guid.NewGuid().ToString());
 
             _users = loFake.Generate(count);
