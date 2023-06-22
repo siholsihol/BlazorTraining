@@ -220,10 +220,5 @@ namespace SAB00600Front
             //eventArgs.Allow = false;
         }
         #endregion
-
-        private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
-        {
-
-        }
     }
 }
