@@ -50,5 +50,16 @@ namespace SAB00900Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        private void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.Parameter = "Dari Popup dalam popup";
+        }
+
+        private void R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
+        {
+
+        }
     }
 }

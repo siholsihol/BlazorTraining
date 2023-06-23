@@ -1,8 +1,10 @@
 ﻿using DataDummyProvider.DTOs;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.MessageBox;
+using R_BlazorFrontEnd.Controls.Popup;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
 
@@ -175,6 +177,23 @@ namespace SAB00900Front
             var loParam = new ProductDTO { Id = loData.Id };
 
             await _conductorRef.R_GetEntity(loParam);
+        }
+
+        [Inject] public R_PopupService PopupService { get; set; }
+        private async Task popupbuttonOnClick()
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            R_DisplayException(loEx);
         }
         #endregion
     }
