@@ -10,9 +10,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.R_AddBlazorFrontEndControls();
 
-//builder.Services.AddTransient<ProductService>();
-//builder.Services.AddTransient<CategoryService>();
-
 builder.R_RegisterBlazorServices();
 
 builder.Services.R_AddBlazorFrontEnd();

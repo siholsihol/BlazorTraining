@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using R_APICommonDTO;
+using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Grid;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using R_ProcessAndUploadFront;
 
@@ -64,6 +66,7 @@ namespace SAB02400Front
         }
 
         #region Upload
+        [Inject] public R_IExcel Excel { get; set; }
         private async Task OnChange(InputFileChangeEventArgs args)
         {
             var loEx = new R_Exception();
@@ -74,6 +77,10 @@ namespace SAB02400Front
                 var loMS = new MemoryStream();
                 await args.File.OpenReadStream().CopyToAsync(loMS);
                 var loFileByte = loMS.ToArray();
+
+                var loDataSet = Excel.R_ReadFromExcel(loFileByte);
+
+                var loResult = R_FrontUtility.R_ConvertTo<UserDTO>(loDataSet.Tables[0]);
 
                 await _gridRef.R_RefreshGrid(loFileByte);
             }

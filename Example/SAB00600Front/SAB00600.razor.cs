@@ -2,6 +2,7 @@
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
+using R_BlazorFrontEnd.Controls.Grid;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
@@ -220,5 +221,18 @@ namespace SAB00600Front
             //eventArgs.Allow = false;
         }
         #endregion
+
+        private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
+        {
+            var loData = (CustomerDTO)eventArgs.Data;
+
+            if (loData.GenderId == "M")
+            {
+                eventArgs.RowStyle = new R_GridRowRenderStyle
+                {
+                    FontColor = "red"
+                };
+            }
+        }
     }
 }

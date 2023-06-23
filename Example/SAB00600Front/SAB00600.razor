@@ -1,20 +1,23 @@
 ﻿@page "/SAB00600"
 @inherits R_Page
+@using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout>
-    <R_Grid @ref="@_gridRef"
-            DataSource="@CustomerViewModel.CustomerList"
+    <R_Grid DataSource="@CustomerViewModel.CustomerList" 
+            @ref="@_gridRef"
             Pageable="true"
             R_ConductorGridSource="@_conGridCustomerRef"
             R_GridType="@R_eGridType.Original"
             AllowAddNewRow="true"
             AllowEditRow="true"
-            AllowDeleteRow="false"
-            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+            AllowDeleteRow="true"
+            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord" 
+            R_RowRender="@((R_GridRowRenderEventArgs args) => R_RowRender(args))">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)" HeaderText="Customer Id" R_EnableAdd></R_GridTextColumn>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)" HeaderText="Company Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)" HeaderText="Contact Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit></R_GridTextColumn>
         </R_GridColumns>
     </R_Grid>
 </R_StackLayout>
