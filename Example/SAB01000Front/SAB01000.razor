@@ -18,16 +18,18 @@
                                             R_EnableEdit 
                                             ShowSelectAllHeader Width="200px" />
 
-                <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Id)"
-                                     HeaderText="Id"
-                                     R_EnableAdd 
-                                     R_EnableEdit Width="200px" />
+                <R_GridMultiHeaderColumn HeaderText="Test">
+                    <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Id)"
+                                         HeaderText="Id" 
+                                         R_EnableAdd 
+                                         R_EnableEdit Width="200px" />
 
-                <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
-                                  HeaderText="Name"
-                                  R_EnableAdd
-                                  R_EnableEdit
-                                  MaxLength="5" Width="200px" />
+                    <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
+                                      HeaderText="Name" 
+                                      R_EnableAdd 
+                                      R_EnableEdit
+                                      MaxLength="5" Width="200px" />
+                </R_GridMultiHeaderColumn>
 
                 <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Price)"
                                      HeaderText="Price"
