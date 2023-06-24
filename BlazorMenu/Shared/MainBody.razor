@@ -11,8 +11,6 @@
             {
                 <R_Tab Title="@loTab.Title" Id="@loTab.Id.ToString()" IsCloseable="@loTab.Closeable" IsActive="@loTab.IsActive">
                     <CascadingValue Value="@loTab" Name="currentTab" TValue="R_TabProgram" IsFixed>
-                        <R_PopupContainer />
-
                         @if (loTab.Body != null)
                         {
                             @loTab.Body
