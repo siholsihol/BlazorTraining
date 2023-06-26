@@ -11,7 +11,7 @@ namespace SAB00600Front
     {
         public ObservableCollection<CustomerDTO> CustomerList { get; set; } = new ObservableCollection<CustomerDTO>();
 
-        public CustomerDTO Customer = new CustomerDTO();
+        public CustomerDTO Customer = new();
 
         public void GetCustomerList()
         {
@@ -19,7 +19,7 @@ namespace SAB00600Front
 
             try
             {
-                var loResult = CustomerService.GenerateCustomer(10);
+                var loResult = CustomerService.GetCustomers();
                 CustomerList = new ObservableCollection<CustomerDTO>(loResult);
             }
             catch (Exception ex)

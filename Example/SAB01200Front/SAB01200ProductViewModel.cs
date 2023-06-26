@@ -12,13 +12,13 @@ namespace SAB01200Front
         public ObservableCollection<ProductDTO> Products { get; set; } = new ObservableCollection<ProductDTO>();
         public ProductDTO Product { get; set; } = new ProductDTO();
 
-        public void GetProductList()
+        public void GetProductListByCategory(int categoryId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = ProductService.GenerateProduct(10);
+                var loResult = ProductService.GetProductsByCategory(categoryId);
                 Products = new ObservableCollection<ProductDTO>(loResult);
             }
             catch (Exception ex)

@@ -13,8 +13,6 @@ namespace SAB01200Front
         private R_ConductorGrid _conGridCategoryRef;
         private R_Grid<CategoryDTO> _gridRef;
 
-        private CategoryDTO _tabParameter;
-
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -128,8 +126,14 @@ namespace SAB01200Front
         private void Grid_Display(R_DisplayEventArgs eventArgs)
         {
             if (eventArgs.ConductorMode == R_BlazorFrontEnd.Enums.R_eConductorMode.Normal)
-                _tabParameter = (CategoryDTO)eventArgs.Data;
+                CategoryViewModel.CurrentCategoryId = ((CategoryDTO)eventArgs.Data).Id;
         }
         #endregion
+
+        private void R_Before_Open_TabPage(R_BeforeOpenTabPageEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(SAB01200Product);
+            eventArgs.Parameter = CategoryViewModel.CurrentCategoryId;
+        }
     }
 }

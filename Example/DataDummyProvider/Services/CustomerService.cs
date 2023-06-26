@@ -8,7 +8,7 @@ namespace DataDummyProvider.Services
     public static class CustomerService
     {
         private static List<CustomerDTO> _customer = new List<CustomerDTO>();
-        private static List<GenderDTO> _gender = new List<GenderDTO>();
+        private static readonly List<GenderDTO> _gender = new List<GenderDTO>();
 
         public static List<GenderDTO> GetGenders()
         {
@@ -22,10 +22,10 @@ namespace DataDummyProvider.Services
             };
         }
 
-        public static List<CustomerDTO> GenerateCustomer(int count)
+        public static List<CustomerDTO> GetCustomers()
         {
             if (_customer.Count != 0)
-                return GetCustomers();
+                return _customer;
 
             var faker = new Faker<CustomerDTO>()
             .RuleFor(u => u.Id, f => f.Random.AlphaNumeric(5).ToUpper())
@@ -37,13 +37,8 @@ namespace DataDummyProvider.Services
             .RuleFor(u => u.Country, f => f.Address.Country())
             .RuleFor(x => x.GenderId, x => x.PickRandom(new[] { "F", "M" }));
 
-            _customer = faker.Generate(count);
+            _customer = faker.Generate(30);
 
-            return GetCustomers();
-        }
-
-        public static List<CustomerDTO> GetCustomers()
-        {
             return _customer;
         }
 

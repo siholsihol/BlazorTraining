@@ -19,7 +19,7 @@ namespace SAB01000Front
 
             try
             {
-                _viewModel.GenerateCategory();
+                _viewModel.GetCategories();
                 await _gridRef.R_RefreshGrid(null);
                 //await _gridRef.AutoFitAllColumnsAsync();
             }
@@ -37,7 +37,7 @@ namespace SAB01000Front
 
             try
             {
-                _viewModel.GenerateProduct(10);
+                _viewModel.GetProducts();
 
                 eventArgs.ListEntityResult = _viewModel.Products;
             }

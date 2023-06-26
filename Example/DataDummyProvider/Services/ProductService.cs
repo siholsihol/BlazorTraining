@@ -10,10 +10,10 @@ namespace DataDummyProvider.Services
     {
         private static List<ProductDTO> _products = new List<ProductDTO>();
 
-        public static List<ProductDTO> GenerateProduct(int count)
+        public static List<ProductDTO> GetProducts()
         {
             if (_products.Count != 0)
-                return GetProducts();
+                return _products;
 
             var faker = new Faker<ProductDTO>()
             .RuleFor(u => u.Id, f => f.Random.Number(0, 200))
@@ -23,13 +23,8 @@ namespace DataDummyProvider.Services
             .RuleFor(u => u.Active, f => Convert.ToBoolean(f.Random.Number(0, 1)))
             .RuleFor(u => u.CategoryId, f => f.Random.Number(1, 3));
 
-            _products = faker.Generate(count);
+            _products = faker.Generate(30);
 
-            return GetProducts();
-        }
-
-        public static List<ProductDTO> GetProducts()
-        {
             return _products;
         }
 
@@ -57,6 +52,18 @@ namespace DataDummyProvider.Services
 
             if (index != -1)
                 _products.Remove(_products[index]);
+        }
+
+        public static List<ProductDTO> GetProductsByCategory(int categoryId)
+        {
+            List<ProductDTO> loResult = _products;
+
+            if (_products.Count == 0)
+                loResult = GetProducts();
+
+            loResult = loResult.Where(x => x.CategoryId == categoryId).ToList();
+
+            return loResult;
         }
     }
 }

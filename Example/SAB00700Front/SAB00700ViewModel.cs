@@ -21,7 +21,7 @@ namespace SAB00700Front
 
             try
             {
-                var loResult = CategoryService.GenerateCategory();
+                var loResult = CategoryService.GetCategories();
                 var loGridData = R_FrontUtility.ConvertCollectionToCollection<CategoryGridDTO>(loResult);
                 CategoryList = new ObservableCollection<CategoryGridDTO>(loGridData);
             }

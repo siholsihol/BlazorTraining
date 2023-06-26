@@ -78,7 +78,7 @@ namespace SAB00900Front
 
             try
             {
-                var loResult = CategoryService.GenerateCategory();
+                var loResult = CategoryService.GetCategories();
 
                 CategoryList = loResult;
             }

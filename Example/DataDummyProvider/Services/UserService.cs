@@ -9,10 +9,10 @@ namespace DataDummyProvider.Services
     {
         private static List<UserDTO> _users = new List<UserDTO>();
 
-        public static List<UserDTO> GenerateUser(int count)
+        public static List<UserDTO> GetUsers()
         {
             if (_users.Count != 0)
-                return GetUsers();
+                return _users;
 
             var loFake = new Faker<UserDTO>()
                 .CustomInstantiator(x => new UserDTO())
@@ -20,13 +20,8 @@ namespace DataDummyProvider.Services
                 .RuleFor(x => x.GenderId, x => x.PickRandom(new[] { "F", "M" }))
                 .RuleFor(x => x.Id, x => Guid.NewGuid().ToString());
 
-            _users = loFake.Generate(count);
+            _users = loFake.Generate(30);
 
-            return GetUsers();
-        }
-
-        public static List<UserDTO> GetUsers()
-        {
             return _users;
         }
     }

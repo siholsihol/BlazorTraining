@@ -13,13 +13,15 @@ namespace SAB01200Front
 
         public CategoryDTO Category { get; set; } = new CategoryDTO();
 
+        public int CurrentCategoryId { get; set; }
+
         public void GetCategoryList()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = CategoryService.GenerateCategory();
+                var loResult = CategoryService.GetCategories();
                 Categories = new ObservableCollection<CategoryDTO>(loResult);
             }
             catch (Exception ex)

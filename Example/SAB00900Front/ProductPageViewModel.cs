@@ -15,7 +15,7 @@ namespace SAB00900Front
 
             try
             {
-                var loResult = ProductService.GenerateProduct(10);
+                var loResult = ProductService.GetProducts();
                 ProductList = new ObservableCollection<ProductDTO>(loResult);
             }
             catch (Exception ex)

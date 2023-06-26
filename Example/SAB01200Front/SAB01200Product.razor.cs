@@ -18,7 +18,7 @@ namespace SAB01200Front
 
             try
             {
-                await _gridRef.R_RefreshGrid(null);
+                await _gridRef.R_RefreshGrid(poParameter);
             }
             catch (Exception ex)
             {
@@ -34,7 +34,7 @@ namespace SAB01200Front
 
             try
             {
-                ProductViewModel.GetProductList();
+                ProductViewModel.GetProductListByCategory((int)eventArgs.Parameter);
 
                 eventArgs.ListEntityResult = ProductViewModel.Products;
             }

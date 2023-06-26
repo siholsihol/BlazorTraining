@@ -64,7 +64,7 @@ namespace SAB02400Front
 
             try
             {
-                var loUserList = UserService.GenerateUser(10);
+                var loUserList = UserService.GetUsers();
 
                 UserList = new ObservableCollection<UserDTO>(loUserList);
             }

@@ -16,17 +16,17 @@ namespace SAB01000Front
         {
 
         }
-        public void GenerateProduct(int piCount)
+        public void GetProducts()
         {
-            var loProducts = ProductService.GenerateProduct(piCount);
+            var loProducts = ProductService.GetProducts();
             var loSelectedProduct = R_FrontUtility.ConvertCollectionToCollection<SelectedProductDTO>(loProducts);
 
             Products = new ObservableCollection<SelectedProductDTO>(loSelectedProduct);
         }
 
-        public void GenerateCategory()
+        public void GetCategories()
         {
-            var loCategories = CategoryService.GenerateCategory();
+            var loCategories = CategoryService.GetCategories();
 
             Categories = loCategories;
         }
