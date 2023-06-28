@@ -1,0 +1,15 @@
+﻿@inherits R_Page
+@attribute [R_Page(Title = "Predefined Title")]
+
+<h3>@Title</h3>
+
+@code {
+    private string Title = "";
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        Title = (string)poParameter;
+
+        return Task.CompletedTask;
+    }
+}

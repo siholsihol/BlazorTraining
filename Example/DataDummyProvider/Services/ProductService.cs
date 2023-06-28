@@ -15,13 +15,17 @@ namespace DataDummyProvider.Services
             if (_products.Count != 0)
                 return _products;
 
+            var categories = CategoryService.GetCategories();
+            var suppliers = SupplierService.GetSuppliers();
+
             var faker = new Faker<ProductDTO>()
             .RuleFor(u => u.Id, f => f.Random.Number(0, 200))
             .RuleFor(u => u.Name, f => f.Commerce.Product())
             .RuleFor(u => u.Price, f => Convert.ToDecimal(f.Commerce.Price(100, 1000)))
             .RuleFor(u => u.ReleaseDate, f => f.Date.Recent(10))
             .RuleFor(u => u.Active, f => Convert.ToBoolean(f.Random.Number(0, 1)))
-            .RuleFor(u => u.CategoryId, f => f.Random.Number(1, 3));
+            .RuleFor(u => u.CategoryId, f => f.PickRandom(categories).Id)
+            .RuleFor(u => u.SupplierId, f => f.PickRandom(suppliers).Id);
 
             _products = faker.Generate(30);
 

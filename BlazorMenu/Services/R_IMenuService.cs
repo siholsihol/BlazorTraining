@@ -8,6 +8,6 @@ namespace BlazorMenu.Services
         string[] MenuIdList { get; }
 
         Task<List<MenuListDTO>> GetMenuAsync();
-        Task SetMenuAccessAsync();
+        //Task SetMenuAccessAsync();
     }
 }

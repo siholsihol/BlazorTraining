@@ -3,6 +3,8 @@
 
 <h3>@Title</h3>
 
+<R_Detail R_Before_Open_Detail="@R_Before_Open_Detail">Detail</R_Detail>
+
 @code {
     private string Title = "";
 
@@ -11,5 +13,11 @@
         Title = (string)poParameter;
 
         return Task.CompletedTask;
+    }
+
+    private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(PageA);
+        eventArgs.Parameter = "From Detail Button";
     }
 }

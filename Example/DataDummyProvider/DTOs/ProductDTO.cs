@@ -10,5 +10,6 @@ namespace DataDummyProvider.DTOs
         public DateTime ReleaseDate { get; set; }
         public bool Active { get; set; }
         public int CategoryId { get; set; }
+        public int SupplierId { get; set; }
     }
 }

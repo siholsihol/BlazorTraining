@@ -7,22 +7,21 @@ namespace DataDummyProvider.Services
 {
     public static class CategoryService
     {
-        private static readonly List<CategoryDTO> _categories = new List<CategoryDTO>();
+        private static List<CategoryDTO> _categories = new List<CategoryDTO>();
 
         public static List<CategoryDTO> GetCategories()
         {
             if (_categories.Count != 0)
                 return _categories;
 
-            for (int i = 1; i <= 3; i++)
-            {
-                var faker = new Faker<CategoryDTO>()
-                    .RuleFor(u => u.Id, f => i)
+            var startId = 1;
+
+            var faker = new Faker<CategoryDTO>()
+                    .RuleFor(u => u.Id, f => startId++)
                     .RuleFor(u => u.Name, f => f.Commerce.Department())
                     .RuleFor(u => u.Description, f => f.Commerce.ProductDescription());
 
-                _categories.Add(faker.Generate(1).FirstOrDefault());
-            };
+            _categories = faker.Generate(3);
 
             return _categories;
         }

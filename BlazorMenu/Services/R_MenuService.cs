@@ -9,80 +9,80 @@ namespace BlazorMenu.Services
 
         public string[] MenuIdList { get; private set; }
 
-        public Task SetMenuAccessAsync()
-        {
-            var loEx = new R_Exception();
-            List<MenuProgramAccessDTO> loResult = null;
+        //public Task SetMenuAccessAsync()
+        //{
+        //    var loEx = new R_Exception();
+        //    List<MenuProgramAccessDTO> loResult = null;
 
-            try
-            {
-                loResult = new List<MenuProgramAccessDTO>();
+        //    try
+        //    {
+        //        loResult = new List<MenuProgramAccessDTO>();
 
-                loResult.Add(new MenuProgramAccessDTO
-                {
-                    CPROGRAM_ID = "SAB00600",
-                    CACCESS_ID = "A,U,D,P,V"
-                });
+        //        loResult.Add(new MenuProgramAccessDTO
+        //        {
+        //            CPROGRAM_ID = "SAB00600",
+        //            CACCESS_ID = "A,U,D,P,V"
+        //        });
 
-                loResult.Add(new MenuProgramAccessDTO
-                {
-                    CPROGRAM_ID = "SAB00700",
-                    CACCESS_ID = "A,U,D,P,V"
-                });
+        //        loResult.Add(new MenuProgramAccessDTO
+        //        {
+        //            CPROGRAM_ID = "SAB00700",
+        //            CACCESS_ID = "A,U,D,P,V"
+        //        });
 
-                loResult.Add(new MenuProgramAccessDTO
-                {
-                    CPROGRAM_ID = "SAB00900",
-                    CACCESS_ID = "A,U,D,P,V"
-                });
+        //        loResult.Add(new MenuProgramAccessDTO
+        //        {
+        //            CPROGRAM_ID = "SAB00900",
+        //            CACCESS_ID = "A,U,D,P,V"
+        //        });
 
-                //loResult.Add(new MenuProgramAccessDTO
-                //{
-                //    CPROGRAM_ID = "SAB01300",
-                //    CACCESS_ID = "A,U,D,P,V"
-                //});
+        //        //loResult.Add(new MenuProgramAccessDTO
+        //        //{
+        //        //    CPROGRAM_ID = "SAB01300",
+        //        //    CACCESS_ID = "A,U,D,P,V"
+        //        //});
 
-                //loResult.Add(new MenuProgramAccessDTO
-                //{
-                //    CPROGRAM_ID = "SAB01400",
-                //    CACCESS_ID = "A,U,D,P,V"
-                //});
+        //        //loResult.Add(new MenuProgramAccessDTO
+        //        //{
+        //        //    CPROGRAM_ID = "SAB01400",
+        //        //    CACCESS_ID = "A,U,D,P,V"
+        //        //});
 
-                //loResult.Add(new MenuProgramAccessDTO
-                //{
-                //    CPROGRAM_ID = "SAB00100",
-                //    CACCESS_ID = "A,U,D,P,V"
-                //});
+        //        //loResult.Add(new MenuProgramAccessDTO
+        //        //{
+        //        //    CPROGRAM_ID = "SAB00100",
+        //        //    CACCESS_ID = "A,U,D,P,V"
+        //        //});
 
-                //loResult.Add(new MenuProgramAccessDTO
-                //{
-                //    CPROGRAM_ID = "SAB00200",
-                //    CACCESS_ID = "A,U,D,P,V"
-                //});
+        //        //loResult.Add(new MenuProgramAccessDTO
+        //        //{
+        //        //    CPROGRAM_ID = "SAB00200",
+        //        //    CACCESS_ID = "A,U,D,P,V"
+        //        //});
 
-                loResult.Add(new MenuProgramAccessDTO
-                {
-                    CPROGRAM_ID = "SAB01000",
-                    CACCESS_ID = "A,U,D,P,V"
-                });
+        //        loResult.Add(new MenuProgramAccessDTO
+        //        {
+        //            CPROGRAM_ID = "SAB01000",
+        //            CACCESS_ID = "A,U,D,P,V"
+        //        });
 
-                loResult.Add(new MenuProgramAccessDTO
-                {
-                    CPROGRAM_ID = "SAB02400",
-                    CACCESS_ID = "A,U,D,P,V"
-                });
+        //        loResult.Add(new MenuProgramAccessDTO
+        //        {
+        //            CPROGRAM_ID = "SAB02400",
+        //            CACCESS_ID = "A,U,D,P,V"
+        //        });
 
-                MenuAccess = loResult.ToDictionary(x => x.CPROGRAM_ID, x => x.CACCESS_ID.Split(','));
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
+        //        MenuAccess = loResult.ToDictionary(x => x.CPROGRAM_ID, x => x.CACCESS_ID.Split(','));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        loEx.Add(ex);
+        //    }
 
-            loEx.ThrowExceptionIfErrors();
+        //    loEx.ThrowExceptionIfErrors();
 
-            return Task.CompletedTask;
-        }
+        //    return Task.CompletedTask;
+        //}
 
         public void CreateControlsProgram(List<MenuListDTO> poExistingList)
         {
@@ -221,6 +221,19 @@ namespace BlazorMenu.Services
                     CSUB_MENU_ACCESS = "A,U,D,P,V",
                     CSUB_MENU_ID = "SAB01400",
                     CSUB_MENU_NAME = "Detail",
+                    CSUB_MENU_TYPE = "P",
+                    IFAVORITE_INDEX = 0,
+                    IGROUP_INDEX = 0
+                });
+
+                loResult.Add(new MenuListDTO
+                {
+                    CMENU_ID = "Ex",
+                    CMENU_NAME = "Example",
+                    CPARENT_SUB_MENU_ID = "G001",
+                    CSUB_MENU_ACCESS = "A,U,D,P,V",
+                    CSUB_MENU_ID = "SAB01900",
+                    CSUB_MENU_NAME = "Tab Header Detail",
                     CSUB_MENU_TYPE = "P",
                     IFAVORITE_INDEX = 0,
                     IGROUP_INDEX = 0
