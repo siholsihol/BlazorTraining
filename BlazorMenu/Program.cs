@@ -1,4 +1,5 @@
 using BlazorMenu.Extensions;
+using BlazorPrettyCode;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd.Controls.Extensions;
@@ -13,6 +14,9 @@ builder.Services.R_AddBlazorFrontEndControls();
 builder.R_RegisterBlazorServices();
 
 builder.Services.R_AddBlazorFrontEnd();
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddBlazorPrettyCode();
 
 var host = builder.Build();
 

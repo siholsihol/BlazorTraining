@@ -9,108 +9,45 @@ namespace BlazorMenu.Services
 
         public string[] MenuIdList { get; private set; }
 
-        //public Task SetMenuAccessAsync()
-        //{
-        //    var loEx = new R_Exception();
-        //    List<MenuProgramAccessDTO> loResult = null;
-
-        //    try
-        //    {
-        //        loResult = new List<MenuProgramAccessDTO>();
-
-        //        loResult.Add(new MenuProgramAccessDTO
-        //        {
-        //            CPROGRAM_ID = "SAB00600",
-        //            CACCESS_ID = "A,U,D,P,V"
-        //        });
-
-        //        loResult.Add(new MenuProgramAccessDTO
-        //        {
-        //            CPROGRAM_ID = "SAB00700",
-        //            CACCESS_ID = "A,U,D,P,V"
-        //        });
-
-        //        loResult.Add(new MenuProgramAccessDTO
-        //        {
-        //            CPROGRAM_ID = "SAB00900",
-        //            CACCESS_ID = "A,U,D,P,V"
-        //        });
-
-        //        //loResult.Add(new MenuProgramAccessDTO
-        //        //{
-        //        //    CPROGRAM_ID = "SAB01300",
-        //        //    CACCESS_ID = "A,U,D,P,V"
-        //        //});
-
-        //        //loResult.Add(new MenuProgramAccessDTO
-        //        //{
-        //        //    CPROGRAM_ID = "SAB01400",
-        //        //    CACCESS_ID = "A,U,D,P,V"
-        //        //});
-
-        //        //loResult.Add(new MenuProgramAccessDTO
-        //        //{
-        //        //    CPROGRAM_ID = "SAB00100",
-        //        //    CACCESS_ID = "A,U,D,P,V"
-        //        //});
-
-        //        //loResult.Add(new MenuProgramAccessDTO
-        //        //{
-        //        //    CPROGRAM_ID = "SAB00200",
-        //        //    CACCESS_ID = "A,U,D,P,V"
-        //        //});
-
-        //        loResult.Add(new MenuProgramAccessDTO
-        //        {
-        //            CPROGRAM_ID = "SAB01000",
-        //            CACCESS_ID = "A,U,D,P,V"
-        //        });
-
-        //        loResult.Add(new MenuProgramAccessDTO
-        //        {
-        //            CPROGRAM_ID = "SAB02400",
-        //            CACCESS_ID = "A,U,D,P,V"
-        //        });
-
-        //        MenuAccess = loResult.ToDictionary(x => x.CPROGRAM_ID, x => x.CACCESS_ID.Split(','));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        loEx.Add(ex);
-        //    }
-
-        //    loEx.ThrowExceptionIfErrors();
-
-        //    return Task.CompletedTask;
-        //}
-
-        public void CreateControlsProgram(List<MenuListDTO> poExistingList)
+        public void CreateGroup(List<MenuListDTO> poExistingList, string pcMenuId, string pcMenuName, string pcSubMenuId, string pcSubMenuName)
         {
             poExistingList.Add(new MenuListDTO
             {
-                CMENU_ID = "CT",
-                CMENU_NAME = "Controls",
-                CPARENT_SUB_MENU_ID = "CT",
-                CSUB_MENU_ACCESS = "A,U,D,P,V",
-                CSUB_MENU_ID = "G002",
-                CSUB_MENU_NAME = "Tab",
+                CMENU_ID = pcMenuId,
+                CMENU_NAME = pcMenuName,
+                CPARENT_SUB_MENU_ID = pcMenuId,
+                CSUB_MENU_ACCESS = "",
+                CSUB_MENU_ID = pcSubMenuId,
+                CSUB_MENU_NAME = pcSubMenuName,
                 CSUB_MENU_TYPE = "G",
                 IFAVORITE_INDEX = 0,
-                IGROUP_INDEX = 2
+                IGROUP_INDEX = 0
             });
+        }
 
+        public void CreateProgram(List<MenuListDTO> poExistingList, string pcMenuId, string pcParentMenuId, string pcSubMenuId, string pcSubMenuName)
+        {
             poExistingList.Add(new MenuListDTO
             {
-                CMENU_ID = "CT",
-                CMENU_NAME = "Controls",
-                CPARENT_SUB_MENU_ID = "G002",
+                CMENU_ID = pcMenuId,
+                CMENU_NAME = "",
+                CPARENT_SUB_MENU_ID = pcParentMenuId,
                 CSUB_MENU_ACCESS = "A,U,D,P,V",
-                CSUB_MENU_ID = "SAB03000",
-                CSUB_MENU_NAME = "Tab",
+                CSUB_MENU_ID = pcSubMenuId,
+                CSUB_MENU_NAME = pcSubMenuName,
                 CSUB_MENU_TYPE = "P",
                 IFAVORITE_INDEX = 0,
                 IGROUP_INDEX = 0
             });
+        }
+
+        public void CreateControlsProgram(List<MenuListDTO> poExistingList)
+        {
+            CreateGroup(poExistingList, "CT", "Controls", "G001", "Controls");
+
+            CreateProgram(poExistingList, "CT", "G001", "SAB03000", "Tab");
+
+            CreateProgram(poExistingList, "CT", "G001", "SAB03100", "Input Controls");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()

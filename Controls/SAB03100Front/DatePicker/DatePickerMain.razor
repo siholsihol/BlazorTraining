@@ -1,0 +1,14 @@
+﻿@inherits R_Page
+@attribute [R_Page(Title = "R_DatePicker")]
+
+<R_GroupBox Title="R_DatePicker">
+    <R_ItemLayout xs="4">
+        <R_DatePicker @bind-Value=@_dateTimeValue>
+
+        </R_DatePicker>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code {
+    private DateTime _dateTimeValue = DateTime.Now;
+}

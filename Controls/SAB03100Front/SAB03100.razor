@@ -1,0 +1,34 @@
+﻿@page "/SAB03100"
+@inherits R_Page
+@attribute [R_Page(Title = "R_NumericTextBox")]
+
+<NumericTextBoxMain></NumericTextBoxMain>
+
+<PrettyCode CodeFile="_content/SAB03100Front/snippets/SAB03100.razor" Title="SAB03100.cs" />
+
+<R_PredefinedDock R_InstantiateDock="@InstantiateDateTimePicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateDatePicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateDateInput"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateTimePicker"></R_PredefinedDock>
+
+@code {
+    private void InstantiateDateTimePicker(R_PredefinedDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(DateTimePickerMain);
+    }
+
+    private void InstantiateDatePicker(R_PredefinedDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(DatePickerMain);
+    }
+
+    private void InstantiateDateInput(R_PredefinedDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(DateInputMain);
+    }
+
+    private void InstantiateTimePicker(R_PredefinedDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(TimePickerMain);
+    }
+}
