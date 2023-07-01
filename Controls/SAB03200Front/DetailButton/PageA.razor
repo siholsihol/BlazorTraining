@@ -1,0 +1,15 @@
+﻿@inherits R_Page
+@attribute [R_Page(Title = "Page A")]
+
+<h3>@_parameter</h3>
+
+@code {
+    private string _parameter = default;
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        _parameter = (string)poParameter;
+
+        return Task.CompletedTask;
+    }
+}

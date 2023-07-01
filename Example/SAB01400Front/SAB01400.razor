@@ -1,7 +1,7 @@
 ﻿@page "/SAB01400"
 @inherits R_Page
 
-<R_Detail R_Before_Open_Detail="@R_Before_Open_Detail">Detail</R_Detail>
+<R_Detail R_Before_Open_Detail="@R_Before_Open_Detail" R_After_Open_Detail="@R_After_Open_Detail">Detail</R_Detail>
 
 <R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock"></R_PredefinedDock>
 
@@ -10,6 +10,11 @@
     {
         eventArgs.TargetPageType = typeof(PageA);
         eventArgs.Parameter = "From Detail Button";
+    }
+
+    private void R_After_Open_Detail()
+    {
+        
     }
 
     private void PreDock_InstantiateDock(R_PredefinedDockEventArgs eventArgs)
