@@ -3,7 +3,9 @@
 
 <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail" R_After_Open_Detail="@R_After_Open_Detail">Detail</R_Detail>
 
-<R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock" R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"></R_PredefinedDock>
+
+<h3>@lcResult</h3>
 
 @code {
     private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
@@ -12,14 +14,20 @@
         eventArgs.Parameter = "From Detail Button";
     }
 
-    private void R_After_Open_Detail()
+    private string lcResult = "";
+    private void R_After_Open_Detail(R_AfterOpenDetailEventArgs eventArgs)
     {
-        
+        lcResult = (string)eventArgs.Result;
     }
 
-    private void PreDock_InstantiateDock(R_PredefinedDockEventArgs eventArgs)
+    private void PreDock_InstantiateDock(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(PagePredefined);
         eventArgs.Parameter = "From Predefined";
+    }
+
+    private void R_AfterOpenPredefinedDock(R_AfterOpenPredefinedDockEventArgs eventArgs)
+    {
+        lcResult = (string)eventArgs.Result;
     }
 }

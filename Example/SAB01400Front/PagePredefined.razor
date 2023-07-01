@@ -12,4 +12,11 @@
 
         return Task.CompletedTask;
     }
+
+    protected override Task<object> R_Set_Result_PredefinedDock()
+    {
+        var lcResult = "Result From Page Predefined";
+
+        return Task.FromResult<object>(lcResult);
+    }
 }

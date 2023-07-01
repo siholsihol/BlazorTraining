@@ -12,22 +12,22 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateTimePicker"></R_PredefinedDock>
 
 @code {
-    private void InstantiateDateTimePicker(R_PredefinedDockEventArgs eventArgs)
+    private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(DateTimePickerMain);
     }
 
-    private void InstantiateDatePicker(R_PredefinedDockEventArgs eventArgs)
+    private void InstantiateDatePicker(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(DatePickerMain);
     }
 
-    private void InstantiateDateInput(R_PredefinedDockEventArgs eventArgs)
+    private void InstantiateDateInput(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(DateInputMain);
     }
 
-    private void InstantiateTimePicker(R_PredefinedDockEventArgs eventArgs)
+    private void InstantiateTimePicker(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(TimePickerMain);
     }

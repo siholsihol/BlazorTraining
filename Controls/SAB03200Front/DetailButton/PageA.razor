@@ -12,4 +12,11 @@
 
         return Task.CompletedTask;
     }
+
+    protected override Task<object> R_Set_Result_Detail()
+    {
+        var lcResult = "Result From Page A";
+
+        return Task.FromResult<object>(lcResult);
+    }
 }
