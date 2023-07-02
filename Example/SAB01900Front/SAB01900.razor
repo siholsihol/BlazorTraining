@@ -41,10 +41,11 @@
     </R_TabStripTab>
 
     <R_TabStripTab Title="Supplier" Id="TabSupplier">
-        <R_TabPage R_Before_Open_TabPage="@R_Before_Open_TabPage" 
-                    R_After_Open_TabPage="@R_After_Open_TabPage" 
-                    R_TabEventCallback="@R_TabEventCallback" 
-                    @ref="@_tabPageSupplier"></R_TabPage>
+        <R_TabPage @ref="@_tabPageSupplier"
+                   R_Before_Open_TabPage="@R_Before_Open_TabPage"
+                   R_After_Open_TabPage="@R_After_Open_TabPage"
+                   R_TabEventCallback="@R_TabEventCallback">
+        </R_TabPage>
     </R_TabStripTab>
 </R_TabStrip>
 

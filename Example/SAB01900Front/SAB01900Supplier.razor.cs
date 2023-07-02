@@ -53,14 +53,14 @@ namespace SAB01900Front
             await InvokeTabEventCallbackAsync(eventArgs.Enable);
         }
 
-        public async Task TabParameterChangedAsync(object poParam)
+        public async Task RefreshTabPageAsync(object poParam)
         {
             await _gridRef.R_RefreshGrid((int)poParam);
         }
 
-        public object SetTabPageResult()
+        protected override Task<object> R_Set_Result_TabPage()
         {
-            return "Result Tab Supplier";
+            return Task.FromResult<object>("Result Tab Supplier");
         }
 
         #region Conductor

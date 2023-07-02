@@ -139,7 +139,7 @@ namespace SAB01900Front
 
                 if (_tabStrip.ActiveTab.Id == "TabSupplier")
                 {
-                    await _tabPageSupplier.InvokeTabParameterChanged(CategoryViewModel.CurrentComboboxValue);
+                    await _tabPageSupplier.InvokeRefreshTabPageAsync(CategoryViewModel.CurrentComboboxValue);
                 }
             }
         }
