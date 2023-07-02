@@ -67,8 +67,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buttons", "Buttons", "{84B7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB03200Front", "Controls\SAB03200Front\SAB03200Front.csproj", "{F1F41265-0C9D-4016-97BB-702FABEBD004}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{6C105038-69DD-40F1-9823-B2029DD12058}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,10 +145,6 @@ Global
 		{F1F41265-0C9D-4016-97BB-702FABEBD004}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1F41265-0C9D-4016-97BB-702FABEBD004}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1F41265-0C9D-4016-97BB-702FABEBD004}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C105038-69DD-40F1-9823-B2029DD12058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C105038-69DD-40F1-9823-B2029DD12058}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C105038-69DD-40F1-9823-B2029DD12058}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C105038-69DD-40F1-9823-B2029DD12058}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
