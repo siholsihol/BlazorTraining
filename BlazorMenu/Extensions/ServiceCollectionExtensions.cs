@@ -37,7 +37,7 @@ namespace BlazorMenu.Extensions
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en");
 
             var loCultureInfoBuilder = new CultureInfoBuilder();
-            loCultureInfoBuilder.WithNumberFormatInfo(".", 3);
+            loCultureInfoBuilder.WithNumberFormatInfo(".", 2);
             loCultureInfoBuilder.WithDatePattern("d MMMM, yyyy", "M/d/yyyy")
                                 .WithTimePattern("H:mm:ss", "hh:mm tt");
             var loCultureInfo = loCultureInfoBuilder.BuildCultureInfo();

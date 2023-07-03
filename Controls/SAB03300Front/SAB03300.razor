@@ -1,0 +1,92 @@
+﻿@page "/SAB03300"
+@inherits R_Page
+@attribute [R_Page(Title = "Grid Sequence")]
+
+<R_StackLayout>
+    <R_GroupBox Title="GridView Batch" ShowBorder="false">
+        <R_Grid @ref="@_gridRef"
+                DataSource="@_viewModel.Products"
+                Pageable
+                R_ConductorGridSource="@_conGridProductRef"
+                R_GridType="@R_eGridType.Batch"
+                AllowAddNewRow
+                AllowEditRow
+                AllowDeleteRow
+                R_ServiceGetListRecord="@R_ServiceGetListRecord"
+                Height="400px"
+                Width="1100px"
+                DragDrop
+                DragClueField="@nameof(ProductDTO.Name)"
+                R_GridRowBeforeDrop="@R_GridRowBeforeDrop" R_GridRowAfterDrop="@R_GridRowAfterDrop">
+            <R_GridColumns>
+                <R_GridMultiHeaderColumn HeaderText="Test">
+                    <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
+                                         HeaderText="Id"
+                                         R_EnableAdd
+                                         R_EnableEdit Width="200px" />
+
+                    <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
+                                      HeaderText="Name"
+                                      R_EnableAdd
+                                      R_EnableEdit
+                                      MaxLength="5" Width="200px" />
+                </R_GridMultiHeaderColumn>
+
+                <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
+                                     HeaderText="Price"
+                                     R_EnableAdd
+                                     R_EnableEdit Min="0" Width="200px" />
+
+                <R_GridDateTimePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
+                                            HeaderText="Release Date"
+                                            R_EnableAdd
+                                            R_EnableEdit Width="200px" />
+
+                <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Active)"
+                                      HeaderText="Active"
+                                      R_EnableAdd
+                                      R_EnableEdit Width="200px" />
+
+                <R_GridDropDownListColumn Data=@_viewModel.Categories
+                                          ValueField="@nameof(CategoryDTO.Id)"
+                                          TextField="@nameof(CategoryDTO.Name)"
+                                          FieldName="@nameof(ProductDTO.CategoryId)"
+                                          HeaderText="Category"
+                                          R_EnableAdd
+                                          R_EnableEdit Width="200px" />
+            </R_GridColumns>
+        </R_Grid>
+
+        <R_StackLayout Row>
+            <R_ItemLayout xs="2">
+                <R_Button R_ConductorGridSource="@_conGridProductRef"
+                          OnClick="@OnClickSave">Save Batch</R_Button>
+            </R_ItemLayout>
+            <R_ItemLayout xs="2">
+                <R_Button R_ConductorGridSource="@_conGridProductRef"
+                          OnClick="@OnClickNext">Move Next</R_Button>
+            </R_ItemLayout>
+            <R_ItemLayout xs="2">
+                <R_Button R_ConductorGridSource="@_conGridProductRef"
+                          OnClick="@OnClickPrevious">Move Previous</R_Button>
+            </R_ItemLayout>
+            <R_ItemLayout xs="2">
+                <R_Button R_ConductorGridSource="@_conGridProductRef"
+                          OnClick="@OnClickFirst">Move First</R_Button>
+            </R_ItemLayout>
+            <R_ItemLayout xs="2">
+                <R_Button R_ConductorGridSource="@_conGridProductRef"
+                          OnClick="@OnClickLast">Move Last</R_Button>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_GroupBox>
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_conGridProductRef"
+                 R_ViewModel="@_viewModel"
+                 R_IsHeader
+                 R_ServiceGetRecord="@R_ServiceGetRecord"
+                 R_AfterAdd="@R_AfterAdd"
+                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                 R_AfterSaveBatch="@R_AfterSaveBatch" />

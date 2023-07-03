@@ -46,10 +46,10 @@ namespace BlazorMenu.Services
             CreateGroup(poExistingList, "CT", "Controls", "G001", "Controls");
 
             CreateProgram(poExistingList, "CT", "G001", "SAB03000", "Tab");
-
             CreateProgram(poExistingList, "CT", "G001", "SAB03100", "Input Controls");
-
             CreateProgram(poExistingList, "CT", "G001", "SAB03200", "Buttons");
+
+            CreateProgram(poExistingList, "CT", "G001", "SAB03300", "Grid Sequence");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()

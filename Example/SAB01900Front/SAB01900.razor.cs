@@ -17,6 +17,7 @@ namespace SAB01900Front
         private R_Grid<ProductDTO> _gridRef;
 
         public bool _enableComboCategory = true;
+        public bool _pageSupplierOnCRUDmode = false;
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -131,6 +132,11 @@ namespace SAB01900Front
         }
         #endregion
 
+        private void OnActiveTabIndexChanging(R_TabStripActiveTabIndexChangingEventArgs eventArgs)
+        {
+            eventArgs.Cancel = _pageSupplierOnCRUDmode;
+        }
+
         private async Task ComboCategoryOnChanged(object poValue)
         {
             if (_conGridProductRef.R_ConductorMode == R_eConductorMode.Normal)
@@ -159,6 +165,7 @@ namespace SAB01900Front
         private void R_TabEventCallback(object poValue)
         {
             _comboboxEnabled = (bool)poValue;
+            _pageSupplierOnCRUDmode = !(bool)poValue;
         }
 
         private R_TabPage _tabPageSupplier;
