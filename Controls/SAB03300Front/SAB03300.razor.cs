@@ -106,24 +106,24 @@ namespace SAB03300Front
 
         }
 
-        private void OnClickNext()
+        private async Task OnClickNext()
         {
-            _gridRef.R_MoveToNextRow();
+            await _gridRef.R_MoveToNextRow();
         }
 
-        private void OnClickPrevious()
+        private async Task OnClickPrevious()
         {
-            _gridRef.R_MoveToPreviousRow();
+            await _gridRef.R_MoveToPreviousRow();
         }
 
-        private void OnClickFirst()
+        private async Task OnClickFirst()
         {
-            _gridRef.R_MoveToFirstRow();
+            await _gridRef.R_MoveToFirstRow();
         }
 
-        private void OnClickLast()
+        private async Task OnClickLast()
         {
-            _gridRef.R_MoveToLastRow();
+            await _gridRef.R_MoveToLastRow();
         }
         #endregion
     }

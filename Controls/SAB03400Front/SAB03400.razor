@@ -19,7 +19,7 @@
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
                     R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop">
+                    R_GridRowAfterDrop="@R_GridRowAfterDrop" TargetGridDrop="@_gridRef2">
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -52,7 +52,7 @@
                     AllowAddNewRow
                     AllowEditRow
                     AllowDeleteRow
-                    R_ServiceGetListRecord="@R_ServiceGetListRecord"
+                    R_ServiceGetListRecord="@R_ServiceGetListRecordGrid2"
                     Height="400px"
                     Width="500px"
                     DragDrop
@@ -85,20 +85,20 @@
     <R_StackLayout Row>
         <R_ItemLayout xs="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
-                      OnClick="@OnClickNext">Move Next</R_Button>
+                      OnClick="@OnClickRight">Move Right</R_Button>
         </R_ItemLayout>
         <R_ItemLayout xs="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
-                      OnClick="@OnClickPrevious">Move Previous</R_Button>
+                      OnClick="@OnClickMoveAll">Move All</R_Button>
         </R_ItemLayout>
-        <R_ItemLayout xs="2">
+        @*<R_ItemLayout xs="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
                       OnClick="@OnClickFirst">Move First</R_Button>
         </R_ItemLayout>
         <R_ItemLayout xs="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
                       OnClick="@OnClickLast">Move Last</R_Button>
-        </R_ItemLayout>
+        </R_ItemLayout>*@
     </R_StackLayout>
 </R_StackLayout>
 

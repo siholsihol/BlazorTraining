@@ -24,6 +24,7 @@ namespace SAB03400Front
             {
                 _viewModel.GetCategories();
                 await _gridRef.R_RefreshGrid(null);
+                await _gridRef2.R_RefreshGrid(null);
             }
             catch (Exception ex)
             {
@@ -42,6 +43,22 @@ namespace SAB03400Front
                 _viewModel.GetProducts();
 
                 eventArgs.ListEntityResult = _viewModel.Products;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        private void R_ServiceGetListRecordGrid2(R_ServiceGetListRecordEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                eventArgs.ListEntityResult = _viewModel.Products2;
             }
             catch (Exception ex)
             {
@@ -109,25 +126,25 @@ namespace SAB03400Front
 
         }
 
-        private void OnClickNext()
+        private async Task OnClickRight()
         {
-            _gridRef.R_MoveToNextRow();
+            await _gridRef.R_MoveToTargetGrid();
         }
 
-        private void OnClickPrevious()
+        private async Task OnClickMoveAll()
         {
-            _gridRef.R_MoveToPreviousRow();
+            await _gridRef.R_MoveAllToTargetGrid();
         }
 
-        private void OnClickFirst()
-        {
-            _gridRef.R_MoveToFirstRow();
-        }
+        //private async Task OnClickFirst()
+        //{
+        //    await _gridRef.R_MoveToFirstRow();
+        //}
 
-        private void OnClickLast()
-        {
-            _gridRef.R_MoveToLastRow();
-        }
+        //private async Task OnClickLast()
+        //{
+        //    await _gridRef.R_MoveToLastRow();
+        //}
         #endregion
     }
 }
