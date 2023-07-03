@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
+    <ProjectReference Include="..\..\Example\DataDummyProvider\DataDummyProvider.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="R_BlazorFrontEnd">
+      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

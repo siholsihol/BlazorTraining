@@ -50,6 +50,7 @@ namespace BlazorMenu.Services
             CreateProgram(poExistingList, "CT", "G001", "SAB03200", "Buttons");
 
             CreateProgram(poExistingList, "CT", "G001", "SAB03300", "Grid Sequence");
+            CreateProgram(poExistingList, "CT", "G001", "SAB03400", "Grid Mover");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()
