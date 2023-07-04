@@ -193,8 +193,26 @@ namespace SAB00900Front
                 loEx.Add(ex);
             }
 
-            R_DisplayException(loEx);
+            loEx.ThrowExceptionIfErrors();
         }
         #endregion
+
+        public async Task Conductor_BeforeEdit(R_BeforeEditEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+
+                eventArgs.Cancel = !loResult.Success;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
     }
 }
