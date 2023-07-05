@@ -15,18 +15,18 @@
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
-                                            R_EnableEdit 
+                                            R_EnableEdit
                                             ShowSelectAllHeader Width="200px" />
 
                 <R_GridMultiHeaderColumn HeaderText="Test">
                     <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Id)"
-                                         HeaderText="Id" 
-                                         R_EnableAdd 
+                                         HeaderText="Id"
+                                         R_EnableAdd
                                          R_EnableEdit Width="200px" ThousandSeparator="false" />
 
                     <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
-                                      HeaderText="Name" 
-                                      R_EnableAdd 
+                                      HeaderText="Name"
+                                      R_EnableAdd
                                       R_EnableEdit
                                       MaxLength="5" Width="200px" />
                 </R_GridMultiHeaderColumn>
@@ -44,7 +44,7 @@
                 <R_GridCheckBoxColumn FieldName="@nameof(SelectedProductDTO.Active)"
                                       HeaderText="Active"
                                       R_EnableAdd
-                                      R_EnableEdit  Width="200px"/>
+                                      R_EnableEdit Width="200px" />
 
                 <R_GridDropDownListColumn Data=@_viewModel.Categories
                                           ValueField="@nameof(CategoryDTO.Id)"
@@ -53,6 +53,14 @@
                                           HeaderText="Category"
                                           R_EnableAdd
                                           R_EnableEdit Width="200px" />
+
+                <R_GridComboBoxColumn Data=@_viewModel.Categories
+                                        ValueField="@nameof(CategoryDTO.Id)"
+                                        TextField="@nameof(CategoryDTO.Name)"
+                                        FieldName="@nameof(SelectedProductDTO.CategoryId)"
+                                        HeaderText="Category"
+                                        R_EnableAdd
+                                        R_EnableEdit Width="200px" />
             </R_GridColumns>
         </R_Grid>
 
