@@ -6,10 +6,11 @@
 
 <PrettyCode CodeFile="_content/SAB03100Front/snippets/SAB03100.razor" Title="SAB03100.cs" />
 
-<R_PredefinedDock R_InstantiateDock="@InstantiateDateTimePicker"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateDatePicker"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateDateInput"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateTimePicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateDateTimePicker" Title="R_DateTimePicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateDatePicker" Title="R_DatePicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateDateInput" Title="R_DateInput"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateTimePicker" Title="R_TimePicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateComboBox" Title="R_ComboBox"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -30,5 +31,10 @@
     private void InstantiateTimePicker(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(TimePickerMain);
+    }
+
+    private void InstantiateComboBox(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(ComboBoxMain);
     }
 }

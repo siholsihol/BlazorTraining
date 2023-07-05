@@ -1,6 +1,6 @@
 ﻿<R_GroupBox Title="R_NumericTextBox">
     <R_ItemLayout xs="4">
-        <R_NumericTextBox @bind-Value=@_intValue>
+        <R_NumericTextBox @bind-Value=@_decimalValue>
 
         </R_NumericTextBox>
     </R_ItemLayout>
@@ -8,5 +8,5 @@
 
 @code {
     private decimal _decimalValue = 1234.56m;
-    private int _intValue = 0;
+    private int _intValue = 1234;
 }

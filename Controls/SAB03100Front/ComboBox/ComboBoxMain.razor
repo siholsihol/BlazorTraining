@@ -1,0 +1,25 @@
+﻿@inherits R_Page
+@attribute [R_Page(Title = "R_ComboBox")]
+
+<R_GroupBox Title="R_ComboBox">
+    <R_ItemLayout xs="4">
+        <R_ComboBox Data="@_comboBoxList" 
+                    TextField="@nameof(CategoryDTO.Name)" 
+                    ValueField="@nameof(CategoryDTO.Id)"
+                    @bind-Value="@_selectedCategory">
+
+        </R_ComboBox>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code { 
+    private List<CategoryDTO> _comboBoxList = new();
+    private int _selectedCategory = 0;
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        _comboBoxList = CategoryService.GetCategories();
+
+        return Task.CompletedTask;
+    }
+}
