@@ -1,0 +1,30 @@
+﻿@inherits R_Page
+
+<R_GroupBox Title="R_CheckBox">
+    <R_StackLayout Row>
+        <R_ItemLayout xs="1">
+            <R_CheckBox @bind-Value="@_isCheck" OnChanged="@OnChanged"></R_CheckBox>
+        </R_ItemLayout>
+        <R_ItemLayout xs="3">
+            @_isCheckString
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+</R_GroupBox>
+
+@code {
+    private bool _isCheck = false;
+    private string _isCheckString = string.Empty;
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        _isCheckString = _isCheck.ToString();
+
+        return Task.CompletedTask;
+    }
+
+    private void OnChanged(object poValue)
+    {
+        _isCheckString = poValue.ToString();
+    }
+}

@@ -11,6 +11,12 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateDateInput" Title="R_DateInput"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateTimePicker" Title="R_TimePicker"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateComboBox" Title="R_ComboBox"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateDropDownList" Title="R_DropDownList"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateCheckBox" Title="R_CheckBox"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateColorPicker" Title="R_ColorPicker"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateRadioGroup" Title="R_RadioGroup"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateTextArea" Title="R_TextArea"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateTextBox" Title="R_TextBox"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -36,5 +42,35 @@
     private void InstantiateComboBox(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(ComboBoxMain);
+    }
+
+    private void InstantiateDropDownList(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(DropDownListMain);
+    }
+
+    private void InstantiateCheckBox(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(CheckBoxMain);
+    }
+
+    private void InstantiateColorPicker(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(ColorPickerMain);
+    }
+
+    private void InstantiateRadioGroup(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(RadioGroupMain);
+    }
+
+    private void InstantiateTextArea(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(TextAreaMain);
+    }
+
+    private void InstantiateTextBox(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(TextBoxMain);
     }
 }

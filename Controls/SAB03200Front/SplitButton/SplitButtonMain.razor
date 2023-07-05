@@ -1,0 +1,64 @@
+﻿@inherits R_Page
+
+<R_GroupBox Title="R_SplitButton">
+    <R_SplitButton Tooltip="test">
+        <R_SplitButtons>
+            <R_SplitButtonItem OnClick="@OnButton" Text="Button"></R_SplitButtonItem>
+            <R_SplitButtonItemDetail R_Before_Open_Detail="@R_Before_Open_Detail"
+                                     R_After_Open_Detail="@R_After_Open_Detail"
+                                     Text="Detail">
+            </R_SplitButtonItemDetail>
+            <R_SplitButtonItemPopup R_Before_Open_Popup="@R_Before_Open_Popup"
+                                    R_After_Open_Popup="@R_After_Open_Popup"
+                                    Text="Popup">
+            </R_SplitButtonItemPopup>
+        </R_SplitButtons>
+    </R_SplitButton>
+
+    Last action: <strong> @LastAction </strong>
+</R_GroupBox>
+
+@code {
+    string LastAction { get; set; }
+
+    void OnButton()
+    {
+        LastAction = "Button";
+    }
+
+    void OnDetail()
+    {
+        LastAction = "Detail";
+    }
+
+    void OnPopup()
+    {
+        LastAction = "Popup";
+    }
+
+    #region Detail
+    private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
+    {
+        eventArgs.Parameter = "Parameter untuk Page A";
+        eventArgs.TargetPageType = typeof(PageA);
+    }
+
+    private void R_After_Open_Detail(R_AfterOpenDetailEventArgs eventArgs)
+    {
+        OnDetail();
+    }
+    #endregion
+
+    #region Popup
+    private void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+    {
+        eventArgs.Parameter = "Parameter untuk Page A";
+        eventArgs.TargetPageType = typeof(PageA);
+    }
+
+    private void R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
+    {
+        OnPopup();
+    }
+    #endregion
+}

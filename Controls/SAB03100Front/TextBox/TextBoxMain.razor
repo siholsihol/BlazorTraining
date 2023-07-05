@@ -1,0 +1,15 @@
+﻿@inherits R_Page
+
+<R_GroupBox Title="R_TextBox">
+    <R_ItemLayout xs="4">
+        <p>TextBox value: @_stringValue</p>
+
+        <R_TextBox @bind-Value="@_stringValue">
+
+        </R_TextBox>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code {
+    private string _stringValue { get; set; }
+}

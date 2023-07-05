@@ -1,0 +1,35 @@
+﻿@inherits R_Page
+
+<R_GroupBox Title="R_RadioGroup">
+    Chosen gender: @(_chosenGender == 0 ? "no selection yet" : _chosenGender.ToString())
+    <br />
+
+    <R_ItemLayout xs="4">
+        <R_RadioGroup Data="@_genderOptions"
+                      TextField="@nameof(GenderModel.GenderText)"
+                      ValueField="@nameof(GenderModel.GenderId)" 
+                      @bind-Value="@_chosenGender" 
+                      Layout="@R_eRadioGroupLayout.Vertical" 
+                      LabelPosition="@R_eRadioGroupLabelPosition.Before">
+
+        </R_RadioGroup>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code {
+    private int _chosenGender = 0;
+
+    private List<GenderModel> _genderOptions { get; set; } = new List<GenderModel>
+    {
+        new GenderModel { GenderId = 1, GenderText = "Female" },
+        new GenderModel { GenderId = 2, GenderText = "Male" },
+        new GenderModel { GenderId = 3, GenderText = "Other" },
+        new GenderModel { GenderId = 4, GenderText = "Prefer not to say" },
+    };
+
+    public class GenderModel
+    {
+        public int GenderId { get; set; }
+        public string GenderText { get; set; }
+    }
+}

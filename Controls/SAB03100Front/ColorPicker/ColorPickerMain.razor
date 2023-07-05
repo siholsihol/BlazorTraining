@@ -1,0 +1,15 @@
+﻿@inherits R_Page
+
+<R_GroupBox Title="R_ColorPicker">
+    <R_ItemLayout xs="4">
+        <R_ColorPicker @bind-Value="@_selectedColor">
+
+        </R_ColorPicker>
+    </R_ItemLayout>
+
+    Selected color: <span style="color: @_selectedColor">@_selectedColor</span>
+</R_GroupBox>
+
+@code {
+    private string _selectedColor;
+}
