@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="File\EditorContent.docx" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\BatchAndExcelCommon\BatchAndExcelCommon.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="R_APICommon">
+	    <HintPath>..\..\..\Dll\Dll Back\R_APICommon.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+</Project>

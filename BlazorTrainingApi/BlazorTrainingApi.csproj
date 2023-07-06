@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BatchAndExcel\Back\BatchAndExcelBack\BatchAndExcelBack.csproj" />
+    <ProjectReference Include="..\BatchAndExcel\Service\BatchAndExcelService\BatchAndExcelService.csproj" />
   </ItemGroup>
 
 </Project>

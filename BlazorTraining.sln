@@ -75,6 +75,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grid Mover", "Grid Mover", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB03400Front", "Controls\SAB03400Front\SAB03400Front.csproj", "{3FE79224-52C6-4598-AB1B-40DEEA94068B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcelService", "BatchAndExcel\Service\BatchAndExcelService\BatchAndExcelService.csproj", "{C0D7053E-188F-499A-A99F-0C1E07401A95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +163,10 @@ Global
 		{3FE79224-52C6-4598-AB1B-40DEEA94068B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FE79224-52C6-4598-AB1B-40DEEA94068B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FE79224-52C6-4598-AB1B-40DEEA94068B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D7053E-188F-499A-A99F-0C1E07401A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D7053E-188F-499A-A99F-0C1E07401A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D7053E-188F-499A-A99F-0C1E07401A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D7053E-188F-499A-A99F-0C1E07401A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +203,7 @@ Global
 		{AB0D2BFE-80F5-439C-B7D6-0402F6ABA3AA} = {4A345B35-6722-4F8F-A60F-402CA2B9C287}
 		{6DECA05B-715F-4746-AA79-057DC7DB0856} = {F8F65871-E2B2-4389-98B7-F7D511126048}
 		{3FE79224-52C6-4598-AB1B-40DEEA94068B} = {6DECA05B-715F-4746-AA79-057DC7DB0856}
+		{C0D7053E-188F-499A-A99F-0C1E07401A95} = {8FB99B33-F136-4FFA-A4E8-4779DE07B65F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {326F6793-B282-4539-8298-FACE822E7925}

@@ -5,4 +5,10 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="R_APICommonDTO">
+      <HintPath>..\..\..\Dll\Dll Back\R_APICommonDTO.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

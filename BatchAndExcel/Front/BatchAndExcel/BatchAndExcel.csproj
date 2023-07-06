@@ -24,7 +24,7 @@
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="1.0.0" />
 	  <PackageReference Include="Bogus" Version="34.0.2" />
-	  <PackageReference Include="Telerik.UI.for.Blazor" Version="3.7.0" />
+	  <PackageReference Include="Telerik.UI.for.Blazor" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

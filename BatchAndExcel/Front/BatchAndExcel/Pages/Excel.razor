@@ -1,5 +1,6 @@
 ﻿@page "/excel"
 @using BatchAndExcelCommon.DTOs;
+@using R_APIClient;
 @using R_BlazorFrontEnd.Controls.Enums;
 @using R_BlazorFrontEnd;
 @using R_BlazorFrontEnd.Controls;
@@ -36,6 +37,7 @@
     </R_Grid>
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
     <R_Button OnClick="@OnClickHandler">Download Template Excel</R_Button>
+    <R_Button OnClick="@OnClickDownloadFile">Download File From Server</R_Button>
 </R_GroupBox>
 
 @code {
@@ -105,6 +107,28 @@
             var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
 
             await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    private async Task OnClickDownloadFile()
+    {
+        try
+        {
+            R_HTTPClientWrapper.httpClientName = "R_DefaultServiceUrl";
+            var loRtn = await R_HTTPClientWrapper.R_APIRequestObject<DownloadFileDTO>(
+                    "api/BatchAndExcel",
+                    "DownloadFile",
+                    "",
+                    false,
+                    false);
+
+            var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
+
+            await JS.downloadFileFromStreamHandler(saveFileName, loRtn.FileBytes);
         }
         catch (Exception)
         {
