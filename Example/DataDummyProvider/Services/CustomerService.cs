@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using DataDummyProvider.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -49,11 +50,20 @@ namespace DataDummyProvider.Services
 
         public static void CreateCustomer(CustomerDTO itemToAdd)
         {
+            var exist = _customer.Any(x => x.Id == itemToAdd.Id);
+
+            if (exist)
+                throw new Exception($"Duplicate customer {itemToAdd.Id}.");
+
             _customer.Add(itemToAdd);
         }
 
         public static void UpdateCustomer(CustomerDTO itemToUpdate)
         {
+            var exist = _customer.Any(x => x.Id == itemToUpdate.Id);
+            if (!exist)
+                throw new Exception($"Customer {itemToUpdate.Id} not exist.");
+
             var index = _customer.FindIndex(x => x.Id == itemToUpdate.Id);
 
             if (index != -1)

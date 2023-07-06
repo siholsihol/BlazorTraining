@@ -12,7 +12,7 @@
             AllowEditRow="true"
             AllowDeleteRow="true"
             R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord" 
-            R_RowRender="@((R_GridRowRenderEventArgs args) => R_RowRender(args))">
+            R_RowRender="@((R_GridRowRenderEventArgs args) => R_RowRender(args))" Height="400px">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)" HeaderText="Customer Id" R_EnableAdd></R_GridTextColumn>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)" HeaderText="Company Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>

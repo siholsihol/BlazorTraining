@@ -75,7 +75,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grid Mover", "Grid Mover", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB03400Front", "Controls\SAB03400Front\SAB03400Front.csproj", "{3FE79224-52C6-4598-AB1B-40DEEA94068B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcelService", "BatchAndExcel\Service\BatchAndExcelService\BatchAndExcelService.csproj", "{C0D7053E-188F-499A-A99F-0C1E07401A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatchAndExcelService", "BatchAndExcel\Service\BatchAndExcelService\BatchAndExcelService.csproj", "{C0D7053E-188F-499A-A99F-0C1E07401A95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

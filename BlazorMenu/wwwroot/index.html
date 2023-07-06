@@ -20,10 +20,43 @@
 
 <body>
     <div id="app">
-        <div class="row d-flex align-items-center" style="min-height:100vh;">
-            <div class="col text-center">
-                Loading...
-            </div>
+        <style>
+            @keyframes slide {
+                0% {
+                    transform: translateX(-25%);
+                }
+
+                100% {
+                    transform: translateX(25%);
+                }
+            }
+
+            .test-container {
+                animation: slide 3s ease-in-out infinite alternate;
+                background-image: linear-gradient(-60deg,#2f3840 50%,#44525e 50%);
+                bottom: 0;
+                left: -50%;
+                opacity: .5;
+                position: fixed;
+                right: -50%;
+                top: 0;
+                z-index: -1
+            }
+
+            .test-container-cont {
+                left: 50%;
+                padding: 10vmin;
+                position: fixed;
+                text-align: center;
+                top: 50%;
+                transform: translate(-50%,-50%)
+            }
+        </style>
+
+        <div style="height:100%;width:100%;margin:0;position:fixed;">
+            <div class="test-container"></div>
+            <div class="test-container" style="animation-direction:alternate-reverse;animation-duration:4s;"></div>
+            <div class="test-container" style="animation-duration:5s;"></div>
         </div>
     </div>
 
