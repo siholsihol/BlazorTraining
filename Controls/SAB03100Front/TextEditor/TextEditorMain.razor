@@ -1,0 +1,85 @@
+﻿@inherits R_Page
+@inject IJSRuntime JS
+@inject R_BlazorFrontEnd.R_IFileConverter FileConverter
+
+<R_GroupBox Title="R_TextEditor">
+    <R_TextEditor @ref="@_textEditorRef" @bind-Value="@_editorValue" Height="700px">
+
+    </R_TextEditor>
+
+    <R_ItemLayout xs="2">
+        <R_Button OnClick="@OnClickSave" EnableLoaderContainer>Save Document</R_Button>
+        <R_Button OnClick="OnClickSaveAsPDF" EnableLoaderContainer>Download as PDF</R_Button>
+    </R_ItemLayout>
+    <R_ItemLayout xs="2">
+        <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code {
+    private string _editorValue { get; set; }
+    private R_TextEditor _textEditorRef { get; set; }
+    private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        _editorValue = @"
+<p>
+    The Blazor Editor allows your users to edit HTML in a familiar, user-friendly way. Your users do not have to understand HTML in order to create it.
+</p>
+<p>
+    The widget <strong>outputs identical HTML</strong> across all major browsers, follows
+    accessibility standards, and provides API for content manipulation.
+</p>
+<p>Features include:</p>
+<ul>
+    <li>Text formatting</li>
+    <li>Bulleted and numbered lists</li>
+    <li>Hyperlinks</li>
+    <li>Cross-browser support</li>
+    <li>Identical HTML output across browsers</li>
+    <li>Ability to create custom tools, dropdowns, dialogs</li>
+</ul>
+";
+
+        return Task.CompletedTask;
+    }
+
+    private byte[] _rawFileByte = null;
+
+    private async Task OnClickSave()
+    {
+        var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
+
+        //_rawFileByte = FileConverter.R_GetByteFromString(_editorValue); //kalo mau langsung save ke database
+        var loByteFile = FileConverter.R_GetByteFromHtmlString(_editorValue, R_eDocumentType.Docx); //kalo mau save langsung jadi file
+
+        await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+    }
+
+    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            var loByteFile = await R_FrontUtility.ConvertStreamToByteAsync(eventArgs.File.OpenReadStream());
+
+            //_editorValue = FileConverter.R_GetStringFromByte(_rawFileByte);
+            _editorValue = FileConverter.R_GetHtmlStringFromByte(loByteFile, R_eDocumentType.Docx);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(R_FrontUtility.Dump(ex));
+        }
+    }
+
+    private async Task OnClickSaveAsPDF()
+    {
+        var saveFileName = $"{Guid.NewGuid().ToString()}.pdf";
+
+        var loByteFile = FileConverter.R_GetByteFromHtmlString(_editorValue, R_eDocumentType.Pdf);
+
+        await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+    }
+}

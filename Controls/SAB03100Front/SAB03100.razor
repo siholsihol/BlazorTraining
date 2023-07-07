@@ -17,6 +17,7 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateRadioGroup" Title="R_RadioGroup"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextArea" Title="R_TextArea"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextBox" Title="R_TextBox"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateTextEditor" Title="R_TextEditor"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -72,5 +73,10 @@
     private void InstantiateTextBox(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(TextBoxMain);
+    }
+
+    private void InstantiateTextEditor(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(TextEditorMain);
     }
 }

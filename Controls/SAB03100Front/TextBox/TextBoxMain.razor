@@ -12,4 +12,11 @@
 
 @code {
     private string _stringValue { get; set; }
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        _stringValue = "default";
+
+        return Task.CompletedTask;
+    }
 }
