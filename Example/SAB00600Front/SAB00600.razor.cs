@@ -13,9 +13,7 @@ namespace SAB00600Front
     public partial class SAB00600 : R_Page
     {
         private SAB00600ViewModel CustomerViewModel = new();
-
         private R_ConductorGrid _conGridCustomerRef;
-
         private R_Grid<CustomerDTO> _gridRef;
 
         protected override async Task R_Init_From_Master(object poParameter)
@@ -34,6 +32,7 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
+        #region Conductor Grid Events
         private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -221,6 +220,7 @@ namespace SAB00600Front
             //eventArgs.Allow = false;
         }
         #endregion
+        #endregion
 
         private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
         {
@@ -234,5 +234,8 @@ namespace SAB00600Front
                 };
             }
         }
+
+        private bool _checkBoxValue = true;
+        private bool _isContactNameColumnHide = true;
     }
 }

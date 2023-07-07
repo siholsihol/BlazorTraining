@@ -3,7 +3,7 @@
 @using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout>
-    <R_Grid DataSource="@CustomerViewModel.CustomerList" 
+    <R_Grid DataSource="@CustomerViewModel.CustomerList"
             @ref="@_gridRef"
             Pageable="true"
             R_ConductorGridSource="@_conGridCustomerRef"
@@ -11,15 +11,26 @@
             AllowAddNewRow="true"
             AllowEditRow="true"
             AllowDeleteRow="true"
-            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord" 
+            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
             R_RowRender="@((R_GridRowRenderEventArgs args) => R_RowRender(args))" Height="400px">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)" HeaderText="Customer Id" R_EnableAdd></R_GridTextColumn>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)" HeaderText="Company Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)" HeaderText="Contact Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)" HeaderText="Contact Name" Enabled="@_checkBoxValue" Visible="@_isContactNameColumnHide"></R_GridTextColumn>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit></R_GridTextColumn>
         </R_GridColumns>
     </R_Grid>
+
+    <R_StackLayout Row>
+        <R_CheckBox @bind-Value="@_checkBoxValue"></R_CheckBox>
+        <R_Label>Enable Field Contact Name</R_Label>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_CheckBox @bind-Value="@_isContactNameColumnHide"></R_CheckBox>
+        <R_Label>Hide Field Contact Name</R_Label>
+    </R_StackLayout>
+
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"
