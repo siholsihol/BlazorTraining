@@ -1,0 +1,17 @@
+﻿@inherits R_Page
+@attribute [R_Page(Title = "Product List")]
+
+<R_GroupBox ShowBorder="false">
+    <R_Grid @ref="@_gridRef"
+            DataSource="@GenderList"
+            Pageable
+            PageSize="10"
+            R_ServiceGetListRecord="@R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridTextColumn FieldName="@nameof(GenderDTO.Id)" HeaderText="Id"></R_GridTextColumn>
+            <R_GridTextColumn FieldName="@nameof(GenderDTO.Name)" HeaderText="Gender Name"></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+
+    <R_Button OnClick="@OnClose">Close</R_Button>
+</R_GroupBox>

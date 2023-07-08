@@ -202,5 +202,18 @@ namespace SAB02400Front
 
         //    loEx.ThrowExceptionIfErrors();
         //}
+
+        private void R_Before_Open_Grid_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(GenderPage);
+            eventArgs.Parameter = "test";
+        }
+
+        private void R_After_Open_Grid_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
+        {
+            var loData = (UserDTO)eventArgs.ColumnData;
+
+            loData.GenderId = ((GenderDTO)eventArgs.Result).Id;
+        }
     }
 }

@@ -236,6 +236,16 @@ namespace SAB00600Front
         }
 
         private bool _checkBoxValue = true;
-        private bool _isContactNameColumnHide = true;
+        private bool _isContactNameColumnVisible = true;
+        private bool _isAddNewRowVisible = true;
+
+        private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnName == "CompanyName")
+            {
+                var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
+                loContactNameColumn.Enabled = eventArgs.Value.ToString() != "f";
+            }
+        }
     }
 }

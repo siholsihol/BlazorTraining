@@ -11,7 +11,9 @@
                 AllowAddNewRow="true"
                 AllowEditRow="true"
                 AllowDeleteRow="true"
-                R_ServiceGetListRecord="@R_ServiceGetListRecord" Height="300px" Width="1000px">
+                R_ServiceGetListRecord="@R_ServiceGetListRecord" 
+                Height="300px" 
+                R_CellValueChanged="@R_CellValueChanged">
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
@@ -55,12 +57,12 @@
                                           R_EnableEdit Width="200px" />
 
                 <R_GridComboBoxColumn Data=@_viewModel.Categories
-                                        ValueField="@nameof(CategoryDTO.Id)"
-                                        TextField="@nameof(CategoryDTO.Name)"
-                                        FieldName="@nameof(SelectedProductDTO.CategoryId)"
-                                        HeaderText="Category"
-                                        R_EnableAdd
-                                        R_EnableEdit Width="200px" />
+                                      ValueField="@nameof(CategoryDTO.Id)"
+                                      TextField="@nameof(CategoryDTO.Name)"
+                                      FieldName="@nameof(SelectedProductDTO.CategoryId)"
+                                      HeaderText="Category" 
+                                      R_EnableAdd 
+                                      R_EnableEdit Width="200px" />
             </R_GridColumns>
         </R_Grid>
 

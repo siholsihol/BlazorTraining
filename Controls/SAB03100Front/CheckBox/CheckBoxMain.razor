@@ -3,7 +3,7 @@
 <R_GroupBox Title="R_CheckBox">
     <R_StackLayout Row>
         <R_ItemLayout xs="1">
-            <R_CheckBox @bind-Value="@_isCheck" OnChanged="@OnChanged"></R_CheckBox>
+            <R_CheckBox @bind-Value="@_isCheck" ValueChanging="@ValueChanging"></R_CheckBox>
         </R_ItemLayout>
         <R_ItemLayout xs="3">
             @_isCheckString
@@ -14,17 +14,20 @@
 
 @code {
     private bool _isCheck = false;
-    private string _isCheckString = string.Empty;
+    private string _isCheckString => _isCheck.ToString();
 
     protected override Task R_Init_From_Master(object poParameter)
     {
-        _isCheckString = _isCheck.ToString();
-
         return Task.CompletedTask;
     }
 
-    private void OnChanged(object poValue)
+    private void ValueChanging(R_CheckBoxValueChangingEventArgs eventArgs)
     {
-        _isCheckString = poValue.ToString();
+        eventArgs.Cancel = true;
+    }
+
+    private void ValueChanged(bool plValue)
+    {
+        _isCheck = plValue;
     }
 }

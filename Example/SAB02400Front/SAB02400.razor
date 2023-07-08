@@ -13,7 +13,9 @@
                 AllowAddNewRow="true"
                 AllowEditRow="true"
                 AllowDeleteRow="true"
-                R_ServiceGetListRecord="@R_ServiceGetListRecord">
+                R_ServiceGetListRecord="@R_ServiceGetListRecord" 
+                R_Before_Open_Grid_Lookup="@R_Before_Open_Grid_Lookup" 
+                R_After_Open_Grid_Lookup="@R_After_Open_Grid_Lookup">
             <R_GridColumns>
                 @*<R_GridTextColumn FieldName="@nameof(UserDTO.Id)"
                           HeaderText="User Id" R_EnableAdd />
@@ -23,13 +25,18 @@
                                   R_EnableAdd
                                   R_EnableEdit />*@
 
-                <R_GridDropDownListColumn Data="@_viewModel.GenderList"
+                @*<R_GridDropDownListColumn Data="@_viewModel.GenderList"
                                           ValueField="@nameof(GenderDTO.Id)"
                                           TextField="@nameof(GenderDTO.Name)"
                                           FieldName="@nameof(UserDTO.GenderId)"
                                           HeaderText="Gender"
                                           R_EnableAdd
-                                          R_EnableEdit />
+                                          R_EnableEdit />*@
+
+                <R_GridLookupColumn FieldName="@nameof(UserDTO.GenderId)"
+                                    HeaderText="Gender" 
+                                    R_EnableAdd 
+                                    R_EnableEdit />
 
                 <R_GridTextColumn FieldName="@nameof(UserDTO.Id)" 
                                   HeaderText="User Id" />

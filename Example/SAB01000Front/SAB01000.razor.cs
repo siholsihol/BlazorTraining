@@ -95,5 +95,14 @@ namespace SAB01000Front
         {
             await _conGridProductRef.R_SaveBatch();
         }
+
+        private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnName == "Active")
+            {
+                var loCategoryIdColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "CategoryId");
+                loCategoryIdColumn.Enabled = (bool)eventArgs.Value;
+            }
+        }
     }
 }
