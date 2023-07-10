@@ -2,7 +2,7 @@
 @inherits LayoutComponentBase
 
 <TelerikRootComponent>
-    <div class="page container-fluid">
+    @*<div class="page container-fluid">
         <R_PopupContainer />
         <R_MessageBoxContainer />
 
@@ -12,9 +12,9 @@
 
         <main>
             <div class="top-row px-4">
-                @*<div class="dropdown">
+                <div class="dropdown">
                 <a @onclick="@Logout" class="dropdown-item ms-0 "><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
-                </div>*@
+                </div>
             </div>
 
             <article class="content px-4">
@@ -23,5 +23,84 @@
                 </R_ErrorHandler>
             </article>
         </main>
+    </div>*@
+
+    <R_PopupContainer />
+    <R_MessageBoxContainer />
+
+    <div class="custom-toolbar">
+        <TelerikButton OnClick="@ToggleDrawer" Icon="@Telerik.SvgIcons.SvgIcon.Menu" FillMode="@(ThemeConstants.Button.FillMode.Flat)"></TelerikButton>
+        <span style="margin-left: 20px; font-weight: bold; font-size: 17px;">Blazor Menu</span>
     </div>
+
+    <TelerikDrawer @ref="@_telerikDrawerRef" Data="_data" MiniMode="false" Mode="@DrawerMode.Push" @bind-Expanded="@Expanded">
+        <Template>
+            <div class="k-drawer-items" role="menubar" aria-orientation="vertical">
+                <ul>
+                    @foreach (var item in context)
+                    {
+                        var selectedClass = item == _selectedItem ? "k-selected" : string.Empty;
+                        <li @onclick="@(() => OnItemSelect(item))" class="k-drawer-item @selectedClass k-level-@(item.Level)">
+                            <TelerikSvgIcon Icon="@item.Icon"></TelerikSvgIcon>
+                            <span class="k-item-text">@item.Text</span>
+
+                            @if (item.Expanded && (item.Children?.Any() ?? false))
+                            {
+                                <span class="k-icon k-i-arrow-chevron-down" style="position:absolute; right:0; line-height: inherit; margin: 0 8px"></span>
+                            }
+                            else if (!item.Expanded && (item.Children?.Any() ?? false))
+                            {
+                                <span class="k-icon k-i-arrow-chevron-right" style="position:absolute; right:0; line-height: inherit; margin: 0 8px"></span>
+                            }
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </Template>
+        <DrawerContent>
+            <R_ErrorHandler>
+                <BlazorMenu.Shared.Tabs.MenuTabSet />
+            </R_ErrorHandler>
+        </DrawerContent>
+    </TelerikDrawer>
 </TelerikRootComponent>
+
+<style>
+    .k-drawer-content {
+        padding: 25px;
+        font-size: 18px;
+    }
+
+    .k-drawer-container {
+        position: relative;
+        width: 100%;
+        height: 95%;
+    }
+
+    .custom-toolbar {
+        width: 100%;
+        background-color: #f6f6f6;
+        line-height: 10px;
+        border-bottom: inset;
+        border-bottom-width: 1px;
+        padding: 3px 8px;
+        color: #656565;
+    }
+
+    .k-d-level {
+        display: flex;
+    }
+
+    .k-level-0 {
+        padding-inline-start: 0rem;
+    }
+
+    .k-level-1 {
+        padding-inline-start: 1rem;
+    }
+
+    .k-level-2 {
+        padding-inline-start: 2rem;
+    }
+</style>
