@@ -9,9 +9,9 @@
       "dotnetRunMessages": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "https://localhost:7004;http://localhost:5004",
-      "hotReloadEnabled": false,
+      "hotReloadEnabled": true,
       "hotReloadProfile": "aspnetcore",
-      "nativeDebugging": false,
+      "nativeDebugging": true,
       "launchUrl": ""
     },
     "IIS Express": {

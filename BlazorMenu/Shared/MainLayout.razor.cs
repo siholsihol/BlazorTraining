@@ -2,6 +2,8 @@
 using BlazorMenu.Shared.Drawer;
 using BlazorMenu.Shared.Tabs;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using Telerik.Blazor.Components;
 
 namespace BlazorMenu.Shared
@@ -23,6 +25,7 @@ namespace BlazorMenu.Shared
 
         [Inject] private R_IMenuService _menuService { get; set; }
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
+        [Inject] private IJSRuntime JSRuntime { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
@@ -51,6 +54,23 @@ namespace BlazorMenu.Shared
                     }).ToList()
                 }).ToList()
             }).ToList();
+        }
+
+        //protected override async Task OnInitializedAsync()
+        //{
+
+        //}
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("setFluid");
+
+                await JSRuntime.InvokeVoidAsync("setNavbarStyle");
+
+                await JSRuntime.InvokeVoidAsync("setNavbarPosition");
+            }
         }
 
         private void OnItemSelect(DrawerMenuItem selectedItem)
@@ -87,5 +107,15 @@ namespace BlazorMenu.Shared
         }
 
         private async Task ToggleDrawer() => await _telerikDrawerRef.ToggleAsync();
+
+        private async Task OnClick(MouseEventArgs mouseEventArgs)
+        {
+            Expanded = !Expanded;
+
+            if (!Expanded)
+                await JSRuntime.InvokeVoidAsync("setNavbarCollapse");
+            else
+                await JSRuntime.InvokeVoidAsync("setNavbarShow");
+        }
     }
 }

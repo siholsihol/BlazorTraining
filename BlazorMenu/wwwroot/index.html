@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US" dir="ltr">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blazor Web Test</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
     <link href="css/app.css" rel="stylesheet" />
     <link href="BlazorMenu.styles.css" rel="stylesheet" />
 
@@ -15,49 +16,33 @@
     <link href="_content/Telerik.UI.for.Blazor/css/kendo-theme-bootstrap/all.css" rel="stylesheet" />
     <script src="js/aes-js-3.1.2.js"></script>
 
-    <link rel="stylesheet" href="css/R_BlazorControlStyle.css" />
+    <!--<link rel="stylesheet" href="css/R_BlazorControlStyle.css" />-->
     <script src="R_BlazorFrontEnd.Controls.js"></script>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <script src="js/config.js"></script>
+    <script src="vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet" />
+    <link href="css/theme.min.css" rel="stylesheet" id="style-default" />
 </head>
 
 <body>
     <div id="app">
-        <style>
-            @keyframes slide {
-                0% {
-                    transform: translateX(-25%);
-                }
-
-                100% {
-                    transform: translateX(25%);
-                }
-            }
-
-            .test-container {
-                animation: slide 3s ease-in-out infinite alternate;
-                background-image: linear-gradient(-60deg,#2f3840 50%,#44525e 50%);
-                bottom: 0;
-                left: -50%;
-                opacity: .5;
-                position: fixed;
-                right: -50%;
-                top: 0;
-                z-index: -1
-            }
-
-            .test-container-cont {
-                left: 50%;
-                padding: 10vmin;
-                position: fixed;
-                text-align: center;
-                top: 50%;
-                transform: translate(-50%,-50%)
-            }
-        </style>
-
-        <div style="height:100%;width:100%;margin:0;position:fixed;">
-            <div class="test-container"></div>
-            <div class="test-container" style="animation-direction:alternate-reverse;animation-duration:4s;"></div>
-            <div class="test-container" style="animation-duration:5s;"></div>
+        <div class="k-loader-container k-loader-container-md k-loader-end container-size">
+            <div class="k-loader-container-overlay k-overlay-light"></div>
+            <div class="k-loader-container-inner">
+                <div class="k-loader k-loader-pulsing-2 k-loader-lg k-loader-info">
+                    <div class="k-loader-canvas">
+                        <span class="k-loader-segment"></span>
+                        <span class="k-loader-segment"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -103,7 +88,64 @@
             anchorElement.remove();
             URL.revokeObjectURL(URL);
         }
+
+        window.setFluid = () => {
+            var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+            if (isFluid) {
+                var container = document.querySelector('[data-layout]');
+                container.classList.remove('container');
+                container.classList.add('container-fluid');
+            }
+        }
+
+        window.setNavbarStyle = () => {
+            var navbarStyle = localStorage.getItem("navbarStyle");
+            if (navbarStyle && navbarStyle !== 'transparent') {
+                document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
+            }
+        }
+
+        window.setNavbarPosition = () => {
+            var navbarPosition = localStorage.getItem('navbarPosition');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            var navbarTopVertical = document.querySelector('.content .navbar-top');
+            var navbarTop = document.querySelector('[data-layout] .navbar-top');
+            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
+            if (navbarPosition === 'top') {
+                navbarTop.removeAttribute('style');
+                navbarTopVertical.remove(navbarTopVertical);
+                navbarVertical.remove(navbarVertical);
+                navbarTopCombo.remove(navbarTopCombo);
+            } else if (navbarPosition === 'combo') {
+                navbarVertical.removeAttribute('style');
+                navbarTopCombo.removeAttribute('style');
+                navbarTop.remove(navbarTop);
+                navbarTopVertical.remove(navbarTopVertical);
+            } else {
+                navbarVertical.removeAttribute('style');
+                navbarTopVertical.removeAttribute('style');
+                navbarTop.remove(navbarTop);
+                navbarTopCombo.remove(navbarTopCombo);
+            }
+        };
+
+        window.setNavbarCollapse = () => {
+            document.documentElement.classList.add('navbar-vertical-collapsed');
+        }
+
+        window.setNavbarShow = () => {
+            document.documentElement.classList.remove('navbar-vertical-collapsed');
+        }
     </script>
+
+    <script src="vendors/popper/popper.min.js"></script>
+    <script src="vendors/anchorjs/anchor.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="vendors/fontawesome/all.min.js"></script>
+    <script src="vendors/lodash/lodash.min.js"></script>
+    <script src="vendors/list.js/list.min.js"></script>
+    <script src="js/theme.js"></script>
 </body>
 
 </html>
