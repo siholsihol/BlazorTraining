@@ -28,20 +28,31 @@
     <R_PopupContainer />
     <R_MessageBoxContainer />
 
-    <div class="custom-toolbar">
-        <TelerikButton OnClick="@ToggleDrawer" Icon="@Telerik.SvgIcons.SvgIcon.Menu" FillMode="@(ThemeConstants.Button.FillMode.Flat)"></TelerikButton>
-        <span style="margin-left: 20px; font-weight: bold; font-size: 17px;">Blazor Menu</span>
+    <div class="header">
+        <div class="nav-container">
+            <div class="menu-button">
+                <TelerikButton OnClick="@ToggleDrawer" Icon="@Telerik.SvgIcons.SvgIcon.Menu" FillMode="@(ThemeConstants.Button.FillMode.Flat)"></TelerikButton>
+            </div>
+            <div class="title">
+                <h1>Blazor Menu</h1>
+            </div>
+        </div>
     </div>
 
-    <TelerikDrawer @ref="@_telerikDrawerRef" Data="_data" MiniMode="false" Mode="@DrawerMode.Push" @bind-Expanded="@Expanded">
+    <TelerikDrawer @ref="@_telerikDrawerRef" 
+                   Data="_data" 
+                   MiniMode
+                   Mode="@DrawerMode.Push" 
+                   Position="@DrawerPosition.Start" 
+                   @bind-Expanded="@Expanded" Width="200px">
         <Template>
-            <div class="k-drawer-items" role="menubar" aria-orientation="vertical">
-                <ul>
+            <div class="k-drawer-items">
+                <ul role="menubar" aria-orientation="vertical">
                     @foreach (var item in context)
                     {
                         var selectedClass = item == _selectedItem ? "k-selected" : string.Empty;
                         <li @onclick="@(() => OnItemSelect(item))" class="k-drawer-item @selectedClass k-level-@(item.Level)">
-                            <TelerikSvgIcon Icon="@item.Icon"></TelerikSvgIcon>
+                            <TelerikFontIcon Icon="@Telerik.FontIcons.FontIcon.Categorize"></TelerikFontIcon>
                             <span class="k-item-text">@item.Text</span>
 
                             @if (item.Expanded && (item.Children?.Any() ?? false))
@@ -54,46 +65,39 @@
                             }
                         </li>
                     }
-
                 </ul>
             </div>
         </Template>
         <DrawerContent>
-            <R_ErrorHandler>
-                <BlazorMenu.Shared.Tabs.MenuTabSet />
-            </R_ErrorHandler>
+            <div class="card-container">
+                <R_ErrorHandler>
+                    <BlazorMenu.Shared.Tabs.MenuTabSet />
+                </R_ErrorHandler>
+            </div>
         </DrawerContent>
     </TelerikDrawer>
 </TelerikRootComponent>
 
 <style>
     .k-drawer-content {
-        padding: 25px;
+        padding: 10px;
         font-size: 18px;
+        overflow: hidden
     }
 
     .k-drawer-container {
         position: relative;
         width: 100%;
-        height: 95%;
+        height: 100%;
+        background-color: #d8d9e8;
     }
 
-    .custom-toolbar {
-        width: 100%;
-        background-color: #f6f6f6;
-        line-height: 10px;
-        border-bottom: inset;
-        border-bottom-width: 1px;
-        padding: 3px 8px;
-        color: #656565;
-    }
-
-    .k-d-level {
+    /*.k-d-level {
         display: flex;
-    }
+    }*/
 
     .k-level-0 {
-        padding-inline-start: 0rem;
+        padding-inline-start: 0.5rem;
     }
 
     .k-level-1 {
