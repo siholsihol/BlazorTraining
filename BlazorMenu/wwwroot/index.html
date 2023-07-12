@@ -125,7 +125,6 @@
                 navbarVertical.removeAttribute('style');
                 navbarTopVertical.removeAttribute('style');
                 navbarTop.remove(navbarTop);
-                navbarTopCombo.remove(navbarTopCombo);
             }
         };
 
@@ -136,6 +135,15 @@
         window.setNavbarShow = () => {
             document.documentElement.classList.remove('navbar-vertical-collapsed');
         }
+
+        function tooltipInit() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new window.bootstrap.Tooltip(tooltipTriggerEl, {
+                    trigger: 'hover'
+                });
+            });
+        };
     </script>
 
     <script src="vendors/popper/popper.min.js"></script>

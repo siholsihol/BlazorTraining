@@ -56,11 +56,6 @@ namespace BlazorMenu.Shared
             }).ToList();
         }
 
-        //protected override async Task OnInitializedAsync()
-        //{
-
-        //}
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -70,6 +65,8 @@ namespace BlazorMenu.Shared
                 await JSRuntime.InvokeVoidAsync("setNavbarStyle");
 
                 await JSRuntime.InvokeVoidAsync("setNavbarPosition");
+
+                await JSRuntime.InvokeVoidAsync("tooltipInit");
             }
         }
 
@@ -116,6 +113,11 @@ namespace BlazorMenu.Shared
                 await JSRuntime.InvokeVoidAsync("setNavbarCollapse");
             else
                 await JSRuntime.InvokeVoidAsync("setNavbarShow");
+        }
+
+        private void OnClickProgram(DrawerMenuItem drawerMenuItem)
+        {
+            TabSetTool.AddTab(drawerMenuItem.Text, drawerMenuItem.Id, "A,U,D,P,V");
         }
     }
 }
