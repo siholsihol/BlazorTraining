@@ -11,7 +11,7 @@
             <nav class="navbar navbar-light navbar-vertical navbar-expand-xl" style="display: none;">
                 <div class="d-flex align-items-center">
                     <div class="toggle-icon-wrapper">
-                        <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation" onclick="@((MouseEventArgs e) => OnClick(e))">
+                        <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation" onclick="@(() => OnClick())">
                         <span class="navbar-toggle-icon">
                             <span class="toggle-line"></span>
                             </span>
@@ -120,11 +120,9 @@
                 </nav>
 
                 <div class="card">
-                    <div class="card-body overflow-hidden p-lg-6">
-                        <R_ErrorHandler>
-                            <BlazorMenu.Shared.Tabs.MenuTabSet />
-                        </R_ErrorHandler>
-                    </div>
+                    <R_ErrorHandler>
+                        <BlazorMenu.Shared.Tabs.MenuTabSet />
+                    </R_ErrorHandler>
                 </div>
 
                 <footer class="footer">

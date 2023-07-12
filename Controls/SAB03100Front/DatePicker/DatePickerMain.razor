@@ -7,6 +7,15 @@
 
         </R_DatePicker>
     </R_ItemLayout>
+
+    <R_ItemLayout xs="4">
+        <label class="form-label" for="datepicker">Start Date</label>
+        <input class="form-control datetimepicker"
+               id="datepicker"
+               type="text"
+               placeholder="d/m/y"
+               @bind-value="@_dateTimeValue" />
+    </R_ItemLayout>
 </R_GroupBox>
 
 @code {

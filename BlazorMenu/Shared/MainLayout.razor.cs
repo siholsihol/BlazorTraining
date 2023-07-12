@@ -2,27 +2,14 @@
 using BlazorMenu.Shared.Drawer;
 using BlazorMenu.Shared.Tabs;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using Telerik.Blazor.Components;
 
 namespace BlazorMenu.Shared
 {
     public partial class MainLayout : LayoutComponentBase
     {
-        private bool _iconMenuActive { get; set; }
-        private string IconMenuCssClass => _iconMenuActive ? "width: 80px;" : null;
-
-        protected void ToggleIconMenu(bool iconMenuActive)
-        {
-            _iconMenuActive = iconMenuActive;
-        }
-
-        private TelerikDrawer<DrawerMenuItem> _telerikDrawerRef;
         private List<DrawerMenuItem> _data = new();
         private bool Expanded = true;
-        private DrawerMenuItem _selectedItem;
-
         [Inject] private R_IMenuService _menuService { get; set; }
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
@@ -70,42 +57,7 @@ namespace BlazorMenu.Shared
             }
         }
 
-        private void OnItemSelect(DrawerMenuItem selectedItem)
-        {
-            _selectedItem = selectedItem;
-
-            if (selectedItem.Level == 2)
-            {
-                TabSetTool.AddTab(selectedItem.Text, selectedItem.Id, "A,U,D,P,V");
-                return;
-            }
-
-            selectedItem.Expanded = !selectedItem.Expanded;
-            var newData = new List<DrawerMenuItem>();
-
-            foreach (var item in _data.Where(x => x.Level <= selectedItem.Level))
-            {
-                newData.Add(item);
-                if (item == selectedItem && selectedItem.Expanded && (item.Children?.Any() ?? false))
-                {
-                    foreach (var child in item.Children)
-                    {
-                        newData.Add(child);
-                    }
-                }
-
-                if (item != selectedItem && !(item.Children?.Contains(selectedItem) ?? false))
-                {
-                    item.Expanded = false;
-                }
-            }
-
-            _data = newData;
-        }
-
-        private async Task ToggleDrawer() => await _telerikDrawerRef.ToggleAsync();
-
-        private async Task OnClick(MouseEventArgs mouseEventArgs)
+        private async Task OnClick()
         {
             Expanded = !Expanded;
 
