@@ -16,7 +16,7 @@ else
                              Disabled="@loTab.Disabled"
                              Visible="@loTab.Visible"
                              Id="@loTab.Id.ToString()"
-                @key="@loTab.Id">
+                            @key="@loTab.Id">
                     <HeaderTemplate>
                         <strong>@loTab.Title</strong>
                         <i class="oi oi-x" @onclick="@(() => OnTabClose(loTab))"></i>
@@ -36,6 +36,12 @@ else
         </TelerikTabStrip>
     </div>
 }
+
+<style>
+    .k-tabstrip-content.k-active {
+        padding: .5rem;
+    }
+</style>
 
 @code {
     private int ActiveTabIndex = 0;

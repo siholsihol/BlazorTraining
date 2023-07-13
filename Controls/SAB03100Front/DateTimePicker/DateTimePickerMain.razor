@@ -9,6 +9,18 @@
     </R_ItemLayout>
 </R_GroupBox>
 
+<div class="card">
+    <div class="card-header">
+        <R_Label>Featured</R_Label>
+    </div>
+    <div class="card-body">
+        <R_ItemLayout xs="4">
+            <R_DateTimePicker @bind-Value=@_nullDateTimeValue>
+
+            </R_DateTimePicker>
+        </R_ItemLayout>
+    </div>
+</div>
 @code {
     private DateTime _dateTimeValue = DateTime.Now;
     private DateTime? _nullDateTimeValue;

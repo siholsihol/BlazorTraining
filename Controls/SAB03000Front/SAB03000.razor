@@ -1,9 +1,9 @@
 ﻿@page "/SAB03000"
 @inherits R_Page
 
-<R_TabStrip @ref="@tabStripRef" 
-    OnActiveTabIndexChanging="@OnActiveTabIndexChanging" 
-    OnActiveTabIndexChanged="@OnActiveTabIndexChanged">
+<R_TabStrip @ref="@tabStripRef"
+            OnActiveTabIndexChanging="@OnActiveTabIndexChanging"
+            OnActiveTabIndexChanged="@OnActiveTabIndexChanged">
     <R_TabStripTab Title="Tab 1" Id="Tab1">
         Tab 1
     </R_TabStripTab>
@@ -18,6 +18,19 @@
 </R_TabStrip>
 
 <R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item"><a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#tab-home" role="tab" aria-controls="tab-home" aria-selected="true">Home</a></li>
+    <li class="nav-item"><a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#tab-profile" role="tab" aria-controls="tab-profile" aria-selected="false">Profile</a></li>
+    <li class="nav-item"><a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#tab-contact" role="tab" aria-controls="tab-contact" aria-selected="false">Contact</a></li>
+</ul>
+<div class="tab-content border-x border-bottom p-3" id="myTabContent">
+    <div class="tab-pane fade show active" id="tab-home" role="tabpanel" aria-labelledby="home-tab">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</div>
+    <div class="tab-pane fade" id="tab-profile" role="tabpanel" aria-labelledby="profile-tab">Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic. </div>
+    <div class="tab-pane fade" id="tab-contact" role="tabpanel" aria-labelledby="contact-tab">Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</div>
+</div>
+
+
 
 <R_PredefinedDock R_InstantiateDock="@R_InstantiateDock" Title="Tab Page"></R_PredefinedDock>
 

@@ -6,10 +6,9 @@
             <R_CheckBox @bind-Value="@_isCheck" ValueChanging="@ValueChanging"></R_CheckBox>
         </R_ItemLayout>
         <R_ItemLayout xs="3">
-            @_isCheckString
+            <R_Label>@_isCheckString</R_Label>
         </R_ItemLayout>
     </R_StackLayout>
-    
 </R_GroupBox>
 
 @code {
