@@ -1,0 +1,85 @@
+﻿@page "/SAB04000"
+@inherits R_Page
+@attribute [R_Page(Title = "Basic Usage")]
+
+<R_GroupBox Title="Read Excel">
+    <R_ItemLayout xs="3">
+        <R_Button OnClick="@OnClickDownloadBasicTemplate">Download Basic Template Excel</R_Button>
+    </R_ItemLayout>
+    
+    <R_ItemLayout xs="3">
+        <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
+    </R_ItemLayout>
+</R_GroupBox>
+
+<R_PredefinedDock R_InstantiateDock="@InstantiateRange" Title="Excel Range Cell"></R_PredefinedDock>
+
+@code {
+    [Inject] private R_IExcel ExcelProvider { get; set; }
+    [Inject] private IJSRuntime JS { get; set; }
+
+    private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Excel };
+
+    private async Task OnClickDownloadBasicTemplate()
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            byte[] loFileBytes = null;
+            var loAsm = Assembly.GetExecutingAssembly();
+            var lcResourceFile = "SAB04000Front.File.basic.xlsx";
+            using (Stream resFilestream = loAsm.GetManifestResourceStream(lcResourceFile))
+            {
+                var ms = new MemoryStream();
+                resFilestream.CopyTo(ms);
+                var bytes = ms.ToArray();
+
+                loFileBytes = bytes;
+            }
+
+            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
+
+            await JS.downloadFileFromStreamHandler(saveFileName, loFileBytes);
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
+    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            //read excel as byte
+            var loMS = new MemoryStream();
+            await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
+            var loByteFile = loMS.ToArray();
+
+            //import from excel
+            var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+
+            var resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataSet.Tables[0]); //employee sheet
+            var resultGender = R_FrontUtility.R_ConvertTo<GenderDTO>(loDataSet.Tables[1]); //gender sheet
+
+            Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
+            Console.WriteLine(R_FrontUtility.Dump(resultGender));
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
+    private void InstantiateRange(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(SAB04000Range);
+    }
+}

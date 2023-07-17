@@ -9,7 +9,7 @@ namespace BlazorMenu.Services
 
         public string[] MenuIdList { get; private set; }
 
-        public void CreateGroup(List<MenuListDTO> poExistingList, string pcMenuId, string pcMenuName, string pcSubMenuId, string pcSubMenuName)
+        private void CreateGroup(List<MenuListDTO> poExistingList, string pcMenuId, string pcMenuName, string pcSubMenuId, string pcSubMenuName)
         {
             poExistingList.Add(new MenuListDTO
             {
@@ -25,7 +25,7 @@ namespace BlazorMenu.Services
             });
         }
 
-        public void CreateProgram(List<MenuListDTO> poExistingList, string pcMenuId, string pcParentMenuId, string pcSubMenuId, string pcSubMenuName)
+        private void CreateProgram(List<MenuListDTO> poExistingList, string pcMenuId, string pcParentMenuId, string pcSubMenuId, string pcSubMenuName)
         {
             poExistingList.Add(new MenuListDTO
             {
@@ -41,7 +41,7 @@ namespace BlazorMenu.Services
             });
         }
 
-        public void CreateControlsProgram(List<MenuListDTO> poExistingList)
+        private void CreateControlPrograms(List<MenuListDTO> poExistingList)
         {
             CreateGroup(poExistingList, "CT", "Controls", "G001", "Controls");
 
@@ -51,6 +51,13 @@ namespace BlazorMenu.Services
 
             CreateProgram(poExistingList, "CT", "G001", "SAB03300", "Grid Sequence");
             CreateProgram(poExistingList, "CT", "G001", "SAB03400", "Grid Mover");
+        }
+
+        private void CreateOtherPrograms(List<MenuListDTO> poExistingList)
+        {
+            CreateGroup(poExistingList, "OT", "Others", "G001", "Others");
+
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()
@@ -179,7 +186,9 @@ namespace BlazorMenu.Services
                     IGROUP_INDEX = 0
                 });
 
-                CreateControlsProgram(loResult);
+                CreateControlPrograms(loResult);
+
+                CreateOtherPrograms(loResult);
             }
             catch (Exception ex)
             {

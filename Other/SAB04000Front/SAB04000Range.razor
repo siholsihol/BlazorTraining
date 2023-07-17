@@ -1,0 +1,78 @@
+﻿@using System.Data;
+@inherits R_Page
+
+<R_GroupBox Title="Read Excel">
+    <R_ItemLayout xs="3">
+        <R_Button OnClick="@OnClickDownloadAdvancedTemplate">Download Template Excel</R_Button>
+    </R_ItemLayout>
+
+    <R_ItemLayout xs="3">
+        <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code {
+    [Inject] private R_IExcel ExcelProvider { get; set; }
+    [Inject] private IJSRuntime JS { get; set; }
+
+    private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Excel };
+
+    private async Task OnClickDownloadAdvancedTemplate()
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            byte[] loFileBytes = null;
+            var loAsm = Assembly.GetExecutingAssembly();
+            var lcResourceFile = "SAB04000Front.File.rangecell.xlsx";
+            using (Stream resFilestream = loAsm.GetManifestResourceStream(lcResourceFile))
+            {
+                var ms = new MemoryStream();
+                resFilestream.CopyTo(ms);
+                var bytes = ms.ToArray();
+
+                loFileBytes = bytes;
+            }
+
+            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
+
+            await JS.downloadFileFromStreamHandler(saveFileName, loFileBytes);
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
+    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            //read excel as byte
+            var loMS = new MemoryStream();
+            await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
+            var loByteFile = loMS.ToArray();
+
+            //import from excel
+            var loDataTable = ExcelProvider.R_ReadFromExcel(loByteFile, pcRange:"A7:E15");
+
+            var resultRangeCell = R_FrontUtility.R_ConvertTo<RangeCellDTO>(loDataTable);
+
+            Console.WriteLine(R_FrontUtility.Dump(resultRangeCell));
+
+            var loDepartmentValue = ExcelProvider.R_ReadValueCellFromExcel(loByteFile, "B1");
+            var loCellValues = ExcelProvider.R_ReadValueCellFromExcel(loByteFile, new string[] { "B1", "B2", "B3", "B4" });
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+}
