@@ -1,8 +1,10 @@
-﻿using BlazorMenu.Services;
+﻿using BlazorMenu.Pages;
+using BlazorMenu.Services;
 using BlazorMenu.Shared.Drawer;
 using BlazorMenu.Shared.Tabs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using R_BlazorFrontEnd.Controls.Popup;
 
 namespace BlazorMenu.Shared
 {
@@ -13,6 +15,7 @@ namespace BlazorMenu.Shared
         [Inject] private R_IMenuService _menuService { get; set; }
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
+        [Inject] private R_PopupService PopupService { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
@@ -70,6 +73,11 @@ namespace BlazorMenu.Shared
         private void OnClickProgram(DrawerMenuItem drawerMenuItem)
         {
             TabSetTool.AddTab(drawerMenuItem.Text, drawerMenuItem.Id, "A,U,D,P,V");
+        }
+
+        private async Task OnClickProfile()
+        {
+            await PopupService.Show(typeof(Profile), null);
         }
     }
 }

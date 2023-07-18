@@ -105,6 +105,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\img\" />
+  </ItemGroup>
+
     <!--<ItemGroup>
 	    <BlazorWebAssemblyLazyLoad Include="SAB00700Front.dll" />
     </ItemGroup>-->

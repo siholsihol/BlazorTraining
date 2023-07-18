@@ -79,7 +79,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatchAndExcelService", "Bat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{D47615D1-CB40-48D1-9569-67CEE41F1855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAB04000Front", "Other\SAB04000Front\SAB04000Front.csproj", "{6A43124F-D691-4DEC-9FFA-31CDF4A64036}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB04000Front", "Other\SAB04000Front\SAB04000Front.csproj", "{6A43124F-D691-4DEC-9FFA-31CDF4A64036}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
