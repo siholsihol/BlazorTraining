@@ -1,6 +1,10 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('theme.min.css');
 
+:root {
+    --r-default-font-size: 12px;
+}
+
 html, body {
     font-family: var(--falcon-font-sans-serif);
     /*font-size: var(--r-default-font-size);*/
@@ -36,6 +40,130 @@ a, .btn-link {
 .validation-message {
     color: red;
 }*/
+
+.k-button,
+.k-input,
+.k-input .k-input-inner,
+.k-picker,
+.k-picker .k-input-inner {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-datetimepicker-popup .k-button-group .k-button-text {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-datetimepicker-popup .k-calendar-header .k-button, 
+.k-datepicker-popup .k-calendar-header .k-button {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-datetimepicker-popup .k-actions .k-button {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-datetimepicker-popup .k-calendar .k-link, 
+.k-datepicker-popup .k-calendar .k-link {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-datetimepicker-popup .k-calendar .k-calendar-th, 
+.k-datepicker-popup .k-calendar .k-calendar-th {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-timepicker-popup .k-time-header .k-title, 
+.k-timepicker-popup .k-time-header .k-button, 
+.k-timepicker-popup .k-actions .k-button {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-time-list-container .k-time-list-wrapper .k-title  {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-time-list-container .k-time-list-wrapper .k-time-container {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-combobox-popup .k-list-item {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-dropdownlist-popup .k-list-item {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-colorpicker-popup .k-actions .k-button {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-radio-list .k-radio-label {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-button .k-button-text {
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-button-group .k-button-text {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-menu-popup .k-menu-group .k-menu-item {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+/*GRID*/
+.k-grid .k-grid-toolbar .k-button {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-grid-header .k-grid-header-table {
+    font-size: 14px;
+}
+
+.k-table-row {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+.k-grid-pager .k-pager-numbers-wrap,
+.k-grid-pager .k-pager-sizes,
+.k-grid-pager .k-pager-info {
+    font-size: var(--r-default-font-size);
+    font-family: var(--falcon-font-sans-serif);
+}
+
+/*MODAL*/
+.k-dialog-wrapper .k-window {
+    background-color: var(--falcon-modal-content-bg);
+}
+
+.k-button-md.k-icon-button .k-button-icon {
+    color: var(--falcon-headings-color);
+}
+
+.k-window-title {
+    color: var(--falcon-headings-color);
+    font-family: var(--falcon-font-sans-serif);
+}
 
 #blazor-error-ui {
     background: lightyellow;
