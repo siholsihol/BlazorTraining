@@ -79,5 +79,11 @@ namespace BlazorMenu.Shared
         {
             await PopupService.Show(typeof(Profile), null);
         }
+
+        //[Inject] private R_NotificationService NotificationService { get; set; }
+        //private void OnClickProfile()
+        //{
+        //    NotificationService.Info("eaaaaa");
+        //}
     }
 }

@@ -5,6 +5,7 @@
 <TelerikRootComponent>
     <R_PopupContainer />
     <R_MessageBoxContainer />
+    <R_NotificationContainer />
 
     <main class="main" id="top">
         <div class="container" data-layout="container">
@@ -12,8 +13,8 @@
                 <div class="d-flex align-items-center">
                     <div class="toggle-icon-wrapper">
                         <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation" onclick="@(() => OnClick())">
-                        <span class="navbar-toggle-icon">
-                            <span class="toggle-line"></span>
+                            <span class="navbar-toggle-icon">
+                                <span class="toggle-line"></span>
                             </span>
                         </button>
                     </div>
@@ -21,7 +22,7 @@
                         <div class="d-flex align-items-center py-3"><span class="font-sans-serif">bimasakti</span></div>
                     </a>
                 </div>
-                
+
                 <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
                     <div class="navbar-vertical-content scrollbar">
                         <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
@@ -52,7 +53,7 @@
                                                         @foreach (var item2 in item1.Children)
                                                         {
                                                             <li class="nav-item" @onclick="@(() => OnClickProgram(item2))">
-                                                                <a class="nav-link" data-bs-toggle="" aria-expanded="false" >
+                                                                <a class="nav-link" data-bs-toggle="" aria-expanded="false">
                                                                     <div class="d-flex align-items-center">
                                                                         <span class="nav-link-text ps-1">@item2.Text</span>
                                                                     </div>
@@ -126,8 +127,8 @@
                             <p class="mb-0 text-600">Realta Chakradarma <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2023 </p>
                         </div>
                         @*<div class="col-12 col-sm-auto text-center">
-                            <p class="mb-0 text-600">v3.9.0</p>
-                        </div>*@
+                                <p class="mb-0 text-600">v3.9.0</p>
+                            </div>*@
                     </div>
                 </footer>
             </div>
