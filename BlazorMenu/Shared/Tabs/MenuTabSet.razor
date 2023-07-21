@@ -6,7 +6,7 @@
 }
 else
 {
-    <div class="card-body overflow-hidden" style="padding: 5px;">
+    <div class="card-body overflow-hidden p-1">
         <TelerikTabStrip ActiveTabIndex="@ActiveTabIndex"
                          ActiveTabIndexChanged="@OnActiveTabIndexChanged" 
                          PersistTabContent>
@@ -18,8 +18,8 @@ else
                              Id="@loTab.Id.ToString()"
                             @key="@loTab.Id">
                     <HeaderTemplate>
-                        <strong>@loTab.Title</strong>
-                        <i class="oi oi-x" @onclick="@(() => OnTabClose(loTab))"></i>
+                        <a>@loTab.Title</a>
+                        <span class="ms-2" @onclick="@(() => OnTabClose(loTab))"><i class="fa fa-times"></i></span>
                     </HeaderTemplate>
                     <Content>
                         @if (loTab.Body != null)
