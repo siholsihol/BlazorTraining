@@ -30,6 +30,9 @@ html, body {
 
 
 /* Menu Sidebar*/
+.navbar-vertical .navbar-nav .nav .nav .nav-item .nav-link {
+    padding-left:1.7rem !important;
+}
 .navbar-vertical .navbar-nav {
     font-size: var(--r-default-font-size) !important;
 }
