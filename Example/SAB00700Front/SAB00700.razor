@@ -60,28 +60,18 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true" Spacing="3">
-        <R_ItemLayout xs="1">
+    <R_StackLayout Row="true" Spacing="3" Class="mt-3">
+        <R_ItemLayout xs="12">
             <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_Button R_ConductorSource="@_conductorRef" OnClick="@buttonOnClick" R_EnableOther>Change Category Name</R_Button>
         </R_ItemLayout>
     </R_StackLayout>

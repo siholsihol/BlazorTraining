@@ -84,47 +84,32 @@
     </R_StackLayout>
 
     <R_StackLayout Row="true">
-        <R_ItemLayout xs="1">
+        <R_ItemLayout xs="12">
             <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_Find R_ConductorSource="@_conductorRef"
                     R_Before_Open_Find="@R_Before_Open_Find"
                     R_After_Open_Find="@R_After_Open_Find"
                     R_EnableOther>Find Product</R_Find>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_Lookup R_ConductorSource="@_conductorRef"
                       R_Before_Open_Lookup="@R_Before_Open_Lookup"
                       R_After_Open_Lookup="@R_After_Open_Lookup" 
                       R_EnableOther>Lookup Product</R_Lookup>
-        </R_ItemLayout>
 
-        <R_ItemLayout xs="1">
             <R_Popup R_ConductorSource="@_conductorRef"
                      R_Before_Open_Popup="@R_Before_Open_Popup"
                      R_After_Open_Popup="@R_After_Open_Popup" 
                      R_EnableOther>Popup Product</R_Popup>
-        </R_ItemLayout>
-        <R_ItemLayout xs="1">
+
             <R_Button R_ConductorSource="@_conductorRef"
                       R_EnableOther OnClick="@popupbuttonOnClick">Popup from button</R_Button>
         </R_ItemLayout>
