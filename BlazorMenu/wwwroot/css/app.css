@@ -11,11 +11,19 @@ html, body {
 }
 
 .main {
-    background-image : url(../assets/img/bg-theme.png);
+    background-image: url(../assets/img/bg-theme.png);
     background-repeat: no-repeat;
     background-position: bottom left;
-    background-attachment:fixed;
+    background-attachment: fixed;
 }
+
+.dark .main {
+    background-image: url(../assets/img/bg-theme-dark.png);
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-attachment: fixed;
+}
+
 .navbar-vertical .navbar-collapse {
     background:transparent !important;
 }
