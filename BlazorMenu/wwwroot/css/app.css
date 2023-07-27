@@ -27,11 +27,13 @@ html, body {
 .navbar-vertical .navbar-collapse {
     background:transparent !important;
 }
-
+.toggle-icon-wrapper {
+    font-size: var(--falcon-body-font-size) !important;
+}
 
 /* Menu Sidebar*/
 .navbar-vertical .navbar-nav .nav .nav .nav-item .nav-link {
-    padding-left:1.7rem !important;
+    padding-left: 1.7rem !important;
 }
 .navbar-vertical .navbar-nav {
     font-size: var(--r-default-font-size) !important;
@@ -48,6 +50,10 @@ span.close {
 }
 span.close:hover {
     background: #eee;
+}
+span.tab.btn-close {
+    width: 8px !important;
+    height: 8px !important;
 }
 
 .k-tabstrip-items-wrapper, .k-tabstrip-content, .k-tabstrip > .k-content {
