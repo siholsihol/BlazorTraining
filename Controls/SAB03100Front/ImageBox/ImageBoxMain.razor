@@ -1,0 +1,32 @@
+﻿@inherits R_Page
+@inject IJSRuntime JS
+
+<R_GroupBox Title="R_ImageBox">
+    <R_ImageBox @bind-Value="@_imageSourceByte" MaxWidth="200px" MaxHeight="200px"></R_ImageBox>
+
+    <R_ItemLayout col="2">
+        <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
+    </R_ItemLayout>
+</R_GroupBox>
+
+@code {
+    private byte[] _imageSourceByte = default;
+    private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Image };
+
+    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            var loByteFile = await R_FrontUtility.ConvertStreamToByteAsync(eventArgs.File.OpenReadStream());
+            var lcImage64 = Convert.ToBase64String(loByteFile);
+
+            _imageSourceByte = loByteFile;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(R_FrontUtility.Dump(ex));
+        }
+    }
+}
