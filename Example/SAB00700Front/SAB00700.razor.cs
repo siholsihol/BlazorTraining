@@ -139,6 +139,11 @@ namespace SAB00700Front
             loEx.ThrowExceptionIfErrors();
         }
 
+        private void R_BeforeEdit(R_BeforeEditEventArgs eventArgs)
+        {
+            //eventArgs.Cancel = true;
+        }
+
         private async Task buttonOnClick()
         {
             var loEx = new R_Exception();
