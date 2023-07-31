@@ -4,6 +4,7 @@ using BlazorMenu.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_AuthenticationEnumAndInterface;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Interfaces;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -12,13 +13,13 @@ namespace BlazorMenu.Authentication
     public class BlazorMenuAuthenticationStateProvider : AuthenticationStateProvider
     {
         private readonly R_ITokenRepository _tokenRepository;
-        private readonly LocalStorageService _localStorageService;
+        private readonly R_ILocalStorage _localStorageService;
         private readonly R_IMenuService _menuService;
         private readonly IClientHelper _clientHelper;
 
         public BlazorMenuAuthenticationStateProvider(
             R_ITokenRepository tokenRepository,
-            LocalStorageService localStorageService,
+            R_ILocalStorage localStorageService,
             IClientHelper clientHelper,
             R_IMenuService menuService)
         {
@@ -77,7 +78,7 @@ namespace BlazorMenu.Authentication
             }
             catch (Exception)
             {
-                await _localStorageService.ClearLocalStorageAsync();
+                //await _localStorageService.ClearLocalStorageAsync();
                 return loState;
             }
 

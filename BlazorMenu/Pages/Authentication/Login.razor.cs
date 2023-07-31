@@ -1,7 +1,6 @@
 ﻿using BlazorClientHelper;
 using BlazorMenu.Authentication;
 using BlazorMenu.Constants.Storage;
-using BlazorMenu.Services;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuModel;
 using Microsoft.AspNetCore.Components;
@@ -10,6 +9,7 @@ using R_AuthenticationEnumAndInterface;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Controls.Notification;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Interfaces;
 using R_CrossPlatformSecurity;
 
 namespace BlazorMenu.Pages.Authentication
@@ -19,7 +19,7 @@ namespace BlazorMenu.Pages.Authentication
         [Inject] private AuthenticationStateProvider _stateProvider { get; set; }
         [Inject] private R_ITokenRepository _tokenRepository { get; set; }
         //[Inject] private ILocalStorageService _localStorageService { get; set; }
-        [Inject] private LocalStorageService _localStorageService { get; set; }
+        [Inject] private R_ILocalStorage _localStorageService { get; set; }
         //[Inject] private R_IMenuService _menuService { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
         [Inject] public R_MessageBoxService R_MessageBox { get; set; }

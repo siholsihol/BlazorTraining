@@ -2,12 +2,12 @@
 @inherits R_Page
 
 <R_StackLayout>
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
             <R_Label>Product Id</R_Label>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="4">
+        <R_ItemLayout col="4">
             <R_NumericTextBox @bind-Value="@ViewModel.Data.Id"
                               R_ConductorSource="@_conductorRef"
                               R_EnableAdd="true"
@@ -15,12 +15,12 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
             <R_Label>Product Name</R_Label>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="4">
+        <R_ItemLayout col="4">
             <R_TextBox Id="txtName" @bind-Value="@ViewModel.Data.Name"
                        R_ConductorSource="@_conductorRef"
                        R_EnableAdd="true"
@@ -28,12 +28,12 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
             <R_Label>Category</R_Label>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="4">
+        <R_ItemLayout col="4">
             <R_DropDownList Data="@ViewModel.CategoryList"
                             ValueField="@nameof(CategoryDTO.Id)"
                             TextField="@nameof(CategoryDTO.Name)"
@@ -44,12 +44,12 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
             <R_Label>Price</R_Label>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="4">
+        <R_ItemLayout col="4">
             <R_NumericTextBox @bind-Value="@ViewModel.Data.Price"
                               R_ConductorSource="@_conductorRef"
                               R_EnableAdd="true"
@@ -57,12 +57,12 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
             <R_Label>Release Date</R_Label>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="4">
+        <R_ItemLayout col="4">
             <R_DatePicker @bind-Value="@ViewModel.Data.ReleaseDate"
                               R_ConductorSource="@_conductorRef"
                               R_EnableAdd="true"
@@ -70,12 +70,12 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
             <R_Label>Active</R_Label>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="4">
+        <R_ItemLayout col="4">
             <R_CheckBox @bind-Value="@ViewModel.Data.Active"
                         R_ConductorSource="@_conductorRef"
                         R_EnableAdd="true"
@@ -83,8 +83,8 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="12">
+    <R_StackLayout Row>
+        <R_ItemLayout col="12">
             <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
 
             <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
