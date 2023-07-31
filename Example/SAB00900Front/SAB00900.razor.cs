@@ -214,5 +214,17 @@ namespace SAB00900Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        public async Task buttonCloseOnClick()
+        {
+            await this.CloseProgram();
+        }
+
+        //protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
+        //{
+        //    eventArgs.Cancel = true;
+
+        //    return Task.CompletedTask;
+        //}
     }
 }

@@ -11,7 +11,7 @@
       "applicationUrl": "https://localhost:7004;http://localhost:5004",
       "hotReloadEnabled": true,
       "hotReloadProfile": "aspnetcore",
-      "nativeDebugging": true,
+      "nativeDebugging": false,
       "launchUrl": ""
     },
     "IIS Express": {
