@@ -70,6 +70,9 @@ namespace SAB00900Front
 
                 if (string.IsNullOrWhiteSpace(loData.Name))
                     loEx.Add("", "Please fill Product Name.");
+
+                _errorMessage = "Please fill Product Name.";
+                StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -226,5 +229,8 @@ namespace SAB00900Front
 
         //    return Task.CompletedTask;
         //}
+
+        private string _errorMessage = "";
+
     }
 }
