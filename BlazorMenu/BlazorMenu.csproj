@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Authentication\**" />
-    <Content Remove="Pages\Authentication\**" />
-    <EmbeddedResource Remove="Pages\Authentication\**" />
-    <None Remove="Pages\Authentication\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="BlazorPrettyCode" Version="1.6.0" />
     <PackageReference Include="EPPlus" Version="6.2.4" />
@@ -29,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\Controls\SAB03000Front\SAB03000Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03100Front\SAB03100Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
@@ -47,8 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BlazorClientHelper">
+      <HintPath>..\Dll\Dll Menu\BlazorClientHelper.dll</HintPath>
+    </Reference>
     <Reference Include="BlazorMenuCommon">
       <HintPath>..\Dll\Dll Menu\BlazorMenuCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="BlazorMenuModel">
+      <HintPath>..\Dll\Dll Menu\BlazorMenuModel.dll</HintPath>
     </Reference>
     <Reference Include="R_APIClient">
       <HintPath>..\Dll\Dll Front\R_APIClient.dll</HintPath>
@@ -67,6 +65,9 @@
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Authentication">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="R_BlazorFrontEnd.Controls">
+      <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Excel">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Excel.dll</HintPath>
@@ -108,6 +109,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Authentication\Login.razor" />
   </ItemGroup>
 
     <!--<ItemGroup>

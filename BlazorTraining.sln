@@ -81,8 +81,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{D47615D1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB04000Front", "Other\SAB04000Front\SAB04000Front.csproj", "{6A43124F-D691-4DEC-9FFA-31CDF4A64036}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{D998E25A-63BE-49D2-AFE0-6715135BFE6B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,10 +175,6 @@ Global
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D998E25A-63BE-49D2-AFE0-6715135BFE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D998E25A-63BE-49D2-AFE0-6715135BFE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D998E25A-63BE-49D2-AFE0-6715135BFE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D998E25A-63BE-49D2-AFE0-6715135BFE6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

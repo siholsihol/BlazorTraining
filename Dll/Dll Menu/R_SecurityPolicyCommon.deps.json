@@ -9,16 +9,10 @@
     ".NETStandard,Version=v2.1/": {
       "R_SecurityPolicyCommon/1.0.0": {
         "dependencies": {
-          "R_SecurityTokenCommon": "1.0.0",
           "R_APICommonDTO": "1.0.0.0"
         },
         "runtime": {
           "R_SecurityPolicyCommon.dll": {}
-        }
-      },
-      "R_SecurityTokenCommon/1.0.0": {
-        "runtime": {
-          "R_SecurityTokenCommon.dll": {}
         }
       },
       "R_APICommonDTO/1.0.0.0": {
@@ -33,11 +27,6 @@
   },
   "libraries": {
     "R_SecurityPolicyCommon/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "R_SecurityTokenCommon/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
