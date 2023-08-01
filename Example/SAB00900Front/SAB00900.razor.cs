@@ -69,10 +69,21 @@ namespace SAB00900Front
                 var loData = (ProductDTO)eventArgs.Data;
 
                 if (string.IsNullOrWhiteSpace(loData.Name))
-                    loEx.Add("", "Please fill Product Name.");
+                {
+                    //loEx.Add("", "Please fill Product Name.");
+                    _errorMessage = "Please fill Product Name.";
+                }
+                else
+                {
+                    _errorMessage = "";
+                }
 
-                _errorMessage = "Please fill Product Name.";
-                StateHasChanged();
+                if (loData.Price == 0)
+                {
+                    loEx.Add("", "Please fill Price.");
+                }
+
+                //StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -232,5 +243,9 @@ namespace SAB00900Front
 
         private string _errorMessage = "";
 
+        public void Conductor_BeforeCancel()
+        {
+            _errorMessage = "";
+        }
     }
 }
