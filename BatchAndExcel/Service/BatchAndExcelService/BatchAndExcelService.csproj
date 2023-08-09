@@ -19,8 +19,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="R_APIBackEnd">
+	    <HintPath>..\..\..\Dll\Dll Back\R_APIBackEnd.dll</HintPath>
+	  </Reference>
 	  <Reference Include="R_APICommon">
 	    <HintPath>..\..\..\Dll\Dll Back\R_APICommon.dll</HintPath>
+	  </Reference>
+	  <Reference Include="R_Cache">
+	    <HintPath>..\..\..\Dll\Dll Back\R_Cache.dll</HintPath>
+	  </Reference>
+	  <Reference Include="R_CommonFrontBackAPI">
+	    <HintPath>..\..\..\Dll\Dll Back\R_CommonFrontBackAPI.dll</HintPath>
+	  </Reference>
+	  <Reference Include="R_ReportFastReportBack">
+	    <HintPath>..\..\..\Dll\Dll Back\R_ReportFastReportBack.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 </Project>

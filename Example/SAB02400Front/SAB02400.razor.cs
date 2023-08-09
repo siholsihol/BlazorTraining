@@ -115,8 +115,8 @@ namespace SAB02400Front
 
                 //var loBatchParameter = new R_BatchParameter()
                 //{
-                //    COMPANY_ID = ClientHelper.CompanyId,
-                //    USER_ID = ClientHelper.UserId,
+                //    COMPANY_ID = "001",
+                //    USER_ID = "cp",
                 //    ClassName = "SAB02400Back.SAB02400Cls",
                 //    BigObject = eventArgs.Data
                 //};

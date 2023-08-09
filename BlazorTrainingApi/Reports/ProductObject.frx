@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/27/2023 13:57:33" ReportInfo.Modified="07/11/2023 11:49:38" ReportInfo.CreatorVersion="2023.2.18.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="Header" DataType="System.String"/>
+      <Column Name="ColumnProduct" DataType="FastReportCommon.ProductObject.ProductColumnDTO, FastReportCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="ColId" DataType="System.String"/>
+        <Column Name="ColQuantity" DataType="System.String"/>
+        <Column Name="ColPrice" DataType="System.String"/>
+      </Column>
+      <Column Name="Footer" DataType="System.String"/>
+      <BusinessObjectDataSource Name="Products" DataType="System.Collections.Generic.List`1[[FastReportCommon.ProductObject.ProductDTO, FastReportCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <Column Name="Id" DataType="System.String"/>
+        <Column Name="Quantity" DataType="System.Int32"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+    <Parameter Name="Parameter1" DataType="System.String" AsString=""/>
+    <Parameter Name="Parameter2" DataType="System.String" AsString=""/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text1" Left="255.15" Top="9.45" Width="141.75" Height="18.9" Text="Product Title" Font="Arial, 14pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="718.2" Height="28.35">
+      <TextObject Name="Text2" Width="198.45" Height="18.9" Text="[ResponseDataModel.Header]" Font="Arial, 10pt"/>
+      <ChildBand Name="Child1" Top="74.15" Width="718.2" Height="18.9" CanGrow="true">
+        <TextObject Name="Text11" Left="9.45" Width="94.5" Height="18.9" CanGrow="true" Text="[Parameter1]" Font="Arial, 10pt"/>
+        <TextObject Name="Text12" Left="113.4" Width="94.5" Height="18.9" CanGrow="true" Text="[Parameter2]" Font="Arial, 10pt"/>
+        <ChildBand Name="Child2" Top="97.05" Width="718.2" Height="28.35">
+          <TextObject Name="Text3" Left="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.ColumnProduct.ColId]" Font="Arial, 10pt"/>
+          <TextObject Name="Text5" Left="311.85" Width="94.5" Height="18.9" Text="[ResponseDataModel.ColumnProduct.ColPrice]" HorzAlign="Right" Font="Arial, 10pt"/>
+          <TextObject Name="Text4" Left="160.65" Width="94.5" Height="18.9" Text="[ResponseDataModel.ColumnProduct.ColQuantity]" HorzAlign="Right" Font="Arial, 10pt"/>
+        </ChildBand>
+      </ChildBand>
+    </PageHeaderBand>
+    <DataBand Name="Data2" Top="129.4" Width="718.2" Height="18.9" DataSource="Products">
+      <TextObject Name="Text7" Left="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Products.Id]" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="160.65" Width="94.5" Height="18.9" Text="[ResponseDataModel.Products.Quantity]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Left="311.85" Width="94.5" Height="18.9" Text="[ResponseDataModel.Products.Price]" Format="Currency" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.CurrencySymbol="" Format.PositivePattern="0" Format.NegativePattern="0" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="152.3" Width="718.2" Height="18.9">
+      <TextObject Name="Text10" Left="529.2" Width="189" Height="18.9" Text="[ResponseDataModel.Footer]" HorzAlign="Right" Font="Arial, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
