@@ -1,7 +1,5 @@
 ﻿@page "/fastreport"
-@using R_CommonFrontBackAPI
-@using Newtonsoft.Json
-@using System.Web
+@using R_BlazorFrontEnd.Report
 
 <div class="row">
     <div class="col-2">
@@ -13,7 +11,7 @@
 </div>
 
 @code {
-    [Inject] private IJSRuntime _jsRuntime { get; set; }
+    [Inject] private R_IReport _reportService { get; set; }
 
     private int _countProduct = 0;
 
@@ -21,48 +19,20 @@
     {
         try
         {
-            var loHttpClient = R_HTTPClient.R_GetInstanceWithName("DEFAULT");
-
             var loParam = new ProductParameterDTO()
             {
                 GenerateCountProduct = _countProduct
             };
 
-            var loDownload = await loHttpClient.R_APIRequestObject<R_DownloadFileResultDTO>(
+            await _reportService.GetReport(
+                "R_DefaultServiceUrl",
                 "api/Product/AllProductPost",
-                R_HTTPClient.E_APIMethod.POST_MODE,
-                pcBody: JsonConvert.SerializeObject(loParam),
-                plSendWithContext: false);
-
-            if (loDownload is not null && !string.IsNullOrWhiteSpace(loDownload.GuidResult))
-            {
-                var loQuery = new Dictionary<string, string>()
-                {
-                    { "pcGuid", loDownload.GuidResult }
-                };
-
-                var lcBaseUrl = loHttpClient.R_GetHttpClient().BaseAddress.ToString();
-                var lcUrl = ConvertToQueryString(lcBaseUrl + "api/Product/AllStreamProductGet", loQuery);
-                await NavigateToNewTab(lcUrl);
-            }
+                "api/Product/AllStreamProductGet",
+                loParam);
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
-    }
-
-    public async Task NavigateToNewTab(string pcUrl)
-    {
-        await _jsRuntime.InvokeAsync<object>("open", pcUrl, "_blank");
-    }
-
-    private string ConvertToQueryString(string url, Dictionary<string, string> poQueryString)
-    {
-        var loQuery = HttpUtility.ParseQueryString("");
-
-        poQueryString.ToList().ForEach(x => loQuery[x.Key.Trim()] = x.Value);
-
-        return string.Format("{0}?{1}", url, loQuery.ToString());
     }
 }
