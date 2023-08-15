@@ -11,13 +11,13 @@ namespace BatchAndExcelService
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ProductController : ControllerBase
+    public class ReportController : ControllerBase
     {
         private R_ReportFastReportBackClass _reportCls;
         private ProductParameterDTO _productParameter;
 
         #region Instantiate
-        public ProductController()
+        public ReportController()
         {
             _reportCls = new R_ReportFastReportBackClass();
             _reportCls.R_InstantiateMainReportWithFileName += _reportCls_R_InstantiateMainReportWithFileName;

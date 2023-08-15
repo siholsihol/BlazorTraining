@@ -2,11 +2,11 @@
 
 <R_GroupBox Title="R_CheckBox">
     <R_StackLayout Row>
-        <R_ItemLayout xs="1">
-            <R_CheckBox @bind-Value="@_isCheck" ValueChanging="@ValueChanging"></R_CheckBox>
+        <R_ItemLayout col="1">
+            <R_CheckBox @bind-Value="@_isCheck"></R_CheckBox>
         </R_ItemLayout>
-        <R_ItemLayout xs="3">
-            <R_Label>@_isCheckString</R_Label>
+        <R_ItemLayout col="3">
+            <R_Label FontColor="@R_eFontColor.Danger" FontStyle="@R_eFontStyle.Bold">@_isCheckString</R_Label>
         </R_ItemLayout>
     </R_StackLayout>
 </R_GroupBox>
@@ -18,11 +18,6 @@
     protected override Task R_Init_From_Master(object poParameter)
     {
         return Task.CompletedTask;
-    }
-
-    private void ValueChanging(R_CheckBoxValueChangingEventArgs eventArgs)
-    {
-        eventArgs.Cancel = true;
     }
 
     private void ValueChanged(bool plValue)
