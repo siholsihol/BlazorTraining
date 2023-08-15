@@ -1,5 +1,5 @@
 ﻿@page "/fastreport"
-@using R_BlazorFrontEnd.Report
+@using R_BlazorFrontEnd.Interfaces
 
 <div class="row">
     <div class="col-2">
@@ -17,6 +17,8 @@
 
     private async Task GenerateReport()
     {
+        var loEx = new R_Exception();
+
         try
         {
             var loParam = new ProductParameterDTO()
@@ -26,13 +28,22 @@
 
             await _reportService.GetReport(
                 "R_DefaultServiceUrl",
+                "",
                 "api/Product/AllProductPost",
                 "api/Product/AllStreamProductGet",
                 loParam);
+
+            //await _reportService.GetReport(
+            //    "R_DefaultServiceUrl",
+            //    "",
+            //    "api/Product/AllProductPostWithoutParameter",
+            //    "api/Product/AllStreamProductGet");
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            loEx.Add(ex);
         }
+
+        loEx.ThrowExceptionIfErrors();
     }
 }

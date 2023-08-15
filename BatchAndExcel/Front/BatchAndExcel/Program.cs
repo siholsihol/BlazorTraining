@@ -2,6 +2,7 @@ using BatchAndExcel;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd.Controls.Extensions;
+using R_BlazorFrontEnd.Interfaces;
 using R_BlazorFrontEnd.Report;
 using R_BlazorStartup;
 

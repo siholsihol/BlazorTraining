@@ -71,6 +71,29 @@ namespace BatchAndExcelService
         #endregion
 
         [HttpPost]
+        public R_DownloadFileResultDTO AllProductPostWithoutParameter()
+        {
+            R_Exception loException = new R_Exception();
+            R_DownloadFileResultDTO loRtn = null;
+            try
+            {
+                var loParam = new ProductParameterDTO()
+                {
+                    GenerateCountProduct = 5
+                };
+
+                loRtn = new R_DownloadFileResultDTO();
+                R_DistributedCache.R_Set(loRtn.GuidResult, R_NetCoreUtility.R_SerializeObjectToByte<ProductParameterDTO>(loParam));
+            }
+            catch (Exception ex)
+            {
+                loException.Add(ex);
+            }
+            loException.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+
+        [HttpPost]
         public R_DownloadFileResultDTO AllProductPost(ProductParameterDTO poParameter)
         {
             R_Exception loException = new R_Exception();
