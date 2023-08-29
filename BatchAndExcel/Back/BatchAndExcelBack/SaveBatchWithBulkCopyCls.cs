@@ -20,7 +20,7 @@ namespace BatchAndExcelBack
             {
                 var loObject = R_NetCoreUtility.R_DeserializeObjectFromByte<List<EmployeeBatchProcessDTO>>(poBatchProcessPar.BigObject);
 
-                var lcCmd = "select SeqNo=0,*,ErrorMsg = convert(varchar(1000),'') into #raw_data from dbo.EmployeeTable where 0=1";
+                var lcCmd = "select SeqNo=0,*,ErrorMsg = convert(varchar(1000),'') into #raw_data from dbo.TestEmployeeTable where 0=1";
 
                 loDb = new R_Db();
                 loConn = loDb.GetConnection();

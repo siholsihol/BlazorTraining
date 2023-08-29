@@ -30,16 +30,19 @@
         </R_Grid>*@
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize"></R_InputFile>
     <R_Button OnClick="@OnClickHandler">Process</R_Button>
+    <R_Label>@_message</R_Label>
 </R_GroupBox>
 
 @code {
     [Inject] private R_IExcel ExcelProvider { get; set; }
+    [Inject] private IJSRuntime JS { get; set; }
 
     private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
     private long _maximumFileSize = 5 * 1024 * 1024;
     private List<EmployeeBatchProcessDTO> _resultEmployeeExcel = new();
     private string _message = "";
     private int _percentage = 0;
+    private System.Data.DataSet loDataSet = new();
 
     private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
     {
@@ -47,30 +50,24 @@
 
         try
         {
+            _message = "";
+
             //read excel as byte
             var loMS = new MemoryStream();
             await eventArgs.File.OpenReadStream(maxAllowedSize: _maximumFileSize).CopyToAsync(loMS);
             var loByteFile = loMS.ToArray();
 
+            loDataSet.Tables.Clear();
             //import from excel
-            System.Data.DataSet loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+            loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
 
             _resultEmployeeExcel = R_FrontUtility.R_ConvertTo<EmployeeBatchProcessDTO>(loDataSet.Tables[0]).ToList();
 
             //await GridRef.R_RefreshGrid(resultEmployee);
-
-            //Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
-            //Console.WriteLine(R_FrontUtility.Dump(resultGender));
-
-            //export to excel
-            //loByteFile = ExcelProvider.R_WriteToExcel(loDataSet);
-            //var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
-
-            //await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(R_FrontUtility.Dump(ex));
+            _message = ex.Message;
         }
     }
 
@@ -78,21 +75,6 @@
     {
         try
         {
-            //    var loEmployeList = new List<EmployeeDTO>()
-            //{
-            //    new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Sihol", Gender=1},
-            //    new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Siholwati", Gender=2}
-            //};
-
-            //    var loDataTable = R_FrontUtility.R_ConvertTo(loEmployeList);
-            //    loDataTable.TableName = "Employee";
-
-            //    //export to excel
-            //    var loByteFile = ExcelProvider.R_WriteToExcel(loDataTable);
-            //    var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
-
-            //    await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
-
             var loCls = new R_ProcessAndUploadClient(
                         plSendWithContext: false,
                         plSendWithToken: false,
@@ -104,11 +86,11 @@
             loBatchPar.USER_ID = "cp";
             loBatchPar.ClassName = "BatchAndExcelBack.SaveBatchWithBulkCopyCls";
             loBatchPar.BigObject = _resultEmployeeExcel;
-            var lcGuid = await loCls.R_BatchProcess<List<EmployeeDTO>>(loBatchPar, 10);
+            var lcGuid = await loCls.R_BatchProcess<List<EmployeeBatchProcessDTO>>(loBatchPar, 10);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            _message = ex.Message;
         }
     }
 
@@ -123,6 +105,7 @@
         if (poProcessResultMode == eProcessResultMode.Fail)
         {
             _message = string.Format("Process Complete but fail with GUID {0}", pcKeyGuid);
+            await ServiceGetError(pcKeyGuid);
         }
 
         StateHasChanged();
@@ -152,4 +135,40 @@
         await Task.CompletedTask;
     }
     #endregion
+
+    private async Task ServiceGetError(string pcKeyGuid)
+    {
+        List<R_ErrorStatusReturn> loResultData;
+        R_UploadAndProcessKey loParameterData;
+        R_ProcessAndUploadClient loCls;
+
+        try
+        {
+            loParameterData = new R_UploadAndProcessKey()
+            {
+                COMPANY_ID = "RCD",
+                USER_ID = "cp",
+                KEY_GUID = pcKeyGuid
+            };
+            loCls = new R_ProcessAndUploadClient(plSendWithContext: false, plSendWithToken: false);
+            loResultData = await loCls.R_GetErrorProcess(loParameterData);
+
+            var loDataTable = R_FrontUtility.R_ConvertTo(loResultData);
+            loDataTable.TableName = "ErrorList";
+
+            var loErrorDataSet = loDataSet.Copy();
+
+            loErrorDataSet.Tables.Add(loDataTable);
+
+            //export to excel
+            var loByteFile = ExcelProvider.R_WriteToExcel(loErrorDataSet);
+            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
+
+            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+        }
+        catch (Exception ex)
+        {
+            _message = ex.Message;
+        }
+    }
 }
