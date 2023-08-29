@@ -3,6 +3,9 @@
 @using R_BlazorFrontEnd.Controls;
 @using R_BlazorFrontEnd.Controls.Grid.Columns
 @implements R_IProcessProgressStatus
+@using BlazorWorker.BackgroundServiceFactory
+@using BlazorWorker.Core
+@inject IWorkerFactory workerFactory
 
 <R_GroupBox Title="Excel">
     @*<R_Grid @ref="@GridRef" DataSource="@GridList"
@@ -58,8 +61,20 @@
             var loByteFile = loMS.ToArray();
 
             loDataSet.Tables.Clear();
+
+            //var loDataSetTask = Task.Run(() =>
+            //{
+            //    return ExcelProvider.R_ReadFromExcel(loByteFile);
+            //});
+
+            //loDataSet = await loDataSetTask;
+
+            //var worker = await workerFactory.CreateAsync();
+            //var service = await worker.CreateBackgroundServiceAsync<ReadFromExcelCls>();
+            //var result = await service.RunAsync(s => s.Read(ExcelProvider, loByteFile));
+
             //import from excel
-            loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+            loDataSet = await ExcelProvider.R_ReadFromExcelAsync(loByteFile);
 
             _resultEmployeeExcel = R_FrontUtility.R_ConvertTo<EmployeeBatchProcessDTO>(loDataSet.Tables[0]).ToList();
 
@@ -170,5 +185,10 @@
         {
             _message = ex.Message;
         }
+    }
+
+    private System.Data.DataSet Frobnicate(byte[] poByteFile)
+    {
+        return ExcelProvider.R_ReadFromExcel(poByteFile);
     }
 }
