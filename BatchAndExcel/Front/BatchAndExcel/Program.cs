@@ -1,5 +1,4 @@
 using BatchAndExcel;
-using BlazorWorker.Core;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd.Controls.Extensions;
@@ -21,7 +20,6 @@ builder.R_RegisterBlazorServices(option =>
 });
 
 builder.Services.AddTransient<R_IReport, R_ReportService>();
-builder.Services.AddWorkerFactory();
 
 var host = builder.Build();
 
