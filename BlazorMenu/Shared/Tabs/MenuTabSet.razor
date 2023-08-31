@@ -52,7 +52,10 @@ else
                              @key="@loTab.Id">
                     <HeaderTemplate>
                         <a>@loTab.Title</a>
-                        <span class="ms-2 close" @onclick="@(() => OnTabClose(loTab))"><span class="tab btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></span></span>
+                        <span class="ms-2 close" @onclick="@(() => OnTabClose(loTab))">
+                        @*<span class="tab btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></span>*@
+                            <i class="fa fa-times"></i>
+                        </span>
                     </HeaderTemplate>
                     <Content>
                         @if (loTab.Body != null)

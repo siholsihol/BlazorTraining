@@ -22,6 +22,8 @@ namespace SAB00600Front
 
             try
             {
+                CustomerViewModel.GetGenders();
+
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -241,10 +243,16 @@ namespace SAB00600Front
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
         {
-            if (eventArgs.ColumnName == "CompanyName")
+            //if (eventArgs.ColumnName == "CompanyName")
+            //{
+            //    var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
+            //    loContactNameColumn.Enabled = eventArgs.Value.ToString() != "f";
+            //}
+
+            if (eventArgs.ColumnName == "GenderId")
             {
                 var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
-                loContactNameColumn.Enabled = eventArgs.Value.ToString() != "f";
+                loContactNameColumn.Enabled = eventArgs.Value.ToString() != "F";
             }
         }
     }

@@ -22,7 +22,15 @@
                               HeaderText="Contact Name"
                               Enabled="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible" Width="400px" />
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit Width="50px"></R_GridTextColumn>
+            @*<R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit Width="50px"></R_GridTextColumn>*@
+            <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+                                      ValueField="@nameof(GenderDTO.Id)"
+                                      TextField="@nameof(GenderDTO.Name)"
+                                      FieldName="@nameof(CustomerDTO.GenderId)"
+                                      HeaderText="Gender Id"
+                                      R_EnableAdd
+                                      R_EnableEdit 
+                                      Width="200px" />
         </R_GridColumns>
     </R_Grid>
 

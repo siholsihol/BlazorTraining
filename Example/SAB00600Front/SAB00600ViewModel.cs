@@ -12,6 +12,7 @@ namespace SAB00600Front
         public ObservableCollection<CustomerDTO> CustomerList { get; set; } = new ObservableCollection<CustomerDTO>();
 
         public CustomerDTO Customer = new();
+        public List<GenderDTO> Genders { get; set; } = new List<GenderDTO>();
 
         public void GetCustomerList()
         {
@@ -88,6 +89,13 @@ namespace SAB00600Front
             }
 
             loEx.ThrowExceptionIfErrors();
+        }
+
+        public void GetGenders()
+        {
+            var loGenders = CustomerService.GetGenders();
+
+            Genders = loGenders;
         }
     }
 }
