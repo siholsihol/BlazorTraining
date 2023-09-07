@@ -12,8 +12,8 @@
             AllowEditRow="true"
             AllowDeleteRow="true"
             R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
-            R_RowRender="@((R_GridRowRenderEventArgs args) => R_RowRender(args))" 
-            Height="300px" 
+            R_RowRender="@((R_GridRowRenderEventArgs args) => R_RowRender(args))"
+            Height="300px"
             R_CellValueChanged="@R_CellValueChanged">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)" HeaderText="Customer Id" R_EnableAdd Width="100px"></R_GridTextColumn>
@@ -24,13 +24,13 @@
                               Visible="@_isContactNameColumnVisible" Width="400px" />
             @*<R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit Width="50px"></R_GridTextColumn>*@
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
-                                      ValueField="@nameof(GenderDTO.Id)"
-                                      TextField="@nameof(GenderDTO.Name)"
-                                      FieldName="@nameof(CustomerDTO.GenderId)"
-                                      HeaderText="Gender Id"
-                                      R_EnableAdd
-                                      R_EnableEdit 
-                                      Width="200px" />
+                                  ValueField="@nameof(GenderDTO.Id)"
+                                  TextField="@nameof(GenderDTO.Name)"
+                                  FieldName="@nameof(CustomerDTO.GenderId)"
+                                  HeaderText="Gender Id"
+                                  R_EnableAdd
+                                  R_EnableEdit
+                                  Width="200px" />
         </R_GridColumns>
     </R_Grid>
 
@@ -47,7 +47,6 @@
         <R_CheckBox @bind-Value="@_isAddNewRowVisible"></R_CheckBox>
         <R_Label>Show Add New Row</R_Label>
     </R_StackLayout>
-
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"

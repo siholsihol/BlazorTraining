@@ -26,18 +26,19 @@
                 GenerateCountProduct = _countProduct
             };
 
-            await _reportService.GetReport(
-                "R_DefaultServiceUrl",
-                "",
-                "api/Report/AllProductPost",
-                "api/Report/AllStreamProductGet",
-                loParam);
-
             //await _reportService.GetReport(
             //    "R_DefaultServiceUrl",
             //    "",
-            //    "api/Report/AllProductPostWithoutParameter",
-            //    "api/Report/AllStreamProductGet");
+            //    "api/Report/AllProductPost",
+            //    "api/Report/AllStreamProductGet",
+            //    loParam);
+
+            await _reportService.GetReport(
+                "R_DefaultServiceUrl",
+                "GS",
+                "rpt/UpdateReport/AllProductPost",
+                "rpt/UpdateReport/AllStreamProductGet",
+                loParam);
         }
         catch (Exception ex)
         {
