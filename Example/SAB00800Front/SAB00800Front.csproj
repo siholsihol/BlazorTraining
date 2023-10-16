@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.23" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="R_BlazorFrontEnd">
+      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
+    </Reference>
+    <Reference Include="R_BlazorFrontEnd.Controls">
+      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

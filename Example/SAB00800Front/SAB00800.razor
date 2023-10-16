@@ -1,0 +1,8 @@
+﻿@page "/SAB00800"
+@inherits R_Page
+
+<TelerikTreeView Data="@FlatData" SelectionMode="TreeViewSelectionMode.Single" @bind-SelectedItems="@SelectedItems">
+    <TreeViewBindings>
+        <TreeViewBinding TextField="CCATEGORY_NAME" IdField="CCATEGORY_ID" ParentIdField="CPARENT" HasChildrenField="LHAS_CHILDREN"></TreeViewBinding>
+    </TreeViewBindings>
+</TelerikTreeView>
