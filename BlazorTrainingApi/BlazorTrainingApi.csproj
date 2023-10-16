@@ -20,16 +20,16 @@
     <Reference Include="R_APIStartUp">
       <HintPath>..\Dll\Dll Back\R_APIStartUp.dll</HintPath>
     </Reference>
+    <Reference Include="R_CommonFrontBackAPI">
+      <HintPath>..\Dll\Dll Back\R_CommonFrontBackAPI.dll</HintPath>
+    </Reference>
     <Reference Include="R_HelperController">
       <HintPath>..\Dll\Dll Back\R_HelperController.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\Realta NetCore Library\Library Back\Serilog.AspNetCore.Ingestion\Serilog.AspNetCore.Ingestion.csproj" />
     <ProjectReference Include="..\BatchAndExcel\Back\BatchAndExcelBack\BatchAndExcelBack.csproj" />
     <ProjectReference Include="..\BatchAndExcel\Service\BatchAndExcelService\BatchAndExcelService.csproj" />
   </ItemGroup>

@@ -81,6 +81,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{D47615D1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB04000Front", "Other\SAB04000Front\SAB04000Front.csproj", "{6A43124F-D691-4DEC-9FFA-31CDF4A64036}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Log", "Log", "{A4F365B3-EC84-4CFA-8DCB-C5120D88CF94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.AspNetCore.Ingestion", "..\..\Realta NetCore Library\Library Back\Serilog.AspNetCore.Ingestion\Serilog.AspNetCore.Ingestion.csproj", "{DA9373E2-521A-4A8C-8C07-38250BB71170}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +179,10 @@ Global
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA9373E2-521A-4A8C-8C07-38250BB71170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9373E2-521A-4A8C-8C07-38250BB71170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9373E2-521A-4A8C-8C07-38250BB71170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9373E2-521A-4A8C-8C07-38250BB71170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,6 +221,7 @@ Global
 		{3FE79224-52C6-4598-AB1B-40DEEA94068B} = {6DECA05B-715F-4746-AA79-057DC7DB0856}
 		{C0D7053E-188F-499A-A99F-0C1E07401A95} = {8FB99B33-F136-4FFA-A4E8-4779DE07B65F}
 		{6A43124F-D691-4DEC-9FFA-31CDF4A64036} = {D47615D1-CB40-48D1-9569-67CEE41F1855}
+		{DA9373E2-521A-4A8C-8C07-38250BB71170} = {A4F365B3-EC84-4CFA-8DCB-C5120D88CF94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {326F6793-B282-4539-8298-FACE822E7925}
