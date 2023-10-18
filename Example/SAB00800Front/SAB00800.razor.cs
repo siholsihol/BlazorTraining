@@ -1,92 +1,128 @@
-﻿namespace SAB00800Front
+﻿using R_BlazorFrontEnd.Controls;
+using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Events;
+using R_BlazorFrontEnd.Exceptions;
+using R_CommonFrontBackAPI;
+using SAB00800Front.DTOs;
+
+namespace SAB00800Front
 {
     public partial class SAB00800
     {
-        IEnumerable<TreeDTO> FlatData { get; set; }
+        private SAB00800ViewModel _viewModel = new();
+        private R_Conductor _conductorRef;
+        private R_TreeView<TreeDTO> _treeRef;
+
+        //ObservableCollection<TreeDTO> FlatData { get; set; } = new ObservableCollection<TreeDTO>();
         //IEnumerable<object> ExpandedItems { get; set; } = new List<TreeDTO>();
-        public IEnumerable<object> SelectedItems { get; set; } = new List<object>();
+        //public IEnumerable<object> SelectedItems { get; set; } = new List<object>();
 
-        protected override Task R_Init_From_Master(object poParameter)
+        protected override async Task R_Init_From_Master(object poParameter)
         {
-            FlatData = GetFlatData();
+            var loEx = new R_Exception();
 
-            //ExpandedItems = FlatData.Where(x => x.HasChildren == true).ToList();
+            try
+            {
+                await _treeRef.R_RefreshGrid(null);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
 
-            SelectedItems = new List<object>() { FlatData.FirstOrDefault() };
-
-            return Task.CompletedTask;
+            loEx.ThrowExceptionIfErrors();
         }
 
-        List<TreeDTO> GetFlatData()
+        private void Tree_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
-            List<TreeDTO> items = new List<TreeDTO>();
+            var loEx = new R_Exception();
 
-            items.Add(new TreeDTO()
+            try
             {
-                CPARENT = null,
-                CCATEGORY_ID = "C2001",
-                CCATEGORY_NAME = "Metro Park",
-                ILEVEL = 0
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "C2011",
-                CCATEGORY_NAME = "Tower 1",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "C2012",
-                CCATEGORY_NAME = "Tower 2",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "C2013",
-                CCATEGORY_NAME = "Tower 3",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "CTG01",
-                CCATEGORY_NAME = "Tenant",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = null,
-                CCATEGORY_ID = "C2002",
-                CCATEGORY_NAME = "Parent 2",
-                ILEVEL = 0
-            });
+                _viewModel.GetTenantList();
 
-            items.Where(x => string.IsNullOrWhiteSpace(x.CPARENT) && items.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0).ToList().ForEach(x => x.LHAS_CHILDREN = true);
+                eventArgs.ListEntityResult = _viewModel.TenantList;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
 
-            items.ForEach(x => x.CCATEGORY_NAME = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}");
-
-            return items;
+            loEx.ThrowExceptionIfErrors();
         }
 
-        public class TreeDTO
+        private void Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
-            public string CPARENT { get; set; }
-            public string CCATEGORY_ID { get; set; }
-            public string CCATEGORY_NAME { get; set; }
-            public int ILEVEL { get; set; }
-            public bool LHAS_CHILDREN { get; set; }
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loParam = eventArgs.Data as TreeDTO;
+                _viewModel.GetTenantById(loParam.CCATEGORY_ID);
+
+                eventArgs.Result = _viewModel.Tenant;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
         }
 
-        public class TreeDetailDTO
+        private void Conductor_Validation(R_ValidationEventArgs eventArgs)
         {
-            public string CPARENT { get; set; }
-            public string CCATEGORY_ID { get; set; }
-            public string CCATEGORY_NAME { get; set; }
-            public int ILEVEL { get; set; }
-            public string CNOTE { get; set; }
+            //var loEx = new R_Exception();
+
+            //try
+            //{
+            //    var loData = (CategoryDTO)eventArgs.Data;
+
+            //    if (string.IsNullOrWhiteSpace(loData.Name))
+            //        loEx.Add("", "Please fill Category Name.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    loEx.Add(ex);
+            //}
+
+            //loEx.ThrowExceptionIfErrors();
+        }
+
+        private void Conductor_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loParam = (TreeDetailDTO)eventArgs.Data;
+                _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
+
+                eventArgs.Result = _viewModel.Tenant;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        private void Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        {
+            //var loEx = new R_Exception();
+
+            //try
+            //{
+            //    var loParam = (CategoryDTO)eventArgs.Data;
+            //    _viewModel.DeleteCategory(loParam.Id);
+            //}
+            //catch (Exception ex)
+            //{
+            //    loEx.Add(ex);
+            //}
+
+            //loEx.ThrowExceptionIfErrors();
         }
     }
 }
