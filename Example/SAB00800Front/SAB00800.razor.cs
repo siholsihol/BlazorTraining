@@ -95,7 +95,7 @@ namespace SAB00800Front
 
             try
             {
-                var loParam = (TreeDetailDTO)eventArgs.Data;
+                var loParam = (TenantTreeDTO)eventArgs.Data;
                 _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = _viewModel.Tenant;

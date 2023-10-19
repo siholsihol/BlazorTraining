@@ -1,4 +1,6 @@
-﻿using R_BlazorFrontEnd;
+﻿using DataDummyProvider.DTOs;
+using DataDummyProvider.Services;
+using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
@@ -7,10 +9,10 @@ using System.Collections.ObjectModel;
 
 namespace SAB00800Front
 {
-    public class SAB00800ViewModel : R_ViewModel<TreeDetailDTO>
+    public class SAB00800ViewModel : R_ViewModel<TenantDTO>
     {
-        public ObservableCollection<TreeDTO> TenantList = new();
-        public TreeDetailDTO Tenant = new();
+        public ObservableCollection<TenantTreeDTO> TenantList = new();
+        public TenantDTO Tenant = new();
 
         public void GetTenantList()
         {
@@ -18,7 +20,9 @@ namespace SAB00800Front
 
             try
             {
-                TenantList = new ObservableCollection<TreeDTO>(GetFlatData());
+                var loResult = TenantService.GetTenants();
+                var loGridData = R_FrontUtility.ConvertCollectionToCollection<TenantTreeDTO>(loResult);
+                TenantList = new ObservableCollection<TenantTreeDTO>(loGridData);
             }
             catch (Exception ex)
             {
@@ -36,6 +40,8 @@ namespace SAB00800Front
             {
                 var currentTenant = TenantList.FirstOrDefault(x => x.CCATEGORY_ID == pcCategoryId);
                 Tenant = R_FrontUtility.ConvertObjectToObject<TreeDetailDTO>(currentTenant);
+
+                Tenant = TenantService.GetTenant(pcCategoryId);
             }
             catch (Exception ex)
             {
