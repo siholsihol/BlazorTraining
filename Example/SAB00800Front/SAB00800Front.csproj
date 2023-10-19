@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
+    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\DataDummyProvider\DataDummyProvider.csproj" />
   </ItemGroup>
 
@@ -30,7 +30,7 @@
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
     </Reference>
     <Reference Include="R_CommonFrontBackAPI">
-      <HintPath>..\..\..\..\RealtaNetCoreLibrary\Dll Front\R_CommonFrontBackAPI.dll</HintPath>
+      <HintPath>..\..\Dll\Dll Back\R_CommonFrontBackAPI.dll</HintPath>
     </Reference>
   </ItemGroup>
 
