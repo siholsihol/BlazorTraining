@@ -1,7 +1,9 @@
-﻿using R_BlazorFrontEnd.Controls;
+﻿using DataDummyProvider.DTOs;
+using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using SAB00800Front.DTOs;
 
@@ -11,7 +13,7 @@ namespace SAB00800Front
     {
         private SAB00800ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
-        private R_TreeView<TreeDTO> _treeRef;
+        private R_TreeView<TenantTreeDTO> _treeRef;
 
         //ObservableCollection<TreeDTO> FlatData { get; set; } = new ObservableCollection<TreeDTO>();
         //IEnumerable<object> ExpandedItems { get; set; } = new List<TreeDTO>();
@@ -57,7 +59,7 @@ namespace SAB00800Front
 
             try
             {
-                var loParam = eventArgs.Data as TreeDTO;
+                var loParam = R_FrontUtility.ConvertObjectToObject<TenantDTO>(eventArgs.Data);
                 _viewModel.GetTenantById(loParam.CCATEGORY_ID);
 
                 eventArgs.Result = _viewModel.Tenant;
@@ -95,7 +97,7 @@ namespace SAB00800Front
 
             try
             {
-                var loParam = (TenantTreeDTO)eventArgs.Data;
+                var loParam = (TenantDTO)eventArgs.Data;
                 _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = _viewModel.Tenant;
@@ -123,6 +125,18 @@ namespace SAB00800Front
             //}
 
             //loEx.ThrowExceptionIfErrors();
+        }
+
+        private void Conductor_ConvertToGridEntity(R_ConvertToGridEntityEventArgs eventArgs)
+        {
+            var loConductorData = (TenantDTO)eventArgs.Data;
+            eventArgs.GridData = new TenantTreeDTO
+            {
+                CPARENT = loConductorData.CPARENT,
+                CCATEGORY_ID = loConductorData.CCATEGORY_ID,
+                CCATEGORY_NAME_DISPLAY = $"[{loConductorData.ILEVEL}] {loConductorData.CCATEGORY_ID} - {loConductorData.CCATEGORY_NAME}",
+                LHAS_CHILDREN = !string.IsNullOrWhiteSpace(loConductorData.CPARENT)
+            };
         }
     }
 }

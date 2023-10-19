@@ -2,7 +2,6 @@
 using DataDummyProvider.Services;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
-using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using SAB00800Front.DTOs;
 using System.Collections.ObjectModel;
@@ -21,7 +20,19 @@ namespace SAB00800Front
             try
             {
                 var loResult = TenantService.GetTenants();
-                var loGridData = R_FrontUtility.ConvertCollectionToCollection<TenantTreeDTO>(loResult);
+
+                var loGridData = loResult.Select(x =>
+                new TenantTreeDTO
+                {
+                    CPARENT = x.CPARENT,
+                    CCATEGORY_ID = x.CCATEGORY_ID,
+                    CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}",
+                    LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loResult.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0
+                });
+
+                //loGridData.Where(x => string.IsNullOrWhiteSpace(x.CPARENT) && loGridData.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0).ToList().ForEach(x => x.LHAS_CHILDREN = true);
+                //loGridData.ForEach(x => x.CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}");
+
                 TenantList = new ObservableCollection<TenantTreeDTO>(loGridData);
             }
             catch (Exception ex)
@@ -38,9 +49,6 @@ namespace SAB00800Front
 
             try
             {
-                var currentTenant = TenantList.FirstOrDefault(x => x.CCATEGORY_ID == pcCategoryId);
-                Tenant = R_FrontUtility.ConvertObjectToObject<TreeDetailDTO>(currentTenant);
-
                 Tenant = TenantService.GetTenant(pcCategoryId);
             }
             catch (Exception ex)
@@ -51,7 +59,7 @@ namespace SAB00800Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveCategory(TreeDetailDTO poEntity, eCRUDMode peCRUDMode)
+        public void SaveCategory(TenantDTO poEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
 
@@ -59,12 +67,11 @@ namespace SAB00800Front
             {
                 if (peCRUDMode == eCRUDMode.AddMode)
                 {
-                    var loSaveTenant = R_FrontUtility.ConvertObjectToObject<TreeDTO>(poEntity);
-                    TenantList.Add(loSaveTenant);
+                    TenantService.CreateTenant(poEntity);
                 }
                 else
                 {
-                    //CategoryService.UpdateCategory(poEntity);
+                    TenantService.UpdateTenant(poEntity);
                 }
 
                 Tenant = poEntity;
@@ -75,60 +82,6 @@ namespace SAB00800Front
             }
 
             loEx.ThrowExceptionIfErrors();
-        }
-
-        private List<TreeDTO> GetFlatData()
-        {
-            List<TreeDTO> items = new List<TreeDTO>();
-
-            items.Add(new TreeDTO()
-            {
-                CPARENT = null,
-                CCATEGORY_ID = "C2001",
-                CCATEGORY_NAME = "Metro Park",
-                ILEVEL = 0
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "C2011",
-                CCATEGORY_NAME = "Tower 1",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "C2012",
-                CCATEGORY_NAME = "Tower 2",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "C2013",
-                CCATEGORY_NAME = "Tower 3",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = "C2001",
-                CCATEGORY_ID = "CTG01",
-                CCATEGORY_NAME = "Tenant",
-                ILEVEL = 1
-            });
-            items.Add(new TreeDTO()
-            {
-                CPARENT = null,
-                CCATEGORY_ID = "C2002",
-                CCATEGORY_NAME = "Parent 2",
-                ILEVEL = 0
-            });
-
-            items.Where(x => string.IsNullOrWhiteSpace(x.CPARENT) && items.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0).ToList().ForEach(x => x.LHAS_CHILDREN = true);
-
-            items.ForEach(x => x.CCATEGORY_NAME = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}");
-
-            return items;
         }
     }
 }

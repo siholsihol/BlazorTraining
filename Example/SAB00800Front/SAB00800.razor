@@ -6,7 +6,7 @@
         <R_TreeView @ref="@_treeRef" 
                     DataSource="@_viewModel.TenantList"
                     R_ConductorSource="@_conductorRef"
-                    TextField="CCATEGORY_NAME"
+                    TextField="CCATEGORY_NAME_DISPLAY"
                     IdField="CCATEGORY_ID"
                     ParentIdField="CPARENT"
                     HasChildrenField="LHAS_CHILDREN" 
@@ -106,5 +106,6 @@
              R_ServiceGetRecord="@Conductor_ServiceGetRecord"
              R_Validation="@Conductor_Validation"
              R_ServiceSave="@Conductor_ServiceSave"
-             R_ServiceDelete="@Conductor_ServiceDelete"></R_Conductor>
+             R_ServiceDelete="@Conductor_ServiceDelete" 
+             R_ConvertToGridEntity="Conductor_ConvertToGridEntity"></R_Conductor>
 
