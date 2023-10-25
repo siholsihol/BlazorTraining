@@ -13,7 +13,7 @@ namespace SAB00800Front
     {
         private SAB00800ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
-        private R_TreeView<TenantTreeDTO> _treeRef;
+        private R_TreeView _treeRef;
 
         //ObservableCollection<TreeDTO> FlatData { get; set; } = new ObservableCollection<TreeDTO>();
         //IEnumerable<object> ExpandedItems { get; set; } = new List<TreeDTO>();
