@@ -13,11 +13,7 @@ namespace SAB00800Front
     {
         private SAB00800ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
-        private R_TreeView _treeRef;
-
-        //ObservableCollection<TreeDTO> FlatData { get; set; } = new ObservableCollection<TreeDTO>();
-        //IEnumerable<object> ExpandedItems { get; set; } = new List<TreeDTO>();
-        //public IEnumerable<object> SelectedItems { get; set; } = new List<object>();
+        private R_TreeView<TenantTreeDTO> _treeRef;
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -91,6 +87,12 @@ namespace SAB00800Front
             //loEx.ThrowExceptionIfErrors();
         }
 
+        private void Conductor_Saving(R_SavingEventArgs eventArgs)
+        {
+            var loData = (TenantDTO)eventArgs.Data;
+            loData.CPARENT = string.IsNullOrWhiteSpace(loData.CPARENT) ? null : loData.CPARENT;
+        }
+
         private void Conductor_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -98,7 +100,7 @@ namespace SAB00800Front
             try
             {
                 var loParam = (TenantDTO)eventArgs.Data;
-                _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
+                _viewModel.SaveTenant(loParam, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = _viewModel.Tenant;
             }
@@ -112,19 +114,19 @@ namespace SAB00800Front
 
         private void Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
-            //var loEx = new R_Exception();
+            var loEx = new R_Exception();
 
-            //try
-            //{
-            //    var loParam = (CategoryDTO)eventArgs.Data;
-            //    _viewModel.DeleteCategory(loParam.Id);
-            //}
-            //catch (Exception ex)
-            //{
-            //    loEx.Add(ex);
-            //}
+            try
+            {
+                var loParam = (TenantDTO)eventArgs.Data;
+                _viewModel.DeleteTenant(loParam.CCATEGORY_ID);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
 
-            //loEx.ThrowExceptionIfErrors();
+            loEx.ThrowExceptionIfErrors();
         }
 
         private void Conductor_ConvertToGridEntity(R_ConvertToGridEntityEventArgs eventArgs)
@@ -134,9 +136,15 @@ namespace SAB00800Front
             {
                 CPARENT = loConductorData.CPARENT,
                 CCATEGORY_ID = loConductorData.CCATEGORY_ID,
-                CCATEGORY_NAME_DISPLAY = $"[{loConductorData.ILEVEL}] {loConductorData.CCATEGORY_ID} - {loConductorData.CCATEGORY_NAME}",
-                LHAS_CHILDREN = !string.IsNullOrWhiteSpace(loConductorData.CPARENT)
+                CCATEGORY_NAME_DISPLAY = $"[{loConductorData.ILEVEL}] {loConductorData.CCATEGORY_ID} - {loConductorData.CCATEGORY_NAME}"
             };
+        }
+
+        private void Tree_R_RefreshTreeViewState(R_RefreshTreeViewStateEventArgs eventArgs)
+        {
+            var loTreeList = (List<TenantTreeDTO>)eventArgs.TreeViewList;
+
+            loTreeList.ForEach(x => x.LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0 ? true : false);
         }
     }
 }

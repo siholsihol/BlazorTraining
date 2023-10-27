@@ -9,9 +9,9 @@ namespace SAB00800Front
 {
     public class SAB00800ViewModel : R_ViewModel<TenantDTO>
     {
-        //public ObservableCollection<TenantTreeDTO> TenantList = new();
         public List<TenantTreeDTO> TenantList = new();
         public TenantDTO Tenant = new();
+        public IEnumerable<object> ExpandTenantList = Enumerable.Empty<object>();
 
         public void GetTenantList()
         {
@@ -30,10 +30,9 @@ namespace SAB00800Front
                     LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loResult.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0
                 });
 
-                //loGridData.Where(x => string.IsNullOrWhiteSpace(x.CPARENT) && loGridData.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0).ToList().ForEach(x => x.LHAS_CHILDREN = true);
-                //loGridData.ForEach(x => x.CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}");
-
                 TenantList = loGridData.ToList();
+
+                ExpandTenantList = loGridData.Where(x => x.LHAS_CHILDREN == true).ToList();
             }
             catch (Exception ex)
             {
@@ -59,7 +58,7 @@ namespace SAB00800Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveCategory(TenantDTO poEntity, eCRUDMode peCRUDMode)
+        public void SaveTenant(TenantDTO poEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
 
@@ -75,6 +74,23 @@ namespace SAB00800Front
                 }
 
                 Tenant = poEntity;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        public void DeleteTenant(string pcCategoryId)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loParam = new TenantDTO { CCATEGORY_ID = pcCategoryId };
+                TenantService.DeleteTenant(loParam);
             }
             catch (Exception ex)
             {
