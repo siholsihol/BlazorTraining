@@ -11,7 +11,6 @@ namespace SAB00800Front
     {
         public List<TenantTreeDTO> TenantList = new();
         public TenantDTO Tenant = new();
-        public IEnumerable<object> ExpandTenantList = Enumerable.Empty<object>();
 
         public void GetTenantList()
         {
@@ -26,13 +25,10 @@ namespace SAB00800Front
                 {
                     CPARENT = x.CPARENT,
                     CCATEGORY_ID = x.CCATEGORY_ID,
-                    CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}",
-                    LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loResult.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0
+                    CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}"
                 });
 
                 TenantList = loGridData.ToList();
-
-                ExpandTenantList = loGridData.Where(x => x.LHAS_CHILDREN == true).ToList();
             }
             catch (Exception ex)
             {
