@@ -146,7 +146,7 @@ namespace SAB00800Front
 
             loTreeList.ForEach(x => x.LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0 ? true : false);
 
-            eventArgs.ExpandedList = loTreeList.Where(x => x.LHAS_CHILDREN == true).ToList();
+            //eventArgs.ExpandedList = loTreeList.Where(x => x.LHAS_CHILDREN == true).ToList();
         }
     }
 }
