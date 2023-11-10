@@ -144,9 +144,9 @@ namespace SAB00800Front
         {
             var loTreeList = (List<TenantTreeDTO>)eventArgs.TreeViewList;
 
-            loTreeList.ForEach(x => x.LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0 ? true : false);
+            loTreeList.ForEach(x => x.LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) && loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0 ? true : loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0);
 
-            //eventArgs.ExpandedList = loTreeList.Where(x => x.LHAS_CHILDREN == true).ToList();
+            eventArgs.ExpandedList = loTreeList.Where(x => x.LHAS_CHILDREN == true).ToList();
         }
     }
 }
