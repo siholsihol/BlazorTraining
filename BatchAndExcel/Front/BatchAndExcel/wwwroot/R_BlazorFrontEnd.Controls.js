@@ -38,3 +38,7 @@ export async function downloadFileFromStream(fileName, contentStreamReference) {
     anchorElement.remove();
     URL.revokeObjectURL(URL);
 }
+
+export function clickComponent(componentId) {
+    document.getElementById(componentId).click();
+}
