@@ -8,9 +8,10 @@
                 Pageable="true"
                 R_ConductorSource="@_conductorRef"
                 R_GridType="@R_eGridType.Navigator"
-                R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+                R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord" 
+                R_GridFilterMode="@R_eGridFilterMode.FilterRow">
             <R_GridColumns>
-                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridTextColumn>
+                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridNumericColumn>
                 <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)" HeaderText="Category Name"></R_GridTextColumn>
             </R_GridColumns>
         </R_Grid>

@@ -21,7 +21,7 @@ namespace SAB00800Front
 
             try
             {
-                await _treeRef.R_RefreshGrid(null);
+                await _treeRef.R_RefreshTree(null);
             }
             catch (Exception ex)
             {
