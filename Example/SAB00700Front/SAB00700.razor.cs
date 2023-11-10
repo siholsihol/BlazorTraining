@@ -165,5 +165,11 @@ namespace SAB00700Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        private bool _gridEnabled = true;
+        private void R_SetOther(R_SetEventArgs eventArgs)
+        {
+            _gridEnabled = eventArgs.Enable;
+        }
     }
 }

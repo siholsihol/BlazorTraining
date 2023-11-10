@@ -85,8 +85,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TreeView Navigator", "TreeV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB00800Front", "Example\SAB00800Front\SAB00800Front.csproj", "{5BEC3102-216D-4D05-B6F2-1A84414632F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{57884F50-B10A-439E-8A45-4579550F9037}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,10 +183,6 @@ Global
 		{5BEC3102-216D-4D05-B6F2-1A84414632F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BEC3102-216D-4D05-B6F2-1A84414632F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BEC3102-216D-4D05-B6F2-1A84414632F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57884F50-B10A-439E-8A45-4579550F9037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57884F50-B10A-439E-8A45-4579550F9037}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57884F50-B10A-439E-8A45-4579550F9037}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57884F50-B10A-439E-8A45-4579550F9037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
