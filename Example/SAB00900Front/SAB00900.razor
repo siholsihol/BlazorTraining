@@ -8,7 +8,7 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_NumericTextBox @bind-Value="@ViewModel.Data.Id"
+            <R_NumericTextBox @ref="_numericIdRef" @bind-Value="@ViewModel.Data.Id"
                               R_ConductorSource="@_conductorRef"
                               R_EnableAdd="true"
                               R_EnableEdit="false"></R_NumericTextBox>
@@ -38,7 +38,7 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_DropDownList Data="@ViewModel.CategoryList"
+            <R_DropDownList @ref="@_dropdownCategoryRef" Data="@ViewModel.CategoryList"
                             ValueField="@nameof(CategoryDTO.Id)"
                             TextField="@nameof(CategoryDTO.Name)"
                             @bind-Value="@ViewModel.Data.CategoryId"
@@ -67,7 +67,7 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_DatePicker @bind-Value="@ViewModel.Data.ReleaseDate"
+            <R_DatePicker @ref="@_datePickerRef" @bind-Value="@ViewModel.Data.ReleaseDate"
                               R_ConductorSource="@_conductorRef"
                               R_EnableAdd="true"
                               R_EnableEdit="true"></R_DatePicker>
@@ -80,7 +80,7 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_CheckBox @bind-Value="@ViewModel.Data.Active"
+            <R_CheckBox @ref="@_checkboxActiveRef" @bind-Value="@ViewModel.Data.Active"
                         R_ConductorSource="@_conductorRef"
                         R_EnableAdd="true"
                         R_EnableEdit="true"></R_CheckBox>

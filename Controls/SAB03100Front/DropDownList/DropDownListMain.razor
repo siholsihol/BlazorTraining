@@ -2,11 +2,11 @@
 @attribute [R_Page(Title = "R_DropDownList")]
 
 <R_GroupBox Title="R_DropDownList">
-    <R_ItemLayout xs="4">
+    <R_ItemLayout col="4">
         <R_DropDownList Data="@_dropDownList"
                         TextField="@nameof(CategoryDTO.Name)"
                         ValueField="@nameof(CategoryDTO.Id)"
-                        @bind-Value="@_selectedCategory">
+                        @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
 
         </R_DropDownList>
     </R_ItemLayout>

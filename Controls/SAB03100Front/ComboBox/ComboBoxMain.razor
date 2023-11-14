@@ -1,11 +1,11 @@
 ﻿@inherits R_Page
 
 <R_GroupBox Title="R_ComboBox">
-    <R_ItemLayout xs="4">
+    <R_ItemLayout col="4">
         <R_ComboBox Data="@_comboBoxList" 
                     TextField="@nameof(CategoryDTO.Name)" 
                     ValueField="@nameof(CategoryDTO.Id)"
-                    @bind-Value="@_selectedCategory">
+                    @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
 
         </R_ComboBox>
     </R_ItemLayout>

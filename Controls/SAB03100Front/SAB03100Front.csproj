@@ -21,15 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\..\Example\DataDummyProvider\DataDummyProvider.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
-    </Reference>
-    <Reference Include="R_BlazorFrontEnd.Controls">
-      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
   </ItemGroup>
 

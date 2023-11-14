@@ -171,5 +171,11 @@ namespace SAB00700Front
         {
             _gridEnabled = eventArgs.Enable;
         }
+
+        private R_TextBox _textboxNameRef;
+        private async Task R_AfterAdd()
+        {
+            await _textboxNameRef.FocusAsync();
+        }
     }
 }

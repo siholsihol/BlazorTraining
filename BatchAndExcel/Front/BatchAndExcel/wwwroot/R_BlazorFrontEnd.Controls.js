@@ -39,6 +39,11 @@ export async function downloadFileFromStream(fileName, contentStreamReference) {
     URL.revokeObjectURL(URL);
 }
 
+export function focusToElement(id) {
+    const element = document.getElementById(id);
+    element.focus();
+}
+
 export function clickComponent(componentId) {
     document.getElementById(componentId).click();
 }

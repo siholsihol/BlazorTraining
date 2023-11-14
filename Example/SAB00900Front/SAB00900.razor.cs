@@ -52,12 +52,18 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void Conductor_AfterAdd(R_AfterAddEventArgs eventArgs)
+        private R_NumericTextBox<int> _numericIdRef;
+        private R_DropDownList<CategoryDTO, int> _dropdownCategoryRef;
+        private R_DatePicker<DateTime> _datePickerRef;
+        private R_CheckBox _checkboxActiveRef;
+        private async Task Conductor_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
             var loEntity = (ProductDTO)eventArgs.Data;
 
             loEntity.CategoryId = 1;
             loEntity.ReleaseDate = DateTime.Now;
+
+            await _checkboxActiveRef.FocusAsync();
         }
 
         public void Conductor_Validation(R_ValidationEventArgs eventArgs)

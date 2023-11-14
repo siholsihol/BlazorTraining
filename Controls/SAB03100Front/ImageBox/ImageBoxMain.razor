@@ -7,6 +7,9 @@
     <R_ItemLayout col="2">
         <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
     </R_ItemLayout>
+    <R_ItemLayout col="2">
+        <R_OpenFileDialogButton OnChange="@OnChangeHandler" Accepts="@_accepts">Browse</R_OpenFileDialogButton>
+    </R_ItemLayout>
 </R_GroupBox>
 
 @code {
