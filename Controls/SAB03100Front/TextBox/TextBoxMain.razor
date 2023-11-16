@@ -1,10 +1,10 @@
 ﻿@inherits R_Page
 
 <R_GroupBox Title="R_TextBox">
-    <R_ItemLayout xs="4">
+    <R_ItemLayout col="4">
         <p>TextBox value: @_stringValue</p>
 
-        <R_TextBox @bind-Value="@_stringValue">
+        <R_TextBox @bind-Value="@_stringValue" ReadOnly="true">
 
         </R_TextBox>
     </R_ItemLayout>
