@@ -12,9 +12,6 @@ namespace BatchAndExcelBack
         public void R_BatchProcess(R_BatchProcessPar poBatchProcessPar)
         {
             R_Exception loException = new R_Exception();
-            R_Db loDb = null;
-            DbCommand loCommand = null;
-            DbConnection loConn = null;
 
             try
             {
@@ -41,18 +38,8 @@ namespace BatchAndExcelBack
             {
                 loException.Add(ex);
             }
-            finally
-            {
-                if (loConn != null)
-                {
-                    if (!(loConn.State == ConnectionState.Closed))
-                        loConn.Close();
-                    loConn.Dispose();
-                    loConn = null;
-                }
-            }
-        EndBlock:
 
+        EndBlock:
             loException.ThrowExceptionIfErrors();
         }
 

@@ -60,7 +60,6 @@ namespace BatchAndExcelBack
                     loConn = null;
                 }
             }
-        EndBlock:
 
             loException.ThrowExceptionIfErrors();
         }
