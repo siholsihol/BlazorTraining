@@ -27,6 +27,9 @@
     <Reference Include="R_CommonFrontBackAPI">
       <HintPath>..\..\..\Dll\Dll Back\R_CommonFrontBackAPI.dll</HintPath>
     </Reference>
+    <Reference Include="R_Storage">
+      <HintPath>..\..\..\Dll\Dll Back\R_Storage.dll</HintPath>
+    </Reference>
     <Reference Include="R_StorageCommon">
       <HintPath>..\..\..\Dll\Dll Back\R_StorageCommon.dll</HintPath>
     </Reference>
