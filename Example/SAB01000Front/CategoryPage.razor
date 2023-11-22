@@ -1,0 +1,65 @@
+﻿@inherits R_Page
+@attribute [R_Page(Title = "Category List")]
+@using R_BlazorFrontEnd.Exceptions
+@using R_BlazorFrontEnd.Controls.Events
+@using System.Collections.ObjectModel
+
+<R_GroupBox ShowBorder="false">
+    <R_Grid @ref="@_gridRef"
+            DataSource="@_categoryList"
+            Pageable
+            PageSize="10"
+            R_ServiceGetListRecord="@R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridNumericColumn FieldName="@nameof(CategoryDTO.Id)" HeaderText="Category Id"></R_GridNumericColumn>
+            <R_GridTextColumn FieldName="@nameof(CategoryDTO.Name)" HeaderText="Category Name"></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+
+    <R_Button OnClick="@OnClose">Close</R_Button>
+</R_GroupBox>
+
+@code{
+    private R_Grid<CategoryDTO> _gridRef;
+    private ObservableCollection<CategoryDTO> _categoryList = new();
+
+    protected override async Task R_Init_From_Master(object poParameter)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            var loParam = poParameter as List<CategoryDTO>;
+            _categoryList = new ObservableCollection<CategoryDTO>(loParam);
+
+            await _gridRef.R_RefreshGrid(null);
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
+    private async Task OnClose()
+    {
+        await this.Close(true, _gridRef.GetCurrentData());
+    }
+
+    private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            eventArgs.ListEntityResult = _categoryList;
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+}

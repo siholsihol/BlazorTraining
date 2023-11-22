@@ -13,7 +13,10 @@
                 AllowDeleteRow="true"
                 R_ServiceGetListRecord="@R_ServiceGetListRecord" 
                 Height="300px" 
-                R_CellValueChanged="@R_CellValueChanged">
+                R_CellValueChanged="@R_CellValueChanged"
+                R_CellLostFocused="@R_CellLostFocused" 
+                R_Before_Open_Grid_Lookup="@R_Before_Open_Lookup"
+                R_After_Open_Grid_Lookup="R_After_Open_Lookup">
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
@@ -36,33 +39,52 @@
                 <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Price)"
                                      HeaderText="Price"
                                      R_EnableAdd
-                                     R_EnableEdit Min="0" Width="200px" Decimals="3" Format="#,##0.000" />
+                                     R_EnableEdit
+                                     Min="0"
+                                     Width="200px"
+                                     Decimals="3" />
 
-                <R_GridDateTimePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
-                                            HeaderText="Release Date"
-                                            R_EnableAdd
-                                            R_EnableEdit Width="200px" />
+                @*<R_GridDateTimePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
+        HeaderText="Release Date"
+        R_EnableAdd
+        R_EnableEdit
+        Width="200px" />*@
+
+            <R_GridDatePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
+                                    HeaderText="Release Date"
+                                    R_EnableAdd
+                                    R_EnableEdit
+                                    Width="200px" />
 
                 <R_GridCheckBoxColumn FieldName="@nameof(SelectedProductDTO.Active)"
                                       HeaderText="Active"
                                       R_EnableAdd
                                       R_EnableEdit Width="200px" />
 
-                <R_GridDropDownListColumn Data=@_viewModel.Categories
+                @*<R_GridDropDownListColumn Data=@_viewModel.Categories
                                           ValueField="@nameof(CategoryDTO.Id)"
                                           TextField="@nameof(CategoryDTO.Name)"
                                           FieldName="@nameof(SelectedProductDTO.CategoryId)"
                                           HeaderText="Category"
                                           R_EnableAdd
-                                          R_EnableEdit Width="200px" PopupMaxHeight="50px" />
+                                          R_EnableEdit Width="200px"
+                                          PopupMaxHeight="50px" />*@
 
-                <R_GridComboBoxColumn Data=@_viewModel.Categories
+                @*<R_GridComboBoxColumn Data=@_viewModel.Categories
                                       ValueField="@nameof(CategoryDTO.Id)"
                                       TextField="@nameof(CategoryDTO.Name)"
                                       FieldName="@nameof(SelectedProductDTO.CategoryId)"
-                                      HeaderText="Category" 
-                                      R_EnableAdd 
-                                      R_EnableEdit Width="200px" PopupMaxHeight="50px" />
+                                      HeaderText="Category"
+                                      R_EnableAdd
+                                      R_EnableEdit 
+                                      Width="200px"
+                                      PopupMaxHeight="50px" />*@
+
+                <R_GridLookupColumn FieldName="@nameof(SelectedProductDTO.CategoryId)" 
+                                    HeaderText="Category" 
+                                    R_EnableAdd 
+                                    R_EnableEdit 
+                                    Width="200px" />
             </R_GridColumns>
         </R_Grid>
 

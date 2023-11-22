@@ -1,4 +1,5 @@
-﻿using R_BlazorFrontEnd.Controls;
+﻿using DataDummyProvider.DTOs;
+using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
@@ -98,11 +99,58 @@ namespace SAB01000Front
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
         {
-            if (eventArgs.ColumnName == "Active")
+            //if (eventArgs.ColumnName == "Active")
+            //{
+            //    var loCategoryIdColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "CategoryId");
+            //    loCategoryIdColumn.Enabled = (bool)eventArgs.Value;
+            //}
+
+            //if (eventArgs.ColumnName == "CategoryId")
+            //{
+            //    var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
+
+            //    if ((string)eventArgs.Value == "2")
+            //        loPriceColumn.Enabled = false;
+            //    else
+            //        loPriceColumn.Enabled = true;
+            //}
+
+            if (eventArgs.ColumnName == "ReleaseDate")
             {
-                var loCategoryIdColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "CategoryId");
-                loCategoryIdColumn.Enabled = (bool)eventArgs.Value;
+                var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
+
+                if (((DateTime)eventArgs.Value).Date == DateTime.Now.Date)
+                    loPriceColumn.Enabled = false;
+                else
+                    loPriceColumn.Enabled = true;
             }
         }
+
+        private void R_CellLostFocused(R_CellLostFocusedEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnName == "Name")
+            {
+                var loCategoryIdColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "CategoryId");
+
+                if ((string)eventArgs.Value == "aa")
+                    loCategoryIdColumn.Enabled = false;
+                else
+                    loCategoryIdColumn.Enabled = true;
+            }
+        }
+
+        #region Lookup
+        public void R_Before_Open_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(CategoryPage);
+            eventArgs.Parameter = _viewModel.Categories;
+        }
+
+        public void R_After_Open_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
+        {
+            var loResult = eventArgs.Result as CategoryDTO;
+            ((SelectedProductDTO)eventArgs.ColumnData).CategoryId = loResult.Id;
+        }
+        #endregion
     }
 }

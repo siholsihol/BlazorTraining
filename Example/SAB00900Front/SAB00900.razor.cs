@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
+using R_BlazorFrontEnd.Controls.Forms;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Controls.Popup;
 using R_BlazorFrontEnd.Enums;
@@ -180,6 +181,23 @@ namespace SAB00900Front
 
             await _conductorRef.R_GetEntity(loParam);
         }
+
+        [Inject] public R_LookupService LookupService { get; set; }
+        private async Task lookupButtonOnClick()
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loResult = await LookupService.Show(typeof(ProductPage), "Dari LookupService");
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
         #endregion
 
         #region Popup
@@ -200,7 +218,7 @@ namespace SAB00900Front
         }
 
         [Inject] public R_PopupService PopupService { get; set; }
-        private async Task popupbuttonOnClick()
+        private async Task popupButtonOnClick()
         {
             var loEx = new R_Exception();
 
