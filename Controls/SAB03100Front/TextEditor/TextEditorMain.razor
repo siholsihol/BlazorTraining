@@ -1,6 +1,7 @@
 ﻿@inherits R_Page
 @inject IJSRuntime JS
 @inject R_BlazorFrontEnd.R_IFileConverter FileConverter
+@namespace SAB03100Front.TextEditor
 
 <R_GroupBox Title="R_TextEditor">
     <R_TextEditor @ref="@_textEditorRef" @bind-Value="@_editorValue" Height="700px">

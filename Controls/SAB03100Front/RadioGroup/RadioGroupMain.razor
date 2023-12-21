@@ -4,8 +4,9 @@
     Chosen gender: @(_chosenGender == 0 ? "no selection yet" : _chosenGender.ToString())
     <br />
 
-    <R_ItemLayout xs="4">
-        <R_RadioGroup Data="@_genderOptions"
+    <R_ItemLayout col="4">
+        <R_RadioGroup @ref="@_radigoGroupRef" 
+                      Data="@_genderOptions"
                       TextField="@nameof(GenderModel.GenderText)"
                       ValueField="@nameof(GenderModel.GenderId)" 
                       @bind-Value="@_chosenGender" 
@@ -18,6 +19,12 @@
 
 @code {
     private int _chosenGender = 0;
+    private R_RadioGroup<GenderModel, int> _radigoGroupRef;
+
+    protected override async Task R_Init_From_Master(object poParameter)
+    {
+        await _radigoGroupRef.FocusAsync();
+    }
 
     private List<GenderModel> _genderOptions { get; set; } = new List<GenderModel>
     {

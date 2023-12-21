@@ -2,7 +2,8 @@
 
 <R_GroupBox Title="R_ComboBox">
     <R_ItemLayout col="4">
-        <R_ComboBox Data="@_comboBoxList" 
+        <R_ComboBox @ref="@_comboboxRef" 
+                    Data="@_comboBoxList" 
                     TextField="@nameof(CategoryDTO.Name)" 
                     ValueField="@nameof(CategoryDTO.Id)"
                     @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
@@ -14,11 +15,12 @@
 @code { 
     private List<CategoryDTO> _comboBoxList = new();
     private int _selectedCategory = 0;
+    private R_ComboBox<CategoryDTO, int> _comboboxRef;
 
-    protected override Task R_Init_From_Master(object poParameter)
+    protected override async Task R_Init_From_Master(object poParameter)
     {
         _comboBoxList = CategoryService.GetCategories();
 
-        return Task.CompletedTask;
+        await _comboboxRef.FocusAsync();
     }
 }

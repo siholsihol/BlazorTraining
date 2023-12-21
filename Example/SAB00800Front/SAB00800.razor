@@ -11,7 +11,8 @@
                     ParentIdField="CPARENT"
                     HasChildrenField="LHAS_CHILDREN" 
                     R_ServiceGetListRecord="@Tree_R_ServiceGetListRecord" 
-                    R_RefreshTreeViewState="@Tree_R_RefreshTreeViewState">
+                    R_RefreshTreeViewState="@Tree_R_RefreshTreeViewState"
+                    Enabled="@_treeEnabled">
         </R_TreeView>
     </R_StackLayout>
 </R_StackLayout>
@@ -109,5 +110,6 @@
              R_ServiceSave="@Conductor_ServiceSave"
              R_ServiceDelete="@Conductor_ServiceDelete" 
              R_ConvertToGridEntity="Conductor_ConvertToGridEntity" 
-             R_Saving="Conductor_Saving"></R_Conductor>
+             R_Saving="Conductor_Saving"
+             R_SetOther="@R_SetOther"></R_Conductor>
 

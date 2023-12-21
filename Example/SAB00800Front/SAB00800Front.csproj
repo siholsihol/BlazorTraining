@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.23" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="4.3.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>

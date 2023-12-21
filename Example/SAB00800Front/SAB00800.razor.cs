@@ -150,5 +150,11 @@ namespace SAB00800Front
 
             eventArgs.ExpandedList = loTreeList.Where(x => x.LHAS_CHILDREN == true).ToList();
         }
+
+        private bool _treeEnabled = true;
+        private void R_SetOther(R_SetEventArgs eventArgs)
+        {
+            _treeEnabled = eventArgs.Enable;
+        }
     }
 }

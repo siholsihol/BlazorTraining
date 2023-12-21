@@ -112,7 +112,9 @@ export function removeClassToQuerySelector(querySelector, removeClass) {
 
 export function focusToElement(id) {
     const element = document.getElementById(id);
-    element.focus();
+    if (element != null) {
+        element.focus();
+    }
 }
 
 export function clickComponent(componentId) {

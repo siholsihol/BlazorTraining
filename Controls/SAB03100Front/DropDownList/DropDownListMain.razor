@@ -3,7 +3,8 @@
 
 <R_GroupBox Title="R_DropDownList">
     <R_ItemLayout col="4">
-        <R_DropDownList Data="@_dropDownList"
+        <R_DropDownList @ref="@_ddlRef" 
+                        Data="@_dropDownList"
                         TextField="@nameof(CategoryDTO.Name)"
                         ValueField="@nameof(CategoryDTO.Id)"
                         @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
@@ -15,11 +16,12 @@
 @code {
     private List<CategoryDTO> _dropDownList = new();
     private int _selectedCategory = 0;
+    private R_DropDownList<CategoryDTO, int> _ddlRef;
 
-    protected override Task R_Init_From_Master(object poParameter)
+    protected override async Task R_Init_From_Master(object poParameter)
     {
         _dropDownList = CategoryService.GetCategories();
 
-        return Task.CompletedTask;
+        await _ddlRef.FocusAsync();
     }
 }

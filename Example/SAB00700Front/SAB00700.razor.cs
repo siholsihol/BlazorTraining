@@ -14,7 +14,6 @@ namespace SAB00700Front
         private SAB00700ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
         private R_Grid<CategoryGridDTO> _gridRef;
-
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -22,6 +21,8 @@ namespace SAB00700Front
             try
             {
                 await _gridRef.R_RefreshGrid(null);
+
+                await _conductorRef.Edit();
             }
             catch (Exception ex)
             {
