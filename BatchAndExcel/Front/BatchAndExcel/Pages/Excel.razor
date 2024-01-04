@@ -12,7 +12,8 @@
 @inject IJSRuntime JS;
 
 <R_GroupBox Title="Excel">
-    <R_Grid @ref="@GridRef" DataSource="@GridList"
+    <R_Grid @ref="@GridRef" 
+            DataSource="@GridList"
             R_GridType="@R_eGridType.Batch"
             AllowAddNewRow="true"
             AllowEditRow="true"
@@ -22,17 +23,15 @@
                               HeaderText="User Id" />
 
             <R_GridTextColumn FieldName="@nameof(EmployeeDTO.FirstName)"
-                              HeaderText="First Name"
-                              R_EnableAdd
-                              R_EnableEdit />
+                              HeaderText="First Name" />
 
-            <R_GridDropDownListColumn Data="@GenderList"
+            @*<R_GridDropDownListColumn Data="@GenderList"
                                       ValueField="@nameof(GenderDTO.Id)"
                                       TextField="@nameof(GenderDTO.Description)"
                                       FieldName="@nameof(EmployeeDTO.Gender)"
                                       HeaderText="Gender"
                                       R_EnableAdd
-                                      R_EnableEdit />
+                                      R_EnableEdit />*@
         </R_GridColumns>
     </R_Grid>
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
@@ -50,6 +49,15 @@
     private List<GenderDTO> GenderList = new();
     private R_Grid<EmployeeDTO> GridRef;
 
+    protected override void OnInitialized()
+    {
+        GenderList = new List<GenderDTO>()
+        {
+            new GenderDTO() {Id = 1, Description = "L"},
+            new GenderDTO() {Id = 2, Description = "P"}
+        };
+    }
+
     private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
     {
         var loEx = new R_Exception();
@@ -62,22 +70,18 @@
             var loByteFile = loMS.ToArray();
 
             //import from excel
-            //var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
-            var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile, new string[] { "Sheet1" });
+            var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile, new string[] { "Employee" });
 
             var resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataSet.Tables[0]);
-            //var resultGender = R_FrontUtility.R_ConvertTo<GenderDTO>(loDataSet.Tables[1]);
 
-            await GridRef.R_RefreshGrid(resultEmployee);
+            foreach (var employee in resultEmployee)
+            {
+                employee.DHIRE_DATE = DateTime.ParseExact(employee.HireDate, "dd/mm/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            //await GridRef.R_RefreshGrid(resultEmployee);
 
             Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
-            //Console.WriteLine(R_FrontUtility.Dump(resultGender));
-
-            //export to excel
-            //loByteFile = ExcelProvider.R_WriteToExcel(loDataSet);
-            //var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
-
-            //await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
         }
         catch (Exception ex)
         {
@@ -87,7 +91,9 @@
 
     private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
     {
-        eventArgs.ListEntityResult = eventArgs.Parameter;
+        GridList = new ObservableCollection<EmployeeDTO>((List<EmployeeDTO>)eventArgs.Parameter);
+
+        eventArgs.ListEntityResult = GridList;
     }
 
     private async Task OnClickHandler()
