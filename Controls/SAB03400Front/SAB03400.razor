@@ -4,7 +4,7 @@
 
 <R_StackLayout>
     <R_StackLayout Row>
-        <R_ItemLayout xs="6">
+        <R_ItemLayout col="6">
             <R_Grid @ref="@_gridRef"
                     DataSource="@_viewModel.Products"
                     Pageable
@@ -19,7 +19,8 @@
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
                     R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop" TargetGridDrop="@_gridRef2">
+                    R_GridRowAfterDrop="@R_GridRowAfterDrop" 
+                    TargetGridDrop="@_gridRef2">
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -43,7 +44,7 @@
             </R_Grid>
         </R_ItemLayout>
 
-        <R_ItemLayout xs="6">
+        <R_ItemLayout col="6">
             <R_Grid @ref="@_gridRef2"
                     DataSource="@_viewModel.Products2"
                     Pageable
@@ -58,7 +59,8 @@
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
                     R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop">
+                    R_GridRowAfterDrop="@R_GridRowAfterDrop" 
+                    TargetGridDrop="@_gridRef">
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -83,22 +85,22 @@
     </R_StackLayout>
 
     <R_StackLayout Row>
-        <R_ItemLayout xs="2">
+        <R_ItemLayout col="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
-                      OnClick="@OnClickRight">Move Right</R_Button>
+                      OnClick="@OnClickRight">Move To Right Grid</R_Button>
         </R_ItemLayout>
-        <R_ItemLayout xs="2">
+        <R_ItemLayout col="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
-                      OnClick="@OnClickMoveAll">Move All</R_Button>
+                      OnClick="@OnClickMoveAll">Move All To Right Grid</R_Button>
         </R_ItemLayout>
-        @*<R_ItemLayout xs="2">
+        <R_ItemLayout col="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
-                      OnClick="@OnClickFirst">Move First</R_Button>
+                      OnClick="@OnClickLeft">Move To Left Grid</R_Button>
         </R_ItemLayout>
-        <R_ItemLayout xs="2">
+        <R_ItemLayout col="2">
             <R_Button R_ConductorGridSource="@_conGridProductRef"
-                      OnClick="@OnClickLast">Move Last</R_Button>
-        </R_ItemLayout>*@
+                      OnClick="@OnClickMoveAllLeft">Move All To Left Grid</R_Button>
+        </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
 

@@ -136,6 +136,17 @@ namespace SAB03400Front
             await _gridRef.R_MoveAllToTargetGrid();
         }
 
+        private async Task OnClickLeft()
+        {
+            await _gridRef2.R_MoveToTargetGrid();
+        }
+
+        private async Task OnClickMoveAllLeft()
+        {
+            await _gridRef2.R_MoveAllToTargetGrid();
+        }
+
+
         //private async Task OnClickFirst()
         //{
         //    await _gridRef.R_MoveToFirstRow();
