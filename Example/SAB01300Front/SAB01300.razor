@@ -1,0 +1,152 @@
+﻿@page "/SAB01300"
+@inherits R_Page
+
+<R_StackLayout Spacing="3" Class="mb-4">
+    <R_StackLayout>
+        <R_Grid @ref="@_gridRef"
+                DataSource="@_viewModel.CategoryList"
+                Pageable="true"
+                R_ConductorSource="@_conductorRef"
+                R_GridType="@R_eGridType.Navigator"
+                R_ServiceGetListRecord="@GridCategory_R_ServiceGetListRecord"
+                Enabled="@_gridEnabled">
+            <R_GridColumns>
+                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridNumericColumn>
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)" HeaderText="Category Name"></R_GridTextColumn>
+            </R_GridColumns>
+        </R_Grid>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_StackLayout>
+    <R_StackLayout Row="true" Spacing="3">
+        <h2>Category Detail</h2>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Category Id</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_NumericTextBox @bind-Value="@_viewModel.Data.Id"
+                              R_ConductorSource="@_conductorRef"
+                              Enabled="false"></R_NumericTextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Category Name</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_TextBox @ref="@_textboxNameRef" 
+                       @bind-Value="@_viewModel.Data.Name"
+                       R_ConductorSource="@_conductorRef"
+                       R_EnableAdd="true"
+                       R_EnableEdit="true"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Description</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_TextArea @bind-Value="@_viewModel.Data.Description"
+                        R_ConductorSource="@_conductorRef"
+                        R_EnableAdd="true"
+                        R_EnableEdit="true"></R_TextArea>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true" Spacing="3" Class="mt-3">
+        <R_ItemLayout col="12">
+            <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
+
+            <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
+
+            <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
+
+            <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
+
+            <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_StackLayout>
+    <R_GroupBox Title="GridView Batch" ShowBorder="false">
+        <R_Grid @ref="@_productGridRef"
+                DataSource="@_viewModel.Products"
+                Pageable
+                R_ConductorGridSource="@_conGridProductRef"
+                R_GridType="@R_eGridType.Batch"
+                AllowAddNewRow="true"
+                AllowEditRow="true"
+                AllowDeleteRow="true"
+                R_ServiceGetListRecord="@GridProduct_ServiceGetListRecord"
+                Height="300px">
+            <R_GridColumns>
+                <R_GridMultiHeaderColumn HeaderText="Test">
+                    <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
+                                         HeaderText="Id"
+                                         R_EnableAdd
+                                         R_EnableEdit Width="200px" 
+                                         ThousandSeparator="false" />
+
+                    <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
+                                      HeaderText="Name"
+                                      R_EnableAdd
+                                      R_EnableEdit
+                                      MaxLength="5" Width="200px" />
+                </R_GridMultiHeaderColumn>
+
+                <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
+                                     HeaderText="Price"
+                                     R_EnableAdd
+                                     R_EnableEdit
+                                     Min="0"
+                                     Width="200px"
+                                     Decimals="3" />
+
+                <R_GridDatePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
+                                        HeaderText="Release Date"
+                                        R_EnableAdd
+                                        R_EnableEdit
+                                        Width="200px" />
+
+                <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Active)"
+                                      HeaderText="Active"
+                                      R_EnableAdd
+                                      R_EnableEdit Width="200px" />
+            </R_GridColumns>
+        </R_Grid>
+
+        @*<R_ItemLayout>
+            <R_Button R_ConductorGridSource="@_conGridProductRef"
+                      OnClick="@OnClickSave">Save Batch</R_Button>
+        </R_ItemLayout>*@
+    </R_GroupBox>
+</R_StackLayout>
+
+<R_Conductor @ref="@_conductorRef"
+             R_ViewModel="@_viewModel"
+             R_IsHeader="true"
+             R_ServiceGetRecord="@Navigator_ServiceGetRecord"
+             R_Validation="@Navigator_Validation"
+             R_ServiceSave="@Navigator_ServiceSave"
+             R_ServiceDelete="@Navigator_ServiceDelete"
+             R_ConvertToGridEntity="@Navigator_ConvertToGridEntity"
+             R_BeforeEdit="@Navigator_BeforeEdit"
+             R_SetOther="@Navigator_SetOther" 
+             R_AfterAdd="@Navigator_AfterAdd" 
+             R_Display="@Navigator_Display" />
+
+<R_ConductorGrid @ref="@_conGridProductRef"
+                 R_ConductorParent="@_conductorRef"
+                 R_ViewModel="@_viewModel"
+                 R_ServiceGetRecord="@Batch_ServiceGetRecord"
+                 R_AfterAdd="@Batch_AfterAdd" />

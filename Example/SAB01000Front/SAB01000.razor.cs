@@ -22,7 +22,6 @@ namespace SAB01000Front
             {
                 _viewModel.GetCategories();
                 await _gridRef.R_RefreshGrid(null);
-                //await _gridRef.AutoFitAllColumnsAsync();
             }
             catch (Exception ex)
             {
