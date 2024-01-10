@@ -82,13 +82,12 @@
         <R_Grid @ref="@_productGridRef"
                 DataSource="@_viewModel.Products"
                 Pageable
-                R_ConductorGridSource="@_conGridProductRef"
+                R_ConductorSource="@_conductorRef"
                 R_GridType="@R_eGridType.Batch"
-                AllowAddNewRow="true"
-                AllowEditRow="true"
-                AllowDeleteRow="true"
                 R_ServiceGetListRecord="@GridProduct_ServiceGetListRecord"
-                Height="300px">
+                Height="300px" 
+                R_EnableAdd="true" 
+                R_EnableEdit="true">
             <R_GridColumns>
                 <R_GridMultiHeaderColumn HeaderText="Test">
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
