@@ -87,7 +87,12 @@
                 R_ServiceGetListRecord="@GridProduct_ServiceGetListRecord"
                 Height="300px" 
                 R_EnableAdd="true" 
-                R_EnableEdit="true">
+                R_EnableEdit="true"
+                R_ServiceGetRecord="@Batch_ServiceGetRecord" 
+                R_AfterAdd="@Batch_AfterAdd" 
+                AllowAddNewRow 
+                AllowEditRow 
+                AllowDeleteRow >
             <R_GridColumns>
                 <R_GridMultiHeaderColumn HeaderText="Test">
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -146,6 +151,4 @@
 
 <R_ConductorGrid @ref="@_conGridProductRef"
                  R_ConductorParent="@_conductorRef"
-                 R_ViewModel="@_viewModel"
-                 R_ServiceGetRecord="@Batch_ServiceGetRecord"
-                 R_AfterAdd="@Batch_AfterAdd" />
+                 R_ViewModel="@_viewModel" />
