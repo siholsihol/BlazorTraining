@@ -35,7 +35,7 @@ namespace SAB00600Front
         }
 
         #region Conductor Grid Events
-        private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private void Grid_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
