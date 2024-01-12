@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Realta.BackCollectionNuGet" Version="1.0.0" />
     <PackageReference Include="Realta.CommonCollectionNuGet" Version="1.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>

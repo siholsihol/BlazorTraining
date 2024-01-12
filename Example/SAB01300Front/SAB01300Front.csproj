@@ -13,15 +13,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
-    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd\R_BlazorFrontEnd.csproj" />
+    <ProjectReference Include="..\..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\DataDummyProvider\DataDummyProvider.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="R_BlazorFrontEnd">
+      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
+    </Reference>
     <Reference Include="R_CommonFrontBackAPI">
       <HintPath>..\..\Dll\Dll Back\R_CommonFrontBackAPI.dll</HintPath>
     </Reference>

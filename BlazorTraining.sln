@@ -85,15 +85,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TreeView Navigator", "TreeV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB00800Front", "Example\SAB00800Front\SAB00800Front.csproj", "{5BEC3102-216D-4D05-B6F2-1A84414632F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{7B00C758-8E3E-4ADB-B750-F381527EFD97}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Excel", "..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Excel\R_BlazorFrontEnd.Excel.csproj", "{68EF9163-BEFE-42E5-AA10-71DE340720FB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd", "..\..\Realta NetCore Library\Library\R_BlazorFrontEnd\R_BlazorFrontEnd.csproj", "{E10E5EA0-2617-46B4-B113-45DFA7F8DDA9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigator and Batch", "Navigator and Batch", "{85437E7A-C690-4011-B7C4-46D9BB098A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAB01300Front", "Example\SAB01300Front\SAB01300Front.csproj", "{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB01300Front", "Example\SAB01300Front\SAB01300Front.csproj", "{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,22 +189,14 @@ Global
 		{5BEC3102-216D-4D05-B6F2-1A84414632F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BEC3102-216D-4D05-B6F2-1A84414632F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BEC3102-216D-4D05-B6F2-1A84414632F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B00C758-8E3E-4ADB-B750-F381527EFD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B00C758-8E3E-4ADB-B750-F381527EFD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B00C758-8E3E-4ADB-B750-F381527EFD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B00C758-8E3E-4ADB-B750-F381527EFD97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68EF9163-BEFE-42E5-AA10-71DE340720FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68EF9163-BEFE-42E5-AA10-71DE340720FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68EF9163-BEFE-42E5-AA10-71DE340720FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68EF9163-BEFE-42E5-AA10-71DE340720FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E10E5EA0-2617-46B4-B113-45DFA7F8DDA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E10E5EA0-2617-46B4-B113-45DFA7F8DDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E10E5EA0-2617-46B4-B113-45DFA7F8DDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E10E5EA0-2617-46B4-B113-45DFA7F8DDA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
