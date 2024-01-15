@@ -89,7 +89,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigator and Batch", "Navi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB01300Front", "Example\SAB01300Front\SAB01300Front.csproj", "{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{5821F268-1742-4A0D-B92B-4C206D9436F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,10 +193,10 @@ Global
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE59F0AB-FB61-45A9-8E51-FF0117240CCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5821F268-1742-4A0D-B92B-4C206D9436F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5821F268-1742-4A0D-B92B-4C206D9436F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5821F268-1742-4A0D-B92B-4C206D9436F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5821F268-1742-4A0D-B92B-4C206D9436F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
