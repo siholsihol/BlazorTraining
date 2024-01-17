@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
+    <ProjectReference Include="..\..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\DataDummyProvider\DataDummyProvider.csproj" />
   </ItemGroup>
 
