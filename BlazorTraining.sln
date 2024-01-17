@@ -89,6 +89,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigator and Batch", "Navi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB01300Front", "Example\SAB01300Front\SAB01300Front.csproj", "{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "R_BlazorFrontEnd.Controls", "..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{37C000F0-80C4-4C42-922B-FB0E6C51EEF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,10 @@ Global
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E1D2434-FF04-4A7F-8492-0ACECAC5516A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37C000F0-80C4-4C42-922B-FB0E6C51EEF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C000F0-80C4-4C42-922B-FB0E6C51EEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C000F0-80C4-4C42-922B-FB0E6C51EEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C000F0-80C4-4C42-922B-FB0E6C51EEF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
