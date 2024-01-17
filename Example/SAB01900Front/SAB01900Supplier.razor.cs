@@ -8,7 +8,7 @@ using SAB01900Front.VMs;
 
 namespace SAB01900Front
 {
-    public partial class SAB01900Supplier : R_ITabPage
+    public partial class SAB01900Supplier : R_Page, R_ITabPage
     {
         private SAB01900SupplierViewModel SupplierViewModel = new();
         private R_ConductorGrid _conGridProductRef;
