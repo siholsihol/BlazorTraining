@@ -1,10 +1,12 @@
 ﻿using DataDummyProvider.DTOs;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
+using R_LockingFront;
 using SAB00700Front.DTOs;
 
 namespace SAB00700Front
@@ -22,7 +24,7 @@ namespace SAB00700Front
             {
                 await _gridRef.R_RefreshGrid(null);
 
-                await _conductorRef.Edit();
+                //await _conductorRef.Edit();
             }
             catch (Exception ex)
             {
@@ -30,6 +32,63 @@ namespace SAB00700Front
             }
 
             loEx.ThrowExceptionIfErrors();
+        }
+
+        private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
+
+        protected override async Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+            var llRtn = false;
+            R_LockingFrontResult loLockResult = null;
+
+            try
+            {
+                var loData = (CategoryDTO)eventArgs.Data;
+
+                if (eventArgs.Mode == R_eLockUnlock.Lock)
+                {
+                    var loLockPar = new R_ServiceLockingLockParameterDTO
+                    {
+                        Company_Id = "001",
+                        User_Id = "cp",
+                        Program_Id = "SAB00600",
+                        Table_Name = "TEST_TABLE",
+                        Key_Value = string.Join("|", "001", "cp", loData.Id)
+                    };
+
+                    var loCls = new R_LockingServiceClient(DEFAULT_HTTP_NAME);
+
+                    loLockResult = await loCls.R_Lock(loLockPar);
+                }
+                else
+                {
+                    var loUnlockPar = new R_ServiceLockingUnLockParameterDTO
+                    {
+                        Company_Id = "001",
+                        User_Id = "cp",
+                        Program_Id = "SAB00600",
+                        Table_Name = "TEST_TABLE",
+                        Key_Value = string.Join("|", "001", "cp", loData.Id)
+                    };
+
+                    var loCls = new R_LockingServiceClient(DEFAULT_HTTP_NAME);
+
+                    loLockResult = await loCls.R_UnLock(loUnlockPar);
+                }
+
+                llRtn = loLockResult.IsSuccess;
+                if (!loLockResult.IsSuccess && loLockResult.Exception != null)
+                    throw loLockResult.Exception;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return llRtn;
         }
 
         private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
