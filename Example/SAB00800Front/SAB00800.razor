@@ -7,22 +7,21 @@
                     DataSource="@_viewModel.TenantList"
                     R_ConductorSource="@_conductorRef"
                     TextField="CCATEGORY_NAME_DISPLAY"
-                    IdField="CCATEGORY_ID"
-                    ParentIdField="CPARENT"
-                    HasChildrenField="LHAS_CHILDREN" 
+                    IdField="Id"
+                    ParentIdField="ParentId"
+                    HasChildrenField="HasChildren" 
                     R_ServiceGetListRecord="@Tree_R_ServiceGetListRecord" 
-                    R_RefreshTreeViewState="@Tree_R_RefreshTreeViewState"
                     Enabled="@_treeEnabled">
         </R_TreeView>
     </R_StackLayout>
 </R_StackLayout>
 
 <R_StackLayout>
-    <R_StackLayout Row="true" Spacing="3">
+    <R_StackLayout Row="true" Spacing="3" Justify="@R_BlazorFrontEnd.Controls.Enums.R_eJustify.Center">
         <h2>Tenant Detail</h2>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row="true" AlignItems="@R_BlazorFrontEnd.Controls.Enums.R_eAlignItems.End">
         <R_ItemLayout col="2">
             <R_Label>Parent Category*</R_Label>
         </R_ItemLayout>
@@ -98,6 +97,8 @@
             <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
 
             <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
+
+            <R_Button OnClick="@ExpandAllClick">Expand All</R_Button>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>

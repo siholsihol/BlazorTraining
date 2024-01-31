@@ -3,7 +3,6 @@ using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
-using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using SAB00800Front.DTOs;
 
@@ -55,8 +54,8 @@ namespace SAB00800Front
 
             try
             {
-                var loParam = R_FrontUtility.ConvertObjectToObject<TenantDTO>(eventArgs.Data);
-                _viewModel.GetTenantById(loParam.CCATEGORY_ID);
+                var loParam = (TenantTreeDTO)eventArgs.Data;
+                _viewModel.GetTenantById(loParam.Id);
 
                 eventArgs.Result = _viewModel.Tenant;
             }
@@ -134,27 +133,32 @@ namespace SAB00800Front
             var loConductorData = (TenantDTO)eventArgs.Data;
             eventArgs.GridData = new TenantTreeDTO
             {
-                CPARENT = loConductorData.CPARENT,
-                CCATEGORY_ID = loConductorData.CCATEGORY_ID,
+                ParentId = loConductorData.CPARENT,
+                Id = loConductorData.CCATEGORY_ID,
                 CCATEGORY_NAME_DISPLAY = $"[{loConductorData.ILEVEL}] {loConductorData.CCATEGORY_ID} - {loConductorData.CCATEGORY_NAME}"
             };
         }
 
-        private void Tree_R_RefreshTreeViewState(R_RefreshTreeViewStateEventArgs eventArgs)
-        {
-            var loTreeList = (List<TenantTreeDTO>)eventArgs.TreeViewList;
+        //private void Tree_R_RefreshTreeViewState(R_RefreshTreeViewStateEventArgs eventArgs)
+        //{
+        //    var loTreeList = (List<TenantTreeDTO>)eventArgs.TreeViewList;
 
-            loTreeList.ForEach(x => x.LHAS_CHILDREN = string.IsNullOrWhiteSpace(x.CPARENT) &&
-                loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0 ? true :
-                loTreeList.Where(y => y.CPARENT == x.CCATEGORY_ID).Count() > 0);
+        //    loTreeList.ForEach(x => x.HasChildren = string.IsNullOrWhiteSpace(x.ParentId) &&
+        //        loTreeList.Where(y => y.ParentId == x.CCATEGORY_ID).Count() > 0 ? true :
+        //        loTreeList.Where(y => y.ParentId == x.CCATEGORY_ID).Count() > 0);
 
-            eventArgs.ExpandedList = loTreeList.Where(x => x.LHAS_CHILDREN == true).ToList();
-        }
+        //    eventArgs.ExpandedList = loTreeList.Where(x => x.HasChildren == true).ToList();
+        //}
 
         private bool _treeEnabled = true;
         private void R_SetOther(R_SetEventArgs eventArgs)
         {
             _treeEnabled = eventArgs.Enable;
+        }
+
+        private void ExpandAllClick()
+        {
+            _treeRef.ExpandAll();
         }
     }
 }

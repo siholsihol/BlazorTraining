@@ -23,8 +23,8 @@ namespace SAB00800Front
                 var loGridData = loResult.Select(x =>
                 new TenantTreeDTO
                 {
-                    CPARENT = x.CPARENT,
-                    CCATEGORY_ID = x.CCATEGORY_ID,
+                    ParentId = x.CPARENT,
+                    Id = x.CCATEGORY_ID,
                     CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}"
                 });
 
