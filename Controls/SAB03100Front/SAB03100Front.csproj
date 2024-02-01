@@ -12,10 +12,11 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorPrettyCode" Version="1.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\..\Example\DataDummyProvider\DataDummyProvider.csproj" />
   </ItemGroup>
 
@@ -23,9 +24,6 @@
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
     </Reference>
-	  <Reference Include="R_BlazorFrontEnd.Controls">
-		  <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
-	  </Reference>
   </ItemGroup>
 
 </Project>

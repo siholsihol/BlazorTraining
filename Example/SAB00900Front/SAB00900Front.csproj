@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,30 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModels\**" />
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="ViewModels\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="ViewModels\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="ViewModels\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="SAB00900Client.cs" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Realta NetCore Library\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\DataDummyProvider\DataDummyProvider.csproj" />
     <ProjectReference Include="..\SAB00900FrontResources\SAB00900FrontResources.csproj" />
   </ItemGroup>
@@ -38,9 +23,6 @@
   <ItemGroup>
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
-    </Reference>
-    <Reference Include="R_BlazorFrontEnd.Controls">
-      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
   </ItemGroup>
 

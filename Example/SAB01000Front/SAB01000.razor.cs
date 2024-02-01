@@ -104,25 +104,25 @@ namespace SAB01000Front
             //    loCategoryIdColumn.Enabled = (bool)eventArgs.Value;
             //}
 
-            //if (eventArgs.ColumnName == "CategoryId")
-            //{
-            //    var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
-
-            //    if ((string)eventArgs.Value == "2")
-            //        loPriceColumn.Enabled = false;
-            //    else
-            //        loPriceColumn.Enabled = true;
-            //}
-
-            if (eventArgs.ColumnName == "ReleaseDate")
+            if (eventArgs.ColumnName == "CategoryId")
             {
                 var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
 
-                if (((DateTime)eventArgs.Value).Date == DateTime.Now.Date)
+                if ((string)eventArgs.Value == "2")
                     loPriceColumn.Enabled = false;
                 else
                     loPriceColumn.Enabled = true;
             }
+
+            //if (eventArgs.ColumnName == "ReleaseDate")
+            //{
+            //    var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
+
+            //    if (((DateTime)eventArgs.Value).Date == DateTime.Now.Date)
+            //        loPriceColumn.Enabled = false;
+            //    else
+            //        loPriceColumn.Enabled = true;
+            //}
         }
 
         private void R_CellLostFocused(R_CellLostFocusedEventArgs eventArgs)
