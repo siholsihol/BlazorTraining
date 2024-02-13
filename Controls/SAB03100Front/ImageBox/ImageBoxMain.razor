@@ -2,7 +2,7 @@
 @inject IJSRuntime JS
 
 <R_GroupBox Title="R_ImageBox">
-    <R_ImageBox @bind-Value="@_imageSourceByte" MaxWidth="200px" MaxHeight="200px"></R_ImageBox>
+    <R_ImageBox @ref="@_imageBoxRef" @bind-Value="@_imageSourceByte" MaxWidth="200px" MaxHeight="200px"></R_ImageBox>
 
     <R_ItemLayout col="5">
         <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
@@ -10,9 +10,13 @@
     <R_ItemLayout col="2">
         <R_OpenFileDialogButton @ref="@_inputFile" OnChange="@OnChangeHandler" Accepts="@_accepts">Browse</R_OpenFileDialogButton>
     </R_ItemLayout>
+    <R_ItemLayout col="3">
+        <R_Button OnClick="@ButtonClearOnClick">Clear Image</R_Button>
+    </R_ItemLayout>
 </R_GroupBox>
 
 @code {
+    private R_ImageBox _imageBoxRef;
     private byte[] _imageSourceByte = default;
     private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Image };
     private R_OpenFileDialogButton _inputFile;
@@ -37,5 +41,11 @@
         {
             Console.WriteLine(R_FrontUtility.Dump(ex));
         }
+    }
+
+    private void ButtonClearOnClick()
+    {
+        //_imageSourceByte = null;
+        _imageBoxRef?.R_ClearImage();
     }
 }
