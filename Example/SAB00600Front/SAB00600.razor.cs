@@ -25,6 +25,8 @@ namespace SAB00600Front
                 CustomerViewModel.GetGenders();
 
                 await _gridRef.R_RefreshGrid(null);
+
+                //await _gridRef.R_SetCurrentData(CustomerViewModel.CustomerList.ElementAt(1));
             }
             catch (Exception ex)
             {

@@ -35,20 +35,15 @@
             R_CheckGridEdit="R_CheckGridEdit" 
             R_CheckGridDelete="R_CheckGridDelete">
         <R_GridColumns>
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)" 
-                              HeaderText="Customer Id" 
-                              R_EnableAdd 
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
+                              HeaderText="Customer Id"
+                              R_EnableAdd
                               Width="100px"></R_GridTextColumn>
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)" 
-                              HeaderText="Company Name" 
-                              R_EnableAdd 
-                              R_EnableEdit 
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
+                              HeaderText="Company Name"
+                              R_EnableAdd
+                              R_EnableEdit
                               Width="400px"></R_GridTextColumn>
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
-                              HeaderText="Contact Name"
-                              Enabled="@_checkBoxValue"
-                              Visible="@_isContactNameColumnVisible" Width="400px" />
-            @*<R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit Width="50px"></R_GridTextColumn>*@
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"
@@ -57,6 +52,11 @@
                                   R_EnableAdd
                                   R_EnableEdit
                                   Width="200px" />
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                              HeaderText="Contact Name"
+                              Enabled="@_checkBoxValue"
+                              Visible="@_isContactNameColumnVisible" Width="400px" />
+            @*<R_GridTextColumn FieldName="@nameof(CustomerDTO.GenderId)" HeaderText="Gender Id" R_EnableAdd R_EnableEdit Width="50px"></R_GridTextColumn>*@
         </R_GridColumns>
     </R_Grid>
 
