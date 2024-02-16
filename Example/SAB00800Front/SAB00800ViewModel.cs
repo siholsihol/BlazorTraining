@@ -25,7 +25,7 @@ namespace SAB00800Front
                 {
                     ParentId = x.CPARENT,
                     Id = x.CCATEGORY_ID,
-                    CCATEGORY_NAME_DISPLAY = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}"
+                    Description = $"[{x.ILEVEL}] {x.CCATEGORY_ID} - {x.CCATEGORY_NAME}"
                 });
 
                 TenantList = loGridData.ToList();

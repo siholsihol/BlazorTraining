@@ -135,7 +135,7 @@ namespace SAB00800Front
             {
                 ParentId = loConductorData.CPARENT,
                 Id = loConductorData.CCATEGORY_ID,
-                CCATEGORY_NAME_DISPLAY = $"[{loConductorData.ILEVEL}] {loConductorData.CCATEGORY_ID} - {loConductorData.CCATEGORY_NAME}"
+                Description = $"[{loConductorData.ILEVEL}] {loConductorData.CCATEGORY_ID} - {loConductorData.CCATEGORY_NAME}"
             };
         }
 

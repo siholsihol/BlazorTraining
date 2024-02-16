@@ -45,15 +45,15 @@
         R_EnableEdit Width="200px"
         PopupMaxHeight="50px" />*@
 
-                <R_GridComboBoxColumn Data=@_viewModel.Categories
-                                      ValueField="@nameof(CategoryDTO.Id)"
-                                      TextField="@nameof(CategoryDTO.Name)"
-                                      FieldName="@nameof(SelectedProductDTO.CategoryId)"
-                                      HeaderText="Category"
-                                      R_EnableAdd
-                                      R_EnableEdit
-                                      Width="200px"
-                                      PopupMaxHeight="50px" />
+                @*<R_GridComboBoxColumn Data=@_viewModel.Categories
+        ValueField="@nameof(CategoryDTO.Id)"
+        TextField="@nameof(CategoryDTO.Name)"
+        FieldName="@nameof(SelectedProductDTO.CategoryId)"
+        HeaderText="Category"
+        R_EnableAdd
+        R_EnableEdit
+        Width="200px"
+        PopupMaxHeight="50px" />*@
 
                 <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Price)"
                                      HeaderText="Price"
@@ -80,11 +80,11 @@
                                       R_EnableAdd
                                       R_EnableEdit Width="200px" />
 
-                @*<R_GridLookupColumn FieldName="@nameof(SelectedProductDTO.CategoryId)"
-        HeaderText="Category"
-        R_EnableAdd
-        R_EnableEdit
-        Width="200px" />*@
+                <R_GridLookupColumn FieldName="@nameof(SelectedProductDTO.CategoryId)"
+                                    HeaderText="Category"
+                                    R_EnableAdd
+                                    R_EnableEdit
+                                    Width="200px" />
             </R_GridColumns>
         </R_Grid>
 

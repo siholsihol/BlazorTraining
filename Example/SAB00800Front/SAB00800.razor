@@ -6,7 +6,7 @@
         <R_TreeView @ref="@_treeRef" 
                     DataSource="@_viewModel.TenantList"
                     R_ConductorSource="@_conductorRef"
-                    TextField="CCATEGORY_NAME_DISPLAY"
+                    TextField="Description"
                     IdField="Id"
                     ParentIdField="ParentId"
                     HasChildrenField="HasChildren" 
@@ -17,7 +17,7 @@
 </R_StackLayout>
 
 <R_StackLayout>
-    <R_StackLayout Row="true" Spacing="3" Justify="@R_BlazorFrontEnd.Controls.Enums.R_eJustify.Center">
+    <R_StackLayout Row="true" Spacing="3" Justify="@R_BlazorFrontEnd.Controls.Enums.R_eJustify.FlexEnd">
         <h2>Tenant Detail</h2>
     </R_StackLayout>
 
