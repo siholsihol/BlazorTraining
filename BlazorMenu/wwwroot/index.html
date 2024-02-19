@@ -18,7 +18,8 @@
     <link href="css/all.css" rel="stylesheet" id="style-default" />
     <script src="js/aes-js-3.1.2.js"></script>
 
-    <script src="R_BlazorFrontEnd.Controls.js"></script>
+    <script type="module" src="_content/R_BlazorFrontEnd.Controls/R_BlazorFrontEnd.Controls.js" defer></script>
+    <script src="R_BlazorFrontEnd.Controls.js" defer></script>
 
     <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -54,7 +55,18 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <!--<script src="_framework/blazor.webassembly.js"></script>-->
+
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        if (window.location.hostname.includes("localhost")) {
+            Blazor.start({
+                environment: "Development"
+            });
+        } else {
+            Blazor.start();
+        }
+    </script>
 
     <script type="text/javascript">
         function encryptText(inputSrt, keyStr, ivStr) {
@@ -78,18 +90,6 @@
 
             var decryptedBytes = aesCbc.decrypt(encryptedBytes);
             return aesjs.utils.utf8.fromBytes(decryptedBytes);
-        }
-
-        window.downloadFileFromStream = async (fileName, contentStreamReference) => {
-            const arrayBuffer = await contentStreamReference.arrayBuffer();
-            const blob = new Blob([arrayBuffer]);
-            const url = URL.createObjectURL(blob);
-            const anchorElement = document.createElement('a');
-            anchorElement.href = url;
-            anchorElement.download = fileName ?? '';
-            anchorElement.click();
-            anchorElement.remove();
-            URL.revokeObjectURL(URL);
         }
 
         window.setFluid = () => {

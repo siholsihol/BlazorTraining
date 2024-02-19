@@ -3,6 +3,7 @@ using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using SAB00800Front.DTOs;
 
@@ -54,7 +55,7 @@ namespace SAB00800Front
 
             try
             {
-                var loParam = (TenantTreeDTO)eventArgs.Data;
+                var loParam = R_FrontUtility.ConvertObjectToObject<TenantTreeDTO>(eventArgs.Data);
                 _viewModel.GetTenantById(loParam.Id);
 
                 eventArgs.Result = _viewModel.Tenant;
