@@ -1,0 +1,32 @@
+﻿@inherits R_Page
+
+<R_GroupBox Title="R_ComboBoxMultiSelect">
+    <R_ItemLayout col="4">
+        <R_ComboBoxMultiSelect @ref="@_comboboxRef"
+                               Data="@_comboBoxList"
+                               TextField="@nameof(CategoryDTO.Name)"
+                               ValueField="@nameof(CategoryDTO.Id)"
+                               @bind-Value="@_selectedCategory"
+                               PopupMaxHeight="50px">
+
+        </R_ComboBoxMultiSelect>
+    </R_ItemLayout>
+
+    @foreach (var item in _selectedCategory)
+    {
+        <div>@item</div>
+    }
+</R_GroupBox>
+
+@code {
+    private List<CategoryDTO> _comboBoxList = new();
+    private List<int> _selectedCategory = new();
+    private R_ComboBoxMultiSelect<CategoryDTO, int> _comboboxRef;
+
+    protected override async Task R_Init_From_Master(object poParameter)
+    {
+        _comboBoxList = CategoryService.GetCategories();
+
+        await _comboboxRef.FocusAsync();
+    }
+}

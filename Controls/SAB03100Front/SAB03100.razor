@@ -19,6 +19,7 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextBox" Title="R_TextBox"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextEditor" Title="R_TextEditor"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateImageBox" Title="R_ImageBox"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateComboBoxMultiSelect" Title="R_ComboBoxMultiSelect"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -84,5 +85,10 @@
     private void InstantiateImageBox(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(ImageBoxMain);
+    }
+
+    private void InstantiateComboBoxMultiSelect(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(ComboBoxMultiSelectMain);
     }
 }

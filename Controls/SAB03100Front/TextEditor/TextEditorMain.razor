@@ -25,24 +25,34 @@
 
     protected override Task R_Init_From_Master(object poParameter)
     {
-        _editorValue = @"
-<p>
-    The Blazor Editor allows your users to edit HTML in a familiar, user-friendly way. Your users do not have to understand HTML in order to create it.
-</p>
-<p>
-    The widget <strong>outputs identical HTML</strong> across all major browsers, follows
-    accessibility standards, and provides API for content manipulation.
-</p>
-<p>Features include:</p>
-<ul>
-    <li>Text formatting</li>
-    <li>Bulleted and numbered lists</li>
-    <li>Hyperlinks</li>
-    <li>Cross-browser support</li>
-    <li>Identical HTML output across browsers</li>
-    <li>Ability to create custom tools, dropdowns, dialogs</li>
-</ul>
-";
+        //         _editorValue = @"
+        // <p>
+        //     The Blazor Editor allows your users to edit HTML in a familiar, user-friendly way. Your users do not have to understand HTML in order to create it.
+        // </p>
+        // <p>
+        //     The widget <strong>outputs identical HTML</strong> across all major browsers, follows
+        //     accessibility standards, and provides API for content manipulation.
+        // </p>
+        // <p>Features include:</p>
+        // <ul>
+        //     <li>Text formatting</li>
+        //     <li>Bulleted and numbered lists</li>
+        //     <li>Hyperlinks</li>
+        //     <li>Cross-browser support</li>
+        //     <li>Identical HTML output across browsers</li>
+        //     <li>Ability to create custom tools, dropdowns, dialogs</li>
+        // </ul>
+        // ";
+
+        _editorValue = @"<BODY style=""BACKGROUND-COLOR: white""><P>Dear ,</P>
+<P>&nbsp;</P>
+<P>Dengan ini saya sampaikan bahwa</P>
+<P>&nbsp;</P>
+<P>Terima kasih atas perhatiannya.</P>
+<P>Salam,</P>
+<P>&nbsp;</P>
+<P>Nama</P>
+<P>PT IPM</P></BODY>";
 
         return Task.CompletedTask;
     }
