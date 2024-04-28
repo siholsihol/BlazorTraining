@@ -12,12 +12,12 @@
     <link href="BlazorMenu.styles.css" rel="stylesheet" />
 
     <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
-    <!--<link href="_content/Telerik.UI.for.Blazor/css/kendo-theme-bootstrap/all.css" rel="stylesheet" />-->
 
     <link href="css/theme.min.css" rel="stylesheet" />
     <link href="css/all.css" rel="stylesheet" id="style-default" />
     <script src="js/aes-js-3.1.2.js"></script>
 
+    <!--<link rel="stylesheet" href="_content/R_BlazorFrontEnd.Controls/css/R_BlazorControlStyle.css" />-->
     <script type="module" src="_content/R_BlazorFrontEnd.Controls/R_BlazorFrontEnd.Controls.js" defer></script>
     <script src="R_BlazorFrontEnd.Controls.js" defer></script>
 
@@ -30,7 +30,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet" />
-    <!--<link href="css/theme.min.css" rel="stylesheet" id="style-default" />-->
 </head>
 
 <body>
@@ -91,62 +90,6 @@
             var decryptedBytes = aesCbc.decrypt(encryptedBytes);
             return aesjs.utils.utf8.fromBytes(decryptedBytes);
         }
-
-        window.setFluid = () => {
-            var isFluid = JSON.parse(localStorage.getItem('isFluid'));
-            if (isFluid) {
-                var container = document.querySelector('[data-layout]');
-                container.classList.remove('container');
-                container.classList.add('container-fluid');
-            }
-        }
-
-        window.setNavbarStyle = () => {
-            var navbarStyle = localStorage.getItem("navbarStyle");
-            if (navbarStyle && navbarStyle !== 'transparent') {
-                document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
-            }
-        }
-
-        window.setNavbarPosition = () => {
-            var navbarPosition = localStorage.getItem('navbarPosition');
-            var navbarVertical = document.querySelector('.navbar-vertical');
-            var navbarTopVertical = document.querySelector('.content .navbar-top');
-            var navbarTop = document.querySelector('[data-layout] .navbar-top');
-            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
-            if (navbarPosition === 'top') {
-                navbarTop.removeAttribute('style');
-                navbarTopVertical.remove(navbarTopVertical);
-                navbarVertical.remove(navbarVertical);
-                navbarTopCombo.remove(navbarTopCombo);
-            } else if (navbarPosition === 'combo') {
-                navbarVertical.removeAttribute('style');
-                navbarTopCombo.removeAttribute('style');
-                navbarTop.remove(navbarTop);
-                navbarTopVertical.remove(navbarTopVertical);
-            } else {
-                navbarVertical.removeAttribute('style');
-                navbarTopVertical.removeAttribute('style');
-                navbarTop.remove(navbarTop);
-            }
-        };
-
-        window.setNavbarCollapse = () => {
-            document.documentElement.classList.add('navbar-vertical-collapsed');
-        }
-
-        window.setNavbarShow = () => {
-            document.documentElement.classList.remove('navbar-vertical-collapsed');
-        }
-
-        function tooltipInit() {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new window.bootstrap.Tooltip(tooltipTriggerEl, {
-                    trigger: 'hover'
-                });
-            });
-        };
     </script>
 
     <script src="vendors/popper/popper.min.js"></script>

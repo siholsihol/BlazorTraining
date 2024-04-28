@@ -9,6 +9,7 @@
                 R_ConductorSource="@_conductorRef"
                 R_GridType="@R_eGridType.Navigator"
                 R_ServiceGetListRecord="@GridCategory_R_ServiceGetListRecord"
+                R_RowRender="@R_RowRender"
                 Enabled="@_gridEnabled">
             <R_GridColumns>
                 <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridNumericColumn>
@@ -76,6 +77,8 @@
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
+
+@using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout>
     <R_GroupBox Title="GridView Batch" ShowBorder="false" TitleClass="text-danger">
@@ -150,5 +153,22 @@
              R_Display="@Navigator_Display" />
 
 <R_ConductorGrid @ref="@_conGridProductRef"
-                 R_ConductorParent="@_conductorRef"
-                 R_ViewModel="@_viewModel" />
+                 R_ConductorParent="@_conductorRef" />
+
+<style>
+    /*the following selectors target the locked/frozen columns*/
+    /*===*/
+    .k-grid .k-master-row.myCustomRowFormatting .k-grid-content-sticky,
+    .k-grid .k-master-row.myCustomRowFormatting.k-alt .k-grid-content-sticky
+    /*===*/ {
+        background-color: inherit;
+    }
+
+    .k-grid .k-master-row.myCustomRowFormatting:hover {
+        background-color: red !important;
+    }
+
+    .k-grid .k-master-row.myCustomRowFormatting {
+        background-color: #90EE90;
+    }
+</style>

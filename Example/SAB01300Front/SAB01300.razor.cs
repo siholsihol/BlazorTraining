@@ -198,5 +198,20 @@ namespace SAB01300Front
             loData.ReleaseDate = DateTime.Now;
         }
         #endregion
+
+        private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
+        {
+            var loData = (CategoryGridDTO)eventArgs.Data;
+
+            if (loData.Id == 2)
+            {
+                //eventArgs.RowStyle = new R_GridRowRenderStyle
+                //{
+                //    FontColor = "red"
+                //};
+
+                eventArgs.RowClass = "myCustomRowFormatting";
+            }
+        }
     }
 }

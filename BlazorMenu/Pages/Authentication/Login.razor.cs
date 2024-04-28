@@ -3,6 +3,7 @@ using BlazorMenu.Authentication;
 using BlazorMenu.Constants.Storage;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuModel;
+using BlazorMenuModel.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_AuthenticationEnumAndInterface;
@@ -28,6 +29,7 @@ namespace BlazorMenu.Pages.Authentication
         [Inject] private R_NotificationService _notificationService { get; set; }
 
         private LoginModel _loginModel = new LoginModel();
+        private R_LoginViewModel _loginVM = new R_LoginViewModel();
         //private R_SecurityModel loClientWrapper = new R_SecurityModel();
 
         protected override async Task OnParametersSetAsync()

@@ -2,7 +2,7 @@
 // functions, and may import other JavaScript modules if required.
 
 export function showPrompt(message) {
-  return prompt(message, 'Type anything here');
+    return prompt(message, 'Type anything here');
 }
 
 export function selectText(tbId) {
@@ -37,41 +37,6 @@ export async function downloadFileFromStream(fileName, contentStreamReference) {
     anchorElement.remove();
     URL.revokeObjectURL(URL);
 }
-
-//let result;
-//let dotNetInstance;
-
-//let observer = new MutationObserver(function () {
-//    return dotNetInstance.invokeMethodAsync('AutoFitAllColumns');
-//});
-
-//let options = {
-//    childList: true,
-//    subtree: true,
-//};
-
-//export function observeTarget(dotNetObj, gridClass) {
-//    result = document.querySelector(`.${gridClass} .k-grid-table:first-of-type`);
-//    dotNetInstance = dotNetObj;
-
-//    if (!result || !window.DotNet) {
-//        window.setTimeout(observeTarget, 500);
-//        return;
-//    }
-//    observer.observe(result, options);
-
-//    if (window.DotNet) {
-//        dotNetInstance.invokeMethodAsync('AutoFitAllColumns');
-//        observer.disconnect();
-//    }
-//}
-
-//export function hasWhiteSpace() {
-//    const grid = document.querySelector(".k-grid");
-//    const gridTable = document.querySelector(".k-grid-table");
-
-//    return grid.offsetWidth > gridTable.offsetWidth;
-//}
 
 export function showBootstrapToast() {
     var toastLiveExample = document.getElementById('liveToast')
@@ -136,3 +101,32 @@ export function tabToButton(args, id) {
 //        args.stopImmediatePropagation();
 //    }
 //}
+
+// Helper function to change disabled state of single element
+export function changeDisabledState(elm, disabled) {
+    if (!disabled) {
+        elm.removeAttribute('disabled');
+    }
+    else {
+        elm.setAttribute('disabled', disabled);
+    }
+}
+
+export function disableAllControl(containerClass, disabled) {
+    // Get DIV container to be disabled
+    const container = document.querySelector(containerClass);
+    // Check if helper class is there
+    //const isDisabled = container.classList.contains('disabled');
+    const isDisabled = disabled;
+
+    // Query all fields inside DIV.
+    const allFields = container.querySelectorAll('input, textarea, button, select');
+
+    // Iterate over all elements and set the opposite state
+    [...allFields].forEach(elm => {
+        changeDisabledState(elm, !isDisabled);
+    });
+
+    // Toggle helper class
+    container.classList.toggle('disabled');
+}
