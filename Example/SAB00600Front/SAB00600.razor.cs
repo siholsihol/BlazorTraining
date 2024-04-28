@@ -302,11 +302,11 @@ namespace SAB00600Front
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
         {
-            //if (eventArgs.ColumnName == "CompanyName")
-            //{
-            //    var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
-            //    loContactNameColumn.Enabled = eventArgs.Value.ToString() != "f";
-            //}
+            if (eventArgs.ColumnName == "CompanyName")
+            {
+                var loData = eventArgs.CurrentRow as CustomerDTO;
+                loData.ContactName = eventArgs.Value as string;
+            }
 
             if (eventArgs.ColumnName == "GenderId")
             {

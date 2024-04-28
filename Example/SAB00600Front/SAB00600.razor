@@ -54,9 +54,15 @@
                                   Width="200px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
-                              Enabled="@_checkBoxValue"
+                              R_EnableAdd="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible" 
                               Width="400px" />
+
+            @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                              HeaderText="Contact Name"
+                              Enabled="@_checkBoxValue"
+                              Visible="@_isContactNameColumnVisible"
+                              Width="400px" /> *@
         </R_GridColumns>
     </R_Grid>
 

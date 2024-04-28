@@ -62,11 +62,11 @@ namespace SAB00900Front
 
         }
 
-        //protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
-        //{
-        //    eventArgs.Cancel = true;
+        protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
+        {
+            eventArgs.Cancel = true;
 
-        //    return Task.CompletedTask;
-        //}
+            return Task.CompletedTask;
+        }
     }
 }
