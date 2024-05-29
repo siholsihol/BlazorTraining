@@ -28,6 +28,21 @@
                 <R_Label>@_nullDateTimeValue</R_Label>
             </R_ItemLayout>
         </R_StackLayout>
+
+        <br />
+
+        <R_StackLayout Row>
+            <R_ItemLayout col="2">
+                <R_Label>DateTime :</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout col="4">
+                <R_TimePicker @bind-Value=@_dateTimeValue
+                              ShowTimePickerButton="false" />
+            </R_ItemLayout>
+            <R_ItemLayout col="4">
+                <R_Label>@_dateTimeValue</R_Label>
+            </R_ItemLayout>
+        </R_StackLayout>
     </R_StackLayout>
 </R_GroupBox>
 

@@ -26,9 +26,6 @@
     <Reference Include="R_HelperController">
       <HintPath>..\Dll\Dll Back\R_HelperController.dll</HintPath>
     </Reference>
-    <Reference Include="Serilog.AspNetCore.Ingestion">
-      <HintPath>..\Dll\Dll Back\Serilog.AspNetCore.Ingestion.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,10 @@
 ﻿using DataDummyProvider.DTOs;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
+using R_BlazorFrontEnd.Controls.Grid;
+using R_BlazorFrontEnd.Controls.Grid.Columns.ColumnInfo;
 using R_BlazorFrontEnd.Exceptions;
 using SAB01000Front.DTOs;
 
@@ -98,10 +101,18 @@ namespace SAB01000Front
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
         {
-            //if (eventArgs.ColumnName == "Active")
+            var loMultiHeaderColumn = eventArgs.Columns.Where(x => x.GridColumnType == R_eGridColumnType.MultiHeader).FirstOrDefault() as R_GridMultiHeaderColumnInfo;
+
+            if (eventArgs.ColumnName == "Id" && loMultiHeaderColumn.ChildColumn.Count != 0)
+            {
+                var loNameColumn = loMultiHeaderColumn.ChildColumn.FirstOrDefault(x => x.Name == "Name");
+                loNameColumn.Enabled = false;
+            }
+
+            //if (eventArgs.ColumnName == "Name")
             //{
-            //    var loCategoryIdColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "CategoryId");
-            //    loCategoryIdColumn.Enabled = (bool)eventArgs.Value;
+            //    var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
+            //    loPriceColumn.Enabled = false;
             //}
 
             if (eventArgs.ColumnName == "CategoryId")
@@ -151,5 +162,24 @@ namespace SAB01000Front
             ((SelectedProductDTO)eventArgs.ColumnData).CategoryId = loResult.Id;
         }
         #endregion
+
+        private async Task OnClickGroup()
+        {
+            var loGroup = new List<R_GridGroupDescriptor>
+            {
+                new R_GridGroupDescriptor
+                {
+                    FieldName = "CategoryId"
+                }
+            };
+
+            await _gridRef.R_GroupBy(loGroup);
+        }
+
+        private int _maxLength = 5;
+        private void OnClickMaxLength()
+        {
+            _maxLength = 10;
+        }
     }
 }

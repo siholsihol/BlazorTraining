@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using R_AuthenticationEnumAndInterface;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Interfaces;
+using R_CommonFrontBackAPI;
 using System.Security.Claims;
-using System.Text.Json;
 
 namespace BlazorMenu.Authentication
 {
@@ -52,15 +52,15 @@ namespace BlazorMenu.Authentication
                 //_clientHelper.Set_CompanyId(loUserClaim.Where(x => x.Type == "COMPANY_ID").FirstOrDefault().Value);
                 //_clientHelper.Set_UserId(loUserClaim.Where(x => x.Type == "USER_ID").FirstOrDefault().Value);
 
-                //var lcCultureId = _localStorageService.GetCulture();
-                //if (!string.IsNullOrWhiteSpace(lcCultureId))
-                //{
-                //    var leLoginCulture = R_Culture.R_GetCultureEnum(lcCultureId);
+                _clientHelper.Set_CultureUI(eCulture.English);
 
-                //    _clientHelper.Set_CultureUI(leLoginCulture);
-                //}
-                //else
-                //    _clientHelper.Set_CultureUI(eCulture.English);
+                var loCultureInfoBuilder = new CultureInfoBuilder();
+                loCultureInfoBuilder.WithNumberFormatInfo(".", 2)
+                                    .WithDatePattern("MMMM d, yyyy", "M/d/yyyy")
+                                    .WithTimePattern("h:mm:ss tt", "h:mm tt");
+
+                var loCultureInfo = loCultureInfoBuilder.BuildCultureInfo();
+                _clientHelper.Set_Culture(loCultureInfo.NumberFormat, loCultureInfo.DateTimeFormat);
 
                 //var loStorageCultureInfo = _localStorageService.GetCultureInfo();
 
@@ -72,9 +72,13 @@ namespace BlazorMenu.Authentication
                 //var loCultureInfo = loCultureInfoBuilder.BuildCultureInfo();
                 //_clientHelper.Set_Culture(loCultureInfo.NumberFormat, loCultureInfo.DateTimeFormat);
 
+                var loClaims = new List<Claim>()
+                {
+                    new Claim("USER_ID", "training")
+                };
                 var llIsLogin = await _localStorageService.GetItemAsync<bool>(StorageConstants.IsLogin);
                 if (llIsLogin)
-                    loState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity("jwt")));
+                    loState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(loClaims, "jwt")));
             }
             catch (Exception)
             {
@@ -147,33 +151,33 @@ namespace BlazorMenu.Authentication
         private IEnumerable<Claim> GetClaimsFromToken(string pcToken)
         {
             var loClaims = new List<Claim>();
-            var lcPayload = pcToken.Split('.')[1];
-            var loJsonBytes = ParseBase64WithoutPadding(lcPayload);
-            var loKeyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(loJsonBytes);
+            //var lcPayload = pcToken.Split('.')[1];
+            //var loJsonBytes = ParseBase64WithoutPadding(lcPayload);
+            //var loKeyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(loJsonBytes);
 
-            if (loKeyValuePairs != null)
-            {
-                loKeyValuePairs.TryGetValue("COMPANY_ID", out var lcCompanyId);
-                if (lcCompanyId != null)
-                {
-                    var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcCompanyId);
-                    loClaims.Add(new Claim("COMPANY_ID", parsedValue));
-                }
+            //if (loKeyValuePairs != null)
+            //{
+            //    loKeyValuePairs.TryGetValue("COMPANY_ID", out var lcCompanyId);
+            //    if (lcCompanyId != null)
+            //    {
+            //        var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcCompanyId);
+            //        loClaims.Add(new Claim("COMPANY_ID", parsedValue));
+            //    }
 
-                loKeyValuePairs.TryGetValue("USER_ID", out var lcUserId);
-                if (lcUserId != null)
-                {
-                    var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcUserId);
-                    loClaims.Add(new Claim("USER_ID", parsedValue));
-                }
+            //    loKeyValuePairs.TryGetValue("USER_ID", out var lcUserId);
+            //    if (lcUserId != null)
+            //    {
+            //        var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcUserId);
+            //        loClaims.Add(new Claim("USER_ID", parsedValue));
+            //    }
 
-                loKeyValuePairs.TryGetValue("USER_ROLE", out var lcUserRole);
-                if (lcUserRole != null)
-                {
-                    var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcUserRole);
-                    loClaims.Add(new Claim("USER_ROLE", parsedValue));
-                }
-            }
+            //    loKeyValuePairs.TryGetValue("USER_ROLE", out var lcUserRole);
+            //    if (lcUserRole != null)
+            //    {
+            //        var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcUserRole);
+            //        loClaims.Add(new Claim("USER_ROLE", parsedValue));
+            //    }
+            //}
 
             return loClaims;
         }

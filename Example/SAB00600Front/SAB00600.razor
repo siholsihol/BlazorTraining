@@ -33,7 +33,9 @@
             R_CheckDelete="R_CheckDelete" 
             R_CheckGridAdd="R_CheckGridAdd" 
             R_CheckGridEdit="R_CheckGridEdit" 
-            R_CheckGridDelete="R_CheckGridDelete">
+            R_CheckGridDelete="R_CheckGridDelete"
+            R_DisableDeleteConfirmation="false"
+            R_DisableCancelConfirmation="false">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
@@ -75,9 +77,14 @@
         <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
         <R_Label>Show Field Contact Name</R_Label>
     </R_StackLayout>
+
     <R_StackLayout Row>
         <R_CheckBox @bind-Value="@_isAddNewRowVisible"></R_CheckBox>
         <R_Label>Show Add New Row</R_Label>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_Button OnClick="@OnClick">Save</R_Button>
     </R_StackLayout>
 </R_StackLayout>
 

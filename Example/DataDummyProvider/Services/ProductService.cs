@@ -29,6 +29,9 @@ namespace DataDummyProvider.Services
 
             _products = faker.Generate(30);
 
+            //_products.ForEach(x => x.ReleaseDate = null);
+            //_products.ForEach(x => x.Price *= -1);
+
             return _products;
         }
 

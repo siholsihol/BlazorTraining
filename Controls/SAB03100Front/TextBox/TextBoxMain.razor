@@ -4,19 +4,34 @@
     <R_ItemLayout col="4">
         <p>TextBox value: @_stringValue</p>
 
-        <R_TextBox @bind-Value="@_stringValue" ReadOnly="true" Class="bg-danger">
+        <R_TextBox @ref="@_textBoxRef"
+                   @bind-Value="@_stringValue"
+                   MaxLength="@_maxLength" 
+                   CharacterCasing="R_eCharacterCasing.Upper" />
+    </R_ItemLayout>
 
-        </R_TextBox>
+    <br />
+
+    <R_ItemLayout>
+        <R_Button @ref="@_buttonRef" OnClick="@OnClick">Change MaxLength</R_Button>
     </R_ItemLayout>
 </R_GroupBox>
 
 @code {
     private string _stringValue { get; set; }
+    private int _maxLength { get; set; } = 2;
+    private R_TextBox _textBoxRef;
+    private R_Button _buttonRef;
 
-    protected override Task R_Init_From_Master(object poParameter)
+    protected override async Task R_Init_From_Master(object poParameter)
     {
         _stringValue = "default";
 
-        return Task.CompletedTask;
+        await _buttonRef.FocusAsync();
+    }
+
+    private void OnClick()
+    {
+        _maxLength = 5;
     }
 }

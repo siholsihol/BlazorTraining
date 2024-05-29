@@ -12,7 +12,7 @@ var app = builder.Build();
 
 app.R_SetupMiddleware();
 
-app.UseSerilogIngestion();
+//app.UseSerilogIngestion();
 app.UseSerilogRequestLogging();
 
 app.Run();

@@ -55,7 +55,7 @@ namespace SAB00900Front
 
         private R_NumericTextBox<int> _numericIdRef;
         private R_DropDownList<CategoryDTO, int> _dropdownCategoryRef;
-        private R_DatePicker<DateTime> _datePickerRef;
+        private R_DatePicker<DateTime?> _datePickerRef;
         private R_CheckBox _checkboxActiveRef;
         private async Task Conductor_AfterAdd(R_AfterAddEventArgs eventArgs)
         {

@@ -3,7 +3,6 @@ using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
-using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using SAB00800Front.DTOs;
 
@@ -55,8 +54,13 @@ namespace SAB00800Front
 
             try
             {
-                var loParam = R_FrontUtility.ConvertObjectToObject<TenantTreeDTO>(eventArgs.Data);
-                _viewModel.GetTenantById(loParam.Id);
+                var lcCategoryId = string.Empty;
+                if (eventArgs.Data is TenantTreeDTO tree)
+                    lcCategoryId = tree.Id;
+                else
+                    lcCategoryId = ((TenantDTO)eventArgs.Data).CCATEGORY_ID;
+
+                _viewModel.GetTenantById(lcCategoryId);
 
                 eventArgs.Result = _viewModel.Tenant;
             }
@@ -160,6 +164,14 @@ namespace SAB00800Front
         private void ExpandAllClick()
         {
             _treeRef.ExpandAll();
+        }
+
+        private void R_AfterAdd(R_AfterAddEventArgs eventArgs)
+        {
+            var loData = (TenantDTO)eventArgs.Data;
+
+            loData.CPARENT = _viewModel.Tenant.CCATEGORY_ID;
+            loData.ILEVEL = _viewModel.Tenant.ILEVEL + 1;
         }
     }
 }

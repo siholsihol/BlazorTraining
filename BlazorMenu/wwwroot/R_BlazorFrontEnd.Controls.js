@@ -12,20 +12,6 @@ export function selectText(tbId) {
     }
 }
 
-//export function setValueById(id, value) {
-//    document.getElementById(id).value = value;
-//}
-
-//export function scrollToSelectedRow(gridSelector) {
-//    var gridWrapper = document.querySelector(gridSelector);
-//    if (gridWrapper) {
-//        var selectedRow = gridWrapper.querySelector("tr.k-selected");
-//        if (selectedRow) {
-//            selectedRow.scrollIntoView();
-//        }
-//    }
-//}
-
 export async function downloadFileFromStream(fileName, contentStreamReference) {
     const arrayBuffer = await contentStreamReference.arrayBuffer();
     const blob = new Blob([arrayBuffer]);

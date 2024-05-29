@@ -1,5 +1,9 @@
 ﻿@page "/SAB01000"
+@using R_BlazorFrontEnd.Controls.Icons
 @inherits R_Page
+@attribute [R_Page(Title = "custom title")]
+
+<hr />
 
 <R_StackLayout>
     <R_GroupBox Title="GridView Batch" ShowBorder="false">
@@ -16,24 +20,27 @@
                 R_CellValueChanged="@R_CellValueChanged"
                 R_CellLostFocused="@R_CellLostFocused" 
                 R_Before_Open_Grid_Lookup="@R_Before_Open_Lookup"
-                R_After_Open_Grid_Lookup="R_After_Open_Lookup">
+                R_After_Open_Grid_Lookup="@R_After_Open_Lookup"
+                R_ServiceGetRecord="@R_ServiceGetRecord">
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
                                             R_EnableEdit
                                             ShowSelectAllHeader Width="200px" />
 
-                <R_GridMultiHeaderColumn HeaderText="Test">
+                <R_GridMultiHeaderColumn HeaderText="Test" Name="multiheader">
                     <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Id)"
                                          HeaderText="Id"
                                          R_EnableAdd
-                                         R_EnableEdit Width="200px" ThousandSeparator="false" />
+                                         R_EnableEdit Width="200px" 
+                                         ThousandSeparator="false" />
 
                     <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
                                       HeaderText="Name"
                                       R_EnableAdd
                                       R_EnableEdit
-                                      MaxLength="5" Width="200px" />
+                                      MaxLength="@_maxLength"
+                                      Width="200px" />
                 </R_GridMultiHeaderColumn>
 
                 @*<R_GridDropDownListColumn Data=@_viewModel.Categories
@@ -61,19 +68,20 @@
                                      R_EnableEdit
                                      Min="0"
                                      Width="200px"
-                                     Decimals="3" />
-
-                @*<R_GridDateTimePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
-        HeaderText="Release Date"
-        R_EnableAdd
-        R_EnableEdit
-        Width="200px" />*@
+                                     Decimals="3"
+                                     AccountingNegativeSign />
 
                 <R_GridDatePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
+                                            HeaderText="Release Date"
+                                            R_EnableAdd
+                                            R_EnableEdit
+                                            Width="200px" />
+
+                @* <R_GridDatePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
                                         HeaderText="Release Date"
                                         R_EnableAdd
                                         R_EnableEdit
-                                        Width="200px" />
+                                        Width="200px" /> *@
 
                 <R_GridCheckBoxColumn FieldName="@nameof(SelectedProductDTO.Active)"
                                       HeaderText="Active"
@@ -84,22 +92,29 @@
                                     HeaderText="Category"
                                     R_EnableAdd
                                     R_EnableEdit
-                                    Width="200px" />
+                                    Width="200px"
+                                    MaxLength="2"/>
             </R_GridColumns>
         </R_Grid>
 
         <R_ItemLayout>
             <R_Button R_ConductorGridSource="@_conGridProductRef" 
                       OnClick="@OnClickSave">Save Batch</R_Button>
+            <R_Button R_ConductorGridSource="@_conGridProductRef"
+                      OnClick="@OnClickGroup" 
+                      Icon="@R_eIcon.Refresh">
+                Group by category
+            </R_Button>
+            <R_Button R_ConductorGridSource="@_conGridProductRef"
+                      OnClick="@OnClickMaxLength">
+                Change Max Length
+            </R_Button>
         </R_ItemLayout>
     </R_GroupBox>
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridProductRef"
-                 R_ViewModel="@_viewModel"
                  R_IsHeader
-                 R_ServiceGetRecord="@R_ServiceGetRecord"
-                 R_AfterAdd="@R_AfterAdd" 
                  R_BeforeSaveBatch="@R_BeforeSaveBatch" 
                  R_ServiceSaveBatch="@R_ServiceSaveBatch" 
                  R_AfterSaveBatch="@R_AfterSaveBatch" />

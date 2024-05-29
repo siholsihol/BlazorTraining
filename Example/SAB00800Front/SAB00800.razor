@@ -17,11 +17,11 @@
 </R_StackLayout>
 
 <R_StackLayout>
-    <R_StackLayout Row="true" Spacing="3" Justify="@R_BlazorFrontEnd.Controls.Enums.R_eJustify.FlexEnd">
+    <R_StackLayout Row>
         <h2>Tenant Detail</h2>
     </R_StackLayout>
 
-    <R_StackLayout Row="true" AlignItems="@R_BlazorFrontEnd.Controls.Enums.R_eAlignItems.End">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Parent Category*</R_Label>
         </R_ItemLayout>
@@ -34,7 +34,7 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Level*</R_Label>
         </R_ItemLayout>
@@ -47,7 +47,7 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Category Code*</R_Label>
         </R_ItemLayout>
@@ -105,12 +105,13 @@
 
 <R_Conductor @ref="@_conductorRef"
              R_ViewModel="@_viewModel"
-             R_IsHeader="true"
+             R_IsHeader
              R_ServiceGetRecord="@Conductor_ServiceGetRecord"
              R_Validation="@Conductor_Validation"
              R_ServiceSave="@Conductor_ServiceSave"
              R_ServiceDelete="@Conductor_ServiceDelete" 
              R_ConvertToGridEntity="Conductor_ConvertToGridEntity" 
              R_Saving="Conductor_Saving"
-             R_SetOther="@R_SetOther"></R_Conductor>
+             R_SetOther="@R_SetOther"
+             R_AfterAdd="@R_AfterAdd" />
 

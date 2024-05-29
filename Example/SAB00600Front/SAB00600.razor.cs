@@ -26,7 +26,8 @@ namespace SAB00600Front
 
                 await _gridRef.R_RefreshGrid(null);
 
-                await _gridRef.R_SetCurrentData(CustomerViewModel.CustomerList.ElementAt(1));
+                await _gridRef.AddAsync();
+                //await _gridRef.R_SetCurrentData(CustomerViewModel.CustomerList.ElementAt(1));
             }
             catch (Exception ex)
             {
@@ -133,8 +134,21 @@ namespace SAB00600Front
 
         private void Grid_BeforeEdit(R_BeforeEditEventArgs eventArgs)
         {
-            //TODO Validation
-            //eventArgs.Cancel = true;
+            var loEx = new R_Exception();
+
+            try
+            {
+                //TODO Validation
+                eventArgs.Cancel = true;
+
+                throw new Exception("ea");
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
         }
 
         private void Grid_BeforeCancel(R_BeforeCancelEventArgs eventArgs)
@@ -313,6 +327,11 @@ namespace SAB00600Front
                 var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
                 loContactNameColumn.Enabled = eventArgs.Value.ToString() != "F";
             }
+        }
+
+        private async Task OnClick()
+        {
+            await _gridRef.SaveAsync();
         }
     }
 }

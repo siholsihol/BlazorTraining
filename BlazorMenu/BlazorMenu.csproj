@@ -13,13 +13,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.26" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.26" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.26" PrivateAssets="all" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
     <PackageReference Include="Realta.FrontComponentCollectionNuget" Version="1.0.3" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 	  <PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorMenuModel\BlazorMenuModel.csproj" />
     <ProjectReference Include="..\Controls\SAB03000Front\SAB03000Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03100Front\SAB03100Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
@@ -44,6 +45,9 @@
     </Reference>
     <Reference Include="BlazorMenuCommon">
       <HintPath>..\Dll\Dll Menu\BlazorMenuCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="BlazorMenuModel">
+      <HintPath>..\Dll\Dll Menu\BlazorMenuModel.dll</HintPath>
     </Reference>
     <Reference Include="R_APIClient">
       <HintPath>..\Dll\Dll Front\R_APIClient.dll</HintPath>
@@ -102,14 +106,16 @@
     <Reference Include="R_Security">
       <HintPath>..\Dll\Dll Front\R_Security.dll</HintPath>
     </Reference>
+    <Reference Include="R_SecurityPolicyCommon">
+      <HintPath>..\Dll\Dll Menu\R_SecurityPolicyCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="R_SecurityPolicyModel">
+      <HintPath>..\Dll\Dll Menu\R_SecurityPolicyModel.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\img\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Authentication\Login.razor" />
   </ItemGroup>
 
     <!--<ItemGroup>
