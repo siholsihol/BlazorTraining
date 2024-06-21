@@ -205,11 +205,6 @@ namespace SAB01300Front
 
             if (loData.Id == 2)
             {
-                //eventArgs.RowStyle = new R_GridRowRenderStyle
-                //{
-                //    FontColor = "red"
-                //};
-
                 eventArgs.RowClass = "myCustomRowFormatting";
             }
         }

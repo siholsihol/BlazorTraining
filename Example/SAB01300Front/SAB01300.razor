@@ -1,5 +1,6 @@
 ﻿@page "/SAB01300"
 @inherits R_Page
+@using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout Spacing="3" Class="mb-4">
     <R_StackLayout>
@@ -65,20 +66,14 @@
 
     <R_StackLayout Row="true" Spacing="3" Class="mt-3">
         <R_ItemLayout col="12">
-            <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
-
-            <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
-
-            <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
-
-            <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
-
-            <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
+            <R_AddButton R_Conductor="@_conductorRef" />
+            <R_EditButton R_Conductor="@_conductorRef" />
+            <R_DeleteButton R_Conductor="@_conductorRef" />
+            <R_SaveButton R_Conductor="@_conductorRef" />
+            <R_CancelButton R_Conductor="@_conductorRef" />
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
-
-@using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout>
     <R_GroupBox Title="GridView Batch" ShowBorder="false" TitleClass="text-danger">
@@ -89,8 +84,8 @@
                 R_GridType="@R_eGridType.Batch"
                 R_ServiceGetListRecord="@GridProduct_ServiceGetListRecord"
                 Height="300px" 
-                R_EnableAdd="true" 
-                R_EnableEdit="true"
+                R_EnableAdd
+                R_EnableEdit
                 R_ServiceGetRecord="@Batch_ServiceGetRecord" 
                 R_AfterAdd="@Batch_AfterAdd" 
                 AllowAddNewRow
@@ -152,8 +147,8 @@
              R_AfterAdd="@Navigator_AfterAdd" 
              R_Display="@Navigator_Display" />
 
-<R_ConductorGrid @ref="@_conGridProductRef"
-                 R_ConductorParent="@_conductorRef" />
+@* <R_ConductorGrid @ref="@_conGridProductRef"
+                 R_ConductorParent="@_conductorRef" /> *@
 
 <style>
     /*the following selectors target the locked/frozen columns*/

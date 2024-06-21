@@ -16,12 +16,14 @@ namespace SAB00900Front
         private SAB00900ViewModel ViewModel = new();
         private R_Conductor _conductorRef;
 
-        protected override Task R_Init_From_Master(object poParameter)
+        protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
+                var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+
                 ViewModel.GetCategories();
             }
             catch (Exception ex)
@@ -29,9 +31,9 @@ namespace SAB00900Front
                 loEx.Add(ex);
             }
 
-            R_DisplayException(loEx);
+            loEx.ThrowExceptionIfErrors();
 
-            return Task.CompletedTask;
+            //return Task.CompletedTask;
         }
 
         public void Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
@@ -201,8 +203,17 @@ namespace SAB00900Front
         #endregion
 
         #region Popup
-        public void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+        [Inject] public R_MessageBoxService MessageBoxService { get; set; }
+        public async Task R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
         {
+            //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+
+            //if (leResult == R_eMessageBoxResult.OK)
+            //{
+            //    eventArgs.TargetPageType = typeof(ProductPage);
+            //    eventArgs.Parameter = "Dari Popup";
+            //}
+
             eventArgs.TargetPageType = typeof(ProductPage);
             eventArgs.Parameter = "Dari Popup";
         }
@@ -224,7 +235,15 @@ namespace SAB00900Front
 
             try
             {
-                var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+
+                //if (leResult == R_eMessageBoxResult.OK)
+                //{
+                var loResult = await PopupService.Show(typeof(TabTest), "Dari PopupService");
+                //    var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+                //}
+
+                //var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
             }
             catch (Exception ex)
             {

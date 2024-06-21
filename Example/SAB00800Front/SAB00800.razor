@@ -1,4 +1,6 @@
 ﻿@page "/SAB00800"
+@using SAB00800Front.DTOs
+@using R_BlazorFrontEnd.Controls.Enums
 @inherits R_Page
 
 <R_StackLayout Spacing="3" Class="mb-4">
@@ -6,12 +8,13 @@
         <R_TreeView @ref="@_treeRef" 
                     DataSource="@_viewModel.TenantList"
                     R_ConductorSource="@_conductorRef"
-                    TextField="Description"
-                    IdField="Id"
-                    ParentIdField="ParentId"
-                    HasChildrenField="HasChildren" 
+                    TextField="@nameof(TenantTreeDTO.Description)"
+                    IdField="@nameof(TenantTreeDTO.Id)"
+                    ParentIdField="@nameof(TenantTreeDTO.ParentId)"
+                    HasChildrenField="@nameof(TenantTreeDTO.HasChildren)"
                     R_ServiceGetListRecord="@Tree_R_ServiceGetListRecord" 
-                    Enabled="@_treeEnabled">
+                    Enabled="@_treeEnabled" 
+                    AfterAddBehaviour="R_eTreeviewAfterAddBehaviour.OnParentNode">
         </R_TreeView>
     </R_StackLayout>
 </R_StackLayout>

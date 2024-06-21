@@ -1,0 +1,41 @@
+﻿@using R_BlazorFrontEnd.Controls.Events
+@using R_BlazorFrontEnd.Controls.Tab
+@using R_BlazorFrontEnd.Exceptions
+@inherits R_Page
+
+<R_TabStrip>
+    <R_TabStripTab Title="Tab 1" Id="Tab1">
+        <R_Button OnClick="@ThrowException">Throw Exception</R_Button>
+    </R_TabStripTab>
+
+    <R_TabStripTab Title="Tab 2" Id="Tab2">
+        <R_TabPage R_Before_Open_TabPage="@R_Before_Open_TabPageTabB" 
+                   R_After_Open_TabPage="@R_After_Open_TabPageTab" />
+    </R_TabStripTab>
+
+    <R_TabStripTab Title="Tab 3" Id="Tab3">
+        Tab 3
+    </R_TabStripTab>
+</R_TabStrip>
+
+@code {
+    private void ThrowException()
+    {
+        var loEx = new R_Exception();
+
+        loEx.Add(new R_Error("01","test exception"));
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
+    private void R_Before_Open_TabPageTabB(R_BeforeOpenTabPageEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(ProductPage);
+        eventArgs.Parameter = "Parameter untuk page B";
+    }
+
+    private void R_After_Open_TabPageTab(R_AfterOpenTabPageEventArgs eventArgs)
+    {
+        // lcText = (string)eventArgs.Result;
+    }
+}

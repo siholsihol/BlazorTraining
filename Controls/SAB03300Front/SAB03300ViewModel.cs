@@ -17,7 +17,7 @@ namespace SAB03300Front
         }
         public void GetProducts()
         {
-            var loProducts = ProductService.GetProducts();
+            var loProducts = ProductService.GetProducts().Take(5).ToList();
             var loSelectedProduct = R_FrontUtility.ConvertCollectionToCollection<ProductDTO>(loProducts);
 
             Products = new ObservableCollection<ProductDTO>(loSelectedProduct);

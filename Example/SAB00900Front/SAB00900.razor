@@ -8,10 +8,11 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_NumericTextBox @ref="_numericIdRef" @bind-Value="@ViewModel.Data.Id"
+            <R_NumericTextBox @ref="_numericIdRef"
+                              @bind-Value="@ViewModel.Data.Id"
                               R_ConductorSource="@_conductorRef"
-                              R_EnableAdd="true"
-                              R_EnableEdit="false"></R_NumericTextBox>
+                              R_EnableAdd
+                              R_EnableEdit="false" />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -21,10 +22,11 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_TextBox Id="txtName" @bind-Value="@ViewModel.Data.Name"
+            <R_TextBox Id="txtName"
+                       @bind-Value="@ViewModel.Data.Name"
                        R_ConductorSource="@_conductorRef"
-                       R_EnableAdd="true"
-                       R_EnableEdit="true">
+                       R_EnableAdd
+                       R_EnableEdit>
                 <ValidationTemplate>
                     <R_BlazorFrontEnd.Controls.Validation.R_ValidationError Message="@_errorMessage" />
                 </ValidationTemplate>
@@ -38,13 +40,14 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_DropDownList @ref="@_dropdownCategoryRef" Data="@ViewModel.CategoryList"
+            <R_DropDownList @ref="@_dropdownCategoryRef"
+                            Data="@ViewModel.CategoryList"
                             ValueField="@nameof(CategoryDTO.Id)"
                             TextField="@nameof(CategoryDTO.Name)"
                             @bind-Value="@ViewModel.Data.CategoryId"
                             R_ConductorSource="@_conductorRef"
-                            R_EnableAdd="true"
-                            R_EnableEdit="true"></R_DropDownList>
+                            R_EnableAdd
+                            R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -56,8 +59,9 @@
         <R_ItemLayout col="4">
             <R_NumericTextBox @bind-Value="@ViewModel.Data.Price"
                               R_ConductorSource="@_conductorRef"
-                              R_EnableAdd="true"
-                              R_EnableEdit="true" Decimals="2"></R_NumericTextBox>
+                              R_EnableAdd
+                              R_EnableEdit 
+                              Decimals="2" />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -70,8 +74,8 @@
             <R_DatePicker @ref="@_datePickerRef"
                           @bind-Value="@ViewModel.Data.ReleaseDate"
                           R_ConductorSource="@_conductorRef"
-                          R_EnableAdd="true"
-                          R_EnableEdit="true" />
+                          R_EnableAdd
+                          R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -81,24 +85,21 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_CheckBox @ref="@_checkboxActiveRef" @bind-Value="@ViewModel.Data.Active"
+            <R_CheckBox @ref="@_checkboxActiveRef"
+                        @bind-Value="@ViewModel.Data.Active"
                         R_ConductorSource="@_conductorRef"
-                        R_EnableAdd="true"
-                        R_EnableEdit="true"></R_CheckBox>
+                        R_EnableAdd
+                        R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
     <R_StackLayout Row>
         <R_ItemLayout col="12">
-            <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
-
-            <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
-
-            <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
-
-            <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
-
-            <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
+            <R_AddButton R_Conductor="@_conductorRef" />
+            <R_EditButton R_Conductor="@_conductorRef" />
+            <R_DeleteButton R_Conductor="@_conductorRef" />
+            <R_SaveButton R_Conductor="@_conductorRef" />
+            <R_CancelButton R_Conductor="@_conductorRef" />
 
             <R_Find R_ConductorSource="@_conductorRef"
                     R_Before_Open_Find="@R_Before_Open_Find"
@@ -137,4 +138,4 @@
              R_AfterSave="@Conductor_AfterSave" 
              R_ServiceDelete="@Conductor_ServiceDelete" 
              R_BeforeEdit="Conductor_BeforeEdit" 
-             R_BeforeCancel="Conductor_BeforeCancel"></R_Conductor>
+             R_BeforeCancel="Conductor_BeforeCancel" />

@@ -63,9 +63,9 @@ namespace SAB03300Front
         #region Save Batch
         private void R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)
         {
-            //var loData = (List<UserDTO>)events.Data;
+            var loData = (List<ProductDTO>)events.Data;
 
-            //events.Cancel = loData.Count == 0;
+            events.Cancel = loData.Count == 0;
         }
 
         private void R_ServiceSaveBatch(R_ServiceSaveBatchEventArgs eventArgs)
@@ -92,16 +92,16 @@ namespace SAB03300Front
 
         private async Task OnClickSave()
         {
-            await _conGridProductRef.R_SaveBatch();
+            await _gridRef.R_SaveBatch();
         }
 
         #region Drag Drop
-        private void R_GridRowBeforeDrop(R_GridRowBeforeDropEventArgs eventArgs)
+        private void R_GridRowBeforeDrop(R_GridDragDropBeforeDropEventArgs<ProductDTO> eventArgs)
         {
             //eventArgs.Cancel = true;
         }
 
-        private void R_GridRowAfterDrop(R_GridRowAfterDropEventArgs eventArgs)
+        private void R_GridRowAfterDrop(R_GridDragDropAfterDropEventArgs<ProductDTO> eventArgs)
         {
 
         }

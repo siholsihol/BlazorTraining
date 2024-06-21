@@ -6,16 +6,18 @@
 <R_GroupBox ShowBorder="false">
     <R_Grid @ref="@_gridRef"
             DataSource="@GridViewModel.ProductList"
-            Pageable
-            PageSize="10"
-            R_ServiceGetListRecord="@R_ServiceGetListRecord">
+            R_ServiceGetListRecord="@R_ServiceGetListRecord" 
+            Width="400px">
         <R_GridColumns>
-            <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)" HeaderText="Product Id"></R_GridNumericColumn>
-            <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)" HeaderText="Product Name"></R_GridTextColumn>
+            <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
+                                 HeaderText="Product Id" />
+            <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
+                              HeaderText="Product Name" />
         </R_GridColumns>
     </R_Grid>
 
     <R_Button OnClick="@OnClose">Close</R_Button>
     <R_Popup R_Before_Open_Popup="@R_Before_Open_Popup"
              R_After_Open_Popup="@R_After_Open_Popup">Popup Product</R_Popup>
+    <R_Button OnClick="@ThrowException">Throw Exception</R_Button>
 </R_GroupBox>

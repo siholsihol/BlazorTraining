@@ -12,8 +12,10 @@
                 R_GridFilterMode="@R_eGridFilterMode.FilterRow" 
                 Enabled="@_gridEnabled">
             <R_GridColumns>
-                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridNumericColumn>
-                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)" HeaderText="Category Name"></R_GridTextColumn>
+                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
+                                     HeaderText="Category Id" />
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)"
+                                  HeaderText="Category Name" />
             </R_GridColumns>
         </R_Grid>
     </R_StackLayout>
@@ -32,7 +34,7 @@
         <R_ItemLayout col="4">
             <R_NumericTextBox @bind-Value="@_viewModel.Data.Id"
                               R_ConductorSource="@_conductorRef"
-                              Enabled="false"></R_NumericTextBox>
+                              Enabled="false" />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -44,12 +46,12 @@
         <R_ItemLayout col="4">
             <R_TextBox @ref="@_textboxNameRef" @bind-Value="@_viewModel.Data.Name"
                        R_ConductorSource="@_conductorRef"
-                       R_EnableAdd="true"
-                       R_EnableEdit="true"></R_TextBox>
+                       R_EnableAdd
+                       R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Description</R_Label>
         </R_ItemLayout>
@@ -57,31 +59,30 @@
         <R_ItemLayout col="4">
             <R_TextArea @bind-Value="@_viewModel.Data.Description"
                         R_ConductorSource="@_conductorRef"
-                        R_EnableAdd="true"
-                        R_EnableEdit="true"></R_TextArea>
+                        R_EnableAdd
+                        R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true" Spacing="3" Class="mt-3">
+    <R_StackLayout Row Spacing="3" Class="mt-3">
         <R_ItemLayout col="12">
-            <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
-
-            <R_EditButton R_Conductor="@_conductorRef"></R_EditButton>
-
-            <R_DeleteButton R_Conductor="@_conductorRef"></R_DeleteButton>
-
-            <R_SaveButton R_Conductor="@_conductorRef"></R_SaveButton>
-
-            <R_CancelButton R_Conductor="@_conductorRef"></R_CancelButton>
-
-            <R_Button R_ConductorSource="@_conductorRef" OnClick="@buttonOnClick" R_EnableOther>Change Category Name</R_Button>
+            <R_AddButton R_Conductor="@_conductorRef" />
+            <R_EditButton R_Conductor="@_conductorRef" />
+            <R_DeleteButton R_Conductor="@_conductorRef" />
+            <R_SaveButton R_Conductor="@_conductorRef" />
+            <R_CancelButton R_Conductor="@_conductorRef" />
+            <R_Button R_ConductorSource="@_conductorRef"
+                      OnClick="@buttonOnClick"
+                      R_EnableOther>
+                Change Category Name
+            </R_Button>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
 
 <R_Conductor @ref="@_conductorRef" 
              R_ViewModel="@_viewModel" 
-             R_IsHeader="true"
+             R_IsHeader
              R_ServiceGetRecord="@Conductor_ServiceGetRecord"
              R_Validation="@Conductor_Validation"
              R_ServiceSave="@Conductor_ServiceSave"
@@ -89,4 +90,8 @@
              R_ConvertToGridEntity="@R_ConvertToGridEntity" 
              R_BeforeEdit="@R_BeforeEdit" 
              R_SetOther="@R_SetOther" 
-             R_AfterAdd="@R_AfterAdd"></R_Conductor>
+             R_AfterAdd="@R_AfterAdd" 
+             R_CheckAdd="@R_CheckAdd" 
+             R_CheckEdit="@R_CheckEdit" 
+             R_CheckDelete="@R_CheckDelete"
+             R_Display="@R_Display" />

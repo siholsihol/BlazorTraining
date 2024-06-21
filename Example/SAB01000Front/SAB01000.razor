@@ -21,7 +21,11 @@
                 R_CellLostFocused="@R_CellLostFocused" 
                 R_Before_Open_Grid_Lookup="@R_Before_Open_Lookup"
                 R_After_Open_Grid_Lookup="@R_After_Open_Lookup"
-                R_ServiceGetRecord="@R_ServiceGetRecord">
+                R_ServiceGetRecord="@R_ServiceGetRecord"
+                R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                R_AfterSaveBatch="@R_AfterSaveBatch" 
+                R_Display="@R_Display">
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
@@ -71,17 +75,25 @@
                                      Decimals="3"
                                      AccountingNegativeSign />
 
-                <R_GridDatePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
-                                            HeaderText="Release Date"
-                                            R_EnableAdd
-                                            R_EnableEdit
-                                            Width="200px" />
-
                 @* <R_GridDatePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
                                         HeaderText="Release Date"
                                         R_EnableAdd
                                         R_EnableEdit
-                                        Width="200px" /> *@
+                                        Width="200px"
+                                        Min="@_minDateValue"
+                                        Max="@_maxDateValue" 
+                                        TextAlignment="R_eTextAlignment.Center"
+                                        DatePickerFormat="R_eDatePickerFormat.Short" /> *@
+
+                <R_GridDateTimePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
+                                            HeaderText="Release Date"
+                                            R_EnableAdd
+                                            R_EnableEdit
+                                            Width="200px"
+                                            Min="@_minDateValue"
+                                            Max="@_maxDateValue"
+                                            TextAlignment="R_eTextAlignment.Center"
+                                            DateTimePickerFormat="R_eDateTimePickerFormat.Short" />
 
                 <R_GridCheckBoxColumn FieldName="@nameof(SelectedProductDTO.Active)"
                                       HeaderText="Active"
@@ -93,7 +105,7 @@
                                     R_EnableAdd
                                     R_EnableEdit
                                     Width="200px"
-                                    MaxLength="2"/>
+                                    MaxLength="2" />
             </R_GridColumns>
         </R_Grid>
 
@@ -109,12 +121,19 @@
                       OnClick="@OnClickMaxLength">
                 Change Max Length
             </R_Button>
+
+            <R_Button R_ConductorGridSource="@_conGridProductRef"
+                      OnClick="@OnClickMinDate">
+                Change Min Date to : @_changeMinDate
+            </R_Button>
+
+            <R_Button R_ConductorGridSource="@_conGridProductRef"
+                      OnClick="@OnClickMaxDate">
+                Change Max Date to : @_changeMaxDate
+            </R_Button>
         </R_ItemLayout>
     </R_GroupBox>
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridProductRef"
-                 R_IsHeader
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch" 
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch" 
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+                 R_IsHeader />

@@ -18,15 +18,15 @@ namespace SAB03400Front
         }
         public void GetProducts()
         {
-            var loProducts = ProductService.GetProducts();
+            var loProducts = ProductService.GetProducts().Take(5).ToList();
             var loSelectedProduct = R_FrontUtility.ConvertCollectionToCollection<ProductDTO>(loProducts);
 
             Products = new ObservableCollection<ProductDTO>(loSelectedProduct);
 
-            var loProductsGrid1 = ProductService.GetNewProducts();
-            var loSelectedProductGrid1 = R_FrontUtility.ConvertCollectionToCollection<ProductDTO>(loProductsGrid1);
+            //var loProductsGrid1 = ProductService.GetNewProducts();
+            //var loSelectedProductGrid1 = R_FrontUtility.ConvertCollectionToCollection<ProductDTO>(loProductsGrid1);
 
-            Products2 = new ObservableCollection<ProductDTO>(loSelectedProductGrid1);
+            Products2 = new ObservableCollection<ProductDTO>();
         }
 
         public void GetCategories()

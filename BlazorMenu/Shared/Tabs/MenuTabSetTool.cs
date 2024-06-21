@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
+using R_BlazorFrontEnd.Tenant;
 
 namespace BlazorMenu.Shared.Tabs
 {
     public class MenuTabSetTool
     {
         private readonly NavigationManager _navigationManager;
+        private readonly Tenant _tenant;
 
-        public MenuTabSetTool(NavigationManager navigationManager)
+        public MenuTabSetTool(
+            NavigationManager navigationManager,
+            Tenant tenant)
         {
             _navigationManager = navigationManager;
+            _tenant = tenant;
         }
 
         public List<MenuTab> Tabs { get; set; } = new();
@@ -16,6 +21,8 @@ namespace BlazorMenu.Shared.Tabs
 
         public void AddTab(string title, string url, string pcAccess = "")
         {
+            var lcUrlTenant = _tenant.Identifier + "/" + url;
+
             Tabs.ForEach(x =>
             {
                 x.IsActive = false;
@@ -45,7 +52,7 @@ namespace BlazorMenu.Shared.Tabs
                 selTab.IsActive = true;
             }
 
-            _navigationManager.NavigateTo(url);
+            _navigationManager.NavigateTo(lcUrlTenant);
         }
     }
 }

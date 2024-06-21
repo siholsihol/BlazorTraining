@@ -1,4 +1,5 @@
 ﻿@page "/SAB03300"
+@using R_BlazorFrontEnd.Controls.Events
 @inherits R_Page
 @attribute [R_Page(Title = "Grid Sequence")]
 
@@ -17,7 +18,11 @@
                 Width="1100px"
                 DragDrop
                 DragClueField="@nameof(ProductDTO.Name)"
-                R_GridRowBeforeDrop="@R_GridRowBeforeDrop" R_GridRowAfterDrop="@R_GridRowAfterDrop">
+                R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
+                R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
+                R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                R_AfterSaveBatch="@R_AfterSaveBatch">
             <R_GridColumns>
                 <R_GridMultiHeaderColumn HeaderText="Test">
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -58,23 +63,23 @@
         </R_Grid>
 
         <R_StackLayout Row>
-            <R_ItemLayout xs="2">
+            <R_ItemLayout col="2">
                 <R_Button R_ConductorGridSource="@_conGridProductRef"
                           OnClick="@OnClickSave">Save Batch</R_Button>
             </R_ItemLayout>
-            <R_ItemLayout xs="2">
+            <R_ItemLayout col="2">
                 <R_Button R_ConductorGridSource="@_conGridProductRef"
                           OnClick="@OnClickNext">Move Next</R_Button>
             </R_ItemLayout>
-            <R_ItemLayout xs="2">
+            <R_ItemLayout col="2">
                 <R_Button R_ConductorGridSource="@_conGridProductRef"
                           OnClick="@OnClickPrevious">Move Previous</R_Button>
             </R_ItemLayout>
-            <R_ItemLayout xs="2">
+            <R_ItemLayout col="2">
                 <R_Button R_ConductorGridSource="@_conGridProductRef"
                           OnClick="@OnClickFirst">Move First</R_Button>
             </R_ItemLayout>
-            <R_ItemLayout xs="2">
+            <R_ItemLayout col="2">
                 <R_Button R_ConductorGridSource="@_conGridProductRef"
                           OnClick="@OnClickLast">Move Last</R_Button>
             </R_ItemLayout>
@@ -83,10 +88,4 @@
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridProductRef"
-                 R_ViewModel="@_viewModel"
-                 R_IsHeader
-                 R_ServiceGetRecord="@R_ServiceGetRecord"
-                 R_AfterAdd="@R_AfterAdd"
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+                 R_IsHeader />

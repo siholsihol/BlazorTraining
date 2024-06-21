@@ -1,11 +1,23 @@
 ﻿@page "/SAB01400"
 @inherits R_Page
 
-<R_Detail R_Before_Open_Detail="@R_Before_Open_Detail" R_After_Open_Detail="@R_After_Open_Detail">Detail</R_Detail>
+<R_Detail R_Before_Open_Detail="@R_Before_Open_Detail"
+          R_After_Open_Detail="@R_After_Open_Detail">
+    Detail
+</R_Detail>
 
 <R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock" 
                   R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"
-                  Title="Predefined Title"></R_PredefinedDock>
+                  Title="Predefined Title" 
+                  Enabled="@_predifined1Enable" />
+
+<R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock"
+                  R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"
+                  Title="Predefined Title"
+                  Enabled="@_predifined2Enable" />
+
+<R_Button OnClick="@OnClickPredefined1">Enable Predefined 1 : @_predifined1Enable</R_Button>
+<R_Button OnClick="@OnClickPredefined2">Enable Predefined 2 : @_predifined2Enable</R_Button>
 
 <h3>@lcResult</h3>
 <div><span class="fas fa-star me-2"></span><span>Favorite</span></div>
@@ -15,6 +27,14 @@
 <div><span class="fa fa-brain me-2"></span><span>System Master</span></div>
 
 @code {
+    private bool _predifined1Enable = true;
+    private bool _predifined2Enable = false;
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        return base.R_Init_From_Master(poParameter);
+    }
+
     private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(PageA);
@@ -31,11 +51,23 @@
     {
         eventArgs.TargetPageType = typeof(PagePredefined);
         eventArgs.Parameter = "From Predefined";
-        eventArgs.Cancel = true;
+        // eventArgs.Cancel = true;
     }
 
     private void R_AfterOpenPredefinedDock(R_AfterOpenPredefinedDockEventArgs eventArgs)
     {
         lcResult = (string)eventArgs.Result;
+
+        // _predifined1Enable = false;
+    }
+
+    private void OnClickPredefined1()
+    {
+        _predifined1Enable = !_predifined1Enable;
+    }
+
+    private void OnClickPredefined2()
+    {
+        _predifined2Enable = !_predifined2Enable;
     }
 }

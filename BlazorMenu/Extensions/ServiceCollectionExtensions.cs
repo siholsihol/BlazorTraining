@@ -22,7 +22,8 @@ namespace BlazorMenu.Extensions
             services.AddSingleton<R_ILocalizer, R_Localizer>();
             services.AddSingleton<R_IMainBody, MainBody>();
 
-            services.AddSingleton<MenuTabSetTool>();
+            //services.AddSingleton<MenuTabSetTool>();
+            services.AddScoped<MenuTabSetTool>();
 
             services.AddTransient<R_IMenuService, R_MenuService>();
 

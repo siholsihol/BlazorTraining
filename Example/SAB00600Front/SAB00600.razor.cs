@@ -2,7 +2,6 @@
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
-using R_BlazorFrontEnd.Controls.Grid;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
@@ -26,8 +25,8 @@ namespace SAB00600Front
 
                 await _gridRef.R_RefreshGrid(null);
 
-                await _gridRef.AddAsync();
-                //await _gridRef.R_SetCurrentData(CustomerViewModel.CustomerList.ElementAt(1));
+                //await _gridRef.AddAsync();
+                //await _gridRef.R_SelectCurrentDataAsync(CustomerViewModel.CustomerList.ElementAt(1));
             }
             catch (Exception ex)
             {
@@ -139,9 +138,9 @@ namespace SAB00600Front
             try
             {
                 //TODO Validation
-                eventArgs.Cancel = true;
+                //eventArgs.Cancel = true;
 
-                throw new Exception("ea");
+                //throw new Exception("ea");
             }
             catch (Exception ex)
             {
@@ -260,7 +259,8 @@ namespace SAB00600Front
         private void R_CheckAdd(R_CheckAddEventArgs eventArgs)
         {
             //TODO Validation
-            //eventArgs.Allow = false;
+            //var loCurrentData = _gridRef.GetCurrentData() as CustomerDTO;
+            //eventArgs.Allow = loCurrentData.GenderId == "M";
         }
 
         private void R_CheckEdit(R_CheckEditEventArgs eventArgs)
@@ -280,7 +280,7 @@ namespace SAB00600Front
         private void R_CheckGridAdd(R_CheckGridEventArgs eventArgs)
         {
             //TODO Validation
-            //eventArgs.Allow = false;
+            eventArgs.Allow = false;
         }
 
         private void R_CheckGridEdit(R_CheckGridEventArgs eventArgs)
@@ -292,22 +292,19 @@ namespace SAB00600Front
         private void R_CheckGridDelete(R_CheckGridEventArgs eventArgs)
         {
             //TODO Validation
-            //eventArgs.Allow = false;
+            eventArgs.Allow = false;
         }
         #endregion
         #endregion
 
         private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
         {
-            var loData = (CustomerDTO)eventArgs.Data;
+            //var loData = (CustomerDTO)eventArgs.Data;
 
-            if (loData.GenderId == "M")
-            {
-                eventArgs.RowStyle = new R_GridRowRenderStyle
-                {
-                    FontColor = "red"
-                };
-            }
+            //if (loData.GenderId == "M")
+            //{
+            //    eventArgs.RowClass = "myCustomRowFormatting";
+            //}
         }
 
         private bool _checkBoxValue = true;

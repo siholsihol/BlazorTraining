@@ -8,7 +8,7 @@
             Pageable="true"
             R_GridType="@R_eGridType.Original"
             R_ConductorGridSource="@_conGridCustomerRef"
-            AllowAddNewRow="@_isAddNewRowVisible"
+            AllowAddNewRow
             AllowEditRow
             AllowDeleteRow
             R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
@@ -35,7 +35,7 @@
             R_CheckGridEdit="R_CheckGridEdit" 
             R_CheckGridDelete="R_CheckGridDelete"
             R_DisableDeleteConfirmation="false"
-            R_DisableCancelConfirmation="false">
+            R_DisableCancelConfirmation>
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
@@ -51,8 +51,7 @@
                                   TextField="@nameof(GenderDTO.Name)"
                                   FieldName="@nameof(CustomerDTO.GenderId)"
                                   HeaderText="Gender Id"
-                                  R_EnableAdd
-                                  R_EnableEdit
+                                  Enabled="@_checkBoxValue"
                                   Width="200px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
@@ -90,3 +89,21 @@
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"
                  R_IsHeader />
+
+<style>
+    /*the following selectors target the locked/frozen columns*/
+    /*===*/
+    .k-grid .k-master-row.myCustomRowFormatting .k-grid-content-sticky,
+    .k-grid .k-master-row.myCustomRowFormatting.k-alt .k-grid-content-sticky
+    /*===*/ {
+        background-color: inherit;
+    }
+
+    .k-grid .k-master-row.myCustomRowFormatting:hover {
+        background-color: red !important;
+    }
+
+    .k-grid .k-master-row.myCustomRowFormatting {
+        background-color: #90EE90;
+    }
+</style>

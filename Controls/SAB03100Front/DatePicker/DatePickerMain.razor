@@ -8,7 +8,9 @@
                 <R_Label>DateTime :</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="4">
-                <R_DatePicker @bind-Value=@_dateTimeValue />
+                <R_DatePicker @bind-Value=@_dateTimeValue
+                              Min="@_minDateTimeValue"
+                              Max="@_maxDateTimeValue" />
             </R_ItemLayout>
             <R_ItemLayout col="4">
                 <R_Label>@_dateTimeValue</R_Label>
@@ -34,4 +36,7 @@
 @code {
     private DateTime _dateTimeValue = DateTime.Now;
     private DateTime? _nullDateTimeValue;
+
+    private DateTime _minDateTimeValue = DateTime.Now;
+    private DateTime _maxDateTimeValue = DateTime.Now.AddDays(3);
 }

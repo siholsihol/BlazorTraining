@@ -1,6 +1,8 @@
 ﻿using DataDummyProvider.DTOs;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Events;
+using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Exceptions;
 
 namespace SAB00900Front
@@ -10,6 +12,7 @@ namespace SAB00900Front
         private ProductPageViewModel GridViewModel = new();
         private R_Grid<ProductDTO> _gridRef;
         private string Parameter = "";
+        [Inject] public R_MessageBoxService MessageBoxService { get; set; }
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -17,8 +20,12 @@ namespace SAB00900Front
 
             try
             {
+                var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+
                 Parameter = (string)poParameter;
                 await _gridRef.R_RefreshGrid(null);
+
+                //loEx.Add(new R_Error("01", "test exception"));
             }
             catch (Exception ex)
             {
@@ -64,9 +71,19 @@ namespace SAB00900Front
 
         protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
         {
-            eventArgs.Cancel = true;
+            //eventArgs.Cancel = true;
 
             return Task.CompletedTask;
+        }
+
+        private void ThrowException()
+        {
+            var loEx = new R_Exception();
+
+            loEx.Add(new R_Error("01", "test exception"));
+
+            //loEx.ThrowExceptionIfErrors();
+            R_DisplayException(loEx);
         }
     }
 }

@@ -116,12 +116,12 @@ namespace SAB03400Front
         }
 
         #region Drag Drop
-        private void R_GridRowBeforeDrop(R_GridRowBeforeDropEventArgs eventArgs)
+        private void R_GridRowBeforeDrop(R_GridDragDropBeforeDropEventArgs<ProductDTO> eventArgs)
         {
             //eventArgs.Cancel = true;
         }
 
-        private void R_GridRowAfterDrop(R_GridRowAfterDropEventArgs eventArgs)
+        private void R_GridRowAfterDrop(R_GridDragDropAfterDropEventArgs<ProductDTO> eventArgs)
         {
 
         }

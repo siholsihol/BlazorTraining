@@ -67,9 +67,9 @@ namespace SAB01000Front
         #region Save Batch
         private void R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)
         {
-            //var loData = (List<UserDTO>)events.Data;
+            var loData = (List<SelectedProductDTO>)events.Data;
 
-            //events.Cancel = loData.Count == 0;
+            events.Cancel = loData.Count == 0;
         }
 
         private void R_ServiceSaveBatch(R_ServiceSaveBatchEventArgs eventArgs)
@@ -96,7 +96,8 @@ namespace SAB01000Front
 
         private async Task OnClickSave()
         {
-            await _conGridProductRef.R_SaveBatch();
+            //await _conGridProductRef.R_SaveBatch();
+            await _gridRef.R_SaveBatch();
         }
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
@@ -180,6 +181,27 @@ namespace SAB01000Front
         private void OnClickMaxLength()
         {
             _maxLength = 10;
+        }
+
+        private void R_Display(R_DisplayEventArgs eventArgs)
+        {
+
+        }
+
+        private DateTime _minDateValue = DateTime.Now;
+        private DateTime _maxDateValue = DateTime.Now.AddDays(3);
+
+        private DateTime _changeMinDate = DateTime.Now.AddDays(2);
+        private DateTime _changeMaxDate = DateTime.Now.AddDays(4);
+
+        private void OnClickMinDate()
+        {
+            _minDateValue = _changeMinDate;
+        }
+
+        private void OnClickMaxDate()
+        {
+            _maxDateValue = _changeMaxDate;
         }
     }
 }

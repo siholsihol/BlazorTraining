@@ -4,6 +4,7 @@
 <h3>@Title</h3>
 
 <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail">Detail</R_Detail>
+@* <R_Button OnClick="@OnClick">Close</R_Button> *@
 
 @code {
     private string Title = "";
@@ -34,4 +35,9 @@
 
         return Task.FromResult<object>(lcResult);
     }
+
+//     private async Task OnClick()
+//     {
+//         await this.CloseDetail1();
+//     }
 }

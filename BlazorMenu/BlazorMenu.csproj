@@ -76,6 +76,9 @@
     <Reference Include="R_BlazorFrontEnd.FileConverter">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.FileConverter.dll</HintPath>
     </Reference>
+    <Reference Include="R_BlazorFrontEnd.Tenant">
+      <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Tenant.dll</HintPath>
+    </Reference>
     <Reference Include="R_BlazorStartup">
       <HintPath>..\Dll\Dll Front\R_BlazorStartup.dll</HintPath>
     </Reference>

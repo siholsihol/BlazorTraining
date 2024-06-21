@@ -86,18 +86,15 @@ else
 </style>
 
 @code {
+    [CascadingParameter(Name = "RouteView")] public MenuTabsRouteView RouteView { get; set; }
+
+    [Inject] private MenuTabSetTool _tabSetTool { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private Tenant _tenant { get; set; }
+
+    public List<MenuTab> Tabs => _tabSetTool.Tabs;
+
     private int ActiveTabIndex = 0;
-
-    [Inject]
-    public MenuTabSetTool TabSetTool { get; set; }
-
-    [CascadingParameter(Name = "RouteView")]
-    public MenuTabsRouteView RouteView { get; set; }
-
-    public List<MenuTab> Tabs => TabSetTool.Tabs;
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
@@ -139,13 +136,13 @@ else
             if (activeTab != null)
                 await ActivateTab(activeTab);
             else
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/" + _tenant.Identifier);
         }
     }
 
     private Task ActivateTab(MenuTab poTab)
     {
-        TabSetTool.AddTab(poTab.Title, poTab.Url);
+        _tabSetTool.AddTab(poTab.Title, poTab.Url);
 
         return Task.CompletedTask;
     }
@@ -154,7 +151,7 @@ else
     {
         var loCurrentTab = Tabs[piTabIndex];
 
-        TabSetTool.AddTab(loCurrentTab.Title, loCurrentTab.Url);
+        _tabSetTool.AddTab(loCurrentTab.Title, loCurrentTab.Url);
 
         return Task.CompletedTask;
     }
@@ -173,6 +170,7 @@ else
     public async Task CloseTabFromProgram(R_IMenuTab poTab)
     {
         var loTab = (MenuTab)poTab;
+
         await OnTabClose(loTab);
     }
 }

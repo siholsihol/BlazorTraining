@@ -23,6 +23,7 @@ namespace SAB00700Front
                 await _gridRef.R_RefreshGrid(null);
 
                 //await _conductorRef.Edit();
+                //await _gridRef.R_SelectCurrentDataAsync(2);
             }
             catch (Exception ex)
             {
@@ -197,6 +198,11 @@ namespace SAB00700Front
             loEx.ThrowExceptionIfErrors();
         }
 
+        private void R_Display(R_DisplayEventArgs eventArgs)
+        {
+
+        }
+
         private void R_BeforeEdit(R_BeforeEditEventArgs eventArgs)
         {
             //eventArgs.Cancel = true;
@@ -234,6 +240,21 @@ namespace SAB00700Front
         private async Task R_AfterAdd()
         {
             await _textboxNameRef.FocusAsync();
+        }
+
+        private void R_CheckAdd(R_CheckAddEventArgs eventArgs)
+        {
+            //eventArgs.Allow = false;
+        }
+
+        private void R_CheckEdit(R_CheckEditEventArgs eventArgs)
+        {
+            eventArgs.Allow = false;
+        }
+
+        private void R_CheckDelete(R_CheckDeleteEventArgs eventArgs)
+        {
+            //eventArgs.Allow = false;
         }
     }
 }

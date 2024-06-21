@@ -1,4 +1,5 @@
 ﻿@page "/SAB03400"
+@using R_BlazorFrontEnd.Controls.Events
 @inherits R_Page
 @attribute [R_Page(Title = "Grid Mover")]
 
@@ -18,8 +19,8 @@
                     Width="500px"
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
-                    R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop" 
+                    R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
+                    R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
                     TargetGridDrop="@_gridRef2">
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
@@ -58,8 +59,8 @@
                     Width="500px"
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
-                    R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop" 
+                    R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
+                    R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
                     TargetGridDrop="@_gridRef">
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
@@ -105,19 +106,13 @@
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridProductRef"
-                    R_ViewModel="@_viewModel"
-                    R_IsHeader
-                    R_ServiceGetRecord="@R_ServiceGetRecord"
-                    R_AfterAdd="@R_AfterAdd"
-                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                    R_AfterSaveBatch="@R_AfterSaveBatch" />
+                 R_IsHeader
+                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                 R_AfterSaveBatch="@R_AfterSaveBatch" />
 
 <R_ConductorGrid @ref="@_conGridProductRef2"
-                    R_ViewModel="@_viewModel"
-                    R_IsHeader
-                    R_ServiceGetRecord="@R_ServiceGetRecord"
-                    R_AfterAdd="@R_AfterAdd"
-                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                    R_AfterSaveBatch="@R_AfterSaveBatch" />
+                 R_ConductorParent="@_conGridProductRef"
+                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                 R_AfterSaveBatch="@R_AfterSaveBatch" />
