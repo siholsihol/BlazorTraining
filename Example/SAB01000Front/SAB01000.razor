@@ -12,9 +12,9 @@
                 Pageable
                 R_ConductorGridSource="@_conGridProductRef"
                 R_GridType="@R_eGridType.Batch"
-                AllowAddNewRow="true"
-                AllowEditRow="true"
-                AllowDeleteRow="true"
+                AllowAddNewRow
+                AllowEditRow
+                AllowDeleteRow
                 R_ServiceGetListRecord="@R_ServiceGetListRecord" 
                 Height="300px" 
                 R_CellValueChanged="@R_CellValueChanged"
@@ -25,18 +25,21 @@
                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
                 R_AfterSaveBatch="@R_AfterSaveBatch" 
-                R_Display="@R_Display">
+                R_Display="@R_Display"
+                R_CheckBoxSelectRender="@R_CheckBoxSelectRender">
             <R_GridColumns>
                 <R_GridCheckBoxSelectColumn FieldName="@nameof(SelectedProductDTO.Selected)"
                                             R_EnableAdd
                                             R_EnableEdit
-                                            ShowSelectAllHeader Width="200px" />
+                                            ShowSelectAllHeader 
+                                            Width="200px" />
 
                 <R_GridMultiHeaderColumn HeaderText="Test" Name="multiheader">
                     <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Id)"
                                          HeaderText="Id"
                                          R_EnableAdd
-                                         R_EnableEdit Width="200px" 
+                                         R_EnableEdit 
+                                         Width="200px" 
                                          ThousandSeparator="false" />
 
                     <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
@@ -56,15 +59,23 @@
         R_EnableEdit Width="200px"
         PopupMaxHeight="50px" />*@
 
-                @*<R_GridComboBoxColumn Data=@_viewModel.Categories
-        ValueField="@nameof(CategoryDTO.Id)"
-        TextField="@nameof(CategoryDTO.Name)"
-        FieldName="@nameof(SelectedProductDTO.CategoryId)"
-        HeaderText="Category"
-        R_EnableAdd
-        R_EnableEdit
-        Width="200px"
-        PopupMaxHeight="50px" />*@
+                @* <R_GridComboBoxColumn Data=@_viewModel.Categories
+                                      ValueField="@nameof(CategoryDTO.Id)"
+                                      TextField="@nameof(CategoryDTO.Name)"
+                                      FieldName="@nameof(SelectedProductDTO.CategoryId)"
+                                      HeaderText="Category"
+                                      R_EnableAdd
+                                      R_EnableEdit
+                                      Width="200px"
+                                      PopupMaxHeight="50px" /> *@
+
+                <R_GridLookupColumn FieldName="@nameof(SelectedProductDTO.CategoryId)"
+                                    HeaderText="Category"
+                                    R_EnableAdd
+                                    R_EnableEdit
+                                    Width="200px"
+                                    MaxLength="2"
+                                    TextboxEnabled="true" />
 
                 <R_GridNumericColumn FieldName="@nameof(SelectedProductDTO.Price)"
                                      HeaderText="Price"
@@ -98,20 +109,25 @@
                 <R_GridCheckBoxColumn FieldName="@nameof(SelectedProductDTO.Active)"
                                       HeaderText="Active"
                                       R_EnableAdd
-                                      R_EnableEdit Width="200px" />
+                                      R_EnableEdit 
+                                      Width="200px" />
 
-                <R_GridLookupColumn FieldName="@nameof(SelectedProductDTO.CategoryId)"
+                @* <R_GridLookupColumn FieldName="@nameof(SelectedProductDTO.CategoryId)"
                                     HeaderText="Category"
                                     R_EnableAdd
                                     R_EnableEdit
                                     Width="200px"
-                                    MaxLength="2" />
+                                    MaxLength="2"
+                                    TextboxEnabled="false" /> *@
             </R_GridColumns>
         </R_Grid>
 
         <R_ItemLayout>
-            <R_Button R_ConductorGridSource="@_conGridProductRef" 
-                      OnClick="@OnClickSave">Save Batch</R_Button>
+            <R_Button R_ConductorGridSource="@_conGridProductRef"
+                      OnClick="@OnClickSave"
+                      R_EnableOther>
+                Save Batch
+            </R_Button>
             <R_Button R_ConductorGridSource="@_conGridProductRef"
                       OnClick="@OnClickGroup" 
                       Icon="@R_eIcon.Refresh">

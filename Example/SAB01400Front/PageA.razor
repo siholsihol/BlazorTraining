@@ -1,12 +1,15 @@
-﻿@inherits R_Page
+﻿@using R_BlazorFrontEnd.Controls.MessageBox
+@inherits R_Page
 @attribute [R_Page (Title = "Detail Title")]
 
 <h3>@Title</h3>
 
 <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail">Detail</R_Detail>
-@* <R_Button OnClick="@OnClick">Close</R_Button> *@
+<R_Button OnClick="@OnClick">Close</R_Button>
 
 @code {
+    [Inject] public R_MessageBoxService MessageBoxService { get; set; }
+
     private string Title = "";
 
     protected override Task R_Init_From_Master(object poParameter)
@@ -22,11 +25,13 @@
         eventArgs.Parameter = "From Detail Button";
     }
 
-    protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
+    protected override async Task R_PageClosing(R_PageClosingEventArgs eventArgs)
     {
-        //eventArgs.Cancel = true;
+        R_eMessageBoxResult result = await MessageBoxService.Show("Exit Confirmation", 
+        "Are you sure to close this page?", 
+        R_eMessageBoxButtonType.OKCancel);
 
-        return Task.CompletedTask;
+        eventArgs.Cancel = result != R_eMessageBoxResult.OK;
     }
 
     protected override Task<object> R_Set_Result_Detail()
@@ -36,8 +41,8 @@
         return Task.FromResult<object>(lcResult);
     }
 
-//     private async Task OnClick()
-//     {
-//         await this.CloseDetail1();
-//     }
+    private async Task OnClick()
+    {
+        await this.CloseDetailAsync();
+    }
 }

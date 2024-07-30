@@ -1,5 +1,6 @@
 ﻿@page "/SAB00600"
 @inherits R_Page
+@attribute [R_Page(Title = "Gridview Original")]
 @using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout>
@@ -35,17 +36,19 @@
             R_CheckGridEdit="R_CheckGridEdit" 
             R_CheckGridDelete="R_CheckGridDelete"
             R_DisableDeleteConfirmation="false"
-            R_DisableCancelConfirmation>
+            R_DisableCancelConfirmation
+            R_SetAddGridColumn="@R_SetAddGridColumn"
+            R_SetEditGridColumn="@R_SetEditGridColumn">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
                               R_EnableAdd
-                              Width="100px"></R_GridTextColumn>
+                              Width="100px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
                               HeaderText="Company Name"
                               R_EnableAdd
                               R_EnableEdit
-                              Width="400px"></R_GridTextColumn>
+                              Width="400px" />
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"

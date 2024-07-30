@@ -280,7 +280,7 @@ namespace SAB00600Front
         private void R_CheckGridAdd(R_CheckGridEventArgs eventArgs)
         {
             //TODO Validation
-            eventArgs.Allow = false;
+            //eventArgs.Allow = false;
         }
 
         private void R_CheckGridEdit(R_CheckGridEventArgs eventArgs)
@@ -292,19 +292,39 @@ namespace SAB00600Front
         private void R_CheckGridDelete(R_CheckGridEventArgs eventArgs)
         {
             //TODO Validation
-            eventArgs.Allow = false;
+            //eventArgs.Allow = false;
         }
         #endregion
+
+        private void R_SetAddGridColumn(R_SetAddGridColumnEventArgs eventArgs)
+        {
+            //var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "CompanyName");
+
+            //if (loColumn != null)
+            //{
+            //    loColumn.Enabled = false;
+            //}
+        }
+
+        private void R_SetEditGridColumn(R_SetEditGridColumnEventArgs eventArgs)
+        {
+            //var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "GenderId");
+
+            //if (loColumn != null)
+            //{
+            //    loColumn.Enabled = false;
+            //}
+        }
         #endregion
 
         private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
         {
-            //var loData = (CustomerDTO)eventArgs.Data;
+            var loData = (CustomerDTO)eventArgs.Data;
 
-            //if (loData.GenderId == "M")
-            //{
-            //    eventArgs.RowClass = "myCustomRowFormatting";
-            //}
+            if (loData.GenderId == "M")
+            {
+                eventArgs.RowClass = "myCustomRowFormatting";
+            }
         }
 
         private bool _checkBoxValue = true;

@@ -249,12 +249,18 @@ namespace SAB00700Front
 
         private void R_CheckEdit(R_CheckEditEventArgs eventArgs)
         {
-            eventArgs.Allow = false;
+            //eventArgs.Allow = false;
         }
 
         private void R_CheckDelete(R_CheckDeleteEventArgs eventArgs)
         {
             //eventArgs.Allow = false;
+        }
+
+        private bool _buttonEnable = false;
+        private void R_SetHasData(R_SetEventArgs eventArgs)
+        {
+            _buttonEnable = eventArgs.Enable;
         }
     }
 }

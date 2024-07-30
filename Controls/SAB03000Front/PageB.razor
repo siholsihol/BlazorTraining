@@ -2,6 +2,8 @@
 
 <h3>PageB</h3>
 
+<R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
+
 @code {
     protected override Task R_Init_From_Master(object poParameter)
     {
@@ -11,5 +13,11 @@
     protected override Task<object> R_Set_Result_TabPage()
     {
         return Task.FromResult<object>("Result dari Page B");
+    }
+
+    private async Task OnClick()
+    {
+        if (this.ParentTabStrip is not null)
+            await this.ParentTabStrip.SetActiveTabAsync("tab3");
     }
 }

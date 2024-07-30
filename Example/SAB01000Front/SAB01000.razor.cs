@@ -203,5 +203,15 @@ namespace SAB01000Front
         {
             _maxDateValue = _changeMaxDate;
         }
+
+        private void R_CheckBoxSelectRender(R_CheckBoxSelectRenderEventArgs eventArgs)
+        {
+            var loData = (SelectedProductDTO)eventArgs.Data;
+
+            if (loData.Id < 5000)
+            {
+                eventArgs.Enabled = false;
+            }
+        }
     }
 }

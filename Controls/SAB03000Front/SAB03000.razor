@@ -20,11 +20,13 @@
 <R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
 <R_Button OnClick="@OnClickPredefined">Enable Disable Predefined</R_Button>
 
-<R_PredefinedDock R_InstantiateDock="@R_InstantiateDock" Title="Tab Page" Enabled="@predefinedEnabled"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@R_InstantiateDock"
+                  Title="Tab Page"
+                  Enabled="@predefinedEnabled" />
 
 @code{
     private R_TabStrip tabStripRef;
-    private bool predefinedEnabled = false;
+    private bool predefinedEnabled = true;
 
     private void OnActiveTabIndexChanging(R_TabStripActiveTabIndexChangingEventArgs eventArgs)
     {

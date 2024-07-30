@@ -73,7 +73,7 @@
             <R_CancelButton R_Conductor="@_conductorRef" />
             <R_Button R_ConductorSource="@_conductorRef"
                       OnClick="@buttonOnClick"
-                      R_EnableOther>
+                      Enabled="@_buttonEnable">
                 Change Category Name
             </R_Button>
         </R_ItemLayout>
@@ -94,4 +94,5 @@
              R_CheckAdd="@R_CheckAdd" 
              R_CheckEdit="@R_CheckEdit" 
              R_CheckDelete="@R_CheckDelete"
-             R_Display="@R_Display" />
+             R_Display="@R_Display"
+             R_SetHasData="@R_SetHasData" />

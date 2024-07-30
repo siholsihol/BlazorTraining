@@ -1,15 +1,22 @@
 ﻿@inherits R_Page
 
 <R_GroupBox Title="R_ComboBox">
-    <R_ItemLayout col="4">
-        <R_ComboBox @ref="@_comboboxRef" 
-                    Data="@_comboBoxList" 
-                    TextField="@nameof(CategoryDTO.Name)" 
-                    ValueField="@nameof(CategoryDTO.Id)"
-                    @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
+    <R_StackLayout Row>
+        <R_ItemLayout col="4">
+            <R_ComboBox @ref="@_comboboxRef"
+                        Data="@_comboBoxList"
+                        TextField="@nameof(CategoryDTO.Name)"
+                        ValueField="@nameof(CategoryDTO.Id)"
+                        @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
 
-        </R_ComboBox>
-    </R_ItemLayout>
+            </R_ComboBox>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_TextBox></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+    
 </R_GroupBox>
 
 @code { 

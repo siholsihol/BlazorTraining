@@ -156,6 +156,8 @@ namespace SAB01300Front
         private R_TextBox _textboxNameRef;
         private async Task Navigator_AfterAdd()
         {
+            await _productGridRef.R_RefreshGrid(0); //kosongin grid batch
+
             await _textboxNameRef.FocusAsync();
         }
 
@@ -163,7 +165,8 @@ namespace SAB01300Front
         {
             var loCurrentCategory = (CategoryDTO)eventArgs.Data;
 
-            await _productGridRef.R_RefreshGrid(loCurrentCategory.Id);
+            if (eventArgs.ConductorMode == R_BlazorFrontEnd.Enums.R_eConductorMode.Normal)
+                await _productGridRef.R_RefreshGrid(loCurrentCategory.Id);
         }
 
         #region PRODUCT
@@ -197,6 +200,13 @@ namespace SAB01300Front
 
             loData.ReleaseDate = DateTime.Now;
         }
+
+        //private void R_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        //{
+        //    var loData = (ProductDTO)eventArgs.Data;
+
+        //    _viewModel.Products.Add(loData);
+        //}
         #endregion
 
         private void R_RowRender(R_GridRowRenderEventArgs eventArgs)

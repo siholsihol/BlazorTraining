@@ -6,26 +6,28 @@
     <R_StackLayout>
         <R_Grid @ref="@_gridRef"
                 DataSource="@_viewModel.CategoryList"
-                Pageable="true"
+                Pageable
                 R_ConductorSource="@_conductorRef"
                 R_GridType="@R_eGridType.Navigator"
                 R_ServiceGetListRecord="@GridCategory_R_ServiceGetListRecord"
                 R_RowRender="@R_RowRender"
                 Enabled="@_gridEnabled">
             <R_GridColumns>
-                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)" HeaderText="Category Id"></R_GridNumericColumn>
-                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)" HeaderText="Category Name"></R_GridTextColumn>
+                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
+                                     HeaderText="Category Id" />
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)"
+                                  HeaderText="Category Name" />
             </R_GridColumns>
         </R_Grid>
     </R_StackLayout>
 </R_StackLayout>
 
 <R_StackLayout>
-    <R_StackLayout Row="true" Spacing="3">
+    <R_StackLayout Row Spacing="3">
         <h2>Category Detail</h2>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Category Id</R_Label>
         </R_ItemLayout>
@@ -33,11 +35,11 @@
         <R_ItemLayout col="4">
             <R_NumericTextBox @bind-Value="@_viewModel.Data.Id"
                               R_ConductorSource="@_conductorRef"
-                              Enabled="false"></R_NumericTextBox>
+                              Enabled="false" />
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Category Name</R_Label>
         </R_ItemLayout>
@@ -46,8 +48,8 @@
             <R_TextBox @ref="@_textboxNameRef" 
                        @bind-Value="@_viewModel.Data.Name"
                        R_ConductorSource="@_conductorRef"
-                       R_EnableAdd="true"
-                       R_EnableEdit="true"></R_TextBox>
+                       R_EnableAdd
+                       R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -59,12 +61,12 @@
         <R_ItemLayout col="4">
             <R_TextArea @bind-Value="@_viewModel.Data.Description"
                         R_ConductorSource="@_conductorRef"
-                        R_EnableAdd="true"
-                        R_EnableEdit="true"></R_TextArea>
+                        R_EnableAdd 
+                        R_EnableEdit />
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true" Spacing="3" Class="mt-3">
+    <R_StackLayout Row Spacing="3" Class="mt-3">
         <R_ItemLayout col="12">
             <R_AddButton R_Conductor="@_conductorRef" />
             <R_EditButton R_Conductor="@_conductorRef" />
@@ -90,7 +92,7 @@
                 R_AfterAdd="@Batch_AfterAdd" 
                 AllowAddNewRow
                 AllowEditRow 
-                AllowDeleteRow >
+                AllowDeleteRow>
             <R_GridColumns>
                 <R_GridMultiHeaderColumn HeaderText="Test">
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -103,7 +105,8 @@
                                       HeaderText="Name"
                                       R_EnableAdd
                                       R_EnableEdit
-                                      MaxLength="5" Width="200px" />
+                                      MaxLength="5" 
+                                      Width="200px" />
                 </R_GridMultiHeaderColumn>
 
                 <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
@@ -123,7 +126,8 @@
                 <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Active)"
                                       HeaderText="Active"
                                       R_EnableAdd
-                                      R_EnableEdit Width="200px" />
+                                      R_EnableEdit 
+                                      Width="200px" />
             </R_GridColumns>
         </R_Grid>
 
@@ -136,7 +140,7 @@
 
 <R_Conductor @ref="@_conductorRef"
              R_ViewModel="@_viewModel"
-             R_IsHeader="true"
+             R_IsHeader 
              R_ServiceGetRecord="@Navigator_ServiceGetRecord"
              R_Validation="@Navigator_Validation"
              R_ServiceSave="@Navigator_ServiceSave"

@@ -6,12 +6,14 @@
     Detail
 </R_Detail>
 
-<R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock" 
+<R_PredefinedDock @ref="@_predefinedDock1"
+                  R_InstantiateDock="@PreDock_InstantiateDock"
                   R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"
-                  Title="Predefined Title" 
+                  Title="Predefined Title"
                   Enabled="@_predifined1Enable" />
 
-<R_PredefinedDock R_InstantiateDock="@PreDock_InstantiateDock"
+<R_PredefinedDock @ref="@_predefinedDock2"
+                  R_InstantiateDock="@PreDock_InstantiateDock"
                   R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"
                   Title="Predefined Title"
                   Enabled="@_predifined2Enable" />
@@ -28,7 +30,10 @@
 
 @code {
     private bool _predifined1Enable = true;
-    private bool _predifined2Enable = false;
+    private bool _predifined2Enable = true;
+
+    private R_PredefinedDock _predefinedDock1;
+    private R_PredefinedDock _predefinedDock2;
 
     protected override Task R_Init_From_Master(object poParameter)
     {
@@ -37,7 +42,8 @@
 
     private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(PageA);
+        // eventArgs.TargetPageType = typeof(PageA);
+        eventArgs.PageNamespace = "SAB00600Front.SAB00600";
         eventArgs.Parameter = "From Detail Button";
     }
 
@@ -61,13 +67,15 @@
         // _predifined1Enable = false;
     }
 
-    private void OnClickPredefined1()
+    private async Task OnClickPredefined1()
     {
-        _predifined1Enable = !_predifined1Enable;
+        // _predifined1Enable = !_predifined1Enable;
+        await _predefinedDock1.SetActiveAsync();
     }
 
-    private void OnClickPredefined2()
+    private async Task OnClickPredefined2()
     {
-        _predifined2Enable = !_predifined2Enable;
+        // _predifined2Enable = !_predifined2Enable;
+        await _predefinedDock2.SetActiveAsync();
     }
 }

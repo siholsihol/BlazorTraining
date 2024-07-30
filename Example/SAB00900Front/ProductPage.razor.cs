@@ -20,7 +20,7 @@ namespace SAB00900Front
 
             try
             {
-                var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
 
                 Parameter = (string)poParameter;
                 await _gridRef.R_RefreshGrid(null);
@@ -69,11 +69,13 @@ namespace SAB00900Front
 
         }
 
-        protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
+        protected override async Task R_PageClosing(R_PageClosingEventArgs eventArgs)
         {
-            //eventArgs.Cancel = true;
+            R_eMessageBoxResult result = await MessageBoxService.Show("Exit Confirmation",
+            "Are you sure to close this page?",
+            R_eMessageBoxButtonType.OKCancel);
 
-            return Task.CompletedTask;
+            eventArgs.Cancel = result != R_eMessageBoxResult.OK;
         }
 
         private void ThrowException()

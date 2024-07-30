@@ -3,34 +3,31 @@
 
 <h3>Tab Page Example</h3>
 
-<R_TabStrip>
+<R_TabStrip @ref="@tabStripRef">
     <R_TabStripTab Title="Tab 1">
         @lcText
+
+        <R_Button OnClick="@OnClick">Set Active Tab 2</R_Button>
     </R_TabStripTab>
 
-    <R_TabStripTab Title="Tab 2">
+    <R_TabStripTab Title="Tab 2" Id="tab2">
         <R_TabPage R_Before_Open_TabPage="@R_Before_Open_TabPageTabB" 
                    R_After_Open_TabPage="@R_After_Open_TabPageTab" />
     </R_TabStripTab>
 
-    <R_TabStripTab Title="Tab 3">
+    <R_TabStripTab Title="Tab 3" Id="tab3">
         <R_TabPage R_Before_Open_TabPage="@R_Before_Open_TabPageTabC"
                    R_After_Open_TabPage="@R_After_Open_TabPageTab" />
     </R_TabStripTab>
 </R_TabStrip>
 
 @code {
+    private R_TabStrip tabStripRef;
     private string lcText = "Tab 1";
 
     protected override Task R_Init_From_Master(object poParameter)
     {
         return base.R_Init_From_Master(poParameter);
-    }
-
-    private void R_Before_Open_TabPageTabC(R_BeforeOpenTabPageEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(PageC);
-        eventArgs.Parameter = "Parameter untuk page C";
     }
 
     private void R_Before_Open_TabPageTabB(R_BeforeOpenTabPageEventArgs eventArgs)
@@ -39,8 +36,19 @@
         eventArgs.Parameter = "Parameter untuk page B";
     }
 
+    private void R_Before_Open_TabPageTabC(R_BeforeOpenTabPageEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(PageC);
+        eventArgs.Parameter = "Parameter untuk page C";
+    }
+
     private void R_After_Open_TabPageTab(R_AfterOpenTabPageEventArgs eventArgs)
     {
         lcText = (string)eventArgs.Result;
+    }
+
+    private async Task OnClick()
+    {
+        await tabStripRef.SetActiveTabAsync("tab2");
     }
 }

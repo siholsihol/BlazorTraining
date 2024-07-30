@@ -16,13 +16,13 @@ namespace SAB00900Front
         private SAB00900ViewModel ViewModel = new();
         private R_Conductor _conductorRef;
 
-        protected override async Task R_Init_From_Master(object poParameter)
+        protected override Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
 
                 ViewModel.GetCategories();
             }
@@ -33,7 +33,7 @@ namespace SAB00900Front
 
             loEx.ThrowExceptionIfErrors();
 
-            //return Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         public void Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
@@ -160,6 +160,9 @@ namespace SAB00900Front
 
         public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
         {
+            if (eventArgs.Result == null)
+                return;
+
             var loData = (ProductDTO)eventArgs.Result;
             var loParam = new ProductDTO { Id = loData.Id };
 
@@ -204,7 +207,7 @@ namespace SAB00900Front
 
         #region Popup
         [Inject] public R_MessageBoxService MessageBoxService { get; set; }
-        public async Task R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+        public Task R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
         {
             //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
 
@@ -214,8 +217,10 @@ namespace SAB00900Front
             //    eventArgs.Parameter = "Dari Popup";
             //}
 
-            eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.TargetPageType = typeof(SAB00900);
             eventArgs.Parameter = "Dari Popup";
+
+            return Task.CompletedTask;
         }
 
         public async Task R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
@@ -289,6 +294,11 @@ namespace SAB00900Front
         public void Conductor_BeforeCancel()
         {
             _errorMessage = "";
+        }
+
+        protected override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
+        {
+            return Task.FromResult(false);
         }
     }
 }
