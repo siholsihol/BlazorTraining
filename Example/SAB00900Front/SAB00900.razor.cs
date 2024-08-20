@@ -4,6 +4,7 @@ using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Forms;
+using R_BlazorFrontEnd.Controls.Lookup;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Controls.Popup;
 using R_BlazorFrontEnd.Enums;
@@ -156,6 +157,7 @@ namespace SAB00900Front
         {
             eventArgs.TargetPageType = typeof(ProductPage);
             eventArgs.Parameter = "Dari Find";
+            eventArgs.PageTitle = "Title dari event argument";
         }
 
         public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
@@ -175,6 +177,7 @@ namespace SAB00900Front
         {
             eventArgs.TargetPageType = typeof(ProductPage);
             eventArgs.Parameter = "Dari Lookup";
+            eventArgs.PageTitle = "Title dari event argument";
         }
 
         public async Task R_After_Open_Lookup(R_AfterOpenLookupEventArgs eventArgs)
@@ -194,7 +197,12 @@ namespace SAB00900Front
 
             try
             {
-                var loResult = await LookupService.Show(typeof(ProductPage), "Dari LookupService");
+                var loLookupSettings = new R_LookupSettings
+                {
+                    PageTitle = "title dari lookup settings"
+                };
+
+                var loResult = await LookupService.Show(typeof(ProductPage), "Dari LookupService", loLookupSettings);
             }
             catch (Exception ex)
             {
@@ -217,7 +225,7 @@ namespace SAB00900Front
             //    eventArgs.Parameter = "Dari Popup";
             //}
 
-            eventArgs.TargetPageType = typeof(SAB00900);
+            eventArgs.TargetPageType = typeof(ProductPage);
             eventArgs.Parameter = "Dari Popup";
 
             return Task.CompletedTask;
@@ -244,8 +252,15 @@ namespace SAB00900Front
 
                 //if (leResult == R_eMessageBoxResult.OK)
                 //{
-                var loResult = await PopupService.Show(typeof(TabTest), "Dari PopupService");
-                //    var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+                //var loResult = await PopupService.Show(typeof(TabTest), "Dari PopupService");
+                var loPopupSettings = new R_PopupSettings
+                {
+                    PageTitle = "Title dari popup settings",
+                    WithLock = true,
+                    Page = this
+                };
+
+                var loResult = await PopupService.Show(typeof(SAB00900), "Dari PopupService", poPopupSettings: loPopupSettings);
                 //}
 
                 //var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
@@ -296,9 +311,41 @@ namespace SAB00900Front
             _errorMessage = "";
         }
 
+        public void Conductor_Display(R_DisplayEventArgs eventArgs)
+        {
+            var loData = eventArgs.Data as ProductDTO;
+            if (loData != null && eventArgs.ConductorMode == R_eConductorMode.Normal)
+            {
+                ViewModel.ReleaseDate = loData.ReleaseDate;
+            }
+        }
+
         protected override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
         {
             return Task.FromResult(false);
+        }
+
+        private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(ProductPage);
+            //eventArgs.PageNamespace = "SAB00600Front.SAB00600";
+            eventArgs.Parameter = "From Detail Button";
+            eventArgs.PageTitle = "Title dari event argument";
+        }
+
+        private void R_After_Open_Detail(R_AfterOpenDetailEventArgs eventArgs)
+        {
+
+        }
+
+        private async Task DatePicker_ValueChanged(DateTime? pdValue)
+        {
+            if (pdValue.HasValue)
+            {
+                ViewModel.ReleaseDate = pdValue.Value;
+
+                var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+            }
         }
     }
 }

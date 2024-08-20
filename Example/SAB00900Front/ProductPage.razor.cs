@@ -12,6 +12,8 @@ namespace SAB00900Front
         private ProductPageViewModel GridViewModel = new();
         private R_Grid<ProductDTO> _gridRef;
         private string Parameter = "";
+        private SAB00900ViewModel ViewModel = new();
+
         [Inject] public R_MessageBoxService MessageBoxService { get; set; }
 
         protected override async Task R_Init_From_Master(object poParameter)

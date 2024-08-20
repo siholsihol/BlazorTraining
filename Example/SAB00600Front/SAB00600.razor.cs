@@ -14,6 +14,7 @@ namespace SAB00600Front
         private SAB00600ViewModel CustomerViewModel = new();
         private R_ConductorGrid _conGridCustomerRef;
         private R_Grid<CustomerDTO> _gridRef;
+        private int _pageSize = 10;
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -349,6 +350,11 @@ namespace SAB00600Front
         private async Task OnClick()
         {
             await _gridRef.SaveAsync();
+        }
+
+        private void ValueChanged(bool value)
+        {
+            _isAddNewRowVisible = value;
         }
     }
 }

@@ -3,7 +3,7 @@
 <R_GroupBox Title="R_CheckBox">
     <R_StackLayout Row>
         <R_ItemLayout col="1">
-            <R_CheckBox @bind-Value="@_isCheck"></R_CheckBox>
+            <R_CheckBox Enabled="false" @bind-Value="@_isCheck"></R_CheckBox>
         </R_ItemLayout>
         <R_ItemLayout col="3">
             <R_Label FontColor="@R_eFontColor.Danger" FontStyle="@R_eFontStyle.Bold">@_isCheckString</R_Label>
@@ -12,7 +12,7 @@
 </R_GroupBox>
 
 @code {
-    private bool _isCheck = false;
+    private bool _isCheck = true;
     private string _isCheckString => _isCheck.ToString();
 
     protected override Task R_Init_From_Master(object poParameter)

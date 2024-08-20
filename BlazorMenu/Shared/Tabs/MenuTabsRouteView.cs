@@ -5,6 +5,7 @@ using R_BlazorFrontEnd.Controls.Attributes;
 using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Extensions;
+using R_BlazorFrontEnd.Helpers;
 using R_BlazorFrontEnd.Tenant;
 using System.Reflection;
 
@@ -74,7 +75,7 @@ namespace BlazorMenu.Shared.Tabs
                 {
                     selTab.Body = body;
                     selTab.IsActive = true;
-                    selTab.PageTitle = GetTitleFromPageAttribute(RouteData.PageType);
+                    selTab.PageTitle = GetPageTitle(RouteData.PageType);
 
                     if (isLoad)
                     {
@@ -107,7 +108,7 @@ namespace BlazorMenu.Shared.Tabs
             return page;
         }
 
-        private static string GetTitleFromPageAttribute(Type poPageType)
+        private string GetPageTitle(Type poPageType)
         {
             var loEx = new R_Exception();
             var lcRtn = string.Empty;
@@ -120,7 +121,15 @@ namespace BlazorMenu.Shared.Tabs
                 var loAttributes = poPageType.GetCustomAttributes(true);
 
                 if (loAttributes.FirstOrDefault(x => x is R_PageAttribute) is R_PageAttribute loPageAttribute && loPageAttribute != null)
+                {
                     lcRtn = loPageAttribute.Title;
+
+                    if (!string.IsNullOrWhiteSpace(loPageAttribute.ResourceId))
+                    {
+                        var lcProgramId = NavigationManager.ToBaseRelativePath(NavigationManager.Uri) + "FrontResources";
+                        lcRtn = R_FrontUtility.R_GetMessage(lcProgramId, loPageAttribute.ResourceId);
+                    }
+                }
             }
             catch (Exception ex)
             {

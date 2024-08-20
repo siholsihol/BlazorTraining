@@ -20,7 +20,7 @@ namespace SAB00600Front
 
             try
             {
-                var loResult = CustomerService.GetCustomers().Take(2).ToList();
+                var loResult = CustomerService.GetCustomers().ToList();
                 CustomerList = new ObservableCollection<CustomerDTO>(loResult);
             }
             catch (Exception ex)

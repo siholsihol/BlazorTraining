@@ -38,7 +38,7 @@ namespace DataDummyProvider.Services
             .RuleFor(u => u.Country, f => f.Address.Country())
             .RuleFor(x => x.GenderId, x => x.PickRandom(new[] { "F", "M" }));
 
-            _customer = faker.Generate(30);
+            _customer = faker.Generate(200);
 
             return _customer;
         }

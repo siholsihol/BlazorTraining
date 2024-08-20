@@ -7,15 +7,15 @@
 </R_Detail>
 
 <R_PredefinedDock @ref="@_predefinedDock1"
-                  R_InstantiateDock="@PreDock_InstantiateDock"
-                  R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"
-                  Title="Predefined Title"
+                  R_InstantiateDock="@PreDock_InstantiateDock1"
+                  R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock1"
+                  Title="Predefined 1"
                   Enabled="@_predifined1Enable" />
 
 <R_PredefinedDock @ref="@_predefinedDock2"
-                  R_InstantiateDock="@PreDock_InstantiateDock"
-                  R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock"
-                  Title="Predefined Title"
+                  R_InstantiateDock="@PreDock_InstantiateDock2"
+                  R_AfterOpenPredefinedDock="@R_AfterOpenPredefinedDock2"
+                  Title="Predefined 2"
                   Enabled="@_predifined2Enable" />
 
 <R_Button OnClick="@OnClickPredefined1">Enable Predefined 1 : @_predifined1Enable</R_Button>
@@ -53,14 +53,28 @@
         lcResult = (string)eventArgs.Result;
     }
 
-    private void PreDock_InstantiateDock(R_InstantiateDockEventArgs eventArgs)
+    private void PreDock_InstantiateDock1(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(PagePredefined);
-        eventArgs.Parameter = "From Predefined";
+        eventArgs.Parameter = "From Predefined 1";
         // eventArgs.Cancel = true;
     }
 
-    private void R_AfterOpenPredefinedDock(R_AfterOpenPredefinedDockEventArgs eventArgs)
+    private void R_AfterOpenPredefinedDock1(R_AfterOpenPredefinedDockEventArgs eventArgs)
+    {
+        lcResult = (string)eventArgs.Result;
+
+        // _predifined1Enable = false;
+    }
+
+    private void PreDock_InstantiateDock2(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(PagePredefined);
+        eventArgs.Parameter = "From Predefined 2";
+        // eventArgs.Cancel = true;
+    }
+
+    private void R_AfterOpenPredefinedDock2(R_AfterOpenPredefinedDockEventArgs eventArgs)
     {
         lcResult = (string)eventArgs.Result;
 

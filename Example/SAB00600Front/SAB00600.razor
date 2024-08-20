@@ -6,7 +6,8 @@
 <R_StackLayout>
     <R_Grid DataSource="@CustomerViewModel.CustomerList"
             @ref="@_gridRef"
-            Pageable="true"
+            Pageable
+            @bind-PageSize="@_pageSize"
             R_GridType="@R_eGridType.Original"
             R_ConductorGridSource="@_conGridCustomerRef"
             AllowAddNewRow
@@ -81,12 +82,19 @@
     </R_StackLayout>
 
     <R_StackLayout Row>
-        <R_CheckBox @bind-Value="@_isAddNewRowVisible"></R_CheckBox>
+        <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
         <R_Label>Show Add New Row</R_Label>
     </R_StackLayout>
 
     <R_StackLayout Row>
-        <R_Button OnClick="@OnClick">Save</R_Button>
+        @if (_isAddNewRowVisible)
+        {
+            <R_Button OnClick="@OnClick">Save</R_Button>
+        }
+        else
+        {
+            <R_Button OnClick="@OnClick">Update</R_Button>
+        }
     </R_StackLayout>
 </R_StackLayout>
 

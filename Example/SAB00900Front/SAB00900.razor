@@ -1,5 +1,7 @@
 ﻿@page "/SAB00900"
 @inherits R_Page
+@attribute [R_Page(ResourceId = "_Title")]
+@* @attribute [R_Page(Title = "_Title")] *@
 
 <R_StackLayout>
     <R_StackLayout Row>
@@ -72,7 +74,8 @@
 
         <R_ItemLayout col="4">
             <R_DatePicker @ref="@_datePickerRef"
-                          @bind-Value="@ViewModel.Data.ReleaseDate"
+                          Value="@ViewModel.ReleaseDate"
+                          ValueChanged="((DateTime? value) => DatePicker_ValueChanged(value))"
                           R_ConductorSource="@_conductorRef"
                           R_EnableAdd
                           R_EnableEdit />
@@ -125,6 +128,11 @@
 
             <R_Button R_ConductorSource="@_conductorRef"
                       R_EnableOther OnClick="@buttonCloseOnClick">Close Program</R_Button>
+
+            <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail"
+                      R_After_Open_Detail="@R_After_Open_Detail">
+                Detail
+            </R_Detail>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
@@ -139,4 +147,5 @@
              R_AfterSave="@Conductor_AfterSave" 
              R_ServiceDelete="@Conductor_ServiceDelete" 
              R_BeforeEdit="Conductor_BeforeEdit" 
-             R_BeforeCancel="Conductor_BeforeCancel" />
+             R_BeforeCancel="Conductor_BeforeCancel" 
+             R_Display="Conductor_Display" />

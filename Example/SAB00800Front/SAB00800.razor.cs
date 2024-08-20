@@ -144,17 +144,6 @@ namespace SAB00800Front
             };
         }
 
-        //private void Tree_R_RefreshTreeViewState(R_RefreshTreeViewStateEventArgs eventArgs)
-        //{
-        //    var loTreeList = (List<TenantTreeDTO>)eventArgs.TreeViewList;
-
-        //    loTreeList.ForEach(x => x.HasChildren = string.IsNullOrWhiteSpace(x.ParentId) &&
-        //        loTreeList.Where(y => y.ParentId == x.CCATEGORY_ID).Count() > 0 ? true :
-        //        loTreeList.Where(y => y.ParentId == x.CCATEGORY_ID).Count() > 0);
-
-        //    eventArgs.ExpandedList = loTreeList.Where(x => x.HasChildren == true).ToList();
-        //}
-
         private bool _treeEnabled = true;
         private void R_SetOther(R_SetEventArgs eventArgs)
         {
@@ -164,6 +153,11 @@ namespace SAB00800Front
         private void ExpandAllClick()
         {
             _treeRef.ExpandAll();
+        }
+
+        private void CollapseAllClick()
+        {
+            _treeRef.CollapseAll();
         }
 
         private void R_AfterAdd(R_AfterAddEventArgs eventArgs)

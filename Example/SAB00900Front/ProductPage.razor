@@ -1,5 +1,5 @@
 ﻿@inherits R_Page
-@attribute [R_Page(Title = "Product List")]
+@attribute [R_Page(Title = "Product List", ResourceId = "_productList")]
 
 <h3>@Parameter</h3>
 
@@ -16,7 +16,7 @@
                               HeaderText="Product Name" />
         </R_GridColumns>
     </R_Grid>
-
+    
     <R_Button OnClick="@OnClose">Close</R_Button>
     <R_Popup R_Before_Open_Popup="@R_Before_Open_Popup"
              R_After_Open_Popup="@R_After_Open_Popup">Popup Product</R_Popup>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_BlazorFrontEnd.Controls.Notification;
 using R_BlazorFrontEnd.Interfaces;
+using R_BlazorFrontEnd.Tenant;
 using Toolbelt.Blazor;
 
 namespace BlazorMenu.Services
@@ -14,19 +15,22 @@ namespace BlazorMenu.Services
         private readonly AuthenticationStateProvider _stateProvider;
         private readonly R_NotificationService _notificationService;
         private readonly R_IEnvironment _environment;
+        private readonly Tenant _tenant;
 
         public HttpInterceptorService(
             HttpClientInterceptor httpClientInterceptor,
             NavigationManager navigationManager,
             AuthenticationStateProvider stateProvider,
             R_NotificationService notificationService,
-            R_IEnvironment environment)
+            R_IEnvironment environment,
+            Tenant tenant)
         {
             _httpClientInterceptor = httpClientInterceptor;
             _navigationManager = navigationManager;
             _stateProvider = stateProvider;
             _notificationService = notificationService;
             _environment = environment;
+            _tenant = tenant;
         }
 
         public void RegisterEvent()
@@ -37,26 +41,6 @@ namespace BlazorMenu.Services
 
         public Task InterceptBeforeHttpAsync(object sender, HttpClientInterceptorEventArgs e)
         {
-            var absPath = e.Request.RequestUri.AbsolutePath;
-            if (!absPath.Contains("token") && !absPath.Contains("accounts"))
-            {
-                try
-                {
-                    //var token = await _authenticationManager.TryRefreshToken();
-                    //if (!string.IsNullOrEmpty(token))
-                    //{
-                    //    e.Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    //}
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-
-                    //await _authenticationManager.Logout();
-                    _navigationManager.NavigateTo("/");
-                }
-            }
-
             return Task.CompletedTask;
         }
 

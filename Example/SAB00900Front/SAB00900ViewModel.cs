@@ -11,6 +11,7 @@ namespace SAB00900Front
         public ProductDTO Product { get; set; } = new ProductDTO();
         public List<CategoryDTO> CategoryList { get; set; } = new List<CategoryDTO>();
         public List<ProductDTO> ProductList = new List<ProductDTO>();
+        public DateTime? ReleaseDate { get; set; }
 
         public void GetProductById(int productId)
         {

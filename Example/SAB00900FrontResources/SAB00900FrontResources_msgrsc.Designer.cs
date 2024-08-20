@@ -124,6 +124,15 @@ namespace SAB00900FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product List dari Resources.
+        /// </summary>
+        internal static string _productList {
+            get {
+                return ResourceManager.GetString("_productList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Name.
         /// </summary>
         internal static string _ProductName {
@@ -138,6 +147,15 @@ namespace SAB00900FrontResources {
         internal static string _Stock {
             get {
                 return ResourceManager.GetString("_Stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Title.
+        /// </summary>
+        internal static string _Title {
+            get {
+                return ResourceManager.GetString("_Title", resourceCulture);
             }
         }
         

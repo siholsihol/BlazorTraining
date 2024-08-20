@@ -8,7 +8,9 @@
                 <R_Label>DateTime :</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="4">
-                <R_DateTimePicker @bind-Value=@_dateTimeValue ShowPickerButton="false" />
+                <R_DateTimePicker @bind-Value=@_dateTimeValue
+                                  ShowPickerButton="false"
+                                  Format="dd-MMM-yyyy" />
             </R_ItemLayout>
             <R_ItemLayout col="4">
                 <R_Label>@_dateTimeValue</R_Label>

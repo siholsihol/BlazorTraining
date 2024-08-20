@@ -138,11 +138,17 @@
   <data name="_ProductId" xml:space="preserve">
     <value>Product Id</value>
   </data>
+  <data name="_productList" xml:space="preserve">
+    <value>Product List dari Resources</value>
+  </data>
   <data name="_ProductName" xml:space="preserve">
     <value>Product Name</value>
   </data>
   <data name="_Stock" xml:space="preserve">
     <value>Stock</value>
+  </data>
+  <data name="_Title" xml:space="preserve">
+    <value>Custom Title</value>
   </data>
   <data name="_Yes" xml:space="preserve">
     <value>Yes</value>

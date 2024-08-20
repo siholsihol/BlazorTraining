@@ -1,4 +1,5 @@
-﻿using BlazorMenu.Authentication;
+﻿using BlazorClientHelper;
+using BlazorMenu.Authentication;
 using BlazorMenu.Pages;
 using BlazorMenu.Services;
 using BlazorMenu.Shared.Drawer;
@@ -17,14 +18,15 @@ namespace BlazorMenu.Shared
         [Inject] private R_IMenuService _menuService { get; set; }
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
+        [Inject] private IClientHelper _clientHelper { get; set; }
         [Inject] private Tenant _tenant { get; set; }
-        //[Inject] private HttpInterceptorService _httpInterceptorService { get; set; }
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
         private Info _modalInfo;
         private Profile _profileInfo;
-        private string _searchText = "";
+        private string _searchText = string.Empty;
+        private string _userId = string.Empty;
         private List<DrawerMenuItem> _filteredData
         {
             get
@@ -48,8 +50,6 @@ namespace BlazorMenu.Shared
         {
             try
             {
-                //_httpInterceptorService.RegisterEvent();
-
                 _menuList = await _menuService.GetMenuAsync();
 
                 var menuIds = _menuList.Where(x => x.CMENU_ID != "FAV")
@@ -75,6 +75,12 @@ namespace BlazorMenu.Shared
                         }).ToList()
                     }).ToList()
                 }).ToList();
+
+                //var lcUserId = _clientHelper.UserId.ToUpper();
+                //if (lcUserId.Length > 3)
+                //    lcUserId = lcUserId.Substring(0, 3);
+
+                _userId = "TR";
             }
             catch (Exception)
             {
@@ -95,7 +101,6 @@ namespace BlazorMenu.Shared
         private void OnClickProgram(DrawerMenuItem drawerMenuItem)
         {
             TabSetTool.AddTab(drawerMenuItem.Text, drawerMenuItem.Id, "A,U,D,P,V");
-            //TabSetTool.AddTab(drawerMenuItem.Text, drawerMenuItem.Id, "V");
         }
 
         private async Task Logout()

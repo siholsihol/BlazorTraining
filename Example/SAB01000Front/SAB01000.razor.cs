@@ -120,7 +120,9 @@ namespace SAB01000Front
             {
                 var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
 
-                if ((string)eventArgs.Value == "2")
+                var liValue = Convert.ToInt32(eventArgs.Value);
+
+                if (liValue == 2)
                     loPriceColumn.Enabled = false;
                 else
                     loPriceColumn.Enabled = true;
