@@ -8,7 +8,6 @@ using BlazorMenuCommon.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using R_BlazorFrontEnd.Tenant;
 
 namespace BlazorMenu.Shared
 {
@@ -19,7 +18,6 @@ namespace BlazorMenu.Shared
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
-        [Inject] private Tenant _tenant { get; set; }
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
@@ -34,7 +32,8 @@ namespace BlazorMenu.Shared
                 if (string.IsNullOrWhiteSpace(_searchText))
                     return new List<DrawerMenuItem>();
 
-                var loData = _menuList.Where(x => x.CSUB_MENU_TYPE == "P" && x.CSUB_MENU_ID.ToLower().Contains(_searchText.ToLower())).
+                var loData = _menuList.Where(x => x.CSUB_MENU_TYPE == "P" &&
+                (x.CSUB_MENU_ID.ToLower().Contains(_searchText.ToLower())) || x.CSUB_MENU_NAME.ToLower().Contains(_searchText.ToLower())).
                     Select(x => new DrawerMenuItem
                     {
                         Id = x.CSUB_MENU_ID,
@@ -107,7 +106,7 @@ namespace BlazorMenu.Shared
         {
             await ((BlazorMenuAuthenticationStateProvider)_stateProvider).MarkUserAsLoggedOut();
 
-            _navigationManager.NavigateTo("/" + _tenant.Identifier);
+            _navigationManager.NavigateTo("/");
         }
     }
 }

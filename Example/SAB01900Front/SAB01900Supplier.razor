@@ -3,25 +3,29 @@
 <R_StackLayout>
     <R_Grid @ref="@_gridRef"
             DataSource="@SupplierViewModel.Suppliers"
-            Pageable="true"
+            Pageable
             R_ConductorGridSource="@_conGridProductRef"
             R_GridType="@R_eGridType.Original"
-            AllowAddNewRow="true"
-            AllowEditRow="true"
-            AllowDeleteRow="true"
-            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+            AllowAddNewRow
+            AllowEditRow
+            AllowDeleteRow
+            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
+            R_ServiceGetRecord="@Grid_ServiceGetRecord"
+            R_Validation="@Grid_Validation"
+            R_ServiceSave="@Grid_ServiceSave"
+            R_ServiceDelete="@Grid_ServiceDelete">
         <R_GridColumns>
-            <R_GridNumericColumn FieldName="@nameof(SupplierDTO.Id)" HeaderText="Supplier Id" R_EnableAdd></R_GridNumericColumn>
-            <R_GridTextColumn FieldName="@nameof(SupplierDTO.CompanyName)" HeaderText="Company Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+            <R_GridNumericColumn FieldName="@nameof(SupplierDTO.Id)"
+                                 HeaderText="Supplier Id"
+                                 R_EnableAdd TValue="int" />
+            <R_GridTextColumn FieldName="@nameof(SupplierDTO.CompanyName)"
+                              HeaderText="Company Name"
+                              R_EnableAdd
+                              R_EnableEdit />
         </R_GridColumns>
     </R_Grid>
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridProductRef"
-                 R_ViewModel="@SupplierViewModel"
                  R_IsHeader
-                 R_ServiceGetRecord="@Grid_ServiceGetRecord"
-                 R_Validation="@Grid_Validation"
-                 R_ServiceSave="@Grid_ServiceSave"
-                 R_ServiceDelete="@Grid_ServiceDelete" 
-                 R_SetOther="Grid_R_SetOther"></R_ConductorGrid>
+                 R_SetOther="Grid_R_SetOther" />

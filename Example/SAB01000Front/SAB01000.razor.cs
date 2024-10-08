@@ -104,7 +104,7 @@ namespace SAB01000Front
         {
             var loMultiHeaderColumn = eventArgs.Columns.Where(x => x.GridColumnType == R_eGridColumnType.MultiHeader).FirstOrDefault() as R_GridMultiHeaderColumnInfo;
 
-            if (eventArgs.ColumnName == "Id" && loMultiHeaderColumn.ChildColumn.Count != 0)
+            if (eventArgs.ColumnName == nameof(SelectedProductDTO.Id) && loMultiHeaderColumn.ChildColumn.Count != 0)
             {
                 var loNameColumn = loMultiHeaderColumn.ChildColumn.FirstOrDefault(x => x.Name == "Name");
                 loNameColumn.Enabled = false;
@@ -116,7 +116,7 @@ namespace SAB01000Front
             //    loPriceColumn.Enabled = false;
             //}
 
-            if (eventArgs.ColumnName == "CategoryId")
+            if (eventArgs.ColumnName == nameof(SelectedProductDTO.CategoryId))
             {
                 var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
 
@@ -136,6 +136,16 @@ namespace SAB01000Front
             //        loPriceColumn.Enabled = false;
             //    else
             //        loPriceColumn.Enabled = true;
+            //}
+
+            //if (eventArgs.ColumnName == nameof(SelectedProductDTO.Selected))
+            //{
+            //    var loData = (SelectedProductDTO)eventArgs.CurrentRow;
+
+            //    if (loData.Id < 5000)
+            //    {
+            //        eventArgs.Value = false;
+            //    }
             //}
         }
 

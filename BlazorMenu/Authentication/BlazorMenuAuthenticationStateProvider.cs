@@ -182,7 +182,7 @@ namespace BlazorMenu.Authentication
             return loClaims;
         }
 
-        private byte[] ParseBase64WithoutPadding(string lcPayload)
+        private static byte[] ParseBase64WithoutPadding(string lcPayload)
         {
             lcPayload = lcPayload.Trim().Replace('-', '+').Replace('-', '/');
             var lcBase64 = lcPayload.PadRight(lcPayload.Length + (4 - lcPayload.Length % 4) % 4, '=');

@@ -27,7 +27,9 @@
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
                                              HeaderText="Id"
                                              R_EnableAdd
-                                             R_EnableEdit Width="200px" />
+                                             R_EnableEdit 
+                                             Width="200px"
+                                             TValue="int" />
 
                         <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
                                           HeaderText="Name"
@@ -67,19 +69,24 @@
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
                                              HeaderText="Id"
                                              R_EnableAdd
-                                             R_EnableEdit Width="200px" />
+                                             R_EnableEdit 
+                                             Width="200px" 
+                                             TValue="int" />
 
                         <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
                                           HeaderText="Name"
                                           R_EnableAdd
                                           R_EnableEdit
-                                          MaxLength="5" Width="200px" />
+                                          MaxLength="5" 
+                                          Width="200px" />
                     </R_GridMultiHeaderColumn>
 
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
                                          HeaderText="Price"
                                          R_EnableAdd
-                                         R_EnableEdit Min="0" Width="200px" />
+                                         R_EnableEdit 
+                                         Min="0" 
+                                         Width="200px" />
                 </R_GridColumns>
             </R_Grid>
         </R_ItemLayout>

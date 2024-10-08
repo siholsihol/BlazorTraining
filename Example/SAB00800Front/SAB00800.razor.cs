@@ -167,5 +167,11 @@ namespace SAB00800Front
             loData.CPARENT = _viewModel.Tenant.CCATEGORY_ID;
             loData.ILEVEL = _viewModel.Tenant.ILEVEL + 1;
         }
+
+        private string _filterText = string.Empty;
+        private void FilterTree()
+        {
+            _treeRef.R_FilterTreeView(_filterText);
+        }
     }
 }

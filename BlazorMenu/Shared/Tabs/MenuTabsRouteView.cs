@@ -6,7 +6,6 @@ using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Extensions;
 using R_BlazorFrontEnd.Helpers;
-using R_BlazorFrontEnd.Tenant;
 using System.Reflection;
 
 namespace BlazorMenu.Shared.Tabs
@@ -15,7 +14,6 @@ namespace BlazorMenu.Shared.Tabs
     {
         [Inject] public MenuTabSetTool TabSetTool { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
-        [Inject] public Tenant Tenant { get; set; }
 
         protected override void Render(RenderTreeBuilder builder)
         {
@@ -53,7 +51,7 @@ namespace BlazorMenu.Shared.Tabs
 
             var url = "/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
 
-            if (!url.Equals("/" + Tenant.Identifier))
+            if (!url.Equals("/"))
             {
                 var selTab = TabSetTool.Tabs.FirstOrDefault(m => !m.IsInited);
 

@@ -1,16 +1,14 @@
 ﻿using BlazorClientHelper;
 using BlazorMenu.Authentication;
-using BlazorMenu.Constants.Storage;
+using BlazorMenu.Services;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuModel;
-using BlazorMenuModel.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_AuthenticationEnumAndInterface;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Controls.Notification;
 using R_BlazorFrontEnd.Exceptions;
-using R_BlazorFrontEnd.Interfaces;
 using R_CrossPlatformSecurity;
 
 namespace BlazorMenu.Pages.Authentication
@@ -19,18 +17,14 @@ namespace BlazorMenu.Pages.Authentication
     {
         [Inject] private AuthenticationStateProvider _stateProvider { get; set; }
         [Inject] private R_ITokenRepository _tokenRepository { get; set; }
-        //[Inject] private ILocalStorageService _localStorageService { get; set; }
-        [Inject] private R_ILocalStorage _localStorageService { get; set; }
-        //[Inject] private R_IMenuService _menuService { get; set; }
+        [Inject] private BlazorMenuLocalStorageService _localStorageService { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
         [Inject] public R_MessageBoxService R_MessageBox { get; set; }
         [Inject] private R_ISymmetricJSProvider _encryptProvider { get; set; }
         [Inject] private MenuTabSetTool MenuTabSetTool { get; set; }
         [Inject] private R_NotificationService _notificationService { get; set; }
 
-        private LoginModel _loginModel = new LoginModel();
-        private R_LoginViewModel _loginVM = new R_LoginViewModel();
-        //private R_SecurityModel loClientWrapper = new R_SecurityModel();
+        private readonly R_LoginViewModel _loginVM = new();
 
         protected override async Task OnParametersSetAsync()
         {
@@ -58,7 +52,7 @@ namespace BlazorMenu.Pages.Authentication
             }
 
             if (loEx.HasError)
-                await R_MessageBox.Show("Error", loEx.ErrorList[0].ErrDescp, R_eMessageBoxButtonType.OK);
+                _notificationService.Error(loEx.ErrorList[0].ErrDescp);
         }
 
         private async Task ValidateUser()
@@ -140,9 +134,13 @@ namespace BlazorMenu.Pages.Authentication
                 //    throw new Exception("Invalid username or password");
                 //}
 
-                await _localStorageService.SetItemAsync<bool>(StorageConstants.IsLogin, true);
+                await _localStorageService.SetIsLoginAsync(true);
 
                 await ((BlazorMenuAuthenticationStateProvider)_stateProvider).MarkUserAsAuthenticated();
+            }
+            catch (R_Exception rex)
+            {
+                loEx.Add(rex);
             }
             catch (Exception ex)
             {
@@ -150,7 +148,9 @@ namespace BlazorMenu.Pages.Authentication
             }
 
             if (loEx.HasError)
+            {
                 _notificationService.Error(loEx.ErrorList[0].ErrDescp);
+            }
         }
     }
 }

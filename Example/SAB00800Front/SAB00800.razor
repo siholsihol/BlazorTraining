@@ -14,7 +14,6 @@
                     R_ServiceGetListRecord="@Tree_R_ServiceGetListRecord" 
                     Enabled="@_treeEnabled" 
                     AfterAddBehaviour="R_eTreeviewAfterAddBehaviour.OnParentNode" 
-                    ShowFilter 
                     TModel="TenantTreeDTO"
                     Height="200px">
         </R_TreeView>
@@ -91,7 +90,7 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true" Spacing="3" Class="mt-3">
+    <R_StackLayout Row Spacing="3" Class="mt-3">
         <R_ItemLayout col="12">
             <R_AddButton R_Conductor="@_conductorRef"></R_AddButton>
 
@@ -105,6 +104,8 @@
 
             <R_Button OnClick="@ExpandAllClick">Expand All</R_Button>
             <R_Button OnClick="@CollapseAllClick">Collapse All</R_Button>
+            <R_TextBox @bind-Value="@_filterText" />
+            <R_Button OnClick="@FilterTree">Filter</R_Button>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>

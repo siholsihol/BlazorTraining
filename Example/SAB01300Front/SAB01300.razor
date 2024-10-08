@@ -14,7 +14,8 @@
                 Enabled="@_gridEnabled">
             <R_GridColumns>
                 <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
-                                     HeaderText="Category Id" />
+                                     HeaderText="Category Id"
+                                     TValue="short" />
                 <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)"
                                   HeaderText="Category Name" />
             </R_GridColumns>
@@ -99,7 +100,8 @@
                                          HeaderText="Id"
                                          R_EnableAdd
                                          R_EnableEdit Width="200px" 
-                                         ThousandSeparator="false" />
+                                         ThousandSeparator="false"
+                                         TValue="int" />
 
                     <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
                                       HeaderText="Name"
@@ -115,7 +117,8 @@
                                      R_EnableEdit
                                      Min="0"
                                      Width="200px"
-                                     Decimals="3" />
+                                     Decimals="3"
+                                     TValue="decimal" />
 
                 <R_GridDatePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
                                         HeaderText="Release Date"

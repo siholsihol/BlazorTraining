@@ -40,7 +40,8 @@
                                          R_EnableAdd
                                          R_EnableEdit 
                                          Width="200px" 
-                                         ThousandSeparator="false" />
+                                         ThousandSeparator="false"
+                                         TValue="int"/>
 
                     <R_GridTextColumn FieldName="@nameof(SelectedProductDTO.Name)"
                                       HeaderText="Name"
@@ -84,7 +85,8 @@
                                      Min="0"
                                      Width="200px"
                                      Decimals="3"
-                                     AccountingNegativeSign />
+                                     AccountingNegativeSign
+                                     TValue="decimal" />
 
                 @* <R_GridDatePickerColumn FieldName="@nameof(SelectedProductDTO.ReleaseDate)"
                                         HeaderText="Release Date"

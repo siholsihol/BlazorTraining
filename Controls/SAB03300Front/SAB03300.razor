@@ -28,7 +28,9 @@
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
                                          HeaderText="Id"
                                          R_EnableAdd
-                                         R_EnableEdit Width="200px" />
+                                         R_EnableEdit 
+                                         Width="200px"
+                                         TValue="int" />
 
                     <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
                                       HeaderText="Name"
@@ -40,7 +42,10 @@
                 <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
                                      HeaderText="Price"
                                      R_EnableAdd
-                                     R_EnableEdit Min="0" Width="200px" />
+                                     R_EnableEdit 
+                                     Min="0" 
+                                     Width="200px"
+                                     TValue="decimal" />
 
                 <R_GridDateTimePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
                                             HeaderText="Release Date"
@@ -58,7 +63,8 @@
                                           FieldName="@nameof(ProductDTO.CategoryId)"
                                           HeaderText="Category"
                                           R_EnableAdd
-                                          R_EnableEdit Width="200px" />
+                                          R_EnableEdit 
+                                          Width="200px" />
             </R_GridColumns>
         </R_Grid>
 

@@ -89,5 +89,10 @@ namespace BlazorMenu.Services
                 StorageConstants.TenantId
             });
         }
+
+        public ValueTask SetIsLoginAsync(bool plIsLogin)
+        {
+            return _localStorage.SetItemAsync<bool>(StorageConstants.IsLogin, plIsLogin);
+        }
     }
 }

@@ -294,7 +294,7 @@ namespace SAB00900Front
 
         public async Task buttonCloseOnClick()
         {
-            await this.CloseProgram();
+            await this.CloseProgramAsync();
         }
 
         //protected override Task R_PageClosing(R_PageClosingEventArgs eventArgs)
