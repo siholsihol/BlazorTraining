@@ -40,36 +40,6 @@ else
 {
 <CascadingValue Value="this" Name="MenuTabSet">
     <div class="card-body overflow-hidden p-0">
-        @* <TelerikTabStrip ActiveTabIndex="@ActiveTabIndex"
-                         ActiveTabIndexChanged="@OnActiveTabIndexChanged"
-                         PersistTabContent>
-            @foreach (var loTab in Tabs)
-            {
-                <TabStripTab Title="@loTab.Title"
-                             Disabled="@loTab.Disabled"
-                             Visible="@loTab.Visible"
-                             Id="@loTab.Id.ToString()"
-                             @key="@loTab.Id">
-                    <HeaderTemplate>
-                        <a>@loTab.Title</a>
-                        <span class="ms-2 close" @onclick="@(() => OnTabClose(loTab))">
-                            <i class="fa fa-times"></i>
-                        </span>
-                    </HeaderTemplate>
-                    <Content>
-                        @if (loTab.Body != null)
-                        {
-                            <CascadingValue Value="@loTab" Name="currentTabMenu">
-                                <MainBody>
-                                    @loTab.Body
-                                </MainBody>
-                            </CascadingValue>
-                        }
-                    </Content>
-                </TabStripTab>
-            }
-        </TelerikTabStrip> *@
-
         <XTabs @ref="@_tabsRef"
                 RenderMode="BlazorXTabs.Configuration.RenderMode.Full"
                 CloseTabs
@@ -99,15 +69,6 @@ else
 }
 
 <style>
-    /* .k-tabstrip-content.k-active {
-        padding: .5rem;
-    }
-
-    .k-tabstrip-content,
-    .k-tabstrip > .k-content {
-        color: inherit;
-    } */
-
     .xtabs-item .xtabs-link.active {
         padding: .5rem 1rem !important;
     }
@@ -136,21 +97,16 @@ else
     private int _activeTabIndex = 0;
     private XTabs _tabsRef;
 
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (Tabs.Count == 0)
-            return Task.CompletedTask;
+            return;
 
-        for (int i = 0; i < Tabs.Count; i++)
+        var loItem = Tabs.FirstOrDefault(x => x.IsActive);
+        if (loItem is not null)
         {
-            var item = Tabs[i];
-            if (item.IsActive)
-            {
-                ScrollToTab(item);
-            }
+            await ScrollToTab(loItem);
         }
-
-        return Task.CompletedTask;
     }
 
     private async Task OnTabRemoved(XTab poTab)
@@ -185,8 +141,15 @@ else
         }
     }
 
-    private void OnActiveTabChanged(XTab poTab)
+    private async Task OnActiveTabChanged(XTab poTab)
     {
+        var loTab = Tabs.FirstOrDefault(x => x.Id == Guid.Parse(poTab.Id));
+
+        if (loTab is not null)
+        {
+            await ActivateTab(loTab);
+        }
+
         _activeTabIndex = _tabsRef.TabContent.ToList().IndexOf(poTab);
     }
 
@@ -197,15 +160,18 @@ else
         return Task.CompletedTask;
     }
 
-    private Task ScrollToTab(MenuTab poTab)
+    private async Task ScrollToTab(MenuTab poTab)
     {
         if (_activeTabIndex != Tabs.IndexOf(poTab))
         {
             _activeTabIndex = Tabs.IndexOf(poTab);
-            StateHasChanged();
-        }
 
-        return Task.CompletedTask;
+            var activeTab = _tabsRef.GetTabById(poTab.Id.ToString());
+            if (activeTab is not null)
+            {
+                await _tabsRef.SetActiveAsync(activeTab);
+            }
+        }
     }
 
     public async Task CloseTabFromProgram(R_IMenuTab poTab)
