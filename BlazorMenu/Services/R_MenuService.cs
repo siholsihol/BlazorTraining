@@ -212,6 +212,19 @@ namespace BlazorMenu.Services
                     IGROUP_INDEX = 0
                 });
 
+                loResult.Add(new MenuListDTO
+                {
+                    CMENU_ID = "Ex",
+                    CMENU_NAME = "Example",
+                    CPARENT_SUB_MENU_ID = "G001",
+                    CSUB_MENU_ACCESS = "A,U,D,P,V",
+                    CSUB_MENU_ID = "SAB01500",
+                    CSUB_MENU_NAME = "Navigator and Navigator",
+                    CSUB_MENU_TYPE = "P",
+                    IFAVORITE_INDEX = 0,
+                    IGROUP_INDEX = 0
+                });
+
                 CreateControlPrograms(loResult);
 
                 CreateOtherPrograms(loResult);
