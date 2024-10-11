@@ -58,6 +58,13 @@ namespace BlazorMenu.Services
             CreateGroup(poExistingList, "OT", "Others", "G001", "Others");
 
             CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()
