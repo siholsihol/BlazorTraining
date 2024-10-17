@@ -11,15 +11,29 @@
                       ValueField="@nameof(GenderModel.GenderId)" 
                       @bind-Value="@_chosenGender" 
                       Layout="@R_eRadioGroupLayout.Vertical" 
-                      LabelPosition="@R_eRadioGroupLabelPosition.Before">
-
-        </R_RadioGroup>
+                      LabelPosition="@R_eRadioGroupLabelPosition.Before" 
+                      Enabled="@_enable" />
     </R_ItemLayout>
+
+    <R_Button OnClick="@OnClick">
+        @if (_enable)
+        {
+            @_enableText
+        }
+        else
+        {
+            @_disableText
+        }
+    </R_Button>
 </R_GroupBox>
 
 @code {
     private int _chosenGender = 0;
     private R_RadioGroup<GenderModel, int> _radigoGroupRef;
+
+    private string _enableText = "enable";
+    private string _disableText = "disable";
+    private bool _enable = true;
 
     protected override async Task R_Init_From_Master(object poParameter)
     {
@@ -38,5 +52,10 @@
     {
         public int GenderId { get; set; }
         public string GenderText { get; set; }
+    }
+
+    private void OnClick()
+    {
+        _enable = !_enable;
     }
 }
