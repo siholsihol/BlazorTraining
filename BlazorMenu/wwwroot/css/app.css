@@ -225,8 +225,8 @@ ul ul li.nav-item a.nav-link span {
     border: none !important;
 }
 .k-checkbox:disabled, .k-checkbox.k-disabled, .k-radio:disabled, .k-radio.k-disabled {
-    background-color: #555 !important;
-    border-color: #999999 !important;
+    background-color: #2c7be5 !important;
+    border-color: #2c7be5 !important;
     cursor: not-allowed !important;
 }
 
