@@ -118,6 +118,46 @@ span.tab.btn-close {
     border-top-right-radius: .25rem
 }
 
+.k-button-solid-base {
+    border-color: var(--falcon-border-color) !important;
+    color: #212529;
+    background-color: #e4e7eb;
+}
+
+.k-editor .k-button-solid-base {
+    background-color: transparent;
+}
+.k-content {
+    border-color: transparent !important;
+    /*    color: #212529;
+    background-color: #ffffff;*/
+    border-color: var(--falcon-border-color) !important;
+}
+
+.k-button-solid-base {
+    /*    border-color: #e4e7eb;*/
+    border-color: var(--falcon-border-color) !important;
+}
+
+.k-editor .k-button-solid-base {
+    background-color: transparent;
+}
+.k-toolbar {
+    /*    border-color: #dee2e6;*/
+    border-color: var(--falcon-border-color) !important;
+}
+.k-editor-content p {
+    color: var(--falcon-800);
+}
+
+.k-editor {
+    /*    border-color: #dee2e6;*/
+    border-color: var(--falcon-border-color) !important;
+    background-color: transparent !important;
+}
+
+
+
 /* Pointer */
 ul ul li.nav-item a.nav-link span {
     cursor: pointer;
@@ -525,5 +565,5 @@ button.close span:hover {
     z-index: 99999 !important;
 }
 h6[b-21c0qposjk] {
-    padding-right:4px !important;
+    padding-right:7px !important;
 }
