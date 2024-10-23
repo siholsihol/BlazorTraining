@@ -308,6 +308,13 @@ ul ul li.nav-item a.nav-link span {
     width:8em !important;
 }
 
+/* Searchbox */
+.search-box .dropdown-menu {
+    border:none !important;
+}
+.search-box a.dropdown-item {
+    cursor:pointer;
+}
 /* Popup */
 .k-popup {
     background-color: var(--falcon-card-bg) !important;
