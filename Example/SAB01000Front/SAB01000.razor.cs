@@ -110,12 +110,6 @@ namespace SAB01000Front
                 loNameColumn.Enabled = false;
             }
 
-            //if (eventArgs.ColumnName == "Name")
-            //{
-            //    var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
-            //    loPriceColumn.Enabled = false;
-            //}
-
             if (eventArgs.ColumnName == nameof(SelectedProductDTO.CategoryId))
             {
                 var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
@@ -127,26 +121,13 @@ namespace SAB01000Front
                 else
                     loPriceColumn.Enabled = true;
             }
+        }
 
-            //if (eventArgs.ColumnName == "ReleaseDate")
-            //{
-            //    var loPriceColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "Price");
+        private void R_CheckBoxSelectValueChanged(R_CheckBoxSelectValueChangedEventArgs eventArgs)
+        {
+            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
 
-            //    if (((DateTime)eventArgs.Value).Date == DateTime.Now.Date)
-            //        loPriceColumn.Enabled = false;
-            //    else
-            //        loPriceColumn.Enabled = true;
-            //}
-
-            //if (eventArgs.ColumnName == nameof(SelectedProductDTO.Selected))
-            //{
-            //    var loData = (SelectedProductDTO)eventArgs.CurrentRow;
-
-            //    if (loData.Id < 5000)
-            //    {
-            //        eventArgs.Value = false;
-            //    }
-            //}
+            eventArgs.Enabled = !IsIdBelow5000(loData);
         }
 
         private void R_CellLostFocused(R_CellLostFocusedEventArgs eventArgs)
@@ -220,10 +201,12 @@ namespace SAB01000Front
         {
             var loData = (SelectedProductDTO)eventArgs.Data;
 
-            if (loData.Id < 5000)
-            {
-                eventArgs.Enabled = false;
-            }
+            eventArgs.Enabled = !IsIdBelow5000(loData);
+        }
+
+        private bool IsIdBelow5000(SelectedProductDTO product)
+        {
+            return product.Id < 5000;
         }
     }
 }
