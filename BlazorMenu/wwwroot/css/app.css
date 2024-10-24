@@ -567,3 +567,21 @@ button.close span:hover {
 h6[b-21c0qposjk] {
     padding-right:7px !important;
 }
+
+
+
+@media(min-width: 576px) {
+    .content {
+        /*padding-bottom: 3.9875rem*/
+        padding-bottom: 0rem !important;
+    }
+}
+
+
+.dark.windows.chrome .navbar-vertical .scrollbar::-webkit-scrollbar-thumb {
+    /* background-color: var(--falcon-navbar-vertical-scrollbar-color) */
+    background-color: rgba(44, 123, 229, 0.5) !important;
+}
+.navbar-vertical.navbar-expand-xl .navbar-vertical-content {
+    height: calc(100vh - 7.3125rem) !important;
+}
