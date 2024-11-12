@@ -11,6 +11,19 @@
     <link href="css/app.css" rel="stylesheet" />
     <link href="BlazorMenu.styles.css" rel="stylesheet" />
 
+    <script type="text/javascript">
+        // Disable the back button
+        function disableBackButton() {
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        }
+
+        // Call the disable back button function
+        disableBackButton();
+    </script>
+
     <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
 
     <link href="css/theme.min.css" rel="stylesheet" />

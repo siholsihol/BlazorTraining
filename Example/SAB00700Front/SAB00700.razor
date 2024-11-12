@@ -72,11 +72,13 @@
             <R_DeleteButton R_Conductor="@_conductorRef" />
             <R_SaveButton R_Conductor="@_conductorRef" />
             <R_CancelButton R_Conductor="@_conductorRef" />
-            <R_Button R_ConductorSource="@_conductorRef"
-                      OnClick="@buttonOnClick"
-                      Enabled="@_buttonEnable">
-                Change Category Name
-            </R_Button>
+
+            <R_GroupBox R_ConductorSource="@_conductorRef" R_EnableOther>
+                <R_Button R_ConductorSource="@_conductorRef"
+                          OnClick="@buttonOnClick">
+                    Change Category Name
+                </R_Button>
+            </R_GroupBox>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
@@ -95,5 +97,4 @@
              R_CheckAdd="@R_CheckAdd" 
              R_CheckEdit="@R_CheckEdit" 
              R_CheckDelete="@R_CheckDelete"
-             R_Display="@R_Display"
              R_SetHasData="@R_SetHasData" />

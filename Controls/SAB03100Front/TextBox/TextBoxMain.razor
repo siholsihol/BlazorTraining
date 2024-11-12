@@ -7,7 +7,8 @@
         <R_TextBox @ref="@_textBoxRef"
                    @bind-Value="@_stringValue"
                    MaxLength="@_maxLength" 
-                   CharacterCasing="R_eCharacterCasing.Upper" />
+                   CharacterCasing="R_eCharacterCasing.Upper" 
+                   AllowSpecialCharacters="false" />
     </R_ItemLayout>
 
     <br />
@@ -19,7 +20,7 @@
 
 @code {
     private string _stringValue { get; set; }
-    private int _maxLength { get; set; } = 2;
+    private int _maxLength { get; set; } = 10;
     private R_TextBox _textBoxRef;
     private R_Button _buttonRef;
 
@@ -32,6 +33,6 @@
 
     private void OnClick()
     {
-        _maxLength = 5;
+        _maxLength = 15;
     }
 }

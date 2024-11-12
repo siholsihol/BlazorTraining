@@ -208,6 +208,7 @@ namespace SAB00700Front
             //eventArgs.Cancel = true;
         }
 
+        private bool _enableGroupBox = true;
         private async Task buttonOnClick()
         {
             var loEx = new R_Exception();
@@ -221,6 +222,8 @@ namespace SAB00700Front
                 var loCategory = _viewModel.GetCategory(loData.Id);
 
                 await _conductorRef.R_SetCurrentData(loCategory);
+
+                _enableGroupBox = !_enableGroupBox;
             }
             catch (Exception ex)
             {

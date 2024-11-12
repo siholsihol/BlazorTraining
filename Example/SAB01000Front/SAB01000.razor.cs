@@ -208,5 +208,12 @@ namespace SAB01000Front
         {
             return product.Id < 5000;
         }
+
+        private void R_CheckBoxSelectValueChanging(R_CheckBoxSelectValueChangingEventArgs eventArgs)
+        {
+            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
+
+            eventArgs.Cancel = loData.Id > 9000;
+        }
     }
 }

@@ -4,16 +4,20 @@
 @namespace SAB03100Front.TextEditor
 
 <R_GroupBox Title="R_TextEditor">
-    <R_TextEditor @ref="@_textEditorRef" @bind-Value="@_editorValue" Height="700px">
-
-    </R_TextEditor>
+    <R_TextEditor @ref="@_textEditorRef"
+                  @bind-Value="@_editorValue"
+                  Height="400px" 
+                  R_TextEditorToolMode="@R_eTextEditorToolMode.None" />
 
     <R_ItemLayout col="2">
         <R_Button OnClick="@OnClickSave" EnableLoaderContainer>Save Document</R_Button>
         <R_Button OnClick="OnClickSaveAsPDF" EnableLoaderContainer>Download as PDF</R_Button>
     </R_ItemLayout>
+
     <R_ItemLayout col="2">
-        <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts" Enabled="@_inputFileEnabled"></R_InputFile>
+        <R_InputFile OnChange="@OnChangeHandler"
+                     Accepts="@accepts"
+                     Enabled="@_inputFileEnabled" />
     </R_ItemLayout>
 </R_GroupBox>
 
@@ -25,25 +29,6 @@
 
     protected override Task R_Init_From_Master(object poParameter)
     {
-        //         _editorValue = @"
-        // <p>
-        //     The Blazor Editor allows your users to edit HTML in a familiar, user-friendly way. Your users do not have to understand HTML in order to create it.
-        // </p>
-        // <p>
-        //     The widget <strong>outputs identical HTML</strong> across all major browsers, follows
-        //     accessibility standards, and provides API for content manipulation.
-        // </p>
-        // <p>Features include:</p>
-        // <ul>
-        //     <li>Text formatting</li>
-        //     <li>Bulleted and numbered lists</li>
-        //     <li>Hyperlinks</li>
-        //     <li>Cross-browser support</li>
-        //     <li>Identical HTML output across browsers</li>
-        //     <li>Ability to create custom tools, dropdowns, dialogs</li>
-        // </ul>
-        // ";
-
         _editorValue = @"<BODY style=""BACKGROUND-COLOR: white""><P>Dear ,</P>
 <P>&nbsp;</P>
 <P>Dengan ini saya sampaikan bahwa</P>

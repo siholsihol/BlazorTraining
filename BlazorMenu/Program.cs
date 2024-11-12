@@ -9,7 +9,7 @@ using R_BlazorFrontEnd.FileConverter;
 using R_BlazorFrontEnd.Helpers;
 using R_BlazorFrontEnd.Interfaces;
 using R_BlazorFrontEnd.Report;
-using R_BlazorFrontEnd.Tenant;
+using R_BlazorFrontEnd.Tenant.Extensions;
 using R_BlazorStartup;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
