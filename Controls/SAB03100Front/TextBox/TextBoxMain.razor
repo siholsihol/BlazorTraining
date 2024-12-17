@@ -1,38 +1,141 @@
 ﻿@inherits R_Page
+@using BlazorTraining.Controls.Enums
 
-<R_GroupBox Title="R_TextBox">
-    <R_ItemLayout col="4">
-        <p>TextBox value: @_stringValue</p>
+<h1>Realta Blazor Textbox</h1>
+<div class="lead mb-3">
+    Realta Blazor textbox component.
+</div>
 
-        <R_TextBox @ref="@_textBoxRef"
-                   @bind-Value="@_stringValue"
-                   MaxLength="@_maxLength" 
-                   CharacterCasing="R_eCharacterCasing.Upper" 
-                   AllowSpecialCharacters="false" />
-    </R_ItemLayout>
+<SectionHeading Size="HeadingSize.H2" Text="Textbox Overview" HashTagName="textbox-overview" />
+<Demo Type="typeof(TextBox_Demo_01_Overview)" Tabs="true" />
 
-    <br />
+<SectionHeading Size="HeadingSize.H2" Text="Textbox Parameters" HashTagName="textbox-parameters" />
+<div>
+    Realta Blazor textbox parameters.
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Parameter</th>
+                <th scope="col">Type and Default Value</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th scope="row"><code>Id</code></th>
+                <td>string</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row"><code>AllowSpaces</code></th>
+                <td>bool (true)</td>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>AllowSpecialCharacters</code></th>
+                <td>bool (true)</td>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>Class</code></th>
+                <td>string</td>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>@nameof(R_TextBox.CharacterCasing)</code></th>
+                <td>R_eCharacterCasing (Normal)</td>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>Enabled</code></th>
+                <td>bool (true)</td>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>MaxLength</code></th>
+                <td>int?</td>
+                <td></td>
+                <td>Try</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <R_ItemLayout>
-        <R_Button @ref="@_buttonRef" OnClick="@OnClick">Change MaxLength</R_Button>
-    </R_ItemLayout>
-</R_GroupBox>
+<SectionHeading Size="HeadingSize.H2" Text="Textbox Events" HashTagName="textbox-events" />
+<div>
+    Realta Blazor textbox events.
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Event</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th scope="row"><code>OnChanged</code></th>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>OnLostFocus</code></th>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>ValueChanged</code></th>
+                <td></td>
+                <td>Try</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<SectionHeading Size="HeadingSize.H2" Text="Textbox Methods" HashTagName="textbox-methods" />
+<div>
+    Realta Blazor textbox methods.
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th scope="row"><code>OnChanged</code></th>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>OnLostFocus</code></th>
+                <td></td>
+                <td>Try</td>
+            </tr>
+            <tr>
+                <th scope="row"><code>ValueChanged</code></th>
+                <td></td>
+                <td>Try</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 @code {
-    private string _stringValue { get; set; }
-    private int _maxLength { get; set; } = 10;
-    private R_TextBox _textBoxRef;
-    private R_Button _buttonRef;
 
-    protected override async Task R_Init_From_Master(object poParameter)
-    {
-        _stringValue = "default";
-
-        await _buttonRef.FocusAsync();
-    }
-
-    private void OnClick()
-    {
-        _maxLength = 15;
-    }
 }

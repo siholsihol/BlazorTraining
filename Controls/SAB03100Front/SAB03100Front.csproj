@@ -16,16 +16,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\..\Example\DataDummyProvider\DataDummyProvider.csproj" />
+    <ProjectReference Include="..\BlazorTraining.Controls\BlazorTraining.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
     </Reference>
-    <Reference Include="R_BlazorFrontEnd.Controls">
-      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
-    </Reference>
   </ItemGroup>
+
+  <Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
+    <!-- Let's embed demos sources into the assembly to show the source at runtime. -->
+    <ItemGroup>
+      <EmbeddedResource Include="**\*Demo*.razor" />
+      <!--<EmbeddedResource Include="Pages\**\*Snippet*" />-->
+    </ItemGroup>
+  </Target>
 
 </Project>

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Shared\Modal\**" />
+    <Content Remove="Shared\Modal\**" />
+    <EmbeddedResource Remove="Shared\Modal\**" />
+    <None Remove="Shared\Modal\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.14" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
+  </ItemGroup>
+
+</Project>
