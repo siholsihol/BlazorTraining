@@ -265,5 +265,7 @@ namespace SAB00700Front
         {
             _buttonEnable = eventArgs.Enable;
         }
+
+        private string _editorValue { get; set; }
     }
 }

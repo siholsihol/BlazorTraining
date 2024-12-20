@@ -1,6 +1,7 @@
 using BlazorMenu.Extensions;
 using BlazorMenu.Services;
 using BlazorPrettyCode;
+using BlazorTraining.Controls.Preload;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd;
@@ -20,19 +21,16 @@ builder.Services.R_AddBlazorFrontEndControls();
 
 builder.R_RegisterBlazorServices();
 
-builder.Services.R_AddBlazorFrontEnd();
+builder.Services.R_AddBlazorMenuServices();
 
 builder.Services.AddTransient<R_IFileConverter, R_FileConverter>();
 builder.Services.AddTransient<R_IReport, R_ReportService>();
 builder.Services.AddSingleton<R_IFileDownloader, R_FileDownloader>();
 builder.Services.AddTransient<HttpInterceptorService>();
 builder.Services.AddSingleton<R_IEnvironment, BlazorMenuEnvironmentService>();
+builder.Services.AddScoped<R_PreloadMenuService>();
 
 Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", builder.HostEnvironment.Environment);
-//Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
-
-//builder.Services.AddSingleton<RouteManager>();
-//builder.Services.AddScoped<Interop>();
 
 builder.Services.AddMultiTenantancy();
 
@@ -44,6 +42,6 @@ host.Services.AddServiceProviderToTenantRoutes();
 
 host.R_SetupBlazorService();
 
-await host.R_UseBlazorFrontEnd();
+await host.R_UseBlazorMenuServices();
 
 await host.RunAsync();

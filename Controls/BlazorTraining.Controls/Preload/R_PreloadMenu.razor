@@ -1,0 +1,27 @@
+﻿@namespace BlazorTraining.Controls.Preload
+@inherits BaseComponent
+
+<div @ref="@ElementRef" id="@Id" class="@ClassNames" style="@StyleNames" tabindex="-1" @attributes="@Attributes">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-content-page-loading">
+            <div class="modal-body">
+                @if (ChildContent != null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <div class="text-center text-light">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (_showBackdrop)
+{
+    <div class="modal-backdrop modal-backdrop-page-loading fade show"></div>
+}

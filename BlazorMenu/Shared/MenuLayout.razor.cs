@@ -3,6 +3,7 @@ using BlazorMenu.Authentication;
 using BlazorMenu.Pages;
 using BlazorMenu.Services;
 using BlazorMenu.Shared.Drawer;
+using BlazorMenu.Shared.Modals;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuCommon.DTOs;
 using Microsoft.AspNetCore.Components;
@@ -21,8 +22,6 @@ namespace BlazorMenu.Shared
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
-        private Info _modalInfo;
-        private Profile _profileInfo;
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
         private List<DrawerMenuItem> _filteredData
@@ -44,6 +43,13 @@ namespace BlazorMenu.Shared
                 return loData;
             }
         }
+
+        protected string NotificationCssClass;
+
+        private bool _notificationOpened = false;
+        //private List<BlazorMenuNotificationDTO> _newNotificationMessages = new List<BlazorMenuNotificationDTO>();
+        //private List<BlazorMenuNotificationDTO> _oldNotificationMessages = new List<BlazorMenuNotificationDTO>();
+        private DotNetObjectReference<MenuLayout> DotNetReference { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -91,9 +97,14 @@ namespace BlazorMenu.Shared
         {
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("handleNavbarVerticalCollapsed");
+                //await JSRuntime.InvokeVoidAsync("handleNavbarVerticalCollapsed");
 
                 await JSRuntime.InvokeVoidAsync("searchInit");
+
+                DotNetReference = DotNetObjectReference.Create(this);
+                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.observeElement", "navbarDropdownNotification", DotNetReference);
+
+                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.changeThemeToggle", "themeControlToggle");
             }
         }
 
@@ -108,5 +119,48 @@ namespace BlazorMenu.Shared
 
             _navigationManager.NavigateTo("/");
         }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+
+            if (DotNetReference != null)
+            {
+                DotNetReference.Dispose();
+            }
+        }
+
+        #region ProfilePage
+
+        private MenuModal modalProfilePage;
+
+        private async Task ShowProfilePage()
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("CloseModalTask", OnCloseModalProfilePageTask);
+
+            await modalProfilePage.ShowAsync<Profile>(parameters: parameters);
+        }
+
+        private async Task OnCloseModalProfilePageTask(bool isUpdated)
+        {
+            await modalProfilePage.HideAsync();
+
+            //if (isUpdated)
+            //    _toastService.Success("Success update user info.");
+        }
+
+        #endregion
+
+        #region Info Page
+
+        private MenuModal modalInfoPage;
+
+        private async Task ShowInfoPage()
+        {
+            await modalInfoPage.ShowAsync<Info>();
+        }
+
+        #endregion
     }
 }

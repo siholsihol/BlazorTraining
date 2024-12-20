@@ -1,0 +1,18 @@
+﻿@using BlazorTraining.Controls.Preload
+
+<R_Button OnClick="@OnClick">
+    Click Me!
+</R_Button>
+
+@code {
+    [Inject] private R_PreloadMenuService _preloadService { get; set; }
+
+    private async Task OnClick()
+    {
+        _preloadService.Show();
+
+        await Task.Delay(5000);
+
+        _preloadService.Hide();
+    }
+}

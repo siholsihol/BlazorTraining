@@ -3,6 +3,10 @@
 
 :root {
     --r-default-font-size: 12px;
+
+    /* preload */
+    --preload-modal-z-index: 2055;
+    --preload-modal-backdrop-z-index: 2050;
 }
 
 html, body {
@@ -584,4 +588,18 @@ h6[b-21c0qposjk] {
 }
 .navbar-vertical.navbar-expand-xl .navbar-vertical-content {
     height: calc(100vh - 7.3125rem) !important;
+}
+
+/* preload */
+.modal-page-loading {
+    z-index: var(--preload-modal-z-index) !important;
+}
+
+.modal-backdrop-page-loading {
+    z-index: var(--preload-modal-backdrop-z-index) !important;
+}
+
+.modal-content-page-loading {
+    background-color: inherit !important;
+    border: inherit !important;
 }

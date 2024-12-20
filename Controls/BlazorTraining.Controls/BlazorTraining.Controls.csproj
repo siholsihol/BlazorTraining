@@ -13,6 +13,14 @@
     <None Remove="Shared\Modal\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Shared\Modal.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\Modal.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -24,7 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
+    <Reference Include="R_BlazorFrontEnd.Controls">
+      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

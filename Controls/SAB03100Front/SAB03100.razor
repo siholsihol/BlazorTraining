@@ -2,7 +2,8 @@
 @inherits R_Page
 @attribute [R_Page(Title = "R_NumericTextBox")]
 
-<NumericTextBoxMain></NumericTextBoxMain>
+@* <NumericTextBoxMain /> *@
+<PreloadMain />
 
 @* <PrettyCode CodeFile="_content/SAB03100Front/snippets/SAB03100.razor" Title="SAB03100.cs" /> *@
 
@@ -20,6 +21,8 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextEditor" Title="R_TextEditor"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateImageBox" Title="R_ImageBox"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateComboBoxMultiSelect" Title="R_ComboBoxMultiSelect"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateQRCode" Title="R_QRCode"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateBarcode" Title="R_Barcode"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -90,5 +93,15 @@
     private void InstantiateComboBoxMultiSelect(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(ComboBoxMultiSelectMain);
+    }
+
+    private void InstantiateQRCode(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(QRCodeMain);
+    }
+
+    private void InstantiateBarcode(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(BarcodeMain);
     }
 }

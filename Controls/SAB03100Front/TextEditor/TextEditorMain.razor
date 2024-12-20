@@ -5,9 +5,10 @@
 
 <R_GroupBox Title="R_TextEditor">
     <R_TextEditor @ref="@_textEditorRef"
-                  @bind-Value="@_editorValue"
-                  Height="400px" 
-                  R_TextEditorToolMode="@R_eTextEditorToolMode.None" />
+    @bind-Value="@_editorValue"
+    Height="200px" 
+    Width="100px"
+    R_TextEditorToolMode="@R_eTextEditorToolMode.None" />
 
     <R_ItemLayout col="2">
         <R_Button OnClick="@OnClickSave" EnableLoaderContainer>Save Document</R_Button>
@@ -16,9 +17,13 @@
 
     <R_ItemLayout col="2">
         <R_InputFile OnChange="@OnChangeHandler"
-                     Accepts="@accepts"
-                     Enabled="@_inputFileEnabled" />
+        Accepts="@accepts"
+        Enabled="@_inputFileEnabled" />
     </R_ItemLayout>
+
+    <R_Button OnClick="@OnClickA" EnableLoaderContainer>Change A</R_Button>
+    <R_Button OnClick="@OnClickB" EnableLoaderContainer>Change B</R_Button>
+    <R_Button OnClick="@OnClickC" EnableLoaderContainer>Change C</R_Button>
 </R_GroupBox>
 
 @code {
@@ -78,5 +83,20 @@
         var loByteFile = FileConverter.R_GetByteFromHtmlString(_editorValue, R_eDocumentType.Pdf);
 
         await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+    }
+
+    private void OnClickA()
+    {
+        _editorValue = "testing A";
+    }
+
+    private void OnClickB()
+    {
+        _editorValue = "testing B";
+    }
+
+    private void OnClickC()
+    {
+        _editorValue = "testing C";
     }
 }

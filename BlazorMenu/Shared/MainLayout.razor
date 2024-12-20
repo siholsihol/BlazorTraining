@@ -2,7 +2,7 @@
 @inherits LayoutComponentBase
 
 <TelerikRootComponent>
-    <R_NotificationContainer />
+    @* <R_NotificationContainer /> *@
 
     <AuthorizeView>
         <NotAuthorized>
@@ -15,4 +15,6 @@
             <MenuLayout />
         </Authorized>
     </AuthorizeView>
+
+    <BlazorTraining.Controls.Preload.R_PreloadMenu />
 </TelerikRootComponent>

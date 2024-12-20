@@ -83,6 +83,16 @@
     </R_StackLayout>
 </R_StackLayout>
 
+<R_GroupBox Title="R_TextEditor">
+    <R_TextEditor @bind-Value="@_viewModel.Data.Description"
+                  Height="150px"
+                  Width="300px"
+                  R_TextEditorToolMode="@R_eTextEditorToolMode.None"
+                  R_ConductorSource="@_conductorRef"
+                  R_EnableAdd
+                  R_EnableEdit />
+</R_GroupBox>
+
 <R_Conductor @ref="@_conductorRef" 
              R_ViewModel="@_viewModel" 
              R_IsHeader
