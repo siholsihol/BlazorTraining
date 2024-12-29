@@ -111,12 +111,12 @@
 
         try
         {
-            var loResult = await _menuModel.GetUserProfileAsync(new GetUserProfileParameterDTO
-            {
-                CUSER_ID = _clientHelper.UserId
-            });
+            // var loResult = await _menuModel.GetUserProfileAsync(new GetUserProfileParameterDTO
+            // {
+            //     CUSER_ID = _clientHelper.UserId
+            // });
 
-            _userProfile = R_FrontUtility.ConvertObjectToObject<UserProfileModel>(loResult.Data);
+            // _userProfile = R_FrontUtility.ConvertObjectToObject<UserProfileModel>(loResult.Data);
 
             _lastUpdatePassword = !string.IsNullOrWhiteSpace(_userProfile.CLAST_UPDATE_PASSWORD) ?
             DateTime.ParseExact(_userProfile.CLAST_UPDATE_PASSWORD, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture) : null;
