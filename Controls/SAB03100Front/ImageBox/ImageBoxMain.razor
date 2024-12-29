@@ -2,7 +2,11 @@
 @inject IJSRuntime JS
 
 <R_GroupBox Title="R_ImageBox">
-    <R_ImageBox @ref="@_imageBoxRef" @bind-Value="@_imageSourceByte" MaxWidth="200px" MaxHeight="200px"></R_ImageBox>
+    <R_ImageBox @ref="@_imageBoxRef"
+                @bind-Value="@_imageSourceByte"
+                MaxWidth="200px"
+                MaxHeight="200px" 
+                ImageBoxType="R_eImageBoxType.Zoom" />
 
     <R_ItemLayout col="5">
         <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>

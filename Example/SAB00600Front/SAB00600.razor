@@ -48,7 +48,9 @@
                               HeaderText="Company Name"
                               R_EnableAdd
                               R_EnableEdit
-                              Width="400px" />
+                              Width="400px" 
+                              PrefixText="Mr." 
+                              SuffixText="Kg" />
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"

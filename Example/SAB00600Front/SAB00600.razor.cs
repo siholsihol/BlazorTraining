@@ -347,9 +347,12 @@ namespace SAB00600Front
             }
         }
 
-        private async Task OnClick()
+        private Task OnClick()
         {
-            await _gridRef.SaveAsync();
+            //await _gridRef.SaveAsync();
+            var a = _gridRef.GetFilteredGridData();
+
+            return Task.CompletedTask;
         }
 
         private void ValueChanged(bool value)

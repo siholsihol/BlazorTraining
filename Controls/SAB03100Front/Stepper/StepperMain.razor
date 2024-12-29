@@ -1,0 +1,24 @@
+﻿@inherits R_Page
+
+<R_Stepper @bind-Value="@Value">
+    <R_Step Label="Start">
+        <p>Welcome to the Wizard!</p>
+    </R_Step>
+    <R_Step Label="Survey" OnStepChange="@OnStepChange">
+        <p>The user is performing some actions...</p>
+    </R_Step>
+    <R_Step Label="Finish">
+        <p>Thank you!</p>
+    </R_Step>
+</R_Stepper>
+
+<p><strong>Value: @Value</strong></p>
+
+@code {
+    int Value { get; set; }
+
+    public void OnStepChange(R_StepChangeEventArgs eventArgs)
+    {
+        eventArgs.IsCancelled = true;   
+    }
+}
