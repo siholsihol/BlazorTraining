@@ -1,24 +1,108 @@
-﻿@inherits R_Page
+﻿@using R_BlazorFrontEnd.Controls.DataControls
+@inherits R_Page
 
-<R_Stepper @bind-Value="@Value">
-    <R_Step Label="Start">
-        <p>Welcome to the Wizard!</p>
+<R_Stepper @ref="@Stepper"
+@bind-Value="@Value"
+OnStepChange="@OnStepChange" 
+OnFinish="@OnFinish" Linear="false">
+    <R_Step Label="Unit Info">
+        <p>Step Unit Info</p>
+
+        <R_TextBox @ref="@textboxRef"
+        R_ConductorSource="@_conductorRef"
+        @bind-Value="@_viewModel.Employee.Id"
+        R_EnableAdd />
+
+        <R_StepButton>
+            <R_StackLayout Row>
+                <R_Button>Cancel</R_Button>
+                <R_Button OnClick="@OnClickNext">Next</R_Button>
+            </R_StackLayout>
+        </R_StepButton>
     </R_Step>
-    <R_Step Label="Survey" OnStepChange="@OnStepChange">
-        <p>The user is performing some actions...</p>
+
+    <R_Step Label="Billing Rule">
+        <p>Step Billing Rule</p>
+
+        <R_StepButton>
+            <R_StackLayout Row>
+                <R_Button OnClick="@OnClickBack" @ref="@buttonRef">Back</R_Button>
+                <R_Button>Cancel</R_Button>
+                <R_Button OnClick="@OnClickNext">Next</R_Button>
+            </R_StackLayout>
+        </R_StepButton>
     </R_Step>
-    <R_Step Label="Finish">
-        <p>Thank you!</p>
+
+    <R_Step Label="Billing Schedule">
+        <p>Step Billing Schedule</p>
+
+        <R_TextArea R_ConductorSource="@_conductorRef"
+        @bind-Value="@_viewModel.Employee.FirstName"
+        R_EnableAdd />
+
+        <R_StepButton>
+            <R_StackLayout Row>
+                <R_Button OnClick="@OnClickBack">Back</R_Button>
+                <R_Button>Cancel</R_Button>
+                <R_Button OnClick="@OnClickNext">Next</R_Button>
+            </R_StackLayout>
+        </R_StepButton>
+    </R_Step>
+
+    <R_Step Label="Document">
+        <p>Step Document</p>
+
+        <R_StepButton>
+            <R_StackLayout Row>
+                <R_Button OnClick="@OnClickBack">Back</R_Button>
+                <R_Button OnClick="@OnClickDone">Done</R_Button>
+            </R_StackLayout>
+        </R_StepButton>
     </R_Step>
 </R_Stepper>
 
-<p><strong>Value: @Value</strong></p>
+<R_Conductor @ref="@_conductorRef"
+R_ViewModel="@_viewModel"
+R_IsHeader />
 
 @code {
-    int Value { get; set; }
+    private int Value { get; set; }
+    private R_Stepper Stepper;
+    private R_Button buttonRef;
+    private R_TextBox textboxRef;
 
-    public void OnStepChange(R_StepChangeEventArgs eventArgs)
+    private SAB03100ViewModel _viewModel = new();
+
+    private R_Conductor _conductorRef;
+
+    // protected override async Task R_Init_From_Master(object poParameter)
+    // {
+    //     await _conductorRef.Add();
+    // }
+
+    private void OnStepChange(R_StepChangeEventArgs eventArgs)
     {
-        eventArgs.IsCancelled = true;   
+        // if (eventArgs.TargetIndex == 0)
+        //     eventArgs.IsCancelled = true;
+    }
+
+    private void OnFinish()
+    {
+        
+    }
+
+    private async Task OnClickNext()
+    {
+        await Stepper.NextAsync();
+    }
+
+    private async Task OnClickBack()
+    {
+        await Stepper.BackAsync();
+    }
+
+    private async Task OnClickDone()
+    {
+        await Stepper.FinishAsync();
     }
 }

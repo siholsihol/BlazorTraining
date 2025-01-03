@@ -1,24 +1,30 @@
 ﻿@page "/SAB04000"
+@using R_BlazorFrontEnd.Excel
 @inherits R_Page
 @attribute [R_Page(Title = "Basic Usage")]
 
 <R_GroupBox Title="Read Excel">
-    <R_ItemLayout xs="3">
+    <R_ItemLayout col="3">
         <R_Button OnClick="@OnClickDownloadBasicTemplate">Download Basic Template Excel</R_Button>
     </R_ItemLayout>
-    
-    <R_ItemLayout xs="3">
+
+    <R_ItemLayout col="3">
         <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
     </R_ItemLayout>
 </R_GroupBox>
 
 <R_PredefinedDock R_InstantiateDock="@InstantiateRange" Title="Excel Range Cell"></R_PredefinedDock>
 
+<R_InputFile OnChange="@OnChangeCSVHandler" Accepts="@_acceptsCsv">Import From CSV</R_InputFile>
+
+<R_Button OnClick="@OnClickCSV">Export to CSV</R_Button>
+
 @code {
     [Inject] private R_IExcel ExcelProvider { get; set; }
     [Inject] private IJSRuntime JS { get; set; }
 
     private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Excel };
+    private R_eFileSelectAccept[] _acceptsCsv = { R_eFileSelectAccept.Csv };
 
     private async Task OnClickDownloadBasicTemplate()
     {
@@ -81,5 +87,71 @@
     private void InstantiateRange(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(SAB04000Range);
+    }
+
+    private async Task OnChangeCSVHandler(InputFileChangeEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            //read excel as byte
+            var loMS = new MemoryStream();
+            await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
+            var loByteFile = loMS.ToArray();
+
+            //import from csv
+            var csvConfig = new R_TextConfiguration()
+                {
+                    WithHeader = true,
+                    Delimiter = ","
+                };
+
+            var result = R_Text.R_ReadFromCSV<Person>(loByteFile, csvConfig);
+
+            Console.WriteLine(R_FrontUtility.Dump(result));
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
+    private async Task OnClickCSV()
+    {
+        var myPersonObjects = new List<Person>()
+        {
+            new Person { Id = "1", IsLiving = true, Name = "John UHUYY" },
+            new Person { Id = "2", IsLiving = true, Name = "Steve" },
+            new Person { Id = "3", IsLiving = true, Name = "James" }
+        };
+
+        var loFieldParameter = new List<R_DelimiterFieldParameter>()
+        {
+            new R_DelimiterFieldParameter(0, "Id", typeof(int)),
+            new R_DelimiterFieldParameter(1, "IsLiving", typeof(bool)),
+            new R_DelimiterFieldParameter(2, "Name", typeof(string)),
+        };
+
+        var csvConfig = new R_TextConfiguration()
+            {
+                WithHeader = false,
+                Delimiter = ","
+            };
+
+        var result = R_Text.R_WriteToCSV(myPersonObjects, loFieldParameter, csvConfig);
+
+        var saveFileName = $"{Guid.NewGuid().ToString()}.csv";
+
+        await JS.downloadFileFromStreamHandler(saveFileName, result);
+    }
+
+    public class Person
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool IsLiving { get; set; }
     }
 }
