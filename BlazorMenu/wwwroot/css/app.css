@@ -605,6 +605,13 @@ h6[b-21c0qposjk] {
     box-shadow: none !important;
 }
 
+/* Drag Cells*/
+.k-grid-md .k-drag-cell > .k-icon {
+    padding: 0px !important;
+    width:33% !important;
+    height:auto !important;
+    font-size:10px;
+}
 /* lightbox */
 .lightbox-background {
     position: fixed;
