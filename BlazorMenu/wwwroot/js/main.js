@@ -182,5 +182,12 @@
                 });
             }
         }
-    }
+    },
+
+    addStyleToElement: function (elementId, style) {
+        const element = document.getElementById(elementId);
+        if (element != null) {
+            element.style.cssText = style;
+        }
+    },
 }
