@@ -5,7 +5,7 @@
     <R_ImageBox @ref="@_imageBoxRef"
                 @bind-Value="@_imageSourceByte"
                 MaxWidth="200px"
-                MaxHeight="200px" 
+                MaxHeight="200px"
                 ImageBoxType="R_eImageBoxType.Zoom" />
 
     <R_ItemLayout col="5">
@@ -19,15 +19,25 @@
     </R_ItemLayout>
 </R_GroupBox>
 
+<style>
+    /* center the Carousel horizontally */
+    /* k-scrollview is the default component class */
+    .k-scrollview {
+        margin: 0 auto;
+    }
+</style>
+
 @code {
     private R_ImageBox _imageBoxRef;
     private byte[] _imageSourceByte = default;
     private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Image };
     private R_OpenFileDialogButton _inputFile;
 
-    protected override async Task R_Init_From_Master(object poParameter)
+    // private List<ImageProperties> images = new List<ImageProperties>();
+
+    protected override Task R_Init_From_Master(object poParameter)
     {
-        await _inputFile.FocusAsync();
+        return Task.CompletedTask;
     }
 
     private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
@@ -40,6 +50,8 @@
             var lcImage64 = Convert.ToBase64String(loByteFile);
 
             _imageSourceByte = loByteFile;
+
+            // images.Add(new ImageProperties(loByteFile));
         }
         catch (Exception ex)
         {
@@ -52,4 +64,16 @@
         //_imageSourceByte = null;
         _imageBoxRef?.R_ClearImage();
     }
+
+    // public IEnumerable<CarouselModel> CarouselData = Enumerable.Range(1, 5).Select(x => new CarouselModel
+    //     {
+    //         ID = x,
+    //         Text = "Text " + x
+    //     });
+
+    // public class CarouselModel
+    // {
+    //     public int ID { get; set; }
+    //     public string Text { get; set; }
+    // }
 }

@@ -21,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
-    <ProjectReference Include="..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Excel\R_BlazorFrontEnd.Excel.csproj" />
     <ProjectReference Include="..\Controls\SAB03000Front\SAB03000Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03100Front\SAB03100Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
@@ -69,6 +67,9 @@
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Authentication">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="R_BlazorFrontEnd.Controls">
+      <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Controls.Captcha">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.Captcha.dll</HintPath>

@@ -94,10 +94,15 @@ namespace SAB01000Front
         }
         #endregion
 
-        private async Task OnClickSave()
+        private string _headerTextPrice = "Price";
+        private Task OnClickSave()
         {
             //await _conGridProductRef.R_SaveBatch();
-            await _gridRef.R_SaveBatch();
+            //await _gridRef.R_SaveBatch();
+
+            _headerTextPrice = "test price";
+
+            return Task.CompletedTask;
         }
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)

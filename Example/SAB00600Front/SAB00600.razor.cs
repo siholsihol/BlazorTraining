@@ -350,7 +350,10 @@ namespace SAB00600Front
         private Task OnClick()
         {
             //await _gridRef.SaveAsync();
-            var a = _gridRef.GetFilteredGridData();
+            //var a = _gridRef.GetFilteredGridData();
+            //_prefixText = "Mr." + _valuePrefix.ToString();
+            _suffixText = _valuePrefix.ToString() + "Kg";
+            _valuePrefix += 1;
 
             return Task.CompletedTask;
         }
@@ -359,5 +362,9 @@ namespace SAB00600Front
         {
             _isAddNewRowVisible = value;
         }
+
+        private string _prefixText = "Mr.";
+        private int _valuePrefix = 0;
+        private string _suffixText = "Kg";
     }
 }

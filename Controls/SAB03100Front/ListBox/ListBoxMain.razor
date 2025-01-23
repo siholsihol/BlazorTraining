@@ -1,0 +1,60 @@
+﻿@using System.Collections.ObjectModel
+@inherits R_Page
+@inject IJSRuntime JS
+
+<R_ListBox @ref="@ListBoxRef"
+Data="@ListBoxData"
+TextField="@nameof(ListBoxModel.Name)"
+Width="180px"
+Height="auto" />
+
+<R_Button OnClick="@OnClickAdd">
+    Add
+</R_Button>
+
+<R_Button OnClick="@OnClickRemoveCurrentData">
+    Remove Current Data
+</R_Button>
+
+@code {
+    private R_ListBox<ListBoxModel> ListBoxRef;
+
+    private ObservableCollection<ListBoxModel> ListBoxData { get; set; } = new ObservableCollection<ListBoxModel>();
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        for (int i = 1; i <= 7; i++)
+        {
+            ListBoxData.Add(new ListBoxModel()
+                {
+                    Id = i,
+                    Name = $"ListBox Item {i}",
+                });
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void OnClickAdd()
+    {
+        Random rnd = new Random();
+        int randomInt = rnd.Next(1, 100);
+
+        ListBoxRef.AddData(new ListBoxModel()
+            {
+                Id = randomInt,
+                Name = $"ListBox Item {randomInt}",
+            });
+    }
+
+    private void OnClickRemoveCurrentData()
+    {
+        ListBoxRef.RemoveCurrentData();
+    }
+
+    public class ListBoxModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+}

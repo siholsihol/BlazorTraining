@@ -2,68 +2,63 @@
 @inherits R_Page
 
 <R_Stepper @ref="@Stepper"
-@bind-Value="@Value"
-OnStepChange="@OnStepChange" 
-OnFinish="@OnFinish" Linear="false">
+           @bind-Value="@Value"
+           OnStepChange="@OnStepChange"
+           OnFinish="@OnFinish" 
+           UseDefaultButton="false">
     <R_Step Label="Unit Info">
         <p>Step Unit Info</p>
 
         <R_TextBox @ref="@textboxRef"
-        R_ConductorSource="@_conductorRef"
-        @bind-Value="@_viewModel.Employee.Id"
-        R_EnableAdd />
+                   R_ConductorSource="@_conductorRef"
+                   @bind-Value="@_viewModel.Employee.Id"
+                   R_EnableAdd />
 
-        <R_StepButton>
-            <R_StackLayout Row>
-                <R_Button>Cancel</R_Button>
-                <R_Button OnClick="@OnClickNext">Next</R_Button>
-            </R_StackLayout>
-        </R_StepButton>
+        <R_StackLayout Row>
+            <R_Button>Cancel</R_Button>
+            <R_Button OnClick="@OnClickNext">Next</R_Button>
+        </R_StackLayout>
     </R_Step>
 
     <R_Step Label="Billing Rule">
         <p>Step Billing Rule</p>
 
-        <R_StepButton>
-            <R_StackLayout Row>
-                <R_Button OnClick="@OnClickBack" @ref="@buttonRef">Back</R_Button>
-                <R_Button>Cancel</R_Button>
-                <R_Button OnClick="@OnClickNext">Next</R_Button>
-            </R_StackLayout>
-        </R_StepButton>
+        <R_StackLayout Row>
+            <R_Button OnClick="@OnClickBack" @ref="@buttonRef">Back</R_Button>
+            <R_Button>Cancel</R_Button>
+            <R_Button OnClick="@OnClickNext">Next</R_Button>
+        </R_StackLayout>
     </R_Step>
 
     <R_Step Label="Billing Schedule">
         <p>Step Billing Schedule</p>
 
         <R_TextArea R_ConductorSource="@_conductorRef"
-        @bind-Value="@_viewModel.Employee.FirstName"
-        R_EnableAdd />
+                    @bind-Value="@_viewModel.Employee.FirstName"
+                    R_EnableAdd />
 
-        <R_StepButton>
-            <R_StackLayout Row>
-                <R_Button OnClick="@OnClickBack">Back</R_Button>
-                <R_Button>Cancel</R_Button>
-                <R_Button OnClick="@OnClickNext">Next</R_Button>
-            </R_StackLayout>
-        </R_StepButton>
+        <R_StackLayout Row>
+            <R_Button OnClick="@OnClickBack">Back</R_Button>
+            <R_AddButton R_Conductor="@_conductorRef" />
+            <R_CancelButton R_Conductor="@_conductorRef" />
+            <R_Button>Cancel</R_Button>
+            <R_Button OnClick="@OnClickNext">Next</R_Button>
+        </R_StackLayout>
     </R_Step>
 
     <R_Step Label="Document">
         <p>Step Document</p>
 
-        <R_StepButton>
-            <R_StackLayout Row>
-                <R_Button OnClick="@OnClickBack">Back</R_Button>
-                <R_Button OnClick="@OnClickDone">Done</R_Button>
-            </R_StackLayout>
-        </R_StepButton>
+        <R_StackLayout Row>
+            <R_Button OnClick="@OnClickBack">Back</R_Button>
+            <R_Button OnClick="@OnClickDone">Done</R_Button>
+        </R_StackLayout>
     </R_Step>
 </R_Stepper>
 
 <R_Conductor @ref="@_conductorRef"
-R_ViewModel="@_viewModel"
-R_IsHeader />
+             R_ViewModel="@_viewModel"
+             R_IsHeader />
 
 @code {
     private int Value { get; set; }
@@ -82,7 +77,7 @@ R_IsHeader />
 
     private void OnStepChange(R_StepChangeEventArgs eventArgs)
     {
-        // if (eventArgs.TargetIndex == 0)
+        // if (eventArgs.TargetIndex == 2)
         //     eventArgs.IsCancelled = true;
     }
 

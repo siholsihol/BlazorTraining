@@ -24,6 +24,7 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateBarcode" Title="R_Barcode"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiatePreload" Title="R_Preload"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateStepper" Title="R_Stepper"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateListBox" Title="R_ListBox"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -114,5 +115,10 @@
     private void InstantiateStepper(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(StepperMain);
+    }
+
+    private void InstantiateListBox(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(ListBoxMain);
     }
 }
