@@ -175,7 +175,7 @@ ul ul li.nav-item a.nav-link span {
     .k-button {
     padding: 0.25rem .7rem !important;
     font-size: var(--r-default-font-size) !important;
-    line-height: 1.4285714286 !important;
+    line-height: 1.2 !important;
     font-family: var(--falcon-font-sans-serif) !important;
 }
 .k-button-solid-primary:hover, .k-button-solid-primary.k-hover,
