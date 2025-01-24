@@ -347,7 +347,7 @@ namespace SAB00600Front
             }
         }
 
-        private Task OnClick()
+        private async Task OnClick()
         {
             //await _gridRef.SaveAsync();
             //var a = _gridRef.GetFilteredGridData();
@@ -355,7 +355,7 @@ namespace SAB00600Front
             _suffixText = _valuePrefix.ToString() + "Kg";
             _valuePrefix += 1;
 
-            return Task.CompletedTask;
+            await Task.Delay(3000);
         }
 
         private void ValueChanged(bool value)

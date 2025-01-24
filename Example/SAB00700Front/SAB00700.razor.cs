@@ -21,7 +21,6 @@ namespace SAB00700Front
             try
             {
                 await _gridRef.R_RefreshGrid(null);
-
                 //await _conductorRef.Edit();
                 //await _gridRef.R_SelectCurrentDataAsync(2);
             }
