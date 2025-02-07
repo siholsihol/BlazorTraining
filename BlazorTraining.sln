@@ -85,8 +85,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB01500Front", "Example\SA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTraining.Controls", "Controls\BlazorTraining.Controls\BlazorTraining.Controls.csproj", "{06A77F99-AE19-465D-827D-27A793FF4A15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R_BlazorFrontEnd.Controls", "..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{94380287-83F7-4FAD-886C-E2CB52C27D58}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,10 +179,6 @@ Global
 		{06A77F99-AE19-465D-827D-27A793FF4A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A77F99-AE19-465D-827D-27A793FF4A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A77F99-AE19-465D-827D-27A793FF4A15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94380287-83F7-4FAD-886C-E2CB52C27D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94380287-83F7-4FAD-886C-E2CB52C27D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94380287-83F7-4FAD-886C-E2CB52C27D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94380287-83F7-4FAD-886C-E2CB52C27D58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
