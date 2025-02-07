@@ -1,4 +1,5 @@
-﻿@inherits ComponentBase
+﻿@using BlazorMenu.Shared.Drawer
+@inherits ComponentBase
 
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
@@ -115,14 +116,14 @@
                 </button>
                 <a class="navbar-brand me-1 me-sm-3" href="/">
                     <div class="d-flex align-items-center">
-                        <img class="me-2" src="assets/img/logo-bimasakti.png" alt="" width="40" />
+                        <img class="me-2" src="assets/img/logo-bimasakti.png" alt="" width="80" height="25" />
                     </div>
                 </a>
 
                 <ul class="navbar-nav align-items-center d-none d-lg-block">
                     <li class="nav-item">
                         <!-- search box -->
-                        <div class="search-box" data-list='{"valueNames":["title"]}'>
+                        @* <div class="search-box" data-list='{"valueNames":["title"]}'>
                             <form class="position-relative" data-bs-toggle="search" data-bs-display="static">
                                 <input class="form-control search-input fuzzy-search" type="search" placeholder="Search..." aria-label="Search" @bind-value="_searchText" @bind-value:event="oninput" />
                                 <span class="fas fa-search search-box-icon"></span>
@@ -158,6 +159,27 @@
                                     }
                                 }
                             </div>
+                        </div> *@
+
+                        <div @onkeypress="@onkeypress">
+                            <TelerikAutoComplete Data="@searchBoxData"
+                                                 @bind-Value="@_searchText"
+                                                 Placeholder="Search..."
+                                                 ClearButton
+                                                 ValueField="@(nameof(SearchBoxItem.Text))"
+                                                 Filterable
+                                                 Class="form-control search-input"
+                                                 AdaptiveMode="AdaptiveMode.Auto" 
+                                                 Id="searchbox">
+                                <AutoCompleteSettings>
+                                    <AutoCompletePopupSettings Height="auto" MaxHeight="200px" />
+                                </AutoCompleteSettings>
+                                <NoDataTemplate>
+                                    <div class="text-center mt-n3">
+                                        <p class="fallback fw-bold fs-1 d-none">No Result Found.</p>
+                                    </div>
+                                </NoDataTemplate>
+                            </TelerikAutoComplete>
                         </div>
                     </li>
                 </ul>

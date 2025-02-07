@@ -38,7 +38,8 @@
             R_DisableDeleteConfirmation="false"
             R_DisableCancelConfirmation
             R_SetAddGridColumn="@R_SetAddGridColumn"
-            R_SetEditGridColumn="@R_SetEditGridColumn">
+            R_SetEditGridColumn="@R_SetEditGridColumn" 
+            R_RowRender="@R_RowRender">
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
@@ -103,20 +104,17 @@
                  R_IsHeader />
 
 <style>
-    /*the following selectors target the locked/frozen columns*/
-    /*===*/
-    .k-grid .k-master-row.myCustomRowFormatting .k-grid-content-sticky,
-    .k-grid .k-master-row.myCustomRowFormatting.k-alt .k-grid-content-sticky
-    /*===*/ {
-        background-color: inherit;
-    }
-
     .k-grid .k-master-row.myCustomRowFormatting:hover {
-        /*background-color: red !important;*/
         background-color: #0d6efd !important;
+        color: white;
     }
 
-    /*.k-grid .k-master-row.myCustomRowFormatting {
-        background-color: #90EE90 test;
-    }*/
+    .k-grid .k-master-row.myCustomRowFormatting {
+        background-color: indianred;
+        color: white !important
+    }
+
+    .k-grid .k-table-row.k-selected.myCustomRowFormatting > .k-table-td {
+        color: white !important;
+    }
 </style>

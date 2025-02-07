@@ -5,12 +5,13 @@
     <R_StackLayout>
         <R_Grid @ref="@_gridRef"
                 DataSource="@_viewModel.CategoryList"
-                Pageable="true"
+                Pageable
                 R_ConductorSource="@_conductorRef"
                 R_GridType="@R_eGridType.Navigator"
                 R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord" 
                 R_GridFilterMode="@R_eGridFilterMode.FilterRow" 
-                Enabled="@_gridEnabled">
+                Enabled="@_gridEnabled" 
+                TabIndex="1">
             <R_GridColumns>
                 <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
                                      HeaderText="Category Id"
@@ -23,11 +24,11 @@
 </R_StackLayout>
 
 <R_StackLayout>
-    <R_StackLayout Row="true" Spacing="3">
+    <R_StackLayout Row Spacing="3">
         <h2>Category Detail</h2>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Category Id</R_Label>
         </R_ItemLayout>
@@ -35,20 +36,24 @@
         <R_ItemLayout col="4">
             <R_NumericTextBox @bind-Value="@_viewModel.Data.Id"
                               R_ConductorSource="@_conductorRef"
-                              Enabled="false" />
+                              Enabled="false" 
+                              TabIndex="2" />
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout col="2">
             <R_Label>Category Name</R_Label>
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_TextBox @ref="@_textboxNameRef" @bind-Value="@_viewModel.Data.Name"
+            <R_TextBox @ref="@_textboxNameRef"
+                       @bind-Value="@_viewModel.Data.Name"
                        R_ConductorSource="@_conductorRef"
                        R_EnableAdd
-                       R_EnableEdit />
+                       R_EnableEdit 
+                       TabIndex="3" 
+                       OnChanged="@(async (value) => await txtNameOnLostFocus(value))" />
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -58,32 +63,30 @@
         </R_ItemLayout>
 
         <R_ItemLayout col="4">
-            <R_TextArea @bind-Value="@_viewModel.Data.Description"
-                        R_ConductorSource="@_conductorRef"
-                        R_EnableAdd
-                        R_EnableEdit />
+            <R_TextBox @bind-Value="@_viewModel.Data.Description"
+                       R_ConductorSource="@_conductorRef"
+                       Enabled="@_txtDescEnabled"
+                       TabIndex="4" />
         </R_ItemLayout>
     </R_StackLayout>
 
     <R_StackLayout Row Spacing="3" Class="mt-3">
         <R_ItemLayout col="12">
-            <R_AddButton R_Conductor="@_conductorRef" />
-            <R_EditButton R_Conductor="@_conductorRef" />
-            <R_DeleteButton R_Conductor="@_conductorRef" />
-            <R_SaveButton R_Conductor="@_conductorRef" />
-            <R_CancelButton R_Conductor="@_conductorRef" />
+            <R_AddButton R_Conductor="@_conductorRef" TabIndex="5" />
+            <R_EditButton R_Conductor="@_conductorRef" TabIndex="6" />
+            <R_DeleteButton R_Conductor="@_conductorRef" TabIndex="7" />
+            <R_SaveButton R_Conductor="@_conductorRef" TabIndex="8" />
+            <R_CancelButton R_Conductor="@_conductorRef" TabIndex="9" />
 
-            <R_GroupBox R_ConductorSource="@_conductorRef" R_EnableOther>
-                <R_Button R_ConductorSource="@_conductorRef"
-                          OnClick="@buttonOnClick">
-                    Change Category Name
-                </R_Button>
-            </R_GroupBox>
+            @* <R_Button R_ConductorSource="@_conductorRef"
+                      OnClick="@buttonOnClick" TabIndex="10">
+                Change Category Name
+            </R_Button> *@
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
 
-<R_GroupBox Title="R_TextEditor">
+@* <R_GroupBox Title="R_TextEditor">
     <R_TextEditor @bind-Value="@_viewModel.Data.Description"
                   Height="150px"
                   Width="300px"
@@ -92,7 +95,7 @@
                   R_EnableAdd
                   R_EnableEdit />
 </R_GroupBox>
-
+ *@
 <R_Conductor @ref="@_conductorRef" 
              R_ViewModel="@_viewModel" 
              R_IsHeader
@@ -107,4 +110,5 @@
              R_CheckAdd="@R_CheckAdd" 
              R_CheckEdit="@R_CheckEdit" 
              R_CheckDelete="@R_CheckDelete"
-             R_SetHasData="@R_SetHasData" />
+             R_SetHasData="@R_SetHasData" 
+             R_Display="@R_Display" />

@@ -1,5 +1,6 @@
 ﻿@page "/SAB04000"
 @using R_BlazorFrontEnd.Excel
+@using R_BlazorFrontEnd.Excel.Mappings
 @inherits R_Page
 @attribute [R_Page(Title = "Basic Usage")]
 
@@ -18,6 +19,8 @@
 <R_InputFile OnChange="@OnChangeCSVHandler" Accepts="@_acceptsCsv">Import From CSV</R_InputFile>
 
 <R_Button OnClick="@OnClickCSV">Export to CSV</R_Button>
+
+<R_Button OnClick="@OnClickXML">Export to XML</R_Button>
 
 @code {
     [Inject] private R_IExcel ExcelProvider { get; set; }
@@ -68,13 +71,36 @@
             var loByteFile = loMS.ToArray();
 
             //import from excel
-            var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+            // var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+
+            var loMapping = new List<R_DataColumnMapping>
+            {
+                new R_DataColumnMapping(1, "FirstName")
+            };
+
+            // var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile, poColumnMappings: loMapping);
+
+            // var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
+
+            var loDataSet = ExcelProvider.R_ReadExcel(loByteFile, option =>
+            {
+                option.ColumnMappings = loMapping;
+            });
 
             var resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataSet.Tables[0]); //employee sheet
             var resultGender = R_FrontUtility.R_ConvertTo<GenderDTO>(loDataSet.Tables[1]); //gender sheet
 
             Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
             Console.WriteLine(R_FrontUtility.Dump(resultGender));
+
+            var loDataTable = ExcelProvider.R_ReadExcelToDataTable(loByteFile, option =>
+            {
+                option.Range = "A1:A3";
+            });
+
+            resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataTable);
+
+            Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
         }
         catch (Exception ex)
         {
@@ -107,7 +133,8 @@
                     Delimiter = ","
                 };
 
-            var result = R_Text.R_ReadFromCSV<Person>(loByteFile, csvConfig);
+            // var result = R_Text.R_ReadFromCSV<Person>(loByteFile, csvConfig);
+            var result = R_Text.R_ReadFromCSV<TaxReport>(loByteFile, csvConfig);
 
             Console.WriteLine(R_FrontUtility.Dump(result));
         }
@@ -148,10 +175,46 @@
         await JS.downloadFileFromStreamHandler(saveFileName, result);
     }
 
+    private async Task OnClickXML()
+    {
+        var myPersonObjects = new List<Person>()
+        {
+            new Person { Id = "1", IsLiving = true, Name = "John UHUYY" },
+            new Person { Id = "2", IsLiving = true, Name = "Steve" },
+            new Person { Id = "3", IsLiving = true, Name = "James" }
+        };
+
+        var result = R_FrontUtility.R_ObjectToXML(myPersonObjects);
+
+        var saveFileName = $"{Guid.NewGuid().ToString()}.xml";
+
+        await JS.downloadFileFromStreamHandler(saveFileName, result);
+    }
+
     public class Person
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public bool IsLiving { get; set; }
+    }
+
+    public class TaxReport
+    {
+        public string BuyerTIN { get; set; }
+        public string DisplayName { get; set; }
+        public string TaxInvoiceCode { get; set; }
+        public string TaxInvoiceNumber { get; set; }
+        public string TaxInvoiceDate { get; set; }
+        public string TaxInvoicePeriod { get; set; }
+        public string TaxInvoiceYear { get; set; }
+        public string TaxInvoiceStatus { get; set; }
+        public int SellingPrice { get; set; }
+        public int OtherTaxBase { get; set; }
+        public int VAT { get; set; }
+        public string STLG { get; set; }
+        public string Signer { get; set; }
+        public string Reference { get; set; }
+        public string ReportedBySeller { get; set; }
+        public bool ReportedByVATCollector { get; set; }
     }
 }

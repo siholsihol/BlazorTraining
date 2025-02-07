@@ -199,7 +199,7 @@ namespace SAB00700Front
 
         private void R_Display(R_DisplayEventArgs eventArgs)
         {
-
+            _txtDescEnabled = eventArgs.ConductorMode == R_BlazorFrontEnd.Enums.R_eConductorMode.Normal ? false : true;
         }
 
         private void R_BeforeEdit(R_BeforeEditEventArgs eventArgs)
@@ -266,5 +266,36 @@ namespace SAB00700Front
         }
 
         private string _editorValue { get; set; }
+
+        private bool _txtDescEnabled;
+        private async Task txtNameOnLostFocus(object value)
+        {
+            var name = _viewModel.Data.Name;
+
+            //Thread.Sleep(3000);
+
+            //Task loTask = delaynih();
+
+            //while (!loTask.IsCompleted)
+            //{
+            //    Thread.Sleep(2);
+            //}
+
+            //if (!loTask.IsCompleted)
+            //{
+            //    Thread.Sleep(500);
+            //}
+
+            await Task.Delay(3000);
+
+            //Task.WaitAny(loTask);
+
+            _txtDescEnabled = string.IsNullOrWhiteSpace(name) ? false : true;
+        }
+
+        private async Task delaynih()
+        {
+            await Task.Delay(3000);
+        }
     }
 }
