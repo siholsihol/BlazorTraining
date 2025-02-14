@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Telerik.Blazor.Components;
 
 namespace BlazorMenu.Shared
 {
@@ -67,6 +68,8 @@ namespace BlazorMenu.Shared
         //private List<BlazorMenuNotificationDTO> _oldNotificationMessages = new List<BlazorMenuNotificationDTO>();
         private DotNetObjectReference<MenuLayout> DotNetReference { get; set; }
 
+        private TelerikAutoComplete<SearchBoxItem> TelerikAutoCompleteRef;
+
         protected override async Task OnInitializedAsync()
         {
             try
@@ -115,14 +118,47 @@ namespace BlazorMenu.Shared
             {
                 await JSRuntime.InvokeVoidAsync("handleNavbarVerticalCollapsed");
 
-                await JSRuntime.InvokeVoidAsync("searchInit");
+                //await JSRuntime.InvokeVoidAsync("searchInit");
 
                 DotNetReference = DotNetObjectReference.Create(this);
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.observeElement", "navbarDropdownNotification", DotNetReference);
 
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.changeThemeToggle", "themeControlToggle");
+
+                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.overrideDefaultKey", DotNetReference);
             }
         }
+
+        [JSInvokable("DefaultKeyDown")]
+        public async Task DefaultKeyDown(KeyboardEventArgs args)
+        {
+            await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.blazorOpen", new object[2] { "https://realta.co.id/site/", "_blank" });
+        }
+
+        [JSInvokable("FindKeyDown")]
+        public async Task FindKeyDown(KeyboardEventArgs args)
+        {
+            await TelerikAutoCompleteRef.FocusAsync();
+        }
+
+        //[JSInvokable("ObserverNotification")]
+        //public Task ObserverNotification(bool plShow)
+        //{
+        //    if (plShow && !_notificationOpened)
+        //    {
+        //        foreach (var message in _newNotificationMessages)
+        //        {
+        //            message.IsRead = true;
+        //        }
+
+        //        _oldNotificationMessages.AddRange(_newNotificationMessages);
+        //        _newNotificationMessages.Clear();
+
+        //        _notificationOpened = true;
+        //    }
+
+        //    return Task.CompletedTask;
+        //}
 
         private void OnClickProgram(DrawerMenuItem drawerMenuItem)
         {

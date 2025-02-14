@@ -6,8 +6,7 @@ using BlazorMenuModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_AuthenticationEnumAndInterface;
-using R_BlazorFrontEnd.Controls.MessageBox;
-using R_BlazorFrontEnd.Controls.Notification;
+using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Exceptions;
 using R_CrossPlatformSecurity;
 
@@ -19,43 +18,50 @@ namespace BlazorMenu.Pages.Authentication
         [Inject] private R_ITokenRepository _tokenRepository { get; set; }
         [Inject] private BlazorMenuLocalStorageService _localStorageService { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
-        [Inject] public R_MessageBoxService R_MessageBox { get; set; }
         [Inject] private R_ISymmetricJSProvider _encryptProvider { get; set; }
         [Inject] private MenuTabSetTool MenuTabSetTool { get; set; }
-        [Inject] private R_NotificationService _notificationService { get; set; }
+        [Inject] private R_ToastService _toastService { get; set; }
+        [Inject] private R_PreloadService _preloadService { get; set; }
 
         private readonly R_LoginViewModel _loginVM = new();
         private string _captcha = "";
         private int _captchaLength = 4;
+        private string validateCaptcha;
 
-        protected override async Task OnParametersSetAsync()
-        {
-            var loEx = new R_Exception();
+        //protected override async Task OnParametersSetAsync()
+        //{
+        //    var loEx = new R_Exception();
 
-            try
-            {
-                //var state = await _stateProvider.GetAuthenticationStateAsync();
-                //if (state.User.Identity.IsAuthenticated)
-                //    _navigationManager.NavigateTo("/");
+        //    try
+        //    {
+        //        _preloadService.Show();
 
-                //var loPolicyParameter = await loClientWrapper.R_GetSecurityPolicyParameterAsync();
+        //        //var state = await _stateProvider.GetAuthenticationStateAsync();
+        //        //if (state.User.Identity.IsAuthenticated)
+        //        //    _navigationManager.NavigateTo("/");
 
-                //_loginModel.CompanyId = "rcd";
-                //_loginModel.UserId = "cp";
-                //_loginModel.Password = "cp";
-            }
-            catch (R_Exception rex)
-            {
-                loEx.Add(rex);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
+        //        //var loPolicyParameter = await loClientWrapper.R_GetSecurityPolicyParameterAsync();
 
-            if (loEx.HasError)
-                _notificationService.Error(loEx.ErrorList[0].ErrDescp);
-        }
+        //        //_loginModel.CompanyId = "rcd";
+        //        //_loginModel.UserId = "cp";
+        //        //_loginModel.Password = "cp";
+        //    }
+        //    catch (R_Exception rex)
+        //    {
+        //        loEx.Add(rex);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        loEx.Add(ex);
+        //    }
+        //    finally
+        //    {
+        //        _preloadService.Hide();
+        //    }
+
+        //    if (loEx.HasError)
+        //        _toastService.Error(loEx.ErrorList[0].ErrDescp);
+        //}
 
         protected override void OnInitialized()
         {
@@ -155,10 +161,14 @@ namespace BlazorMenu.Pages.Authentication
             {
                 loEx.Add(ex);
             }
+            finally
+            {
+                _preloadService.Hide();
+            }
 
             if (loEx.HasError)
             {
-                _notificationService.Error(loEx.ErrorList[0].ErrDescp);
+                _toastService.Error(loEx.ErrorList[0].ErrDescp);
             }
         }
     }

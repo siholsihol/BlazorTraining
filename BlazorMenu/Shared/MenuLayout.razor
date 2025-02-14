@@ -163,14 +163,15 @@
                         </div> *@
 
                         <div @onkeypress="@onkeypress">
-                            <TelerikAutoComplete Data="@searchBoxData"
+                            <TelerikAutoComplete @ref="@TelerikAutoCompleteRef"
+                                                 Data="@searchBoxData"
                                                  @bind-Value="@_searchText"
                                                  Placeholder="Search..."
                                                  ClearButton
                                                  ValueField="@(nameof(SearchBoxItem.Text))"
                                                  Filterable
                                                  Class="form-control search-input"
-                                                 AdaptiveMode="AdaptiveMode.Auto" 
+                                                 AdaptiveMode="AdaptiveMode.Auto"
                                                  Id="searchbox">
                                 <AutoCompleteSettings>
                                     <AutoCompletePopupSettings Height="auto" MaxHeight="200px" />
