@@ -236,4 +236,17 @@
     blazorOpen: (args) => {
         window.open(args);
     },
+
+    invisiblePopup: function (elementId) {
+        let element = document.getElementById(elementId);
+        if (element != null) {
+            element.classList.add('d-none');
+        }
+    },
+    visiblePopup: function (elementId) {
+        let element = document.getElementById(elementId);
+        if (element != null) {
+            element.classList.remove('d-none');
+        }
+    },
 }
