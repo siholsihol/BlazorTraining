@@ -9,7 +9,7 @@ namespace BlazorTraining.Controls
     {
         #region Members
 
-        private string code;
+        private string? code;
 
         #endregion
 
@@ -17,10 +17,10 @@ namespace BlazorTraining.Controls
 
         protected override async Task OnParametersSetAsync()
         {
-            if (code is null)
+            if (code is null && Type is not null)
             {
                 var resourceName = Type.FullName + ".razor";
-                using (Stream stream = Type.Assembly.GetManifestResourceStream(resourceName))
+                using (Stream? stream = Type.Assembly.GetManifestResourceStream(resourceName))
                 {
                     try
                     {
@@ -64,7 +64,7 @@ namespace BlazorTraining.Controls
             {
                 builder.OpenElement(100, "div");
                 builder.AddAttribute(101, "class", "bb-example");
-                builder.OpenComponent(202, Type);
+                builder.OpenComponent(202, Type!);
                 builder.CloseComponent(); // end: div
                 builder.CloseElement();
 
@@ -106,7 +106,7 @@ namespace BlazorTraining.Controls
                         tabContentBuilder.OpenElement(306, "div");
                         tabContentBuilder.AddAttribute(307, "class", "bb-example border-top-0 mt-0");
 
-                        tabContentBuilder.OpenComponent(308, Type);
+                        tabContentBuilder.OpenComponent(308, Type!);
                         tabContentBuilder.CloseComponent(); // end: div
 
                         tabContentBuilder.CloseElement();
@@ -171,7 +171,7 @@ namespace BlazorTraining.Controls
 
         [Parameter] public bool Tabs { get; set; } = false;
 
-        [Parameter] public Type Type { get; set; }
+        [Parameter] public Type? Type { get; set; }
 
         #endregion
     }
