@@ -69,6 +69,7 @@ namespace BlazorMenu.Shared
         private DotNetObjectReference<MenuLayout> DotNetReference { get; set; }
 
         private TelerikAutoComplete<SearchBoxItem> TelerikAutoCompleteRef;
+        private string _autoCompleteId = IdGeneratorHelper.Generate("searchbox", 3);
 
         protected override async Task OnInitializedAsync()
         {
@@ -118,21 +119,24 @@ namespace BlazorMenu.Shared
             {
                 await JSRuntime.InvokeVoidAsync("handleNavbarVerticalCollapsed");
 
-                //await JSRuntime.InvokeVoidAsync("searchInit");
-
                 DotNetReference = DotNetObjectReference.Create(this);
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.observeElement", "navbarDropdownNotification", DotNetReference);
 
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.changeThemeToggle", "themeControlToggle");
 
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.overrideDefaultKey", DotNetReference);
+
+                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.attachFocusHandler", DotNetReference, _autoCompleteId);
             }
         }
 
         [JSInvokable("DefaultKeyDown")]
         public async Task DefaultKeyDown(KeyboardEventArgs args)
         {
-            await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.blazorOpen", new object[2] { "https://realta.co.id/site/", "_blank" });
+            var documentationUrl = GetDocumentationBaseUrl();
+            var currentUrl = new Uri(new Uri(documentationUrl), ParseProgramId());
+
+            await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.blazorOpen", new object[2] { currentUrl, "_blank" });
         }
 
         [JSInvokable("FindKeyDown")]
@@ -141,33 +145,54 @@ namespace BlazorMenu.Shared
             await TelerikAutoCompleteRef.FocusAsync();
         }
 
-        //[JSInvokable("ObserverNotification")]
-        //public Task ObserverNotification(bool plShow)
-        //{
-        //    if (plShow && !_notificationOpened)
-        //    {
-        //        foreach (var message in _newNotificationMessages)
-        //        {
-        //            message.IsRead = true;
-        //        }
+        [JSInvokable("OpenComponent")]
+        public void OpenComponent()
+        {
+            TelerikAutoCompleteRef.Open();
+        }
 
-        //        _oldNotificationMessages.AddRange(_newNotificationMessages);
-        //        _newNotificationMessages.Clear();
+        [JSInvokable("ObserverNotification")]
+        public Task ObserverNotification(bool plShow)
+        {
+            if (plShow && !_notificationOpened)
+            {
+                foreach (var message in _newNotificationMessages)
+                {
+                    message.IsRead = true;
+                }
 
-        //        _notificationOpened = true;
-        //    }
+                _oldNotificationMessages.AddRange(_newNotificationMessages);
+                _newNotificationMessages.Clear();
 
-        //    return Task.CompletedTask;
-        //}
+                _notificationOpened = true;
+            }
+
+            return Task.CompletedTask;
+        }
 
         private void OnClickProgram(DrawerMenuItem drawerMenuItem)
         {
-            TabSetTool.AddTab(drawerMenuItem.Text, drawerMenuItem.Id, "A,U,D,P,V");
+            OnClickProgram(drawerMenuItem.Text, drawerMenuItem.Id);
         }
 
         private void OnClickProgram(string text, string id)
         {
             TabSetTool.AddTab(text, id, "A,U,D,P,V");
+        }
+
+        private void SearchTextValueChanged(object value)
+        {
+            if (string.IsNullOrWhiteSpace(_searchText))
+                return;
+
+            var programId = _searchText.Split(" - ")[0];
+            var menuItem = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == programId);
+            if (menuItem != null)
+            {
+                OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
+                _searchText = "";
+                TelerikAutoCompleteRef.Close();
+            }
         }
 
         private async Task Logout()
@@ -190,11 +215,12 @@ namespace BlazorMenu.Shared
         #region ProfilePage
 
         private MenuModal modalProfilePage;
+        private string _modalProfileId = IdGeneratorHelper.Generate("modalprofile");
 
         private async Task ShowProfilePage()
         {
             var parameters = new Dictionary<string, object>();
-            parameters.Add("CloseModalTask", OnCloseModalProfilePageTask);
+            parameters.Add("CloseModalTask", async (bool isUpdated) => await OnCloseModalProfilePageTask(isUpdated));
 
             await modalProfilePage.ShowAsync<Profile>(parameters: parameters);
         }
@@ -212,6 +238,7 @@ namespace BlazorMenu.Shared
         #region Info Page
 
         private MenuModal modalInfoPage;
+        private string _modalInfo = IdGeneratorHelper.Generate("modalinfo");
 
         private async Task ShowInfoPage()
         {
@@ -229,9 +256,43 @@ namespace BlazorMenu.Shared
                 if (menuItem != null)
                 {
                     OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
+                    _searchText = "";
+                    TelerikAutoCompleteRef.Close();
                 }
             }
         }
+
+        #region Documentation
+
+        private string GetDocumentationBaseUrl()
+        {
+            var lcUrl = _configuration.GetSection("R_ServiceUrlSection:R_DocumentationServiceUrl").Get<string>();
+
+            return lcUrl;
+        }
+
+        private string ParseProgramId()
+        {
+            var relativeUri = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).Replace("#", "");
+
+            if (relativeUri.IndexOf('?') > -1)
+            {
+                relativeUri = relativeUri.Substring(0, relativeUri.IndexOf('?'));
+            }
+
+            var urlSegment = relativeUri.Split("/");
+            if (urlSegment.Count() > 1)
+            {
+                relativeUri = urlSegment.Last();
+
+                var programName = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == relativeUri).CSUB_MENU_NAME;
+                relativeUri = DocumentationTemplateParser.ParseTemplate(relativeUri, programName);
+            }
+
+            return relativeUri;
+        }
+
+        #endregion
     }
 
     public class SearchBoxItem
