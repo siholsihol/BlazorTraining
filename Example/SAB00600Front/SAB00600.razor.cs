@@ -366,5 +366,25 @@ namespace SAB00600Front
         private string _prefixText = "Mr.";
         private int _valuePrefix = 0;
         private string _suffixText = "Kg";
+
+        //private void R_CellRender(R_GridCellRenderEventArgs eventArgs)
+        //{
+        //    var lcGenderId = eventArgs.Value as string;
+
+        //    if (lcGenderId == "F")
+        //    {
+        //        eventArgs.CellClass = "myCustomCellFormatting";
+        //    }
+        //}
+
+        private void R_CellRender(R_GridCellRenderEventArgs eventArgs)
+        {
+            var lcCompanyName = eventArgs.Value as string;
+
+            if (lcCompanyName.Length < 5)
+            {
+                eventArgs.CellClass = "myCustomCellFormatting";
+            }
+        }
     }
 }

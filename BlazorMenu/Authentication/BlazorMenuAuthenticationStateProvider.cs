@@ -12,21 +12,17 @@ namespace BlazorMenu.Authentication
 {
     public class BlazorMenuAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly R_ITokenRepository _tokenRepository;
         private readonly R_ILocalStorage _localStorageService;
-        private readonly R_IMenuService _menuService;
         private readonly IClientHelper _clientHelper;
 
         public BlazorMenuAuthenticationStateProvider(
             R_ITokenRepository tokenRepository,
             R_ILocalStorage localStorageService,
             IClientHelper clientHelper,
-            R_IMenuService menuService)
+            R_ITenant tenant)
         {
-            _tokenRepository = tokenRepository;
             _localStorageService = localStorageService;
             _clientHelper = clientHelper;
-            _menuService = menuService;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -36,22 +32,6 @@ namespace BlazorMenu.Authentication
 
             try
             {
-                //var lcSavedToken = _tokenRepository.R_GetToken();
-
-                //if (string.IsNullOrWhiteSpace(lcSavedToken))
-                //    return loState;
-
-                //if (_tokenRepository.R_IsTokenExpired())
-                //{
-                //    //await _localStorageService.ClearLocalStorageAsync();
-                //    //return loState;
-                //}
-
-                //var loUserClaim = GetClaimsFromToken(lcSavedToken);
-
-                //_clientHelper.Set_CompanyId(loUserClaim.Where(x => x.Type == "COMPANY_ID").FirstOrDefault().Value);
-                //_clientHelper.Set_UserId(loUserClaim.Where(x => x.Type == "USER_ID").FirstOrDefault().Value);
-
                 _clientHelper.Set_CultureUI(eCulture.English);
 
                 var loCultureInfoBuilder = new CultureInfoBuilder();
@@ -61,16 +41,6 @@ namespace BlazorMenu.Authentication
 
                 var loCultureInfo = loCultureInfoBuilder.BuildCultureInfo();
                 _clientHelper.Set_Culture(loCultureInfo.NumberFormat, loCultureInfo.DateTimeFormat);
-
-                //var loStorageCultureInfo = _localStorageService.GetCultureInfo();
-
-                //var loCultureInfoBuilder = new CultureInfoBuilder();
-                //loCultureInfoBuilder.WithNumberFormatInfo(loStorageCultureInfo["CNUMBER_FORMAT"], Convert.ToInt32(loStorageCultureInfo["IDECIMAL_PLACES"]))
-                //                    .WithDatePattern(loStorageCultureInfo["CDATE_LONG_FORMAT"], loStorageCultureInfo["CDATE_SHORT_FORMAT"])
-                //                    .WithTimePattern(loStorageCultureInfo["CTIME_LONG_FORMAT"], loStorageCultureInfo["CTIME_SHORT_FORMAT"]);
-
-                //var loCultureInfo = loCultureInfoBuilder.BuildCultureInfo();
-                //_clientHelper.Set_Culture(loCultureInfo.NumberFormat, loCultureInfo.DateTimeFormat);
 
                 var loClaims = new List<Claim>()
                 {
@@ -82,7 +52,6 @@ namespace BlazorMenu.Authentication
             }
             catch (Exception)
             {
-                //await _localStorageService.ClearLocalStorageAsync();
                 return loState;
             }
 
@@ -97,7 +66,6 @@ namespace BlazorMenu.Authentication
 
             try
             {
-                //await UserLockingFlushAsync();
                 await _localStorageService.RemoveItemAsync(StorageConstants.IsLogin);
 
                 var anonymousUser = new ClaimsPrincipal(new ClaimsIdentity());
@@ -118,76 +86,6 @@ namespace BlazorMenu.Authentication
             var authState = Task.FromResult(await GetAuthenticationStateAsync());
 
             NotifyAuthenticationStateChanged(authState);
-        }
-
-        //private async Task UserLockingFlushAsync()
-        //{
-        //    var loEx = new R_Exception();
-
-        //    try
-        //    {
-        //        var lcSavedToken = _tokenRepository.R_GetToken();
-        //        var loUserClaim = GetClaimsFromToken(lcSavedToken);
-
-        //        var loParam = new UserLockingFlushRequest
-        //        {
-        //            CCOMPANY_ID = loUserClaim.Where(x => x.Type == "COMPANY_ID").FirstOrDefault().Value,
-        //            CUSER_ID = loUserClaim.Where(x => x.Type == "USER_ID").FirstOrDefault().Value
-        //        };
-
-        //        R_LoginViewModel _loginViewModel = new R_LoginViewModel();
-        //        await _loginViewModel.UserLockingFlushAsync(loParam);
-
-        //        await _localStorageService.ClearLocalStorageAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        loEx.Add(ex);
-        //    }
-
-        //    loEx.ThrowExceptionIfErrors();
-        //}
-
-        private IEnumerable<Claim> GetClaimsFromToken(string pcToken)
-        {
-            var loClaims = new List<Claim>();
-            //var lcPayload = pcToken.Split('.')[1];
-            //var loJsonBytes = ParseBase64WithoutPadding(lcPayload);
-            //var loKeyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(loJsonBytes);
-
-            //if (loKeyValuePairs != null)
-            //{
-            //    loKeyValuePairs.TryGetValue("COMPANY_ID", out var lcCompanyId);
-            //    if (lcCompanyId != null)
-            //    {
-            //        var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcCompanyId);
-            //        loClaims.Add(new Claim("COMPANY_ID", parsedValue));
-            //    }
-
-            //    loKeyValuePairs.TryGetValue("USER_ID", out var lcUserId);
-            //    if (lcUserId != null)
-            //    {
-            //        var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcUserId);
-            //        loClaims.Add(new Claim("USER_ID", parsedValue));
-            //    }
-
-            //    loKeyValuePairs.TryGetValue("USER_ROLE", out var lcUserRole);
-            //    if (lcUserRole != null)
-            //    {
-            //        var parsedValue = JsonSerializer.Deserialize<string>((JsonElement)lcUserRole);
-            //        loClaims.Add(new Claim("USER_ROLE", parsedValue));
-            //    }
-            //}
-
-            return loClaims;
-        }
-
-        private static byte[] ParseBase64WithoutPadding(string lcPayload)
-        {
-            lcPayload = lcPayload.Trim().Replace('-', '+').Replace('-', '/');
-            var lcBase64 = lcPayload.PadRight(lcPayload.Length + (4 - lcPayload.Length % 4) % 4, '=');
-
-            return Convert.FromBase64String(lcBase64);
         }
     }
 }

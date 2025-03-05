@@ -1,5 +1,6 @@
 ﻿using BlazorClientHelper;
 using BlazorMenu.Authentication;
+using BlazorMenu.Constants.Storage;
 using BlazorMenu.Services;
 using BlazorMenu.Shared;
 using BlazorMenu.Shared.Tabs;
@@ -29,15 +30,15 @@ namespace BlazorMenu.Extensions
             services.AddSingleton<IClientHelper, U_GlobalVar>();
 
             services.AddScoped<R_ILocalStorage, R_LocalStorage>();
-            services.AddScoped<BlazorMenuLocalStorageService>();
+            //services.AddScoped<BlazorMenuLocalStorageService>();
 
             return services;
         }
 
         internal static async Task R_UseBlazorMenuServices(this WebAssemblyHost host)
         {
-            var loLocalStorage = host.Services.GetRequiredService<BlazorMenuLocalStorageService>();
-            var lcCulture = await loLocalStorage.GetCultureAsync();
+            var loLocalStorage = host.Services.GetRequiredService<R_ILocalStorage>();
+            var lcCulture = await loLocalStorage.GetItemAsync<string>(StorageConstants.Culture);
 
             CultureInfo loCulture = new CultureInfo("en");
             if (!string.IsNullOrWhiteSpace(lcCulture))

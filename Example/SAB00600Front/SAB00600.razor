@@ -51,7 +51,8 @@
                               R_EnableEdit
                               Width="400px" 
                               PrefixText="@_prefixText"
-                              SuffixText="@_suffixText" />
+                              SuffixText="@_suffixText"
+                              Ellipsis />
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"
@@ -63,7 +64,8 @@
                               HeaderText="Contact Name"
                               R_EnableAdd="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible" 
-                              Width="400px" />
+                              Width="400px" 
+                              R_CellRender="@R_CellRender" Ellipsis />
 
             @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
@@ -117,4 +119,11 @@
     .k-grid .k-table-row.k-selected.myCustomRowFormatting > .k-table-td {
         color: white !important;
     }
+
+
+    .myCustomCellFormatting {
+        background-color: hotpink;
+        color: white;
+    }
+
 </style>

@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using R_BlazorFrontEnd.Controls;
+using R_BlazorFrontEnd.Controls.Helpers;
+using R_BlazorFrontEnd.Controls.MessageBox;
 using Telerik.Blazor.Components;
 
 namespace BlazorMenu.Shared
@@ -21,6 +24,9 @@ namespace BlazorMenu.Shared
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
+        [Inject] private R_MessageBoxService _messageBoxService { get; set; }
+        [Inject] private R_PreloadService _preloadService { get; set; }
+        [Inject] private R_ToastService _toastService { get; set; }
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
@@ -101,10 +107,6 @@ namespace BlazorMenu.Shared
                     }).ToList()
                 }).ToList();
 
-                //var lcUserId = _clientHelper.UserId.ToUpper();
-                //if (lcUserId.Length > 3)
-                //    lcUserId = lcUserId.Substring(0, 3);
-
                 _userId = "TR";
             }
             catch (Exception)
@@ -131,12 +133,13 @@ namespace BlazorMenu.Shared
         }
 
         [JSInvokable("DefaultKeyDown")]
-        public async Task DefaultKeyDown(KeyboardEventArgs args)
+        public Task DefaultKeyDown(KeyboardEventArgs args)
         {
-            var documentationUrl = GetDocumentationBaseUrl();
-            var currentUrl = new Uri(new Uri(documentationUrl), ParseProgramId());
+            //var documentationUrl = GetDocumentationBaseUrl();
+            //var currentUrl = new Uri(new Uri(documentationUrl), ParseProgramId());
 
-            await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.blazorOpen", new object[2] { currentUrl, "_blank" });
+            //await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.blazorOpen", new object[2] { currentUrl, "_blank" });
+            return Task.CompletedTask;
         }
 
         [JSInvokable("FindKeyDown")]
@@ -154,33 +157,40 @@ namespace BlazorMenu.Shared
         [JSInvokable("ObserverNotification")]
         public Task ObserverNotification(bool plShow)
         {
-            if (plShow && !_notificationOpened)
-            {
-                foreach (var message in _newNotificationMessages)
-                {
-                    message.IsRead = true;
-                }
+            //if (plShow && !_notificationOpened)
+            //{
+            //    foreach (var message in _newNotificationMessages)
+            //    {
+            //        message.IsRead = true;
+            //    }
 
-                _oldNotificationMessages.AddRange(_newNotificationMessages);
-                _newNotificationMessages.Clear();
+            //    _oldNotificationMessages.AddRange(_newNotificationMessages);
+            //    _newNotificationMessages.Clear();
 
-                _notificationOpened = true;
-            }
+            //    _notificationOpened = true;
+            //}
 
             return Task.CompletedTask;
         }
 
-        private void OnClickProgram(DrawerMenuItem drawerMenuItem)
+        private async Task OnClickProgram(DrawerMenuItem drawerMenuItem)
         {
-            OnClickProgram(drawerMenuItem.Text, drawerMenuItem.Id);
+            await OnClickProgram(drawerMenuItem.Text, drawerMenuItem.Id);
         }
 
-        private void OnClickProgram(string text, string id)
+        private async Task OnClickProgram(string text, string id)
         {
-            TabSetTool.AddTab(text, id, "A,U,D,P,V");
+            try
+            {
+                await TabSetTool.AddTab(text, id, "A,U,D,P,V");
+            }
+            catch (Exception ex)
+            {
+                await _messageBoxService.Show(ex.Message);
+            }
         }
 
-        private void SearchTextValueChanged(object value)
+        private async Task SearchTextValueChanged(object value)
         {
             if (string.IsNullOrWhiteSpace(_searchText))
                 return;
@@ -189,7 +199,7 @@ namespace BlazorMenu.Shared
             var menuItem = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == programId);
             if (menuItem != null)
             {
-                OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
+                await OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
                 _searchText = "";
                 TelerikAutoCompleteRef.Close();
             }
@@ -197,9 +207,13 @@ namespace BlazorMenu.Shared
 
         private async Task Logout()
         {
+            _preloadService.Show();
+
             await ((BlazorMenuAuthenticationStateProvider)_stateProvider).MarkUserAsLoggedOut();
 
             _navigationManager.NavigateTo("/");
+
+            _preloadService.Hide();
         }
 
         public void Dispose()
@@ -229,8 +243,8 @@ namespace BlazorMenu.Shared
         {
             await modalProfilePage.HideAsync();
 
-            //if (isUpdated)
-            //    _toastService.Success("Success update user info.");
+            if (isUpdated)
+                _toastService.Success("Success update user info.");
         }
 
         #endregion
@@ -247,7 +261,7 @@ namespace BlazorMenu.Shared
 
         #endregion
 
-        private void onkeypress(KeyboardEventArgs eventArgs)
+        private async Task onkeypress(KeyboardEventArgs eventArgs)
         {
             if (eventArgs.Code == "Enter" && !string.IsNullOrWhiteSpace(_searchText))
             {
@@ -255,44 +269,44 @@ namespace BlazorMenu.Shared
                 var menuItem = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == programId);
                 if (menuItem != null)
                 {
-                    OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
+                    await OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
                     _searchText = "";
                     TelerikAutoCompleteRef.Close();
                 }
             }
         }
 
-        #region Documentation
+        //#region Documentation
 
-        private string GetDocumentationBaseUrl()
-        {
-            var lcUrl = _configuration.GetSection("R_ServiceUrlSection:R_DocumentationServiceUrl").Get<string>();
+        ////private string GetDocumentationBaseUrl()
+        ////{
+        ////    var lcUrl = _configuration.GetSection("R_ServiceUrlSection:R_DocumentationServiceUrl").Get<string>();
 
-            return lcUrl;
-        }
+        ////    return lcUrl;
+        ////}
 
-        private string ParseProgramId()
-        {
-            var relativeUri = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).Replace("#", "");
+        ////private string ParseProgramId()
+        ////{
+        ////    var relativeUri = _navigationManager.ToBaseRelativePath(_navigationManager.Uri).Replace("#", "");
 
-            if (relativeUri.IndexOf('?') > -1)
-            {
-                relativeUri = relativeUri.Substring(0, relativeUri.IndexOf('?'));
-            }
+        ////    if (relativeUri.IndexOf('?') > -1)
+        ////    {
+        ////        relativeUri = relativeUri.Substring(0, relativeUri.IndexOf('?'));
+        ////    }
 
-            var urlSegment = relativeUri.Split("/");
-            if (urlSegment.Count() > 1)
-            {
-                relativeUri = urlSegment.Last();
+        ////    var urlSegment = relativeUri.Split("/");
+        ////    if (urlSegment.Count() > 1)
+        ////    {
+        ////        relativeUri = urlSegment.Last();
 
-                var programName = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == relativeUri).CSUB_MENU_NAME;
-                relativeUri = DocumentationTemplateParser.ParseTemplate(relativeUri, programName);
-            }
+        ////        var programName = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == relativeUri).CSUB_MENU_NAME;
+        ////        relativeUri = DocumentationTemplateParser.ParseTemplate(relativeUri, programName);
+        ////    }
 
-            return relativeUri;
-        }
+        ////    return relativeUri;
+        ////}
 
-        #endregion
+        //#endregion
     }
 
     public class SearchBoxItem

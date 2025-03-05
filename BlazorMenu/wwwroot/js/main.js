@@ -237,12 +237,22 @@
         window.open(args);
     },
 
+    attachFocusHandler: (dotNetHelper, elementId) => {
+        var element = document.getElementById(elementId);
+        if (element) {
+            element.addEventListener("focus", (event) => {
+                dotNetHelper.invokeMethodAsync("OpenComponent");
+            });
+        }
+    },
+
     invisiblePopup: function (elementId) {
         let element = document.getElementById(elementId);
         if (element != null) {
             element.classList.add('d-none');
         }
     },
+
     visiblePopup: function (elementId) {
         let element = document.getElementById(elementId);
         if (element != null) {

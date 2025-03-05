@@ -216,9 +216,9 @@ namespace SAB01000Front
 
         private void R_CheckBoxSelectValueChanging(R_CheckBoxSelectValueChangingEventArgs eventArgs)
         {
-            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
+            //var loData = (SelectedProductDTO)eventArgs.CurrentRow;
 
-            eventArgs.Cancel = loData.Id > 9000;
+            //eventArgs.Cancel = loData.Id > 9000;
         }
     }
 }
