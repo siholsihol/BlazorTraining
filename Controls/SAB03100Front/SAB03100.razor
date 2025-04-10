@@ -1,4 +1,5 @@
 ﻿@page "/SAB03100"
+@using SAB03100Front.GroupBox
 @inherits R_Page
 @attribute [R_Page(Title = "R_NumericTextBox")]
 
@@ -25,6 +26,7 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiatePreload" Title="R_Preload"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateStepper" Title="R_Stepper"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateListBox" Title="R_ListBox"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateGroupBox" Title="R_GroupBox"></R_PredefinedDock>
 
 @code {
     private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
@@ -120,5 +122,10 @@
     private void InstantiateListBox(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(ListBoxMain);
+    }
+
+    private void InstantiateGroupBox(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(GroupBoxMain);
     }
 }

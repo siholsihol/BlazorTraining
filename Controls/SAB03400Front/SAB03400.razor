@@ -19,6 +19,9 @@
                     Width="500px"
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
+                     R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                     R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                     R_AfterSaveBatch="@R_AfterSaveBatch"
                     R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
                     R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
                     TargetGridDrop="@_gridRef2">
@@ -63,6 +66,9 @@
                     Width="500px"
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
+                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                    R_AfterSaveBatch="@R_AfterSaveBatch" 
                     R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
                     R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
                     TargetGridDrop="@_gridRef">
@@ -117,12 +123,8 @@
 
 <R_ConductorGrid @ref="@_conGridProductRef"
                  R_IsHeader
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+ />
 
 <R_ConductorGrid @ref="@_conGridProductRef2"
                  R_ConductorParent="@_conGridProductRef"
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+/>

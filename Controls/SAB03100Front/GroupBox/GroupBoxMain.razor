@@ -1,0 +1,47 @@
+@inherits R_Page
+
+<R_StackLayout Row>
+    <R_Label>"Main Checkbox"</R_Label>
+    <R_CheckBox @bind-Value=@MainCheckbox></R_CheckBox>
+</R_StackLayout>
+
+<R_GroupBox Enabled="@MainCheckbox">
+    <R_Label>"First Checkbox"</R_Label>
+    <R_CheckBox @bind-Value=@FirstCheckbox></R_CheckBox>
+    <R_GroupBox Enabled="@FirstCheckbox">
+        <R_StackLayout Row>
+            <R_Label>"First Textbox"</R_Label>
+            <R_TextBox @bind-Value="@FirstTextbox"></R_TextBox>
+        </R_StackLayout>
+        <R_StackLayout Row>
+            <R_Label>"First DateTime"</R_Label>
+            <R_DateTimePicker @bind-Value="@FirstDateTimePicker"></R_DateTimePicker>
+        </R_StackLayout>
+    </R_GroupBox>
+    <R_StackLayout Row>
+        <R_Label>"Second Checkbox"</R_Label>
+        <R_CheckBox @bind-Value=@SecondCheckbox></R_CheckBox>
+    </R_StackLayout>
+    <R_GroupBox Enabled="@SecondCheckbox">
+        <R_StackLayout Row>
+            <R_Label>"Second Textbox"</R_Label>
+            <R_TextBox @bind-Value="@SecondTextbox"></R_TextBox>
+        </R_StackLayout>
+    </R_GroupBox>
+</R_GroupBox>
+
+@code {
+    bool MainCheckbox { get; set; } = false;
+    bool FirstCheckbox { get; set; } = false;
+    bool SecondCheckbox { get; set; } = true;
+
+    DateTime FirstDateTimePicker { get; set; }
+    string FirstTextbox { get; set; }
+
+    string SecondTextbox { get; set; }
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        return Task.CompletedTask;
+    }
+}
