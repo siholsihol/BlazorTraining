@@ -4,7 +4,35 @@
     </R_ItemLayout>
 </R_GroupBox>
 
+<R_StackLayout Row>
+    <R_ItemLayout auto="false">
+        <R_Label>Test</R_Label>
+        <R_CheckBox @bind-Value="@Checkbox1"/>
+    </R_ItemLayout>
+    <R_ItemLayout col="0" auto="false">
+        <R_Label>Test</R_Label>
+        <R_CheckBox @bind-Value="@Checkbox1"/>
+    </R_ItemLayout>
+    <R_ItemLayout col="1">
+        <R_Label>Test</R_Label>
+        <R_CheckBox @bind-Value="@Checkbox1" />
+    </R_ItemLayout>
+    <R_ItemLayout col="2">
+        <R_Label>Test</R_Label>
+        <R_CheckBox @bind-Value="@Checkbox1" />
+    </R_ItemLayout>
+    <R_ItemLayout auto>
+        <R_Label>Test</R_Label>
+        <R_CheckBox @bind-Value="@Checkbox1" />
+    </R_ItemLayout>
+    <R_ItemLayout col="3" auto>
+        <R_Label>Test</R_Label>
+        <R_CheckBox @bind-Value="@Checkbox1" />
+    </R_ItemLayout>
+</R_StackLayout>
+
 @code {
     private decimal _decimalValue = -143232323.56m;
     private int _intValue = 1234;
+    private bool Checkbox1 { get; set; }
 }

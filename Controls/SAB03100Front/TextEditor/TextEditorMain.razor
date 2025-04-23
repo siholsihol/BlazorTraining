@@ -24,10 +24,24 @@
     <R_Button OnClick="@OnClickA" EnableLoaderContainer>Change A</R_Button>
     <R_Button OnClick="@OnClickB" EnableLoaderContainer>Change B</R_Button>
     <R_Button OnClick="@OnClickC" EnableLoaderContainer>Change C</R_Button>
+
+    <R_TextEditor   @bind-Value="@_editorValue2"
+                    Enabled
+                    Height="195px"
+                    R_TextEditorToolMode="R_eTextEditorToolMode.All"></R_TextEditor>
+    <R_Button OnClick="@OnClickConvert" EnableLoaderContainer>Convert</R_Button>
+    <R_Label>@_editorValue3</R_Label>
+    <R_TextEditor @bind-Value="@_editorValue3"
+                  Enabled="false"
+                  Height="195px"
+                  R_TextEditorToolMode="R_eTextEditorToolMode.None"></R_TextEditor>
+
 </R_GroupBox>
 
 @code {
     private string _editorValue { get; set; }
+    private string _editorValue2 { get; set; }
+    private string _editorValue3 { get; set; }
     private R_TextEditor _textEditorRef { get; set; }
     private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
     private bool _inputFileEnabled { get; set; } = false;
@@ -48,6 +62,13 @@
     }
 
     private byte[] _rawFileByte = null;
+
+    private void OnClickConvert()
+    {
+        byte[] tempByte = FileConverter.R_GetByteFromHtmlString(string.IsNullOrWhiteSpace(_editorValue2) ? "" : _editorValue2, R_eDocumentType.Html);
+
+        _editorValue3 = FileConverter.R_GetHtmlStringFromByte(tempByte, R_eDocumentType.Html);
+    }
 
     private async Task OnClickSave()
     {

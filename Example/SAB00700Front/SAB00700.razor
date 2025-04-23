@@ -10,7 +10,6 @@
                 R_GridType="@R_eGridType.Navigator"
                 R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord" 
                 R_GridFilterMode="@R_eGridFilterMode.FilterRow" 
-                Enabled="@_gridEnabled" 
                 TabIndex="1">
             <R_GridColumns>
                 <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
@@ -84,6 +83,11 @@
             </R_Button> *@
         </R_ItemLayout>
     </R_StackLayout>
+
+    @if (_conductorRef != null)
+    {
+        <R_Label>@(_conductorRef.R_Access != null ? string.Join(", ", _conductorRef.R_Access.Select(a => a.ToString())) : "")</R_Label>
+    }
 </R_StackLayout>
 
 @* <R_GroupBox Title="R_TextEditor">
@@ -96,6 +100,77 @@
                   R_EnableEdit />
 </R_GroupBox>
  *@
+
+<R_TabStrip>
+    <R_TabStripTab Title="Tab 1" Id="Tab1">
+        <R_Grid @ref="@_gridRef2"
+                DataSource="@_viewModel.CategoryList"
+                Pageable
+                R_ConductorGridSource="@_conductorRef2"
+                R_GridType="@R_eGridType.Original"
+                R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
+                R_ServiceGetRecord="@Conductor_ServiceGetRecord"
+                R_GridFilterMode="@R_eGridFilterMode.FilterRow"
+                R_Display="@Grid_R_Display"
+                AllowAddNewRow
+                AllowEditRow
+                TabIndex="1">
+            <R_GridColumns>
+                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
+                                     R_EnableAdd
+                                     R_EnableEdit
+                                     HeaderText="Category Id"
+                                     TValue="short" />
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)"
+                                  R_EnableAdd
+                                  R_EnableEdit
+                                  HeaderText="Category Name" />
+            </R_GridColumns>
+        </R_Grid>
+
+        @if (_conductorRef2 != null)
+        {
+            <R_Label>@(_conductorRef2.R_Access != null ? string.Join(", ", _conductorRef2.R_Access.Select(a => a.ToString())) : "")</R_Label>
+        }
+    </R_TabStripTab>
+
+    <R_TabStripTab Title="Tab 2" Id="Tab2">
+        <R_Grid @ref="@_gridRef3"
+                DataSource="@_viewModel.CategoryList"
+                Pageable
+                R_ConductorGridSource="@_conductorRef3"
+                R_GridType="@R_eGridType.Original"
+                R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
+                R_ServiceGetRecord="@Conductor_ServiceGetRecord"
+                R_Display="@Grid_R_Display"
+                R_GridFilterMode="@R_eGridFilterMode.FilterRow"
+                AllowAddNewRow
+                AllowEditRow
+                TabIndex="1">
+            <R_GridColumns>
+                <R_GridNumericColumn FieldName="@nameof(CategoryGridDTO.Id)"
+                                     R_EnableAdd
+                                     R_EnableEdit
+                                     HeaderText="Category Id"
+                                     TValue="short" />
+                <R_GridTextColumn FieldName="@nameof(CategoryGridDTO.Name)"
+                                  R_EnableAdd
+                                  R_EnableEdit
+                                  HeaderText="Category Name" />
+            </R_GridColumns>
+        </R_Grid>
+
+        @if (_conductorRef3 != null)
+        {
+            <R_Label>@(_conductorRef3.R_Access != null ? string.Join(", ", _conductorRef3.R_Access.Select(a => a.ToString())) : "")</R_Label>
+        }
+    </R_TabStripTab>
+
+    <R_TabStripTab Title="Tab 3" Id="Tab3">
+        Tab 3
+    </R_TabStripTab>
+</R_TabStrip>
+
 <R_Conductor @ref="@_conductorRef" 
              R_ViewModel="@_viewModel" 
              R_IsHeader
@@ -112,3 +187,9 @@
              R_CheckDelete="@R_CheckDelete"
              R_SetHasData="@R_SetHasData" 
              R_Display="@R_Display" />
+
+<R_ConductorGrid @ref="@_conductorRef2"
+                 R_ConductorParent="@_conductorRef" />
+
+<R_ConductorGrid @ref="@_conductorRef3"
+                 R_ConductorParent="@_conductorRef2" />

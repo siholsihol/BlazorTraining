@@ -79,54 +79,30 @@ export function tabToButton(args, id) {
     }
 }
 
-//export function tabLastColumn(args) {
-//    if (args.key == "Tab" && !args.shiftKey) {
-//        DotNet.invokeMethodAsync('TestTelerikGrid', 'InvokeSave');
-
-//        args.preventDefault();
-//        args.stopImmediatePropagation();
-//    }
-//}
-
 // Helper function to change disabled state of single element
-export function setElementEnabledState(elm, enabled) {
-    if (enabled) {
+export function changeDisabledState(elm, disabled) {
+    if (!disabled) {
         elm.removeAttribute('disabled');
     }
     else {
-        elm.setAttribute('disabled', 'true');
+        elm.setAttribute('disabled', disabled);
     }
 }
 
-export function setElementEnabledClass(elm, enabled) {
-    if (enabled) {
-        elm.classList.remove('k-disabled');
-    }
-    else {
-        elm.classList.add('k-disabled');
-    }
-}
-
-export function changeAllControlStatus(elementId, status) {
+export function disableAllControl(elementId, disabled) {
     // Get DIV container to be disabled
     //const container = document.querySelector(containerClass);
     const container = document.getElementById(elementId);
     // Check if helper class is there
     //const isDisabled = container.classList.contains('disabled');
-    setElementEnabledState(container, status)
+    const isDisabled = disabled;
 
     // Query all fields inside DIV.
-    const allFields = container.querySelectorAll('input, textarea, button, select, span');
+    const allFields = container.querySelectorAll('input, textarea, button, select');
 
-    // Iterate over all elements
-    // If Parent Group Box is enabled and Current Group Box is enabled => enabled field
-    // Else, disabled field
+    // Iterate over all elements and set the opposite state
     [...allFields].forEach(elm => {
-        const currentContainer = elm.closest('div[id*="grpbox"]');
-        const isCurrentContainerDisabled = currentContainer.hasAttribute('disabled');
-
-        // Enable or disable based on the flag
-        setElementEnabledClass(elm, status && !isCurrentContainerDisabled);
+        changeDisabledState(elm, !isDisabled);
     });
 
     // Toggle helper class

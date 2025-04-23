@@ -3,107 +3,440 @@
 @attribute [R_Page(Title = "Gridview Original")]
 @using R_BlazorFrontEnd.Controls.Events
 
-<R_StackLayout>
-    <R_Grid DataSource="@CustomerViewModel.CustomerList"
-            @ref="@_gridRef"
-            Pageable
-            @bind-PageSize="@_pageSize"
-            R_GridType="@R_eGridType.Original"
-            R_ConductorGridSource="@_conGridCustomerRef"
-            AllowAddNewRow
-            AllowEditRow
-            AllowDeleteRow
-            R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
-            Height="300px"
-            R_CellValueChanged="@R_CellValueChanged"
-            R_ServiceGetRecord="@Grid_ServiceGetRecord" 
-            R_BeforeEdit="@Grid_BeforeEdit" 
-            R_BeforeCancel="@Grid_BeforeCancel" 
-            R_BeforeAdd="@Grid_BeforeAdd" 
-            R_AfterAdd="@Grid_AfterAdd" 
-            R_Validation="@Grid_Validation" 
-            R_Saving="@Grid_Saving" 
-            R_ServiceSave="@Grid_ServiceSave" 
-            R_AfterSave="@Grid_AfterSave" 
-            R_BeforeDelete="@Grid_BeforeDelete" 
-            R_ServiceDelete="@Grid_ServiceDelete" 
-            R_AfterDelete="@Grid_AfterDelete" 
-            R_Display="R_Display" 
-            R_CheckAdd="R_CheckAdd" 
-            R_CheckEdit="R_CheckEdit" 
-            R_CheckDelete="R_CheckDelete" 
-            R_CheckGridAdd="R_CheckGridAdd" 
-            R_CheckGridEdit="R_CheckGridEdit" 
-            R_CheckGridDelete="R_CheckGridDelete"
-            R_DisableDeleteConfirmation="false"
-            R_DisableCancelConfirmation
-            R_SetAddGridColumn="@R_SetAddGridColumn"
-            R_SetEditGridColumn="@R_SetEditGridColumn" 
-            R_RowRender="@R_RowRender">
-        <R_GridColumns>
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
-                              HeaderText="Customer Id"
-                              R_EnableAdd
-                              Width="100px" />
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
-                              HeaderText="Company Name"
-                              R_EnableAdd
-                              R_EnableEdit
-                              Width="400px" 
-                              PrefixText="@_prefixText"
-                              SuffixText="@_suffixText"
-                              Ellipsis />
-            <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
-                                  ValueField="@nameof(GenderDTO.Id)"
-                                  TextField="@nameof(GenderDTO.Name)"
-                                  FieldName="@nameof(CustomerDTO.GenderId)"
-                                  HeaderText="Gender Id"
-                                  Enabled="@_checkBoxValue"
-                                  Width="200px" />
-            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
-                              HeaderText="Contact Name"
-                              R_EnableAdd="@_checkBoxValue"
-                              Visible="@_isContactNameColumnVisible" 
-                              Width="400px" 
-                              R_CellRender="@R_CellRender" Ellipsis />
+<R_StackLayout Row>
+    <R_ItemLayout col="6">
+        <R_StackLayout>
+            <R_Grid DataSource="@CustomerViewModel.CustomerList"
+                    @ref="@_gridRef"
+                    Pageable
+                    @bind-PageSize="@_pageSize"
+                    R_GridType="@R_eGridType.Original"
+                    R_ConductorGridSource="@_conGridCustomerRef"
+                    AllowAddNewRow
+                    AllowEditRow
+                    AllowDeleteRow
+                    R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
+                    Height="300px"
+                    R_CellValueChanged="@R_CellValueChanged"
+                    R_ServiceGetRecord="@Grid_ServiceGetRecord"
+                    R_BeforeEdit="@Grid_BeforeEdit"
+                    R_BeforeCancel="@Grid_BeforeCancel"
+                    R_BeforeAdd="@Grid_BeforeAdd"
+                    R_AfterAdd="@Grid_AfterAdd"
+                    R_Validation="@Grid_Validation"
+                    R_Saving="@Grid_Saving"
+                    R_ServiceSave="@Grid_ServiceSave"
+                    R_AfterSave="@Grid_AfterSave"
+                    R_BeforeDelete="@Grid_BeforeDelete"
+                    R_ServiceDelete="@Grid_ServiceDelete"
+                    R_AfterDelete="@Grid_AfterDelete"
+                    R_Display="R_Display"
+                    R_CheckAdd="R_CheckAdd"
+                    R_CheckEdit="R_CheckEdit"
+                    R_CheckDelete="R_CheckDelete"
+                    R_CheckGridAdd="R_CheckGridAdd"
+                    R_CheckGridEdit="R_CheckGridEdit"
+                    R_CheckGridDelete="R_CheckGridDelete"
+                    R_DisableDeleteConfirmation="false"
+                    R_DisableCancelConfirmation
+                    R_SetAddGridColumn="@R_SetAddGridColumn"
+                    R_SetEditGridColumn="@R_SetEditGridColumn"
+                    R_RowRender="@R_RowRender">
+                <R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
+                                      HeaderText="Customer Id"
+                                      R_EnableAdd
+                                      Width="100px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
+                                      HeaderText="Company Name"
+                                      R_EnableAdd
+                                      R_EnableEdit
+                                      Width="400px"
+                                      PrefixText="@_prefixText"
+                                      SuffixText="@_suffixText"
+                                      Ellipsis />
+                    <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+                                          ValueField="@nameof(GenderDTO.Id)"
+                                          TextField="@nameof(GenderDTO.Name)"
+                                          FieldName="@nameof(CustomerDTO.GenderId)"
+                                          HeaderText="Gender Id"
+                                          Enabled="@_checkBoxValue"
+                                          Width="200px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                                      HeaderText="Contact Name"
+                                      R_EnableAdd="@_checkBoxValue"
+                                      Visible="@_isContactNameColumnVisible"
+                                      Width="400px"
+                                      R_CellRender="@R_CellRender" Ellipsis />
 
             @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
                               Enabled="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible"
                               Width="400px" /> *@
-        </R_GridColumns>
-    </R_Grid>
+                </R_GridColumns>
+            </R_Grid>
 
-    <R_StackLayout Row>
-        <R_CheckBox @bind-Value="@_checkBoxValue"></R_CheckBox>
-        <R_Label>Enable Field Contact Name</R_Label>
-    </R_StackLayout>
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_checkBoxValue"></R_CheckBox>
+                <R_Label>Enable Field Contact Name</R_Label>
+            </R_StackLayout>
 
-    <R_StackLayout Row>
-        <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
-        <R_Label>Show Field Contact Name</R_Label>
-    </R_StackLayout>
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
+                <R_Label>Show Field Contact Name</R_Label>
+            </R_StackLayout>
 
-    <R_StackLayout Row>
-        <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
-        <R_Label>Show Add New Row</R_Label>
-    </R_StackLayout>
+            <R_StackLayout Row>
+                <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
+                <R_Label>Show Add New Row</R_Label>
+            </R_StackLayout>
 
-    <R_StackLayout Row>
-        @if (_isAddNewRowVisible)
-        {
-            <R_Button OnClick="@OnClick">Save</R_Button>
+            <R_StackLayout Row>
+                @if (_isAddNewRowVisible)
+                {
+                    <R_Button OnClick="@OnClick">Save</R_Button>
+                }
+                else
+                {
+                    <R_Button OnClick="@OnClick">Update</R_Button>
+                }
+            </R_StackLayout>
+        </R_StackLayout>
+        @if (_conGridCustomerRef != null){
+            <R_Label>@(_conGridCustomerRef.R_Access != null ? string.Join(", ", _conGridCustomerRef.R_Access.Select(a => a.ToString())) : "")</R_Label>
         }
-        else
+    </R_ItemLayout>
+    <R_ItemLayout col="6">
+        <R_StackLayout>
+            <R_Grid DataSource="@CustomerViewModel.CustomerList"
+            @ref="@_gridRef2"
+            Pageable
+            @bind-PageSize="@_pageSize"
+            R_GridType="@R_eGridType.Original"
+            R_ConductorGridSource="@_conGridCustomerRef2"
+            AllowAddNewRow
+            AllowEditRow
+            AllowDeleteRow
+            R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
+            Height="300px"
+            R_CellValueChanged="@R_CellValueChanged"
+            R_ServiceGetRecord="@Grid_ServiceGetRecord"
+            R_BeforeEdit="@Grid_BeforeEdit"
+            R_BeforeCancel="@Grid_BeforeCancel"
+            R_BeforeAdd="@Grid_BeforeAdd"
+            R_AfterAdd="@Grid_AfterAdd"
+            R_Validation="@Grid_Validation"
+            R_Saving="@Grid_Saving"
+            R_ServiceSave="@Grid_ServiceSave"
+            R_AfterSave="@Grid_AfterSave"
+            R_BeforeDelete="@Grid_BeforeDelete"
+            R_ServiceDelete="@Grid_ServiceDelete"
+            R_AfterDelete="@Grid_AfterDelete"
+            R_Display="R_Display"
+            R_CheckAdd="R_CheckAdd"
+            R_CheckEdit="R_CheckEdit"
+            R_CheckDelete="R_CheckDelete"
+            R_CheckGridAdd="R_CheckGridAdd"
+            R_CheckGridEdit="R_CheckGridEdit"
+            R_CheckGridDelete="R_CheckGridDelete"
+            R_DisableDeleteConfirmation="false"
+            R_DisableCancelConfirmation
+            R_SetAddGridColumn="@R_SetAddGridColumn"
+            R_SetEditGridColumn="@R_SetEditGridColumn"
+            R_RowRender="@R_RowRender">
+                <R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
+                    HeaderText="Customer Id"
+                    R_EnableAdd
+                    Width="100px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
+                    HeaderText="Company Name"
+                    R_EnableAdd
+                    R_EnableEdit
+                    Width="400px"
+                    PrefixText="@_prefixText"
+                    SuffixText="@_suffixText"
+                    Ellipsis />
+                    <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+                    ValueField="@nameof(GenderDTO.Id)"
+                    TextField="@nameof(GenderDTO.Name)"
+                    FieldName="@nameof(CustomerDTO.GenderId)"
+                    HeaderText="Gender Id"
+                    Enabled="@_checkBoxValue"
+                    Width="200px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                    HeaderText="Contact Name"
+                    R_EnableAdd="@_checkBoxValue"
+                    Visible="@_isContactNameColumnVisible"
+                    Width="400px"
+                    R_CellRender="@R_CellRender" Ellipsis />
+
+                    @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                              HeaderText="Contact Name"
+                              Enabled="@_checkBoxValue"
+                              Visible="@_isContactNameColumnVisible"
+                              Width="400px" /> *@
+                </R_GridColumns>
+            </R_Grid>
+
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_checkBoxValue"></R_CheckBox>
+                <R_Label>Enable Field Contact Name</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
+                <R_Label>Show Field Contact Name</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
+                <R_Label>Show Add New Row</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                @if (_isAddNewRowVisible)
+                {
+                    <R_Button OnClick="@OnClick">Save</R_Button>
+                }
+                else
+                {
+                    <R_Button OnClick="@OnClick">Update</R_Button>
+                }
+            </R_StackLayout>
+        </R_StackLayout>
+        @if(_conGridCustomerRef2 != null)
         {
-            <R_Button OnClick="@OnClick">Update</R_Button>
+            <R_Label>@(_conGridCustomerRef2.R_Access != null ? string.Join(", ", _conGridCustomerRef2.R_Access.Select(a => a.ToString())): "")</R_Label>
         }
-    </R_StackLayout>
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_ItemLayout col="6">
+        <R_StackLayout>
+            <R_Grid DataSource="@CustomerViewModel.CustomerList"
+                    @ref="@_gridRef3"
+                    Pageable
+                    @bind-PageSize="@_pageSize"
+                    R_GridType="@R_eGridType.Original"
+                    R_ConductorGridSource="@_conGridCustomerRef3"
+                    AllowAddNewRow
+                    AllowEditRow
+                    AllowDeleteRow
+                    R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
+                    Height="300px"
+                    R_CellValueChanged="@R_CellValueChanged"
+                    R_ServiceGetRecord="@Grid_ServiceGetRecord"
+                    R_BeforeEdit="@Grid_BeforeEdit"
+                    R_BeforeCancel="@Grid_BeforeCancel"
+                    R_BeforeAdd="@Grid_BeforeAdd"
+                    R_AfterAdd="@Grid_AfterAdd"
+                    R_Validation="@Grid_Validation"
+                    R_Saving="@Grid_Saving"
+                    R_ServiceSave="@Grid_ServiceSave"
+                    R_AfterSave="@Grid_AfterSave"
+                    R_BeforeDelete="@Grid_BeforeDelete"
+                    R_ServiceDelete="@Grid_ServiceDelete"
+                    R_AfterDelete="@Grid_AfterDelete"
+                    R_Display="R_Display"
+                    R_CheckAdd="R_CheckAdd"
+                    R_CheckEdit="R_CheckEdit"
+                    R_CheckDelete="R_CheckDelete"
+                    R_CheckGridAdd="R_CheckGridAdd"
+                    R_CheckGridEdit="R_CheckGridEdit"
+                    R_CheckGridDelete="R_CheckGridDelete"
+                    R_DisableDeleteConfirmation="false"
+                    R_DisableCancelConfirmation
+                    R_SetAddGridColumn="@R_SetAddGridColumn"
+                    R_SetEditGridColumn="@R_SetEditGridColumn"
+                    R_RowRender="@R_RowRender">
+                <R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
+                                      HeaderText="Customer Id"
+                                      R_EnableAdd
+                                      Width="100px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
+                                      HeaderText="Company Name"
+                                      R_EnableAdd
+                                      R_EnableEdit
+                                      Width="400px"
+                                      PrefixText="@_prefixText"
+                                      SuffixText="@_suffixText"
+                                      Ellipsis />
+                    <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+                                          ValueField="@nameof(GenderDTO.Id)"
+                                          TextField="@nameof(GenderDTO.Name)"
+                                          FieldName="@nameof(CustomerDTO.GenderId)"
+                                          HeaderText="Gender Id"
+                                          Enabled="@_checkBoxValue"
+                                          Width="200px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                                      HeaderText="Contact Name"
+                                      R_EnableAdd="@_checkBoxValue"
+                                      Visible="@_isContactNameColumnVisible"
+                                      Width="400px"
+                                      R_CellRender="@R_CellRender" Ellipsis />
+
+                    @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                              HeaderText="Contact Name"
+                              Enabled="@_checkBoxValue"
+                              Visible="@_isContactNameColumnVisible"
+                              Width="400px" /> *@
+                </R_GridColumns>
+            </R_Grid>
+
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_checkBoxValue"></R_CheckBox>
+                <R_Label>Enable Field Contact Name</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
+                <R_Label>Show Field Contact Name</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
+                <R_Label>Show Add New Row</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                @if (_isAddNewRowVisible)
+                {
+                    <R_Button OnClick="@OnClick">Save</R_Button>
+                }
+                else
+                {
+                    <R_Button OnClick="@OnClick">Update</R_Button>
+                }
+            </R_StackLayout>
+        </R_StackLayout>
+        @if (_conGridCustomerRef3 != null)
+        {
+            <R_Label>@(_conGridCustomerRef3.R_Access != null ? string.Join(", ", _conGridCustomerRef3.R_Access.Select(a => a.ToString())) : "")</R_Label>
+        }
+    </R_ItemLayout>
+    <R_ItemLayout col="6">
+        <R_StackLayout>
+            <R_Grid DataSource="@CustomerViewModel.CustomerList"
+                    @ref="@_gridRef4"
+                    Pageable
+                    @bind-PageSize="@_pageSize"
+                    R_GridType="@R_eGridType.Original"
+                    R_ConductorGridSource="@_conGridCustomerRef4"
+                    AllowAddNewRow
+                    AllowEditRow
+                    AllowDeleteRow
+                    R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
+                    Height="300px"
+                    R_CellValueChanged="@R_CellValueChanged"
+                    R_ServiceGetRecord="@Grid_ServiceGetRecord"
+                    R_BeforeEdit="@Grid_BeforeEdit"
+                    R_BeforeCancel="@Grid_BeforeCancel"
+                    R_BeforeAdd="@Grid_BeforeAdd"
+                    R_AfterAdd="@Grid_AfterAdd"
+                    R_Validation="@Grid_Validation"
+                    R_Saving="@Grid_Saving"
+                    R_ServiceSave="@Grid_ServiceSave"
+                    R_AfterSave="@Grid_AfterSave"
+                    R_BeforeDelete="@Grid_BeforeDelete"
+                    R_ServiceDelete="@Grid_ServiceDelete"
+                    R_AfterDelete="@Grid_AfterDelete"
+                    R_Display="R_Display"
+                    R_CheckAdd="R_CheckAdd"
+                    R_CheckEdit="R_CheckEdit"
+                    R_CheckDelete="R_CheckDelete"
+                    R_CheckGridAdd="R_CheckGridAdd"
+                    R_CheckGridEdit="R_CheckGridEdit"
+                    R_CheckGridDelete="R_CheckGridDelete"
+                    R_DisableDeleteConfirmation="false"
+                    R_DisableCancelConfirmation
+                    R_SetAddGridColumn="@R_SetAddGridColumn"
+                    R_SetEditGridColumn="@R_SetEditGridColumn"
+                    R_RowRender="@R_RowRender">
+                <R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
+                                      HeaderText="Customer Id"
+                                      R_EnableAdd
+                                      Width="100px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
+                                      HeaderText="Company Name"
+                                      R_EnableAdd
+                                      R_EnableEdit
+                                      Width="400px"
+                                      PrefixText="@_prefixText"
+                                      SuffixText="@_suffixText"
+                                      Ellipsis />
+                    <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+                                          ValueField="@nameof(GenderDTO.Id)"
+                                          TextField="@nameof(GenderDTO.Name)"
+                                          FieldName="@nameof(CustomerDTO.GenderId)"
+                                          HeaderText="Gender Id"
+                                          Enabled="@_checkBoxValue"
+                                          Width="200px" />
+                    <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                                      HeaderText="Contact Name"
+                                      R_EnableAdd="@_checkBoxValue"
+                                      Visible="@_isContactNameColumnVisible"
+                                      Width="400px"
+                                      R_CellRender="@R_CellRender" Ellipsis />
+
+                    @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                              HeaderText="Contact Name"
+                              Enabled="@_checkBoxValue"
+                              Visible="@_isContactNameColumnVisible"
+                              Width="400px" /> *@
+                </R_GridColumns>
+            </R_Grid>
+
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_checkBoxValue"></R_CheckBox>
+                <R_Label>Enable Field Contact Name</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
+                <R_Label>Show Field Contact Name</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
+                <R_Label>Show Add New Row</R_Label>
+            </R_StackLayout>
+
+            <R_StackLayout Row>
+                @if (_isAddNewRowVisible)
+                {
+                    <R_Button OnClick="@OnClick">Save</R_Button>
+                }
+                else
+                {
+                    <R_Button OnClick="@OnClick">Update</R_Button>
+                }
+            </R_StackLayout>
+        </R_StackLayout>
+        @if (_conGridCustomerRef4 != null)
+        {
+            <R_Label>@(_conGridCustomerRef4.R_Access != null ? string.Join(", ", _conGridCustomerRef4.R_Access.Select(a => a.ToString())) : "")</R_Label>
+        }
+    </R_ItemLayout>
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"
                  R_IsHeader />
+
+<R_ConductorGrid @ref="@_conGridCustomerRef2"
+                 R_ConductorParent="@_conGridCustomerRef"
+                 />
+                 
+<R_ConductorGrid @ref="@_conGridCustomerRef3"
+                 R_ConductorParent="@_conGridCustomerRef2"
+                 />
+
+<R_ConductorGrid @ref="@_conGridCustomerRef4"
+                 R_ConductorParent="@_conGridCustomerRef3" />
 
 <style>
     .k-grid .k-master-row.myCustomRowFormatting:hover {

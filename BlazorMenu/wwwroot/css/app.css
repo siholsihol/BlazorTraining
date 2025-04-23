@@ -383,6 +383,13 @@ ul ul li.nav-item a.nav-link span {
 .search-box a.dropdown-item {
     cursor: pointer;
 }
+
+.search-popup * {
+    background-color: var(--falcon-card-bg) !important;
+    border-color: var(--falcon-input-border-color) !important;
+    color: var(--falcon-input-color) !important;
+}
+
 /* Popup */
 .k-popup {
     background-color: var(--falcon-card-bg) !important;
@@ -581,14 +588,23 @@ ul ul li.nav-item a.nav-link span {
     border-bottom-color: var(--falcon-primary) !important;
 }
 
+li.xtabs-item.nav-item[b-21c0qposjk] {
+    position: relative;
+}
+
 button.close[b-21c0qposjk] {
     font-weight: 300 !important;
     color: #2c7be5 !important;
     text-shadow: none !important;
     line-height: 26px !important;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
 }
 
 button.close span {
+    position: relative;
     padding: 0 3px !important;
 }
 
@@ -646,26 +662,9 @@ h6[b-21c0qposjk] {
 
 /* lightbox */
 .lightbox-background {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(130, 130, 130, .3);
-    display: grid;
-    place-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 200ms ease-in-out;
-    align-content: center;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: 0 !important;
 }
-
-    .lightbox-background.active {
-        opacity: 1;
-        pointer-events: all;
-    }
 
 .lightbox-background__image {
     max-width: 90vw;
@@ -718,6 +717,8 @@ h6[b-21c0qposjk] {
     display: block;
 }
 
-
+.toast-container {
+    z-index: 7000;
+}
 
 /* Untuk Screen > 1400px */

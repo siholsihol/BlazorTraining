@@ -13,7 +13,11 @@ namespace SAB00700Front
     {
         private SAB00700ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
+        private R_ConductorGrid _conductorRef2;
+        private R_ConductorGrid _conductorRef3;
         private R_Grid<CategoryGridDTO> _gridRef;
+        private R_Grid<CategoryGridDTO> _gridRef2;
+        private R_Grid<CategoryGridDTO> _gridRef3;
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -21,6 +25,8 @@ namespace SAB00700Front
             try
             {
                 await _gridRef.R_RefreshGrid(null);
+                await _gridRef2.R_RefreshGrid(null);
+                await _gridRef3.R_RefreshGrid(null);
                 //await _conductorRef.Edit();
                 //await _gridRef.R_SelectCurrentDataAsync(2);
             }
@@ -200,6 +206,10 @@ namespace SAB00700Front
         private void R_Display(R_DisplayEventArgs eventArgs)
         {
             _txtDescEnabled = eventArgs.ConductorMode == R_BlazorFrontEnd.Enums.R_eConductorMode.Normal ? false : true;
+        }
+
+        private void Grid_R_Display(R_DisplayEventArgs eventArgs)
+        {
         }
 
         private void R_BeforeEdit(R_BeforeEditEventArgs eventArgs)

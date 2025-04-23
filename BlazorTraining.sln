@@ -87,6 +87,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTraining.Controls", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R_BlazorFrontEnd.Controls", "..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj", "{EFB1A31A-B2F5-5975-A507-7FB75333FF5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{D86FE2BE-2423-40F6-9002-1A6B180B2456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R_BlazorFrontEnd.FileConverter", "..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.FileConverter\R_BlazorFrontEnd.FileConverter.csproj", "{69B33F54-A5B0-AB29-2D47-6CA8F769F5E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R_BlazorFrontEnd", "..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd\R_BlazorFrontEnd.csproj", "{02533781-23BF-127C-CCDE-75D99DA2032D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +189,18 @@ Global
 		{06A77F99-AE19-465D-827D-27A793FF4A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A77F99-AE19-465D-827D-27A793FF4A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A77F99-AE19-465D-827D-27A793FF4A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB1A31A-B2F5-5975-A507-7FB75333FF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB1A31A-B2F5-5975-A507-7FB75333FF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB1A31A-B2F5-5975-A507-7FB75333FF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB1A31A-B2F5-5975-A507-7FB75333FF5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B33F54-A5B0-AB29-2D47-6CA8F769F5E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B33F54-A5B0-AB29-2D47-6CA8F769F5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B33F54-A5B0-AB29-2D47-6CA8F769F5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B33F54-A5B0-AB29-2D47-6CA8F769F5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02533781-23BF-127C-CCDE-75D99DA2032D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02533781-23BF-127C-CCDE-75D99DA2032D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02533781-23BF-127C-CCDE-75D99DA2032D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02533781-23BF-127C-CCDE-75D99DA2032D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -222,6 +242,9 @@ Global
 		{E30052DD-3EFB-4FD8-A399-A2599CEC8974} = {36CEE55E-1DA5-41A3-A018-F0AA78A317E2}
 		{CC63CDFE-AA06-4D3A-AD22-C6AA1FCC5E08} = {E30052DD-3EFB-4FD8-A399-A2599CEC8974}
 		{06A77F99-AE19-465D-827D-27A793FF4A15} = {F8F65871-E2B2-4389-98B7-F7D511126048}
+		{EFB1A31A-B2F5-5975-A507-7FB75333FF5B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{69B33F54-A5B0-AB29-2D47-6CA8F769F5E3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{02533781-23BF-127C-CCDE-75D99DA2032D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {326F6793-B282-4539-8298-FACE822E7925}

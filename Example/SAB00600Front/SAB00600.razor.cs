@@ -13,7 +13,13 @@ namespace SAB00600Front
     {
         private SAB00600ViewModel CustomerViewModel = new();
         private R_ConductorGrid _conGridCustomerRef;
+        private R_ConductorGrid _conGridCustomerRef2;
+        private R_ConductorGrid _conGridCustomerRef3;
+        private R_ConductorGrid _conGridCustomerRef4;
         private R_Grid<CustomerDTO> _gridRef;
+        private R_Grid<CustomerDTO> _gridRef2;
+        private R_Grid<CustomerDTO> _gridRef3;
+        private R_Grid<CustomerDTO> _gridRef4;
         private int _pageSize = 10;
 
         protected override async Task R_Init_From_Master(object poParameter)
@@ -25,6 +31,7 @@ namespace SAB00600Front
                 CustomerViewModel.GetGenders();
 
                 await _gridRef.R_RefreshGrid(null);
+                await _gridRef2.R_RefreshGrid(null);
 
                 //await _gridRef.AddAsync();
                 //await _gridRef.R_SelectCurrentDataAsync(CustomerViewModel.CustomerList.ElementAt(1));
@@ -379,12 +386,12 @@ namespace SAB00600Front
 
         private void R_CellRender(R_GridCellRenderEventArgs eventArgs)
         {
-            var lcCompanyName = eventArgs.Value as string;
+            //var lcCompanyName = eventArgs.Value as string;
 
-            if (lcCompanyName.Length < 5)
-            {
-                eventArgs.CellClass = "myCustomCellFormatting";
-            }
+            //if (lcCompanyName.Length < 5)
+            //{
+            //    eventArgs.CellClass = "myCustomCellFormatting";
+            //}
         }
     }
 }
