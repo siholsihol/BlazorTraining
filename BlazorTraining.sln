@@ -83,7 +83,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAB01500 - Navigator Naviga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAB01500Front", "Example\SAB01500Front\SAB01500Front.csproj", "{CC63CDFE-AA06-4D3A-AD22-C6AA1FCC5E08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTraining.Controls", "Controls\BlazorTraining.Controls\BlazorTraining.Controls.csproj", "{06A77F99-AE19-465D-827D-27A793FF4A15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTraining.Controls", "Controls\BlazorTraining.Controls\BlazorTraining.Controls.csproj", "{06A77F99-AE19-465D-827D-27A793FF4A15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{E95524EE-9A0A-4F22-8EAD-47B2E1ECF7C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
