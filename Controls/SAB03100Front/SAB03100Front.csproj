@@ -13,10 +13,11 @@
   <ItemGroup>
     <PackageReference Include="BlazorPrettyCode" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.1.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\..\Example\DataDummyProvider\DataDummyProvider.csproj" />
     <ProjectReference Include="..\BlazorTraining.Controls\BlazorTraining.Controls.csproj" />
   </ItemGroup>
@@ -24,9 +25,6 @@
   <ItemGroup>
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
-    </Reference>
-    <Reference Include="R_BlazorFrontEnd.Controls">
-      <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
   </ItemGroup>
 

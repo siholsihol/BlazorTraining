@@ -32,6 +32,27 @@ namespace SAB00700Front
             loEx.ThrowExceptionIfErrors();
         }
 
+        private void OnClickPrint()
+        {
+            Console.WriteLine("Priiinnnnnttt");
+        }
+
+        private void OnClickPrint2()
+        {
+            Console.WriteLine("Priiinnnnnttt2");
+        }
+
+        private void R_Before_Open_Print_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+        {
+            eventArgs.PageTitle = "Print Test";
+            eventArgs.TargetPageType = typeof(SAB00700);
+        }
+
+        private void R_After_Open_Print_Popup(R_AfterOpenPopupEventArgs eventArgs)
+        {
+            Console.WriteLine("Selesaiiii popup");
+        }
+
         //private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
 
         //protected override async Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)

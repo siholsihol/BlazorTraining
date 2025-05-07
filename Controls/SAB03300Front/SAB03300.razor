@@ -36,8 +36,16 @@
                                       HeaderText="Name"
                                       R_EnableAdd
                                       R_EnableEdit
-                                      MaxLength="5" Width="200px" />
+                                      MaxLength="5" Width="50px" 
+                                      Ellipsis/>
                 </R_GridMultiHeaderColumn>
+
+                <R_GridTextColumn FieldName="@nameof(ProductDTO.Name)"
+                                  HeaderText="Name"
+                                  R_EnableAdd
+                                  R_EnableEdit
+                                  MaxLength="5" Width="50px"
+                                  Ellipsis />
 
                 <R_GridNumericColumn FieldName="@nameof(ProductDTO.Price)"
                                      HeaderText="Price"

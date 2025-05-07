@@ -32,6 +32,8 @@ namespace BlazorMenu.Shared
         private List<DrawerMenuItem> _data = new();
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
+
+        private string Access = "A,P,V";
         private List<DrawerMenuItem> _filteredData
         {
             get
@@ -182,7 +184,7 @@ namespace BlazorMenu.Shared
         {
             try
             {
-                await TabSetTool.AddTab(text, id, "A,U,D,P,V");
+                await TabSetTool.AddTab(text, id, Access);
             }
             catch (Exception ex)
             {

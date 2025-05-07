@@ -71,12 +71,32 @@
     </R_StackLayout>
 
     <R_StackLayout Row Spacing="3" Class="mt-3">
-        <R_ItemLayout col="12">
+        <R_ItemLayout col="1">
             <R_AddButton R_Conductor="@_conductorRef" TabIndex="5" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
             <R_EditButton R_Conductor="@_conductorRef" TabIndex="6" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
             <R_DeleteButton R_Conductor="@_conductorRef" TabIndex="7" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
             <R_SaveButton R_Conductor="@_conductorRef" TabIndex="8" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
             <R_CancelButton R_Conductor="@_conductorRef" TabIndex="9" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_PrintButton R_Conductor="@_conductorRef" R_Print="@OnClickPrint" TabIndex="10" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_PrintButton R_Conductor="@_conductorRef" R_Print="@OnClickPrint2" TabIndex="11" />
+        </R_ItemLayout>
+        <R_ItemLayout auto="false">
+            <R_PrintButton R_Conductor="@_conductorRef" Enabled="true" R_PrintMode="R_ePrintMode.Popup" R_Before_Open_Print_Popup="@R_Before_Open_Print_Popup" R_After_Open_Print_Popup="@R_After_Open_Print_Popup" TabIndex="11" />
+        </R_ItemLayout>
+        <R_ItemLayout >
+            <R_Popup R_Before_Open_Popup="@R_Before_Open_Print_Popup" R_After_Open_Popup="@R_After_Open_Print_Popup" TabIndex="12" >Popup</R_Popup>
 
             @* <R_Button R_ConductorSource="@_conductorRef"
                       OnClick="@buttonOnClick" TabIndex="10">
