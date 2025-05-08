@@ -724,6 +724,9 @@ h6[b-21c0qposjk] {
     color: var(--falcon-body-color) !important;
     background-color: transparent !important;
 }
+.k-list-item.telerik-blazor:hover {
+    background: #b7c4d2;
+}
 
 
 /* Untuk Screen > 1400px */
