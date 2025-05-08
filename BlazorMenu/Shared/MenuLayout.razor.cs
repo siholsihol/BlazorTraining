@@ -108,6 +108,7 @@ namespace BlazorMenu.Shared
                 }).ToList();
 
                 _userId = "TR";
+
             }
             catch (Exception)
             {
@@ -129,6 +130,7 @@ namespace BlazorMenu.Shared
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.overrideDefaultKey", DotNetReference);
 
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.attachFocusHandler", DotNetReference, _autoCompleteId);
+                OpenComponent();
             }
         }
 

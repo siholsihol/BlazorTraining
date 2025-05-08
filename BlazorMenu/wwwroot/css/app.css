@@ -719,5 +719,11 @@ h6[b-21c0qposjk] {
 }
 
 
+/* Search Box Dropdown */
+.k-list.k-list-md {
+    color: var(--falcon-body-color) !important;
+    background-color: transparent !important;
+}
+
 
 /* Untuk Screen > 1400px */
