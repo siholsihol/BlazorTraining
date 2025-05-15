@@ -130,7 +130,7 @@ namespace BlazorMenu.Shared
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.overrideDefaultKey", DotNetReference);
 
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.attachFocusHandler", DotNetReference, _autoCompleteId);
-                //OpenComponent();
+                // OpenComponent();
             }
         }
 

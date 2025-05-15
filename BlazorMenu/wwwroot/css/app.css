@@ -247,7 +247,8 @@ ul ul li.nav-item a.nav-link span {
 }
 
 .k-input-solid {
-    border-color: var(--falcon-input-border-color) !important;
+    border-color: var(--falcon-400) !important;
+/*    border-color: var(--falcon-input-border-color) !important;*/
     background-color: var(--falcon-input-bg) !important;
     color: var(--falcon-input-color) !important;
 }
