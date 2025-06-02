@@ -580,6 +580,10 @@ ul ul li.nav-item a.nav-link span {
     background-color: transparent !important;
     border-color: transparent !important;
     border-bottom-color: var(--falcon-primary) !important;
+    border-bottom-width: 4px !important;
+}
+.xtabs-item .xtabs-link.active {
+    border-bottom-width: 4px !important;
 }
 
 button.close[b-21c0qposjk] {
@@ -730,4 +734,9 @@ h6[b-21c0qposjk] {
 }
 
 
-/* Untuk Screen > 1400px */
+/* Untuk Program Gridview Batch */
+.k-grouping-row, .k-group-cell {
+    border-color: #dee2e6;
+    color: #212529;
+    background-color: transparent !important;
+}
