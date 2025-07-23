@@ -4,6 +4,50 @@
 @using R_BlazorFrontEnd.Controls.Events
 
 <R_StackLayout>
+    <R_ItemLayout col="3">
+        <R_TextBox @bind-Value="@Textbox1" OnLostFocus="TextboxValue_Changed"></R_TextBox>
+        <R_TextBox @bind-Value="@Textbox2" Enabled="@Textbox2Enabled"></R_TextBox>
+    </R_ItemLayout>
+
+    @* <R_BatchEditGrid @ref="@_gridRef2"
+                 DataSource="@CustomerViewModel2.CustomerList"
+                 R_ConductorGridSource="@_conGridCustomerRef2"
+                 Pageable
+                 Height="300px"
+                 R_BeforeEditCell="@R_BeforeEditCell"
+                 R_ServiceGetListRecord="@R_ServiceGetListRecord"
+                 R_BulkDelete="@R_BulkDelete"
+                 R_CheckBoxSelectValueChanged="@R_CheckBoxSelectValueChanged"
+                 AllowBulkDelete
+                 AllowAddNewRow
+                 AllowEditRow
+                 AllowDeleteRow>
+        <R_GridColumns>
+            <R_GridCheckBoxSelectColumn FieldName="@nameof(CustomerDTO.Selected)" ShowSelectAllHeader Width="80px" />
+            <R_GridComboBoxColumn Data=@CustomerViewModel2.Genders
+                                  ValueField="@nameof(GenderDTO.Id)"
+                                  TextField="@nameof(GenderDTO.Name)"
+                                  FieldName="@nameof(CustomerDTO.GenderId)"
+                                  HeaderText="Gender Id"
+                                  Width="200px" />
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
+                              HeaderText="Customer Id"
+                              Width="100px" />
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
+                              HeaderText="Company Name"
+                              Width="400px"
+                              PrefixText="@_prefixText"
+                              SuffixText="@_suffixText"
+                              />
+
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
+                              HeaderText="Contact Name"
+                              Visible="@_isContactNameColumnVisible"
+                              Width="400px"
+                              />
+        </R_GridColumns>
+    </R_BatchEditGrid> *@
+
     <R_Grid DataSource="@CustomerViewModel.CustomerList"
             @ref="@_gridRef"
             Pageable
@@ -38,9 +82,19 @@
             R_DisableDeleteConfirmation="false"
             R_DisableCancelConfirmation
             R_SetAddGridColumn="@R_SetAddGridColumn"
-            R_SetEditGridColumn="@R_SetEditGridColumn" 
+            R_SetEditGridColumn="@R_SetEditGridColumn"
+            R_CheckBoxSelectValueChanged="@R_CheckBoxSelectValueChanged"
             R_RowRender="@R_RowRender">
         <R_GridColumns>
+            <R_GridCheckBoxSelectColumn FieldName="@nameof(CustomerDTO.Selected)" ShowSelectAllHeader Width="80px" />
+            <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+                                  ValueField="@nameof(GenderDTO.Id)"
+                                  TextField="@nameof(GenderDTO.Name)"
+                                  FieldName="@nameof(CustomerDTO.GenderId)"
+                                  HeaderText="Gender Id"
+                                  Enabled="@_checkBoxValue"
+                                  R_CellRender="@R_CellRender"
+                                  Width="200px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
                               R_EnableAdd
@@ -54,13 +108,7 @@
                               SuffixText="@_suffixText"
                               R_CellRender="@R_CellRender"
                               Ellipsis />
-            <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
-                                  ValueField="@nameof(GenderDTO.Id)"
-                                  TextField="@nameof(GenderDTO.Name)"
-                                  FieldName="@nameof(CustomerDTO.GenderId)"
-                                  HeaderText="Gender Id"
-                                  Enabled="@_checkBoxValue"
-                                  Width="200px" />
+
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
                               R_EnableAdd="@_checkBoxValue"
@@ -92,6 +140,11 @@
     </R_StackLayout>
 
     <R_StackLayout Row>
+        <R_TextBox @bind-Value="@NewAccess"></R_TextBox>
+        <R_Button OnClick="@ChangeAccess">Change Access</R_Button>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
         @if (_isAddNewRowVisible)
         {
             <R_Button OnClick="@OnClick">Save</R_Button>
@@ -100,11 +153,16 @@
         {
             <R_Button OnClick="@OnClick">Update</R_Button>
         }
+
+        <R_Popup R_Before_Open_Popup="R_Before_Open_Popup" R_After_Open_Popup="R_After_Open_Popup">Popup</R_Popup>
     </R_StackLayout>
+
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"
                  R_IsHeader />
+<R_ConductorGrid @ref="@_conGridCustomerRef2"
+                 R_ConductorParent="_conGridCustomerRef" />
 
 <style>
     .k-grid .k-master-row.myCustomRowFormatting:hover {

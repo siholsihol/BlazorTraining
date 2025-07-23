@@ -1,10 +1,12 @@
 ﻿using DataDummyProvider.DTOs;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Extensions;
 using R_CommonFrontBackAPI;
 
 namespace SAB00600Front
@@ -12,22 +14,46 @@ namespace SAB00600Front
     public partial class SAB00600 : R_Page
     {
         private SAB00600ViewModel CustomerViewModel = new();
+        private SAB00600ViewModel CustomerViewModel2 = new();
         private R_ConductorGrid _conGridCustomerRef;
+        private R_ConductorGrid _conGridCustomerRef2;
         private R_Grid<CustomerDTO> _gridRef;
-        private int _pageSize = 10;
+        //private R_BatchEditGrid<CustomerDTO> _gridRef2;
 
+        private int _pageSize = 11;
+
+        private string NewAccess = "V";
+
+        private string Textbox1 = "";
+        private string Textbox2 = "";
+        private bool Textbox2Enabled = true;
+
+        private async Task TextboxValue_Changed()
+        {
+            await Task.Delay(3000);
+
+            if (Textbox1 == "RCD") Textbox2Enabled = false;
+            else Textbox2Enabled = true;
+
+            StateHasChanged();
+        }
         protected override async Task R_Init_From_Master(object poParameter)
         {
+            Console.WriteLine($"[DEBUG]Start {nameof(R_Init_From_Master)}");
+
             var loEx = new R_Exception();
 
             try
             {
                 CustomerViewModel.GetGenders();
+                CustomerViewModel2.GetGenders();
 
                 await _gridRef.R_RefreshGrid(null);
+                //await _gridRef2.R_RefreshGrid(null);
 
                 //await _gridRef.AddAsync();
                 //await _gridRef.R_SelectCurrentDataAsync(CustomerViewModel.CustomerList.ElementAt(1));
+                NewAccess = string.Join(",", this.R_FormAccess.Select(x => x.ToDescription()));
             }
             catch (Exception ex)
             {
@@ -36,6 +62,17 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
+        private void ChangeAccess()
+        {
+            _conGridCustomerRef.R_SetMeAndChildAccess(
+                   NewAccess.Split(",")
+                            .Select(x => Enum.TryParse<R_eFormAccess>(x, out var result) ? result : default)
+                            .Where(x => !x.Equals(default(R_eFormAccess))) // optional: skip default
+                            .ToArray()
+           );
+        }
+
 
         private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
 
@@ -104,6 +141,44 @@ namespace SAB00600Front
                 CustomerViewModel.GetCustomerList();
 
                 eventArgs.ListEntityResult = CustomerViewModel.CustomerList;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        private void R_CheckBoxSelectValueChanged(R_CheckBoxSelectValueChangedEventArgs eventArgs)
+        {
+            eventArgs.Enabled = true;
+        }
+
+        //private void R_BulkDelete(R_BulkDeleteEventArgs<CustomerDTO> eventArgs)
+        //{
+        //    var loEx = new R_Exception();
+        //    try
+        //    {
+        //        eventArgs.Data = CustomerViewModel2.CustomerList.Where(x => x.Selected).ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        loEx.Add(ex);
+        //    }
+
+        //    loEx.ThrowExceptionIfErrors();
+        //}
+
+        private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                CustomerViewModel2.GetCustomerList();
+
+                eventArgs.ListEntityResult = CustomerViewModel2.CustomerList;
             }
             catch (Exception ex)
             {
@@ -268,6 +343,11 @@ namespace SAB00600Front
         {
             //TODO Validation
             //eventArgs.Allow = false;
+            var Data = (CustomerDTO)eventArgs.Data;
+            if (Data.CompanyName.Contains("LLC"))
+            {
+                eventArgs.Allow = false;
+            }
         }
 
         private void R_CheckDelete(R_CheckDeleteEventArgs eventArgs)
@@ -317,7 +397,13 @@ namespace SAB00600Front
             //}
         }
         #endregion
-
+        //private void R_BeforeEditCell(R_BeforeEditCellEventArgs eventArgs)
+        //{
+        //    if (eventArgs.ColumnName == nameof(CustomerDTO.GenderId))
+        //    {
+        //        eventArgs.Cancel = true;
+        //    }
+        //}
         private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
         {
             var loData = (CustomerDTO)eventArgs.Data;
@@ -379,12 +465,17 @@ namespace SAB00600Front
 
         private void R_CellRender(R_GridCellRenderEventArgs eventArgs)
         {
-            var lcCompanyName = eventArgs.Value as string;
+            eventArgs.CellClass = "myCustomCellFormatting";
+        }
+        private async Task R_Before_Open_Popup(R_BeforeOpenPopupEventArgs args)
+        {
+            args.TargetPageType = typeof(SAB00600);
 
-            if (lcCompanyName.Length < 5)
-            {
-                eventArgs.CellClass = "myCustomCellFormatting";
-            }
+            await Task.CompletedTask;
+        }
+        private async Task R_After_Open_Popup(R_AfterOpenPopupEventArgs args)
+        {
+            await Task.CompletedTask;
         }
     }
 }

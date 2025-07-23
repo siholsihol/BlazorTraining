@@ -136,9 +136,10 @@ namespace SAB01000Front
 
         private void R_CheckBoxSelectValueChanged(R_CheckBoxSelectValueChangedEventArgs eventArgs)
         {
-            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
+            //var loData = (SelectedProductDTO)eventArgs.CurrentRow;
 
-            eventArgs.Enabled = !IsIdBelow5000(loData);
+            //eventArgs.Enabled = !IsIdBelow5000(loData);
+            eventArgs.Enabled = true;
         }
 
         private void R_CellLostFocused(R_CellLostFocusedEventArgs eventArgs)
@@ -174,7 +175,12 @@ namespace SAB01000Front
             {
                 new R_GridGroupDescriptor
                 {
-                    FieldName = "CategoryId"
+                    FieldName = nameof(SelectedProductDTO.CategoryId)
+                },
+
+                new R_GridGroupDescriptor
+                {
+                    FieldName = nameof(SelectedProductDTO.SupplierId)
                 }
             };
 

@@ -5,10 +5,17 @@
 
 <R_GroupBox Title="R_TextEditor">
     <R_TextEditor @ref="@_textEditorRef"
-    @bind-Value="@_editorValue"
-    Height="200px" 
-    Width="100px"
-    R_TextEditorToolMode="@R_eTextEditorToolMode.None" />
+                  @bind-Value="@_editorValue"
+                  Height="200px"
+                  Width="100px"
+                  R_TextEditorToolMode="@R_eTextEditorToolMode.None" />
+
+    <R_TextEditor @ref="@_textEditorRef2"
+                  @bind-Value="@_editorValue"
+                  Height="200px"
+                  Width="100px"
+                  R_TextEditorToolMode="@R_eTextEditorToolMode.Basic" />
+
 
     <R_ItemLayout col="2">
         <R_Button OnClick="@OnClickSave" EnableLoaderContainer>Save Document</R_Button>
@@ -29,6 +36,7 @@
 @code {
     private string _editorValue { get; set; }
     private R_TextEditor _textEditorRef { get; set; }
+    private R_TextEditor _textEditorRef2 { get; set; }
     private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
     private bool _inputFileEnabled { get; set; } = false;
 

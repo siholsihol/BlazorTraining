@@ -1,10 +1,202 @@
-﻿<R_GroupBox Title="R_NumericTextBox">
+﻿@using R_BlazorFrontEnd
+@using R_BlazorFrontEnd.Controls.DataControls
+
+<R_TextEditor @bind-Value="_textEditorValue" />
+<R_TextEditor @bind-Value="_textEditorValue" Enabled="false" />
+<R_StackLayout Row>
+    <R_CheckBox @bind-Value="@_checkboxValue" /> 
+    <R_Label>Enable / Disable GroupBox</R_Label>
+</R_StackLayout>
+
+<R_GroupBox Title="R_NumericTextBox" Enabled="@_checkboxValue" Class="p-4">
     <R_ItemLayout xs="4">
         <R_NumericTextBox @bind-Value=@_decimalValue />
     </R_ItemLayout>
+
+    <R_RadioGroup Data="@_radioData"
+        TextField="@nameof(RadioDTO.name)"
+        ValueField="@nameof(RadioDTO.code)"
+        @bind-Value="@_radioValue"
+        Layout="@R_eRadioGroupLayout.Horizontal"
+        LabelPosition="@R_eRadioGroupLabelPosition.After"
+    />
+    <R_StackLayout Row>
+        <R_Label>First</R_Label>
+        <R_TextBox Enabled=@(_radioValue is RadioEnum.F) />
+        <R_Lookup Enabled=@(_radioValue is RadioEnum.F) R_Before_Open_Lookup="@(() => Console.WriteLine("Before"))" R_After_Open_Lookup="@(() => Console.WriteLine("After"))">...</R_Lookup>
+        <R_TextBox Enabled=@(false) />
+    </R_StackLayout>
+    <R_StackLayout Row>
+        <R_Label>Second</R_Label>
+        <R_TextBox Enabled=@(_radioValue is RadioEnum.S) />
+        <R_Lookup Enabled=@(_radioValue is RadioEnum.S) R_Before_Open_Lookup="@(() => Console.WriteLine("Before"))" R_After_Open_Lookup="@(() => Console.WriteLine("After"))">...</R_Lookup>
+        <R_TextBox Enabled=@(false) />
+    </R_StackLayout>
+    <R_StackLayout Row>
+        <R_Label>Third</R_Label>
+        <R_TextBox Enabled=@(_radioValue is RadioEnum.T) />
+        <R_Lookup Enabled=@(_radioValue is RadioEnum.T) R_Before_Open_Lookup="@(() => Console.WriteLine("Before"))" R_After_Open_Lookup="@(() => Console.WriteLine("After"))">...</R_Lookup>
+        <R_TextBox Enabled=@(false) />
+    </R_StackLayout>
+    <R_TextEditor @bind-Value="_textEditorValue" />
+    <R_TextEditor @bind-Value="_textEditorValue" Enabled="false" />
+    <R_Button>R_Button</R_Button>
+    <R_Button Enabled="false">R_Button</R_Button>
+    <R_CheckBox/>
+    <R_CheckBox Enabled="false"/>
+    <R_ComboBox Data="_radioData"
+        TextField="@nameof(RadioDTO.name)"
+        ValueField="@nameof(RadioDTO.code)"
+        @bind-Value="@_radioValue"
+        >
+    </R_ComboBox>
+    <R_ComboBox Data="_radioData"
+        TextField="@nameof(RadioDTO.name)"
+        ValueField="@nameof(RadioDTO.code)"
+        Enabled="false"
+        @bind-Value="@_radioValue">
+    </R_ComboBox>
+    <R_DateInput @bind-Value=@_dateTimeValue />
+    <R_DateInput @bind-Value=@_dateTimeValue Enabled="false" />
+    <R_DatePicker @bind-Value=@_dateTimeValue />
+    <R_DatePicker @bind-Value=@_dateTimeValue Enabled="false" />
+    <R_DateTimePicker @bind-Value=@_dateTimeValue />
+    <R_DateTimePicker @bind-Value=@_dateTimeValue Enabled="false" />
+    <R_DropDownList Data="_radioData"
+        TextField="@nameof(RadioDTO.name)"
+        ValueField="@nameof(RadioDTO.code)"
+        @bind-Value="@_radioValue">
+    </R_DropDownList>
+    <R_DropDownList Data="_radioData"
+        TextField="@nameof(RadioDTO.name)"
+        ValueField="@nameof(RadioDTO.code)"
+        Enabled="false"
+        @bind-Value="@_radioValue">
+    </R_DropDownList>
+    <R_ImageBox @bind-Value="@_imageSourceByte"
+        MaxWidth="200px"
+        MaxHeight="200px"
+        ImageBoxType="R_eImageBoxType.Zoom" />
+    <R_TextArea @bind-Value="_textEditorValue" />
+    <R_TextArea @bind-Value="_textEditorValue" Enabled="false" />
+    <R_TextBox @bind-Value="_textEditorValue" />
+    <R_TextBox @bind-Value="_textEditorValue" Enabled="false" />
+    <R_TimePicker @bind-Value=@_dateTimeValue />
+    <R_TimePicker @bind-Value=@_dateTimeValue Enabled="false" />
+
+    <R_StackLayout Row>
+        <R_CheckBox @bind-Value="@_checkboxValue2" />
+        <R_Label>Enable / Disable GroupBox</R_Label>
+    </R_StackLayout>
+    <R_GroupBox Title="R_NumericTextBox" Enabled="@_checkboxValue2" Class="p-4">
+        <R_ItemLayout xs="4">
+            <R_NumericTextBox @bind-Value=@_decimalValue />
+        </R_ItemLayout>
+
+        <R_RadioGroup Data="@_radioData"
+                      TextField="@nameof(RadioDTO.name)"
+                      ValueField="@nameof(RadioDTO.code)"
+                      @bind-Value="@_radioValue"
+                      Layout="@R_eRadioGroupLayout.Horizontal"
+                      LabelPosition="@R_eRadioGroupLabelPosition.After" />
+        <R_StackLayout Row>
+            <R_Label>First</R_Label>
+            <R_TextBox Enabled=@(_radioValue is RadioEnum.F) />
+            <R_Lookup Enabled=@(_radioValue is RadioEnum.F) R_Before_Open_Lookup="@(() => Console.WriteLine("Before"))" R_After_Open_Lookup="@(() => Console.WriteLine("After"))">...</R_Lookup>
+            <R_TextBox Enabled=@(false) />
+        </R_StackLayout>
+        <R_StackLayout Row>
+            <R_Label>Second</R_Label>
+            <R_TextBox Enabled=@(_radioValue is RadioEnum.S) />
+            <R_Lookup Enabled=@(_radioValue is RadioEnum.S) R_Before_Open_Lookup="@(() => Console.WriteLine("Before"))" R_After_Open_Lookup="@(() => Console.WriteLine("After"))">...</R_Lookup>
+            <R_TextBox Enabled=@(false) />
+        </R_StackLayout>
+        <R_StackLayout Row>
+            <R_Label>Third</R_Label>
+            <R_TextBox Enabled=@(_radioValue is RadioEnum.T) />
+            <R_Lookup Enabled=@(_radioValue is RadioEnum.T) R_Before_Open_Lookup="@(() => Console.WriteLine("Before"))" R_After_Open_Lookup="@(() => Console.WriteLine("After"))">...</R_Lookup>
+            <R_TextBox Enabled=@(false) />
+        </R_StackLayout>
+        <R_TextEditor @bind-Value="_textEditorValue" />
+        <R_TextEditor @bind-Value="_textEditorValue" Enabled="false" />
+        <R_Button>R_Button</R_Button>
+        <R_Button Enabled="false">R_Button</R_Button>
+        <R_CheckBox />
+        <R_CheckBox Enabled="false" />
+        <R_ComboBox Data="_radioData"
+                    TextField="@nameof(RadioDTO.name)"
+                    ValueField="@nameof(RadioDTO.code)"
+                    @bind-Value="@_radioValue">
+        </R_ComboBox>
+        <R_ComboBox Data="_radioData"
+                    TextField="@nameof(RadioDTO.name)"
+                    ValueField="@nameof(RadioDTO.code)"
+                    Enabled="false"
+                    @bind-Value="@_radioValue">
+        </R_ComboBox>
+        <R_DateInput @bind-Value=@_dateTimeValue />
+        <R_DateInput @bind-Value=@_dateTimeValue Enabled="false" />
+        <R_DatePicker @bind-Value=@_dateTimeValue />
+        <R_DatePicker @bind-Value=@_dateTimeValue Enabled="false" />
+        <R_DateTimePicker @bind-Value=@_dateTimeValue />
+        <R_DateTimePicker @bind-Value=@_dateTimeValue Enabled="false" />
+        <R_DropDownList Data="_radioData"
+                        TextField="@nameof(RadioDTO.name)"
+                        ValueField="@nameof(RadioDTO.code)"
+                        @bind-Value="@_radioValue">
+        </R_DropDownList>
+        <R_DropDownList Data="_radioData"
+                        TextField="@nameof(RadioDTO.name)"
+                        ValueField="@nameof(RadioDTO.code)"
+                        Enabled="false"
+                        @bind-Value="@_radioValue">
+        </R_DropDownList>
+        <R_ImageBox @bind-Value="@_imageSourceByte"
+                    MaxWidth="200px"
+                    MaxHeight="200px"
+                    ImageBoxType="R_eImageBoxType.Zoom" />
+        <R_TextArea @bind-Value="_textEditorValue" />
+        <R_TextArea @bind-Value="_textEditorValue" Enabled="false" />
+        <R_TextBox @bind-Value="_textEditorValue" />
+        <R_TextBox @bind-Value="_textEditorValue" Enabled="false" />
+        <R_TimePicker @bind-Value=@_dateTimeValue />
+        <R_TimePicker @bind-Value=@_dateTimeValue Enabled="false" />
+    </R_GroupBox>
 </R_GroupBox>
 
+<R_Conductor @ref="_conductorRef" R_ViewModel="_viewModel" R_IsHeader />
+
 @code {
+    private ViewModel _viewModel = new();
+    private R_Conductor _conductorRef = null;
+    private byte[] _imageSourceByte = null;
+    private DateTime _dateTimeValue = DateTime.MinValue;
     private decimal _decimalValue = -143232323.56m;
+    private string _textEditorValue = "Text Editor";
     private int _intValue = 1234;
+    private bool _checkboxValue = false;
+    private bool _checkboxValue2 = false;
+    private RadioEnum _radioValue = RadioEnum.F;
+
+    private List<RadioDTO> _radioData = new List<RadioDTO>()
+    {
+        new RadioDTO {name = "First", code = RadioEnum.F},
+        new RadioDTO {name = "Second", code = RadioEnum.S},
+        new RadioDTO {name = "Third", code = RadioEnum.T},
+    };
+
+    public class RadioDTO
+    {
+        public string name { get; set; }
+        public RadioEnum code { get; set; }
+    }
+
+    public enum RadioEnum
+    {
+        F, S, T
+    }
+
+    public class ViewModel : R_ViewModel<RadioDTO>
+    {
+    }
 }

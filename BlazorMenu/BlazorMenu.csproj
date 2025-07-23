@@ -12,11 +12,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.14" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.14" PrivateAssets="all" />
-    <PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="1.0.5-alpha" />
+    <PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="1.0.6-alpha" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
+    <ProjectReference Include="..\..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd\R_BlazorFrontEnd.csproj" />
     <ProjectReference Include="..\Controls\SAB03000Front\SAB03000Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03100Front\SAB03100Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
@@ -57,9 +58,6 @@
     </Reference>
     <Reference Include="R_AuthenticationFront">
       <HintPath>..\Dll\Dll Front\R_AuthenticationFront.dll</HintPath>
-    </Reference>
-    <Reference Include="R_BlazorFrontEnd">
-      <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Authentication">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Authentication.dll</HintPath>

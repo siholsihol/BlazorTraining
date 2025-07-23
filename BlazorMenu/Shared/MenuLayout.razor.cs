@@ -33,7 +33,7 @@ namespace BlazorMenu.Shared
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
 
-        private string Access = "A,P,V";
+        private string Access = "A,U,D,P,V";
         private List<DrawerMenuItem> _filteredData
         {
             get

@@ -1,5 +1,4 @@
-﻿@using R_BlazorFrontEnd.Controls.Controls.Stepper
-@using R_BlazorFrontEnd.Controls.DataControls
+﻿@using R_BlazorFrontEnd.Controls.DataControls
 @inherits R_Page
 
 <R_Label>R_FormAccess: @(this.R_FormAccess.Length)</R_Label>
@@ -12,43 +11,35 @@
 <R_Stepper @ref="@Stepper"
 OnFinish="@OnFinish" 
 UseDefaultButton="false">
-    <R_Step Label="Unit Info">
-        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage1"/>
+     <R_Step Label="Unit Info"> 
+         <R_StackLayout Row> 
+             <R_Button>Cancel</R_Button> 
+             <R_Button OnClick="@OnClickNext">Next</R_Button> 
+         </R_StackLayout> 
+     </R_Step> 
 
-        <R_StackLayout Row>
-            <R_Button>Cancel</R_Button>
-            <R_Button OnClick="@OnClickNext">Next</R_Button>
-        </R_StackLayout>
-    </R_Step>
+     <R_Step Label="Billing Rule"> 
+         <R_StackLayout Row> 
+             <R_Button OnClick="@OnClickBack" @ref="@buttonRef">Back</R_Button> 
+             <R_Button>Cancel</R_Button> 
+             <R_Button OnClick="@OnClickNext">Next</R_Button> 
+         </R_StackLayout> 
+     </R_Step> 
 
-    <R_Step Label="Billing Rule">
-        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage2" />
+     <R_Step Label="Billing Schedule"> 
+         <R_StackLayout Row> 
+             <R_Button OnClick="@OnClickBack">Back</R_Button> 
+             <R_Button>Cancel</R_Button> 
+             <R_Button OnClick="@OnClickNext">Next</R_Button> 
+         </R_StackLayout> 
+     </R_Step> 
 
-        <R_StackLayout Row>
-            <R_Button OnClick="@OnClickBack" @ref="@buttonRef">Back</R_Button>
-            <R_Button>Cancel</R_Button>
-            <R_Button OnClick="@OnClickNext">Next</R_Button>
-        </R_StackLayout>
-    </R_Step>
-
-    <R_Step Label="Billing Schedule">
-        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage3" />
-
-        <R_StackLayout Row>
-            <R_Button OnClick="@OnClickBack">Back</R_Button>
-            <R_Button>Cancel</R_Button>
-            <R_Button OnClick="@OnClickNext">Next</R_Button>
-        </R_StackLayout>
-    </R_Step>
-
-    <R_Step Label="Document">
-        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage4" />
-
-        <R_StackLayout Row>
-            <R_Button OnClick="@OnClickBack">Back</R_Button>
-            <R_Button OnClick="@OnClickDone">Done</R_Button>
-        </R_StackLayout>
-    </R_Step>
+     <R_Step Label="Document"> 
+         <R_StackLayout Row> 
+             <R_Button OnClick="@OnClickBack">Back</R_Button> 
+             <R_Button OnClick="@OnClickDone">Done</R_Button> 
+         </R_StackLayout> 
+     </R_Step> 
 </R_Stepper>
 
 <R_AddButton R_Conductor="@_conductorRef"/>
@@ -105,27 +96,27 @@ R_IsHeader />
         eventArgs.TargetPageType = typeof(StepperMain);
     }
 
-    private void R_Before_Open_StepPage1(R_BeforeOpenStepPageEventArgs eventArgs)
-    {
-        eventArgs.Parameter = _viewModel;
-        eventArgs.TargetPageType = typeof(StepPage1);
-    }
+    // private void R_Before_Open_StepPage1(R_BeforeOpenStepPageEventArgs eventArgs)
+    // {
+    //     eventArgs.Parameter = _viewModel;
+    //     eventArgs.TargetPageType = typeof(StepPage1);
+    // }
 
-    private void R_Before_Open_StepPage2(R_BeforeOpenStepPageEventArgs eventArgs)
-    {
-        eventArgs.Parameter = _viewModel;
-        eventArgs.TargetPageType = typeof(StepPage2);
-    }
+    // private void R_Before_Open_StepPage2(R_BeforeOpenStepPageEventArgs eventArgs)
+    // {
+    //     eventArgs.Parameter = _viewModel;
+    //     eventArgs.TargetPageType = typeof(StepPage2);
+    // }
 
-    private void R_Before_Open_StepPage3(R_BeforeOpenStepPageEventArgs eventArgs)
-    {
-        eventArgs.Parameter = _viewModel;
-        eventArgs.TargetPageType = typeof(StepPage3);
-    }
+    // private void R_Before_Open_StepPage3(R_BeforeOpenStepPageEventArgs eventArgs)
+    // {
+    //     eventArgs.Parameter = _viewModel;
+    //     eventArgs.TargetPageType = typeof(StepPage3);
+    // }
 
-    private void R_Before_Open_StepPage4(R_BeforeOpenStepPageEventArgs eventArgs)
-    {
-        eventArgs.Parameter = _viewModel;
-        eventArgs.TargetPageType = typeof(StepPage4);
-    }
+    // private void R_Before_Open_StepPage4(R_BeforeOpenStepPageEventArgs eventArgs)
+    // {
+    //     eventArgs.Parameter = _viewModel;
+    //     eventArgs.TargetPageType = typeof(StepPage4);
+    // }
 }

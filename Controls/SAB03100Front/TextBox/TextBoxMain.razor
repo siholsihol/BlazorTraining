@@ -1,4 +1,103 @@
-﻿@inherits R_Page
+﻿@using R_BlazorFrontEnd.Controls.DataControls
+@inherits R_Page
+
+
+<R_TextBox @bind-Value="@_viewModel.Data.Id"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.Id)"
+ShowValidation/>
+
+<R_TextBox @bind-Value="@_viewModel.Data.FirstName"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.FirstName)"
+ShowValidation />
+
+<R_TextArea @bind-Value="@_viewModel.Data.FirstName"
+Height="100px"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.FirstName)"
+ShowValidation />
+
+<R_NumericTextBox @bind-Value="@_viewModel.Data.Age"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.Age)"
+ShowValidation />
+
+<R_DateInput @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_DatePicker @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_DateTimePicker @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_TimePicker @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_AddButton R_Conductor="@_conductorRef" />
+<R_EditButton R_Conductor="@_conductorRef"/>
+<R_SaveButton R_Conductor="@_conductorRef" />
+<R_CancelButton R_Conductor="@_conductorRef" />
+
+<R_Conductor @ref="@_conductorRef"
+R_IsHeader
+R_ViewModel="@_viewModel"
+R_ServiceGetRecord="@GetRecord"
+R_Validation="@Validating" />
+
+@code{
+    private R_Conductor _conductorRef { get; set; }
+    private TextBoxViewModel _viewModel { get; set; } = new TextBoxViewModel();
+
+    protected override async Task R_Init_From_Master(object parameter)
+    {
+        await _conductorRef.R_GetEntity(null);
+    }
+
+    private void Validating (R_ValidationEventArgs eventArgs )
+    {
+        TextBoxDTO Data = R_FrontUtility.ConvertObjectToObject<TextBoxDTO>(eventArgs.Data);
+
+        if (string.IsNullOrWhiteSpace(Data.Id))
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.Id), "Id cannot be null or empty!");
+        }
+
+        if (string.IsNullOrWhiteSpace(Data.FirstName))
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.FirstName), "FirstName cannot be null or empty!");
+        }
+
+        if (Data.Age < 5)
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.Age), "Age cannot be below 5!");
+        }
+
+        if (Data.DateOfBirth < DateTime.Now)
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.DateOfBirth), "DateOfBirth cannot be before today!");
+        }
+
+        if (!_viewModel.HasValidationMessage())
+        {
+            eventArgs.Cancel = true;
+        }
+    }
+
+    private void GetRecord (R_ServiceGetRecordEventArgs eventArgs)
+    {
+        eventArgs.Result = _viewModel.GetData();
+    }
+}
 
 <h1>Realta Blazor Textbox</h1>
 <div class="lead mb-3">

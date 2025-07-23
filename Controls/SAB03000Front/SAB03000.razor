@@ -1,4 +1,5 @@
 ﻿@page "/SAB03000"
+@using R_BlazorFrontEnd.Controls.DataControls
 @inherits R_Page
 
 <R_TabStrip @ref="@tabStripRef"
@@ -17,6 +18,8 @@
     </R_TabStripTab>
 </R_TabStrip>
 
+<R_TextBox @bind-Value="@sAB03000ViewModel.Data.Name"/>
+
 <R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
 <R_Button OnClick="@OnClickPredefined">Enable Disable Predefined</R_Button>
 
@@ -24,9 +27,27 @@
                   Title="Tab Page"
                   Enabled="@predefinedEnabled" />
 
+<R_AddButton R_Conductor="@_conductorRef" />
+<R_EditButton R_Conductor="@_conductorRef" />
+<R_DeleteButton R_Conductor="@_conductorRef" />
+<R_SaveButton R_Conductor="@_conductorRef" />
+<R_CancelButton R_Conductor="@_conductorRef" />
+<R_PrintButton R_Conductor="@_conductorRef" />
+
+<R_Conductor @ref="@_conductorRef" R_IsHeader R_ViewModel="@sAB03000ViewModel" R_ServiceGetRecord="@GetRecord" R_Display="@R_Display" />
+
 @code{
     private R_TabStrip tabStripRef;
     private bool predefinedEnabled = true;
+
+    private R_Conductor _conductorRef;
+    private SAB03000ViewModel sAB03000ViewModel = new SAB03000ViewModel();
+
+    protected override async Task R_Init_From_Master(object poParameter)
+    {
+        await _conductorRef.R_GetEntity(null);
+        await base.R_Init_From_Master(poParameter);
+    }
 
     private void OnActiveTabIndexChanging(R_TabStripActiveTabIndexChangingEventArgs eventArgs)
     {
@@ -52,5 +73,17 @@
     private void OnClickPredefined()
     {
         predefinedEnabled = !predefinedEnabled;
+    }
+
+    private void GetRecord(R_ServiceGetRecordEventArgs eventArgs)
+    {
+        sAB03000ViewModel.GetData();
+        eventArgs.Result = sAB03000ViewModel.dto;
+    }
+
+
+    private void R_Display(R_DisplayEventArgs eventArgs)
+    {
+
     }
 }
