@@ -90,18 +90,21 @@ namespace BlazorMenu.Shared
                 _data = menuIds.Select(id => new DrawerMenuItem
                 {
                     Id = id,
-                    Text = _menuList.FirstOrDefault(x => x.CMENU_ID == id).CMENU_NAME,
+                    Text = _menuList.FirstOrDefault(x => x.CMENU_ID == id)?.CMENU_NAME ?? string.Empty,
                     Level = 0,
+                    ProgramButton = _menuList.FirstOrDefault(x => x.CMENU_ID == id)?.CPROGRAM_BUTTON ?? string.Empty,
                     Children = _menuList.Where(x => x.CSUB_MENU_TYPE == "G" && x.CMENU_ID == id).Select(y => new DrawerMenuItem
                     {
                         Id = y.CSUB_MENU_ID,
                         Text = y.CSUB_MENU_NAME,
                         Level = 1,
+                        ProgramButton = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == y.CSUB_MENU_ID)?.CPROGRAM_BUTTON ?? string.Empty,
                         Children = _menuList.Where(z => z.CSUB_MENU_TYPE == "P" && z.CPARENT_SUB_MENU_ID == y.CSUB_MENU_ID && z.CMENU_ID == id).Select(yy => new DrawerMenuItem
                         {
                             Id = yy.CSUB_MENU_ID,
                             Text = yy.CSUB_MENU_NAME,
                             Level = 2,
+                            ProgramButton = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == yy.CSUB_MENU_ID)?.CPROGRAM_BUTTON ?? string.Empty,
                             Children = new()
                         }).ToList()
                     }).ToList()
