@@ -31,6 +31,27 @@
         }
     },
 
+    svg: {
+        getSvgSymbolIdsFromFile: async function (url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    return [];
+                }
+
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, "image/svg+xml");
+                const symbols = doc.querySelectorAll("symbol");
+
+                return Array.from(symbols).map(s => s.id);
+            } catch (e) {
+                console.error("Error fetching SVG file:", e);
+                return [];
+            }
+        }
+    },
+
     modal: {
         initialize: (elementId, useStaticBackdrop, closeOnEscape, dotNetHelper) => {
             let modalEl = document.getElementById(elementId);

@@ -3,6 +3,7 @@ using BlazorMenu.Authentication;
 using BlazorMenu.Pages;
 using BlazorMenu.Services;
 using BlazorMenu.Shared.Drawer;
+using BlazorMenu.Shared.MenuOverlay;
 using BlazorMenu.Shared.Modals;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuCommon.DTOs;
@@ -22,6 +23,7 @@ namespace BlazorMenu.Shared
         [Inject] private AuthenticationStateProvider _stateProvider { get; set; }
         [Inject] private R_IMenuService _menuService { get; set; }
         [Inject] private MenuTabSetTool TabSetTool { get; set; }
+        [Inject] private MenuOverlayService _menuOverlayService { get; set; } = default!;
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
         [Inject] private R_MessageBoxService _messageBoxService { get; set; }
@@ -32,6 +34,8 @@ namespace BlazorMenu.Shared
         private List<DrawerMenuItem> _data = new();
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
+        private string[] _svgIds = Array.Empty<string>();
+
         private List<DrawerMenuItem> _filteredData
         {
             get
@@ -112,6 +116,7 @@ namespace BlazorMenu.Shared
 
                 _userId = "TR";
 
+                _menuOverlayService.AssignOnClick(OnClickProgram);
             }
             catch (Exception)
             {
@@ -133,6 +138,8 @@ namespace BlazorMenu.Shared
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.overrideDefaultKey", DotNetReference);
 
                 await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.attachFocusHandler", DotNetReference, _autoCompleteId);
+                _svgIds = await JSRuntime.InvokeAsync<string[]>("blazorMenuBootstrap.svg.getSvgSymbolIdsFromFile", "assets/icons/icons.svg");
+
                 // OpenComponent();
             }
         }
@@ -176,6 +183,30 @@ namespace BlazorMenu.Shared
             //}
 
             return Task.CompletedTask;
+        }
+        private string GetSVGHref(string id, string path = "")
+        {
+            var normalizedId = string.IsNullOrWhiteSpace(id) ? string.Empty : id.ToLowerInvariant().Replace(" ", "-");
+
+            var currentId = "default";
+
+            if (_svgIds.Contains(normalizedId))
+            {
+                currentId = normalizedId;
+            }
+
+            var currentPath = "assets/icons/icons.svg#";
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                currentId = path;
+            }
+
+            return currentPath + currentId;
+        }
+        private async Task OnClickShowMenuOverlay(List<DrawerMenuItem> poMenuList, string[]? poBreadCrumbs = null)
+        {
+            await _menuOverlayService.Show(poMenuList, poBreadCrumbs);
         }
 
         private async Task OnClickProgram(DrawerMenuItem drawerMenuItem)

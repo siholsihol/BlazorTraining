@@ -999,7 +999,7 @@ html.dark #login-bg {
 }
 
 /* Side Nav Custom Icon styling */
-#r-nav-custom-icon {
+.r-nav-custom-icon {
     width: 1em;
     height: 1em;
 }
@@ -1162,3 +1162,43 @@ input::-ms-clear {
 }
 
 /* Untuk Screen > 1400px */
+.r-menu-overlay {
+    padding-right: var(--falcon-gutter-x, 1rem) !important;
+    padding-bottom: var(--falcon-gutter-x, 1rem) !important;
+}
+
+.r-menu-overlay-content {
+    background-color: var(--falcon-card-bg) !important;
+    border-color: var(--falcon-card-border-color) !important;
+    color: var(--falcon-card-color) !important;
+    -webkit-box-shadow: var(--falcon-box-shadow);
+    box-shadow: var(--falcon-box-shadow);
+}
+
+.r-menu-overlay-content-item {
+    background-color: var(--falcon-100) !important;
+    border-color: var(--falcon-300) !important;
+}
+
+.dark .r-menu-overlay-content-item {
+    background-color: var(--falcon-200) !important;
+    border-color: var(--falcon-400) !important;
+}
+
+.r-menu-overlay-breadcrumbs,
+.r-menu-overlay-content-text-title {
+    color: var(--falcon-600) !important;
+}
+
+.r-menu-overlay-content-text-subtitle {
+    color: var(--falcon-500) !important;
+}
+
+.dark .r-menu-overlay-breadcrumbs,
+.dark .r-menu-overlay-content-text-title {
+    color: var(--falcon-700) !important;
+}
+
+.dark .r-menu-overlay-content-text-subtitle {
+    color: var(--falcon-600) !important;
+}

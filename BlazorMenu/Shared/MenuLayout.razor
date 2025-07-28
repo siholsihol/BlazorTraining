@@ -27,32 +27,30 @@
                                 var itemId = IdGeneratorHelper.Generate(item.Id, 3);
                                 <li class="nav-item">
                                     <a class="nav-link dropdown-indicator" href="@($"#{itemId}")" role="button"
-                                       data-bs-toggle="collapse" aria-expanded="false" aria-controls="@itemId">
+                                       data-bs-toggle="collapse" aria-expanded="true" aria-controls="@itemId">
                                         <div class="d-flex align-items-center">
-                                            <span class="nav-link-icon">
-                                                <svg id="r-nav-custom-icon">
-                                                    <use href="@($"assets/icons/icons.svg#{((string.IsNullOrWhiteSpace(item.ProgramButton) || item.ProgramButton == "0") ? "default" : item.ProgramButton)}")" />
-                                                </svg>
-                                            </span>
                                             <span class="nav-link-text ps-1">@item.Text</span>
                                         </div>
                                     </a>
 
-                                    <ul class="nav collapse" id="@itemId">
+                                    <ul class="nav collapse show" id="@itemId">
                                         @{
                                             foreach (var item1 in item.Children)
                                             {
                                                 var itemId1 = IdGeneratorHelper.Generate(item1.Id, 3);
                                                 <li class="nav-item">
-                                                    <a class="nav-link dropdown-indicator" href="@($"#{itemId1}")"
-                                                       data-bs-toggle="collapse" aria-expanded="false"
-                                                       aria-controls="@itemId1">
+                                                    <a class="nav-link" onclick="@(async () => await OnClickShowMenuOverlay(item1.Children, new string[] { item.Text, item1.Text }))">
                                                         <div class="d-flex align-items-center">
+                                                            <span class="nav-link-icon">
+                                                                <svg class="r-nav-custom-icon">
+                                                                    <use href="@(GetSVGHref(item1.Text))" />
+                                                                </svg>
+                                                            </span>
                                                             <span class="nav-link-text ps-1">@item1.Text</span>
                                                         </div>
                                                     </a>
 
-                                                    <ul class="nav collapse" id="@itemId1">
+                                                    @* <ul class="nav collapse" id="@itemId1">
                                                         @{
                                                             foreach (var item2 in item1.Children)
                                                             {
@@ -62,7 +60,7 @@
                                                                     <a class="nav-link" data-bs-toggle="" aria-expanded="false">
                                                                         <div class="d-flex align-items-center">
                                                                             <span class="nav-link-icon">
-                                                                                <svg id="r-nav-custom-icon">
+                                                                                <svg class="r-nav-custom-icon">
                                                                                     <use href="@($"assets/icons/icons.svg#{((string.IsNullOrWhiteSpace(item2.ProgramButton) || item2.ProgramButton == "0") ? "default" : item2.ProgramButton)}")" />
                                                                                 </svg>
                                                                             </span>
@@ -72,7 +70,7 @@
                                                                 </li>
                                                             }
                                                         }
-                                                    </ul>
+                                                    </ul> *@
                                                 </li>
                                             }
                                         }

@@ -3,6 +3,7 @@ using BlazorMenu.Authentication;
 using BlazorMenu.Constants.Storage;
 using BlazorMenu.Services;
 using BlazorMenu.Shared;
+using BlazorMenu.Shared.MenuOverlay;
 using BlazorMenu.Shared.Tabs;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -24,6 +25,8 @@ namespace BlazorMenu.Extensions
             services.AddSingleton<R_IMainBody, MainBody>();
 
             services.AddScoped<MenuTabSetTool>();
+
+            services.AddScoped<MenuOverlayService>();
 
             services.AddTransient<R_IMenuService, R_MenuService>();
 

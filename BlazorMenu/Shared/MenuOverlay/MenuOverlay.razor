@@ -1,0 +1,146 @@
+@inherits BaseComponent
+@namespace BlazorMenu.Shared.MenuOverlay
+
+
+@if (_showMenuOverlay)
+{
+    <TelerikWindow Visible="true"
+                   Draggable="false"
+                   Resizable="false"
+                   Class="r-menu-overlay-wrapper">
+        @* <div class="modal-backdrop modal-backdrop-page-loading fade show"></div> *@
+        <WindowContent>
+            <div id="@Id" class="@ClassNames" style="@StyleNames" tabindex="-1" @attributes="@Attributes">
+                <div @ref="@ElementRef" class="r-menu-overlay-content" tabindex="-1" @onblur="@OnHide" @onblur:stopPropagation>
+                    @if (!string.IsNullOrWhiteSpace(_breadCrumbs))
+                    {
+                        <div class="r-menu-overlay-breadcrumbs">@_breadCrumbs</div>
+                    }
+                    <div class="r-menu-overlay-tiles">
+                        @if (_drawerMenuItems != null && _drawerMenuItems.Count > 0)
+                        {
+                            foreach (var item in _drawerMenuItems)
+                            {
+                            <div class="r-menu-overlay-content-item" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))">
+                                <svg class="r-menu-overlay-content-icon">
+                                    <use href="@($"assets/icons/icons.svg#{((string.IsNullOrWhiteSpace(item.ProgramButton) || item.ProgramButton == "0") ? "default" : item.ProgramButton)}")" />
+                                </svg>
+                                <div class="r-menu-overlay-content-text">
+                                    <p class="r-menu-overlay-content-text-title">@item.Text</p>
+                                    <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </WindowContent>
+    </TelerikWindow>
+}
+
+<style>
+    .r-menu-overlay-wrapper,
+    .r-menu-overlay-wrapper .k-window-content{
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0;
+        padding: 0;
+        background: none !important;
+        pointer-events: none;
+    }
+
+    .r-menu-overlay-wrapper * {
+        margin: 0;
+        padding: 0;
+    }
+
+        .r-menu-overlay-wrapper *:focus,
+        .r-menu-overlay-wrapper *:focus-visible,
+        .r-menu-overlay-wrapper *:focus-within{
+            outline: none;
+        }
+
+
+    .r-menu-overlay {
+        padding-top: 4.3125rem;
+        padding-left: 15.625rem;
+        padding-bottom: 1rem;
+        padding-right: 1rem;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        background: none !important;
+        pointer-events: none;
+    }
+
+    .r-menu-overlay-content {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        pointer-events: all;
+        padding: 2rem;
+        overflow: scroll;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        border-color: rgba(0,0,0,0.125);
+        border-radius: 5px;
+    }
+
+    .r-menu-overlay-breadcrumbs{
+        font-weight: 600;
+        font-size: 20px;
+        color: #777777;
+        margin-bottom: 25px;
+    }
+
+    .r-menu-overlay-tiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-auto-rows: min-content;
+        gap: 2rem;
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .r-menu-overlay-content-item {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 10px;
+        width: 100%;
+        min-height: 76px;
+        background-color: #f6f6f6;
+        border: 1px solid #EAEAEA;
+        border-radius: 10px;
+    }
+
+    .r-menu-overlay-content-icon{
+        min-width: 56px;
+        width: 56px;
+        height: 56px;
+    }
+
+    .r-menu-overlay-content-text {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .r-menu-overlay-content-text-title {
+        font-size: 16px;
+        color: #777777;
+        font-weight: 500;
+    }
+
+    .r-menu-overlay-content-text-subtitle{
+        font-size: 12px;
+        color: #999999;
+        font-weight: 400;
+    }
+</style>
