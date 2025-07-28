@@ -19,19 +19,19 @@
                         <div class="r-menu-overlay-breadcrumbs">@_breadCrumbs</div>
                     }
                     <div class="r-menu-overlay-tiles">
-                        @if (_drawerMenuItems != null && _drawerMenuItems.Count > 0)
+                        @if (_drawerMenuItem != null && _drawerMenuItem.Children.Count > 0)
                         {
-                            foreach (var item in _drawerMenuItems)
+                            foreach (var item in _drawerMenuItem.Children)
                             {
-                            <div class="r-menu-overlay-content-item" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))">
-                                <svg class="r-menu-overlay-content-icon">
-                                        <use href="@(BlazorMenuUtility.GetMenuSVGHref(item.ProgramButton))" />
-                                </svg>
-                                <div class="r-menu-overlay-content-text">
-                                    <p class="r-menu-overlay-content-text-title">@item.Text</p>
-                                    <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
+                                <div class="r-menu-overlay-content-item" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))">
+                                    <svg class="r-menu-overlay-content-icon">
+                                        <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item.ProgramButton, Default = _defaultIconId }))" />
+                                    </svg>
+                                    <div class="r-menu-overlay-content-text">
+                                        <p class="r-menu-overlay-content-text-title">@item.Text</p>
+                                        <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
+                                    </div>
                                 </div>
-                            </div>
                             }
                         }
                     </div>
@@ -43,7 +43,7 @@
 
 <style>
     .r-menu-overlay-wrapper,
-    .r-menu-overlay-wrapper .k-window-content{
+    .r-menu-overlay-wrapper .k-window-content {
         width: 100%;
         height: 100%;
         max-width: 100%;
@@ -54,16 +54,16 @@
         pointer-events: none;
     }
 
-    .r-menu-overlay-wrapper * {
-        margin: 0;
-        padding: 0;
-    }
-
-        .r-menu-overlay-wrapper *:focus,
-        .r-menu-overlay-wrapper *:focus-visible,
-        .r-menu-overlay-wrapper *:focus-within{
-            outline: none;
+        .r-menu-overlay-wrapper * {
+            margin: 0;
+            padding: 0;
         }
+
+            .r-menu-overlay-wrapper *:focus,
+            .r-menu-overlay-wrapper *:focus-visible,
+            .r-menu-overlay-wrapper *:focus-within {
+                outline: none;
+            }
 
 
     .r-menu-overlay {
@@ -93,7 +93,7 @@
         border-radius: 5px;
     }
 
-    .r-menu-overlay-breadcrumbs{
+    .r-menu-overlay-breadcrumbs {
         font-weight: 600;
         font-size: 20px;
         color: #777777;
@@ -123,7 +123,7 @@
         cursor:pointer;
     }
 
-    .r-menu-overlay-content-icon{
+    .r-menu-overlay-content-icon {
         min-width: 56px;
         width: 56px;
         height: 56px;
@@ -141,7 +141,7 @@
         font-weight: 500;
     }
 
-    .r-menu-overlay-content-text-subtitle{
+    .r-menu-overlay-content-text-subtitle {
         font-size: 12px;
         color: #999999;
         font-weight: 400;

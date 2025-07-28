@@ -188,9 +188,9 @@ namespace BlazorMenu.Shared
 
             return Task.CompletedTask;
         }
-        private async Task OnClickShowMenuOverlay(List<DrawerMenuItem> poMenuList, string[]? poBreadCrumbs = null)
+        private async Task OnClickShowMenuOverlay(DrawerMenuItem poMenu, string[]? poBreadCrumbs = null)
         {
-            await _menuOverlayService.Show(poMenuList, poBreadCrumbs);
+            await _menuOverlayService.Show(poMenu, poBreadCrumbs);
         }
 
         private async Task OnClickProgram(DrawerMenuItem drawerMenuItem)

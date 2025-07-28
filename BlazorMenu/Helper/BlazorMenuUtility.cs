@@ -28,33 +28,48 @@ namespace BlazorMenu.Helper
             SetSVGIds(key, newIds);
         }
 
-        internal static string GetMenuSVGHref(string id, string path = "")
+        internal static string GetMenuSVGHref(GetMenuSVGHrefParameter poParameter)
         {
-            var currentPath = DefaultMenuIconPath;
-
-            if (!string.IsNullOrEmpty(path))
-            {
-                currentPath = path;
-            }
+            var currentPath = string.IsNullOrEmpty(poParameter.Path)
+               ? DefaultMenuIconPath
+               : poParameter.Path;
 
             var ids = GetSVGIds(currentPath);
 
-            var normalizedId = string.IsNullOrWhiteSpace(id) ? string.Empty : id.ToLowerInvariant().Replace(" ", "-");
+            if (ids.Length == 0) return string.Empty;
 
-            var currentId = DefaultMenuIconId;
+            var defaultId = string.IsNullOrEmpty(poParameter.Default)
+                ? DefaultMenuIconId
+                : poParameter.Default;
 
-            if (ids.Contains(normalizedId, StringComparer.OrdinalIgnoreCase))
+            var currentId = string.IsNullOrEmpty(poParameter.Id)
+                ? defaultId
+                : poParameter.Id;
+
+            var normalizedId = GetNormalizedString(currentId);
+
+            currentId = ids.FirstOrDefault(x =>
+                string.Equals(x, normalizedId, StringComparison.OrdinalIgnoreCase));
+
+            if (currentId is null)
             {
-                currentId = normalizedId;
+                currentId = defaultId;
             }
 
             return currentPath + currentId;
         }
 
-        internal static string GetNormalizedstring(string text)
+        internal static string GetNormalizedString(string text)
         {
-            return string.IsNullOrWhiteSpace(text) ? string.Empty : text.ToLowerInvariant().Replace(" ", "-");
+            return text.Trim().ToLowerInvariant().Replace(" ", "-");
         }
         #endregion
+    }
+
+    internal class GetMenuSVGHrefParameter
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Path { get; set; } = string.Empty;
+        public string Default { get; set; } = string.Empty;
     }
 }

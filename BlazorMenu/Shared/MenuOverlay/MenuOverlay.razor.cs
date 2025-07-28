@@ -1,4 +1,5 @@
-﻿using BlazorMenu.Shared.Drawer;
+﻿using BlazorMenu.Constants;
+using BlazorMenu.Shared.Drawer;
 using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls.Base;
 using R_BlazorFrontEnd.Controls.Helpers;
@@ -12,7 +13,6 @@ namespace BlazorMenu.Shared.MenuOverlay
         [Inject] private MenuOverlayService MenuOverlayService { get; set; } = default!;
 
         public override string Id { get; set; } = IdGeneratorHelper.Generate("MenuOverlay");
-        private List<DrawerMenuItem>? _drawerMenuItems { get; set; }
         #endregion
 
         #region Members
@@ -29,8 +29,10 @@ namespace BlazorMenu.Shared.MenuOverlay
             .AddStyle("display:block")
             .Build();
 
+        private DrawerMenuItem? _drawerMenuItem { get; set; }
         private bool _showMenuOverlay;
         private string? _breadCrumbs;
+        private string _defaultIconId = AppConstants.MenuIconId;
 
         #endregion
 
@@ -56,14 +58,16 @@ namespace BlazorMenu.Shared.MenuOverlay
             OnClickProgramDelegate = poFunction;
         }
 
-        private async Task OnShow(List<DrawerMenuItem> poMenuList, string[]? poBreadCrumbs = null)
+        private async Task OnShow(DrawerMenuItem poMenu, string[]? poBreadCrumbs = null)
         {
             if (poBreadCrumbs is not null)
                 _breadCrumbs = string.Join(" > ", poBreadCrumbs);
 
-            _drawerMenuItems = poMenuList;
+            _drawerMenuItem = poMenu;
 
             _showMenuOverlay = true;
+
+            _defaultIconId = AppConstants.MenuIconId + "-" + _drawerMenuItem.Text;
 
             StateHasChanged();
 

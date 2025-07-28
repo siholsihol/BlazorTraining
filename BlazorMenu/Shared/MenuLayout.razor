@@ -40,11 +40,11 @@
                                             {
                                                 var itemId1 = IdGeneratorHelper.Generate(item1.Id, 3);
                                                 <li class="nav-item">
-                                                    <a class="nav-link" onclick="@(async () => await OnClickShowMenuOverlay(item1.Children, new string[] { item.Text, item1.Text }))">
+                                                    <a class="nav-link" onclick="@(async () => await OnClickShowMenuOverlay(item1, new string[] { item.Text, item1.Text }))">
                                                         <div class="d-flex align-items-center">
                                                             <span class="nav-link-icon">
                                                                 <svg class="r-nav-custom-icon">
-                                                                    <use href="@(BlazorMenuUtility.GetMenuSVGHref(item1.Text))" />
+                                                                    <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item1.Text }))" />
                                                                 </svg>
                                                             </span>
                                                             <span class="nav-link-text ps-1">@item1.Text</span>
