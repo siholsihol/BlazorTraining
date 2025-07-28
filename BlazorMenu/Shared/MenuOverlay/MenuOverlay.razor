@@ -1,5 +1,6 @@
 @inherits BaseComponent
 @namespace BlazorMenu.Shared.MenuOverlay
+@using BlazorMenu.Helper
 
 
 @if (_showMenuOverlay)
@@ -23,7 +24,7 @@
                             {
                             <div class="r-menu-overlay-content-item" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))">
                                 <svg class="r-menu-overlay-content-icon">
-                                    <use href="@($"assets/icons/icons.svg#{((string.IsNullOrWhiteSpace(item.ProgramButton) || item.ProgramButton == "0") ? "default" : item.ProgramButton)}")" />
+                                        <use href="@(BlazorMenuUtility.GetMenuSVGHref(item.ProgramButton))" />
                                 </svg>
                                 <div class="r-menu-overlay-content-text">
                                     <p class="r-menu-overlay-content-text-title">@item.Text</p>

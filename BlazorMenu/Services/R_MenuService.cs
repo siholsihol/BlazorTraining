@@ -45,6 +45,11 @@ namespace BlazorMenu.Services
         private void CreateExamplePrograms(List<MenuListDTO> poExistingList)
         {
             CreateGroup(poExistingList, "Ex", "Example", "G001", "Conductor Example");
+            CreateGroup(poExistingList, "Ex", "Batch", "Batch", "Batch");
+            CreateGroup(poExistingList, "Ex", "Inquiry", "Inquiry", "Inquiry");
+            CreateGroup(poExistingList, "Ex", "Master", "Master", "Master");
+            CreateGroup(poExistingList, "Ex", "Report", "Report", "Report");
+            CreateGroup(poExistingList, "Ex", "Transaction", "Transaction", "Transaction");
 
             CreateProgram(poExistingList, "Ex", "G001", "SAB00600", "Gridview Original", "fav");
             CreateProgram(poExistingList, "Ex", "G001", "SAB00700", "Gridview Navigator");
