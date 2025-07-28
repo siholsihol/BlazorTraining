@@ -51,17 +51,16 @@ namespace BlazorMenu.Services
             CreateGroup(poExistingList, "Ex", "Report", "Report", "Report");
             CreateGroup(poExistingList, "Ex", "Transaction", "Transaction", "Transaction");
 
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00600", "Gridview Original", "fav");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00700", "Gridview Navigator");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00900", "Find with Conductor");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB00600", "Gridview Original", "SAB00600");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB00700", "Gridview Navigator", "see-password");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB00900", "Find with Conductor", "SAB00900");
 
-            CreateProgram(poExistingList, "Ex", "G001", "SAB01000", "Gridview Batch");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB02400", "Batch Process");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB01200", "Grid and Grid");
-
-            CreateProgram(poExistingList, "Ex", "G001", "SAB01400", "Detail");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB01900", "Tab Header Detail");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00800", "TreeView Navigator");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB01000", "Gridview Batch", "default-Batch");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB02400", "Batch Process", "default-Inquiry");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB01200", "Grid and Grid", "default-Master");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB01400", "Detail", "default-Report");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB01900", "Tab Header Detail", "default-Transaction");
+            CreateProgram(poExistingList, "Ex", "G001", "SAB00800", "TreeView Navigator", "apb00100");
 
             CreateProgram(poExistingList, "Ex", "G001", "SAB01300", "Navigator and Batch");
             CreateProgram(poExistingList, "Ex", "G001", "SAB01500", "Navigator and Navigator");

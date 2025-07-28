@@ -11,6 +11,7 @@
     --radiobutton-checked-url: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ccircle cx='50' cy='50' r='25' fill='%235e6e82'/%3e%3c/svg%3e");
     /* [Telerik v7.1.0] update CSS fix */
     --kendo-color-on-app-surface: var(--falcon-body-color) !important;
+    --r-menu-overlay-content-icon-color: #aaaaaa !important;
 }
 
 .dark {
@@ -18,6 +19,7 @@
     /* stroke color based on --falcon-body-color */
     --checkbox-checkmark-url: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%239da9bb' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
     --radiobutton-checked-url: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ccircle cx='50' cy='50' r='25' fill='%239da9bb'/%3e%3c/svg%3e");
+    --r-menu-overlay-content-icon-color: #505050 !important;
 }
 
 html,
@@ -67,7 +69,12 @@ html.navbar-vertical-collapsed footer, html.navbar-vertical-collapsed .navbar-br
     display: none !important;
 }*/
 
-/* Menu Sidebar
+/* Menu Sidebar */
+.navbar-vertical .navbar-nav .nav .nav-item .nav-link {
+    padding: .2rem .2rem .2rem .5rem !important;
+}
+
+    /*
 .navbar-vertical-collapsed .navbar-vertical.navbar-expand-xl + .content {
     margin-left: 2.125rem;
 }
@@ -814,8 +821,8 @@ html, body {
     height: max-content;
     flex-wrap: nowrap;
     /* ✅ Prevent wrapping */
-    overflow-x: scroll;
-    overflow-y: visible;
+    overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     /* smooth scrolling on iOS */
     scrollbar-width: none;
@@ -1161,7 +1168,7 @@ input::-ms-clear {
     display: none;
 }
 
-/* Untuk Screen > 1400px */
+/** Untuk Menu Overlay **/
 .r-menu-overlay {
     padding-right: var(--falcon-gutter-x, 1rem) !important;
     padding-bottom: var(--falcon-gutter-x, 1rem) !important;
@@ -1173,17 +1180,33 @@ input::-ms-clear {
     color: var(--falcon-card-color) !important;
     -webkit-box-shadow: var(--falcon-box-shadow);
     box-shadow: var(--falcon-box-shadow);
+    border-radius: 10px;
+}
+
+.r-menu-overlay-content-icon {
+    color: var(--r-menu-overlay-content-icon-color);
 }
 
 .r-menu-overlay-content-item {
+    transition: box-shadow 0.3s ease-out;
     background-color: var(--falcon-100) !important;
     border-color: var(--falcon-300) !important;
+    gap: 1rem !important;
 }
+    .r-menu-overlay-content-item:hover {
+        -webkit-box-shadow: var(--falcon-box-shadow);
+        box-shadow: var(--falcon-box-shadow);
+    }
 
-.dark .r-menu-overlay-content-item {
-    background-color: var(--falcon-200) !important;
-    border-color: var(--falcon-400) !important;
-}
+    .dark .r-menu-overlay-content-item {
+        background-color: var(--falcon-200) !important;
+        border-color: var(--falcon-400) !important;
+    }
+    
+    .dark .r-menu-overlay-content-item:hover {
+        -webkit-box-shadow: var(--falcon-box-shadow);
+        box-shadow: var(--falcon-box-shadow);
+    }
 
 .r-menu-overlay-breadcrumbs,
 .r-menu-overlay-content-text-title {
@@ -1202,3 +1225,4 @@ input::-ms-clear {
 .dark .r-menu-overlay-content-text-subtitle {
     color: var(--falcon-600) !important;
 }
+

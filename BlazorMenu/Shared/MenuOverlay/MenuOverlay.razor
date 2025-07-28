@@ -12,7 +12,8 @@
         @* <div class="modal-backdrop modal-backdrop-page-loading fade show"></div> *@
         <WindowContent>
             <div id="@Id" class="@ClassNames" style="@StyleNames" tabindex="-1" @attributes="@Attributes">
-                <div @ref="@ElementRef" class="r-menu-overlay-content" tabindex="-1" @onblur="@OnHide" @onblur:stopPropagation>
+                @* <div @ref="@ElementRef" class="r-menu-overlay-content" tabindex="-1" @onblur="@OnHide" @onblur:stopPropagation> *@
+                <div @ref="@ElementRef" class="r-menu-overlay-content" tabindex="-1">
                     @if (!string.IsNullOrWhiteSpace(_breadCrumbs))
                     {
                         <div class="r-menu-overlay-breadcrumbs">@_breadCrumbs</div>
@@ -119,6 +120,7 @@
         background-color: #f6f6f6;
         border: 1px solid #EAEAEA;
         border-radius: 10px;
+        cursor:pointer;
     }
 
     .r-menu-overlay-content-icon{
