@@ -51,19 +51,55 @@ namespace BlazorMenu.Services
             CreateGroup(poExistingList, "Ex", "Report", "Report", "Report");
             CreateGroup(poExistingList, "Ex", "Transaction", "Transaction", "Transaction");
 
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00600", "Gridview Original", "SAB00600");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00700", "Gridview Navigator", "see-password");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00900", "Find with Conductor", "SAB00900");
-
             CreateProgram(poExistingList, "Ex", "G001", "SAB01000", "Gridview Batch", "default-Batch");
             CreateProgram(poExistingList, "Ex", "G001", "SAB02400", "Batch Process", "default-Inquiry");
             CreateProgram(poExistingList, "Ex", "G001", "SAB01200", "Grid and Grid", "default-Master");
             CreateProgram(poExistingList, "Ex", "G001", "SAB01400", "Detail", "default-Report");
             CreateProgram(poExistingList, "Ex", "G001", "SAB01900", "Tab Header Detail", "default-Transaction");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB00800", "TreeView Navigator", "apb00100");
 
-            CreateProgram(poExistingList, "Ex", "G001", "SAB01300", "Navigator and Batch");
-            CreateProgram(poExistingList, "Ex", "G001", "SAB01500", "Navigator and Navigator");
+            CreateProgram(poExistingList, "Ex", "Batch", "SAB00800", "TreeView Navigator");
+            CreateProgram(poExistingList, "Ex", "Batch", "SAB00600", "Gridview Original", "default");
+            
+            CreateProgram(poExistingList, "Ex", "Inquiry", "SAB00700", "Gridview Navigator");
+            CreateProgram(poExistingList, "Ex", "Inquiry", "SAB00900", "Find with Conductor", "default");
+
+            CreateProgram(poExistingList, "Ex", "Master", "SAB01300", "Navigator and Batch");
+            CreateProgram(poExistingList, "Ex", "Master", "APM00100", "System Parameter", "APM00100");
+            CreateProgram(poExistingList, "Ex", "Master", "APM00200", "Expenditure Master", "APM00200");
+            CreateProgram(poExistingList, "Ex", "Master", "APM00300", "Supplier Master", "APM00300");
+            CreateProgram(poExistingList, "Ex", "Master", "APM00400", "Supplier Master", "APM00400");
+            CreateProgram(poExistingList, "Ex", "Master", "APM00500", "Supplier Master", "APM00500");
+            CreateProgram(poExistingList, "Ex", "Master", "CBM00100", "System Parameter", "CBM00100");
+
+            CreateProgram(poExistingList, "Ex", "Report", "SAB01300", "Navigator and Batch");
+            CreateProgram(poExistingList, "Ex", "Report", "APR00100", "Activity", "APR00100");
+            CreateProgram(poExistingList, "Ex", "Report", "APR00200", "Ageing", "APR00200");
+            CreateProgram(poExistingList, "Ex", "Report", "APR00300", "Supplier Statement", "APR00300");
+            CreateProgram(poExistingList, "Ex", "Report", "APR00400", "Transaction vs Tax List.", "APR00400");
+            CreateProgram(poExistingList, "Ex", "Report", "APR00500", "Invoice List", "APR00500");
+
+            CreateProgram(poExistingList, "Ex", "Transaction", "SAB01300", "Navigator and Batch");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00100", "Purchase Invoice", "APT00100");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00200", "Purchase Return", "APT00200");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00300", "Purchase Debit Note", "APT00300");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00400", "Purchase Credit Note", "APT00400");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00500", "Purchase Debit Adjustment", "APT00500");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00600", "Purchase Credit Adjustment", "APT00600");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00800", "Tax In Record", "APT00800");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT00900", "Import Purchase Invoice", "APT00900");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT01000", "Scheduling Payment", "APT01000");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT01100", "Cash Payment to Supplier", "APT01100");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT01200", "Wire Transfer Payment to Supplier", "APT01200");
+            CreateProgram(poExistingList, "Ex", "Transaction", "APT01300", "Cheque Payment to Supplier", "APT01300");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT00100", "Cash Receipt Journal", "CBT00100");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT00200", "Cash Payment Journal", "CBT00200");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT01100", "Receipt Journal", "CBT01100");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT01200", "Wire Payment Journal", "CBT01200");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT02100", "Check Receipt Journal", "CBT02100");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT02200", "Check Payment Journal", "CBT02200");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT02300", "Bank In Check", "CBT02300");
+            CreateProgram(poExistingList, "Ex", "Transaction", "CBT03100", "Cash Bank Transfer Internal", "CBT03100");
+            CreateProgram(poExistingList, "Ex", "Transaction", "FAM00300", "Void CB Transaction", "FAM00300");
         }
 
         private void CreateControlPrograms(List<MenuListDTO> poExistingList)

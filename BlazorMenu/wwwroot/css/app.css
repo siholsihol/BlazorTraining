@@ -1188,7 +1188,7 @@ input::-ms-clear {
 }
 
 .r-menu-overlay-content-item {
-    transition: box-shadow 0.3s ease-out;
+    transition: box-shadow .2s ease-in-out;
     background-color: var(--falcon-100) !important;
     border-color: var(--falcon-300) !important;
     gap: 1rem !important;
