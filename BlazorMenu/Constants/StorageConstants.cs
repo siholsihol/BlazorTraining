@@ -1,4 +1,4 @@
-﻿namespace BlazorMenu.Constants.Storage
+﻿namespace BlazorMenu.Constants
 {
     public static class StorageConstants
     {

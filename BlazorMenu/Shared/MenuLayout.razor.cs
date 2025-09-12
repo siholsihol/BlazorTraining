@@ -4,6 +4,7 @@ using BlazorMenu.Pages;
 using BlazorMenu.Services;
 using BlazorMenu.Shared.Drawer;
 using BlazorMenu.Shared.Modals;
+using BlazorMenu.Shared.Overlay;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuCommon.DTOs;
 using Microsoft.AspNetCore.Components;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using R_BlazorFrontEnd.Controls;
+using R_BlazorFrontEnd.Controls.Constants;
 using R_BlazorFrontEnd.Controls.Helpers;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using Telerik.Blazor.Components;
@@ -21,7 +23,6 @@ namespace BlazorMenu.Shared
     {
         [Inject] private AuthenticationStateProvider _stateProvider { get; set; }
         [Inject] private R_IMenuService _menuService { get; set; }
-        [Inject] private MenuTabSetTool TabSetTool { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private IClientHelper _clientHelper { get; set; }
         [Inject] private R_MessageBoxService _messageBoxService { get; set; }
@@ -30,34 +31,27 @@ namespace BlazorMenu.Shared
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
+        private int _maxNotificationCount = 5;
+        private List<BlazorMenuNotificationDTO> _newNotificationMessages = new List<BlazorMenuNotificationDTO>();
+        private List<BlazorMenuNotificationDTO> _oldNotificationMessages = new List<BlazorMenuNotificationDTO>();
+
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
-        private List<DrawerMenuItem> _filteredData
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_searchText))
-                    return new List<DrawerMenuItem>();
+        private string _footerId = "navbar-footer";
 
-                var loData = _menuList.Where(x => x.CSUB_MENU_TYPE == "P" &&
-                (x.CSUB_MENU_ID.ToLower().Contains(_searchText.ToLower())) || x.CSUB_MENU_NAME.ToLower().Contains(_searchText.ToLower())).
-                    Select(x => new DrawerMenuItem
-                    {
-                        Id = x.CSUB_MENU_ID,
-                        Text = x.CSUB_MENU_NAME,
-                        Level = 2
-                    }).ToList();
-
-                return loData;
-            }
-        }
+        private MenuTabSet _menuTabSetRef;
+        private MenuOverlay _menuOverlay;
+        private string _logoUrl = string.Empty;
+        private string _logoStyle = string.Empty;
 
         private List<SearchBoxItem> searchBoxData
         {
             get
             {
-                var loData = _menuList.Where(x => x.CSUB_MENU_TYPE == "P").
-                    Select(x => new SearchBoxItem
+                var loData = _menuList.Where(x => x.CSUB_MENU_TYPE == "P")
+                    .GroupBy(x => x.CSUB_MENU_ID)
+                    .Select(x => x.First())
+                    .Select(x => new SearchBoxItem
                     {
                         Id = x.CSUB_MENU_ID,
                         Text = x.CSUB_MENU_ID + " - " + x.CSUB_MENU_NAME
@@ -68,10 +62,6 @@ namespace BlazorMenu.Shared
         }
 
         protected string NotificationCssClass;
-
-        private bool _notificationOpened = false;
-        //private List<BlazorMenuNotificationDTO> _newNotificationMessages = new List<BlazorMenuNotificationDTO>();
-        //private List<BlazorMenuNotificationDTO> _oldNotificationMessages = new List<BlazorMenuNotificationDTO>();
         private DotNetObjectReference<MenuLayout> DotNetReference { get; set; }
 
         private TelerikAutoComplete<SearchBoxItem> TelerikAutoCompleteRef;
@@ -90,18 +80,21 @@ namespace BlazorMenu.Shared
                 _data = menuIds.Select(id => new DrawerMenuItem
                 {
                     Id = id,
-                    Text = _menuList.FirstOrDefault(x => x.CMENU_ID == id).CMENU_NAME,
+                    Text = _menuList.FirstOrDefault(x => x.CMENU_ID == id)?.CMENU_NAME ?? string.Empty,
                     Level = 0,
+                    ProgramButton = _menuList.FirstOrDefault(x => x.CMENU_ID == id)?.CPROGRAM_BUTTON ?? string.Empty,
                     Children = _menuList.Where(x => x.CSUB_MENU_TYPE == "G" && x.CMENU_ID == id).Select(y => new DrawerMenuItem
                     {
                         Id = y.CSUB_MENU_ID,
                         Text = y.CSUB_MENU_NAME,
                         Level = 1,
+                        ProgramButton = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == y.CSUB_MENU_ID)?.CPROGRAM_BUTTON ?? string.Empty,
                         Children = _menuList.Where(z => z.CSUB_MENU_TYPE == "P" && z.CPARENT_SUB_MENU_ID == y.CSUB_MENU_ID && z.CMENU_ID == id).Select(yy => new DrawerMenuItem
                         {
                             Id = yy.CSUB_MENU_ID,
                             Text = yy.CSUB_MENU_NAME,
                             Level = 2,
+                            ProgramButton = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == yy.CSUB_MENU_ID)?.CPROGRAM_BUTTON ?? string.Empty,
                             Children = new()
                         }).ToList()
                     }).ToList()
@@ -109,10 +102,19 @@ namespace BlazorMenu.Shared
 
                 _userId = "TR";
 
+                _logoUrl = "assets/img/logo-bimasakti.png";
+                _logoStyle = $"width: 125px; height: 35px; background-image: url({_logoUrl}); background-size: cover; background-position: left center; background-repeat: no-repeat;";
+
+                if (_menuOverlay != null)
+                    _menuOverlay.AssignOnClick(OnClickProgram);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                await _messageBoxService.Show(ex.Message);
+            }
+            finally
+            {
+                await _preloadService.Hide();
             }
         }
 
@@ -120,46 +122,57 @@ namespace BlazorMenu.Shared
         {
             if (firstRender)
             {
-                await JSRuntime.InvokeVoidAsync("handleNavbarVerticalCollapsed");
+                await JSRuntime.InvokeVoidAsync(JsConstants.HandleNavbarVerticalCollapsed);
 
                 DotNetReference = DotNetObjectReference.Create(this);
-                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.observeElement", "navbarDropdownNotification", DotNetReference);
+                await JSRuntime.InvokeVoidAsync(JsConstants.ObserveElement, "navbarDropdownNotification", DotNetReference);
 
-                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.changeThemeToggle", "themeControlToggle");
+                await JSRuntime.InvokeVoidAsync(JsConstants.ChangeThemeToggle, "themeControlToggle");
 
-                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.overrideDefaultKey", DotNetReference);
+                await JSRuntime.InvokeVoidAsync(JsConstants.OverrideDefaultKey, DotNetReference);
 
-                await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.attachFocusHandler", DotNetReference, _autoCompleteId);
+                await JSRuntime.InvokeVoidAsync(JsConstants.AttachFocusHandler, DotNetReference, _autoCompleteId);
+
+                await JSRuntime.InvokeVoidAsync(JsConstants.ToggleFooter, _footerId);
+
+                if (_menuOverlay != null)
+                    _menuOverlay.AssignOnClick(OnClickProgram);
+
                 // OpenComponent();
             }
         }
 
         [JSInvokable("DefaultKeyDown")]
-        public Task DefaultKeyDown(KeyboardEventArgs args)
+        public async Task DefaultKeyDown(KeyboardEventArgs args)
         {
             //var documentationUrl = GetDocumentationBaseUrl();
-            //var currentUrl = new Uri(new Uri(documentationUrl), ParseProgramId());
+            //if (string.IsNullOrWhiteSpace(documentationUrl))
+            //    return;
 
-            //await JSRuntime.InvokeVoidAsync("blazorMenuBootstrap.blazorOpen", new object[2] { currentUrl, "_blank" });
-            return Task.CompletedTask;
+            //var url = documentationUrl + ParseProgramId();
+            //var currentUrl = new Uri(url);
+
+            //await JSRuntime.InvokeVoidAsync(JsConstants.BlazorOpen, new object[2] { currentUrl, "_blank" });
         }
 
         [JSInvokable("FindKeyDown")]
         public async Task FindKeyDown(KeyboardEventArgs args)
         {
-            await TelerikAutoCompleteRef.FocusAsync();
+            if (TelerikAutoCompleteRef is not null)
+                await TelerikAutoCompleteRef.FocusAsync();
         }
 
         [JSInvokable("OpenComponent")]
         public void OpenComponent()
         {
-            TelerikAutoCompleteRef.Open();
+            if (TelerikAutoCompleteRef is not null && !string.IsNullOrWhiteSpace(_searchText))
+                TelerikAutoCompleteRef.Open();
         }
 
         [JSInvokable("ObserverNotification")]
-        public Task ObserverNotification(bool plShow)
+        public async Task ObserverNotification(bool plShow)
         {
-            //if (plShow && !_notificationOpened)
+            //if (!plShow)
             //{
             //    foreach (var message in _newNotificationMessages)
             //    {
@@ -168,11 +181,15 @@ namespace BlazorMenu.Shared
 
             //    _oldNotificationMessages.AddRange(_newNotificationMessages);
             //    _newNotificationMessages.Clear();
-
-            //    _notificationOpened = true;
             //}
 
-            return Task.CompletedTask;
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private async Task OnClickShowMenuOverlay(DrawerMenuItem poMenu, string[]? poBreadCrumbs = null)
+        {
+            if (_menuOverlay != null)
+                await _menuOverlay.Show(poMenu, poBreadCrumbs);
         }
 
         private async Task OnClickProgram(DrawerMenuItem drawerMenuItem)
@@ -184,38 +201,71 @@ namespace BlazorMenu.Shared
         {
             try
             {
-                await TabSetTool.AddTab(text, id, "A,U,D,P,V");
+                if (_menuOverlay != null)
+                    await _menuOverlay.Hide();
+
+                if (_menuTabSetRef is not null)
+                {
+                    var laMenuList = _menuList.Where(x => x.CSUB_MENU_ID == id).ToList();
+                    var laMenuAccess = laMenuList
+                                                .SelectMany(x => x.CSUB_MENU_ACCESS?.Split(',') ?? Array.Empty<string>())
+                                                .Distinct()
+                                                .ToArray();
+                    var lcMenuAccess = string.Join(",", laMenuAccess);
+
+                    await _menuTabSetRef.OpenTabAsync(text, id, lcMenuAccess);
+                }
             }
             catch (Exception ex)
             {
                 await _messageBoxService.Show(ex.Message);
+                await _preloadService.Hide();
             }
         }
 
-        private async Task SearchTextValueChanged(object value)
+        private void SearchTextValueChanged(string value)
+        {
+            _searchText = value;
+        }
+
+        private bool searchTextChanged = false;
+        private async Task SearchTextOnChange(object value)
         {
             if (string.IsNullOrWhiteSpace(_searchText))
                 return;
 
             var programId = _searchText.Split(" - ")[0];
             var menuItem = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == programId);
+
             if (menuItem != null)
             {
+                if (searchTextChanged)
+                    return;
+
+                searchTextChanged = true;
+
+                if (TelerikAutoCompleteRef is not null)
+                    TelerikAutoCompleteRef.Close();
+
                 await OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
-                _searchText = "";
-                TelerikAutoCompleteRef.Close();
+                _searchText = default;
             }
+
+            searchTextChanged = false;
         }
 
         private async Task Logout()
         {
-            _preloadService.Show();
+            if (_menuOverlay is not null)
+                await _menuOverlay.Hide();
+
+            await _preloadService.Show();
 
             await ((BlazorMenuAuthenticationStateProvider)_stateProvider).MarkUserAsLoggedOut();
 
             _navigationManager.NavigateTo("/");
 
-            _preloadService.Hide();
+            await _preloadService.Hide();
         }
 
         public void Dispose()
@@ -263,21 +313,6 @@ namespace BlazorMenu.Shared
 
         #endregion
 
-        private async Task onkeypress(KeyboardEventArgs eventArgs)
-        {
-            if (eventArgs.Code == "Enter" && !string.IsNullOrWhiteSpace(_searchText))
-            {
-                var programId = _searchText.Split(" - ")[0];
-                var menuItem = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == programId);
-                if (menuItem != null)
-                {
-                    await OnClickProgram(menuItem.CSUB_MENU_NAME, menuItem.CSUB_MENU_ID);
-                    _searchText = "";
-                    TelerikAutoCompleteRef.Close();
-                }
-            }
-        }
-
         //#region Documentation
 
         ////private string GetDocumentationBaseUrl()
@@ -315,5 +350,16 @@ namespace BlazorMenu.Shared
     {
         public string Id { get; set; }
         public string Text { get; set; }
+    }
+
+    public class BlazorMenuNotificationDTO
+    {
+        public string Author { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public DateTime MessageDate { get; set; }
+        public bool IsJustArrived { get; set; } = true;
+        public bool IsRead { get; set; }
+
+        public string HtmlMessage => $"<strong>{Author} : </strong> {Message}";
     }
 }

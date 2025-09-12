@@ -1,5 +1,5 @@
 ﻿using BlazorClientHelper;
-using BlazorMenu.Constants.Storage;
+using BlazorMenu.Constants;
 using BlazorMenu.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_AuthenticationEnumAndInterface;

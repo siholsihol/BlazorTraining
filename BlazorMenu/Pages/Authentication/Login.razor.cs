@@ -1,5 +1,5 @@
 ﻿using BlazorMenu.Authentication;
-using BlazorMenu.Constants.Storage;
+using BlazorMenu.Constants;
 using BlazorMenuModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
