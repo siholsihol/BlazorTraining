@@ -1,12 +1,11 @@
 ﻿@inherits R_Page
-@using BlazorTraining.Controls.Preload
 
 <R_Button OnClick="@OnClick">
     Click Me!
 </R_Button>
 
 @code {
-    [Inject] private R_PreloadMenuService _preloadService { get; set; }
+    [Inject] private R_PreloadService _preloadService { get; set; }
 
     private async Task OnClick()
     {
