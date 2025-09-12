@@ -1,10 +1,12 @@
 ﻿using DataDummyProvider.DTOs;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Extensions;
 using R_CommonFrontBackAPI;
 
 namespace SAB00600Front
@@ -15,6 +17,7 @@ namespace SAB00600Front
         private R_ConductorGrid _conGridCustomerRef;
         private R_Grid<CustomerDTO> _gridRef;
         private int _pageSize = 10;
+        private string _access { get; set; } = "A,U,D,P,V";
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -35,6 +38,13 @@ namespace SAB00600Front
             }
 
             loEx.ThrowExceptionIfErrors();
+        }
+
+        private void TextValueChanged(string value)
+        {
+            _access = value;
+            var formAccess = value.Split(",").Select((string x) => x.ToEnum<R_eFormAccess>()).ToArray();
+            _conGridCustomerRef.R_SetMeAndChildAccess(formAccess);
         }
 
         private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";

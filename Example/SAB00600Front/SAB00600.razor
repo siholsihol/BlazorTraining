@@ -38,8 +38,8 @@
             R_DisableDeleteConfirmation="false"
             R_DisableCancelConfirmation
             R_SetAddGridColumn="@R_SetAddGridColumn"
-            R_SetEditGridColumn="@R_SetEditGridColumn" 
-            R_RowRender="@R_RowRender">
+            R_SetEditGridColumn="@R_SetEditGridColumn" >
+            @* R_RowRender="@R_RowRender"> *@
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
@@ -65,7 +65,8 @@
                               R_EnableAdd="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible" 
                               Width="400px" 
-                              R_CellRender="@R_CellRender" Ellipsis />
+                              Ellipsis />
+                              @* R_CellRender="@R_CellRender"  *@
 
             @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
@@ -86,8 +87,7 @@
     </R_StackLayout>
 
     <R_StackLayout Row>
-        <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
-        <R_Label>Show Add New Row</R_Label>
+        <R_TextBox Value="@_access" ValueChanged="(string value) => TextValueChanged(value)"></R_TextBox>
     </R_StackLayout>
 
     <R_StackLayout Row>

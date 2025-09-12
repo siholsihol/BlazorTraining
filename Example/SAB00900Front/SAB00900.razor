@@ -103,6 +103,7 @@
             <R_DeleteButton R_Conductor="@_conductorRef" />
             <R_SaveButton R_Conductor="@_conductorRef" />
             <R_CancelButton R_Conductor="@_conductorRef" />
+            <R_PrintButton R_Conductor="@_conductorRef" OnClick="OnClickPrint" TabIndex="10" />
 
             <R_Find R_ConductorSource="@_conductorRef"
                     R_FindModel="@R_FindModel"
@@ -110,7 +111,7 @@
                     R_After_Open_Find="@R_After_Open_Find"
                     R_EnableOther>Find Product</R_Find>
 
-            <R_Lookup R_ConductorSource="@_conductorRef"
+           @*  <R_Lookup R_ConductorSource="@_conductorRef"
                       R_Before_Open_Lookup="@R_Before_Open_Lookup"
                       R_After_Open_Lookup="@R_After_Open_Lookup"
                       R_EnableOther>Lookup Product</R_Lookup>
@@ -133,7 +134,7 @@
             <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail"
                       R_After_Open_Detail="@R_After_Open_Detail">
                 Detail
-            </R_Detail>
+            </R_Detail> *@
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>

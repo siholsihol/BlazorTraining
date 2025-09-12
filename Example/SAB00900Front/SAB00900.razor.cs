@@ -1,5 +1,6 @@
 ﻿using DataDummyProvider.DTOs;
 using Microsoft.AspNetCore.Components;
+using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Enums;
@@ -17,6 +18,7 @@ namespace SAB00900Front
     {
         private SAB00900ViewModel ViewModel = new();
         private R_Conductor _conductorRef;
+        [Inject] public R_IFileConverter _fileConverter { get; set; }
 
         protected override Task R_Init_From_Master(object poParameter)
         {
@@ -361,6 +363,17 @@ namespace SAB00900Front
 
                 var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
             }
+        }
+
+
+
+        private async Task OnClickPrint()
+        {
+            var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
+
+            var loByteFile = _fileConverter.R_GetByteFromHtmlString($"<b>{ViewModel.Data.Id}</b>", R_eDocumentType.Docx); //kalo mau save langsung jadi file
+
+            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
         }
     }
 }

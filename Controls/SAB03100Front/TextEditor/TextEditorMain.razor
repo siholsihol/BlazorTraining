@@ -6,8 +6,7 @@
 <R_GroupBox Title="R_TextEditor">
     <R_TextEditor @ref="@_textEditorRef"
     @bind-Value="@_editorValue"
-    Height="200px" 
-    Width="100px"
+    Height="300px" 
     R_TextEditorToolMode="@R_eTextEditorToolMode.None" />
 
     <R_ItemLayout col="2">
@@ -34,15 +33,7 @@
 
     protected override Task R_Init_From_Master(object poParameter)
     {
-        _editorValue = @"<BODY style=""BACKGROUND-COLOR: white""><P>Dear ,</P>
-<P>&nbsp;</P>
-<P>Dengan ini saya sampaikan bahwa</P>
-<P>&nbsp;</P>
-<P>Terima kasih atas perhatiannya.</P>
-<P>Salam,</P>
-<P>&nbsp;</P>
-<P>Nama</P>
-<P>PT IPM</P></BODY>";
+        _editorValue = @"<P>Dear ,</P><P>Dengan ini saya sampaikan bahwa</P><P>Terima kasih atas perhatiannya.</P><P>Salam,</P><P>Nama</P><P>PT IPM</P>";
 
         return Task.CompletedTask;
     }
