@@ -15,6 +15,9 @@
                     AllowEditRow
                     AllowDeleteRow
                     R_ServiceGetListRecord="@R_ServiceGetListRecord"
+                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                    R_AfterSaveBatch="@R_AfterSaveBatch"
                     Height="400px"
                     Width="500px"
                     DragDrop
@@ -59,6 +62,9 @@
                     AllowEditRow
                     AllowDeleteRow
                     R_ServiceGetListRecord="@R_ServiceGetListRecordGrid2"
+                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                    R_AfterSaveBatch="@R_AfterSaveBatch"
                     Height="400px"
                     Width="500px"
                     DragDrop
@@ -117,12 +123,8 @@
 
 <R_ConductorGrid @ref="@_conGridProductRef"
                  R_IsHeader
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+ />
 
 <R_ConductorGrid @ref="@_conGridProductRef2"
                  R_ConductorParent="@_conGridProductRef"
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+ />

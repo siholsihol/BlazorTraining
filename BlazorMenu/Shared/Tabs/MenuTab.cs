@@ -8,6 +8,7 @@ namespace BlazorMenu.Shared.Tabs
         public Guid Id { get; set; } = Guid.NewGuid();
         public bool IsActive { get; set; }
         public bool IsInited { get; set; }
+        public bool HasRendered { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
         public RenderFragment Body { get; set; }

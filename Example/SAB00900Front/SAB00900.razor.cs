@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Forms;
 using R_BlazorFrontEnd.Controls.Lookup;
@@ -159,7 +160,19 @@ namespace SAB00900Front
             eventArgs.Parameter = "Dari Find";
             eventArgs.PageTitle = "Title dari event argument";
         }
-
+        public int Count = 0;
+        public async Task R_FindModel(R_FindModelEventArgs eventArgs)
+        {
+            if (Count % 2 == 0)
+            {
+                eventArgs.FindModel = R_eFindModel.NoDisplay;
+            }
+            else if (Count % 2 == 1)
+            {
+                eventArgs.FindModel = R_eFindModel.ViewOnly;
+            }
+            Count++;
+        }
         public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
         {
             if (eventArgs.Result == null)
@@ -170,6 +183,8 @@ namespace SAB00900Front
 
             await _conductorRef.R_GetEntity(loParam);
         }
+
+
         #endregion
 
         #region Lookup
