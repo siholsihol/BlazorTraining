@@ -15,7 +15,9 @@ namespace SAB00600Front
     {
         private SAB00600ViewModel CustomerViewModel = new();
         private R_ConductorGrid _conGridCustomerRef;
+        private R_ConductorGrid _conGridCustomer2Ref;
         private R_Grid<CustomerDTO> _gridRef;
+        private R_BatchEditGrid<CustomerDTO> _grid2Ref;
         private int _pageSize = 10;
         private string _access { get; set; } = "A,U,D,P,V";
 

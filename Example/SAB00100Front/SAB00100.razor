@@ -2,3 +2,62 @@
 @inherits R_Page
 @attribute [R_Page(Title = "Layout Training")]
 @using R_BlazorFrontEnd.Controls.Events
+
+<R_StackLayout Row>
+    <R_ItemLayout col="6">
+        <div style="display:flex; flex-direction: row;">
+            <div class="col-1" style="background-color: red">Property</div>
+            <div class="col-auto" style="background-color: yellow">Combobox</div>
+            <div class="col" style="background-color: pink">item 3</div>
+        </div>
+        <div style="display: flex; flex-direction: column; height: 150px; justify-content:space-between; align-items:center">
+            <div>
+                <div>item 1</div>
+                <div>item 2</div>
+            </div>
+            <div>item 3</div>
+        </div>
+    </R_ItemLayout>
+    <R_ItemLayout col="6">
+        <R_StackLayout Row Spacing="0">
+            <R_ItemLayout col="1" Style="background-color: red">Property</R_ItemLayout>
+            <R_ItemLayout auto="true" Style="background-color: yellow">Combobox</R_ItemLayout>
+            <R_ItemLayout auto="false" Style="background-color: pink">item 3</R_ItemLayout>
+        </R_StackLayout>
+
+        <R_StackLayout Style="height: 150px;" Justify="R_eJustify.SpaceBetween" AlignItems="R_eAlignItems.Center">
+            <R_StackLayout>
+                <R_ItemLayout>item 1</R_ItemLayout>
+                <R_ItemLayout>item 2</R_ItemLayout>
+            </R_StackLayout>
+            <R_StackLayout>item 3</R_StackLayout>
+        </R_StackLayout>
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout>
+    <R_StackLayout Row Style="background-color: blue">
+        <R_ItemLayout col="3" Style="background-color: red">Input 1</R_ItemLayout>
+        <R_ItemLayout auto="false" Style="background-color: yellow">Input 2</R_ItemLayout>
+        <R_ItemLayout col="3" Style="background-color: red">Input 3</R_ItemLayout>
+        <R_ItemLayout col="3" Style="background-color: yellow">Input 4</R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row Style="background-color: blue">
+        <R_ItemLayout auto="false" Style="background-color: red">Input 1</R_ItemLayout>
+        <R_ItemLayout col="3" Style="background-color: yellow">Input 2</R_ItemLayout>
+        <R_ItemLayout col="3" Style="background-color: red">Input 3</R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_StackLayout Row Style="background-color: blue" Justify="R_eJustify.FlexEnd">
+   <input />
+</R_StackLayout>
+<R_StackLayout Row Style="background-color: blue" Justify="R_eJustify.FlexEnd">
+    <R_ItemLayout col="3" Style="background-color: yellow">
+        <R_StackLayout Row Reverse>
+            <button>Button1</button>
+            <button>Button2</button>
+        </R_StackLayout>
+    </R_ItemLayout>
+</R_StackLayout>
+

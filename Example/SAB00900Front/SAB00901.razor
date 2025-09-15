@@ -1,0 +1,124 @@
+@using R_BlazorFrontEnd.Controls.Tab
+@inherits R_Page
+@attribute [R_Page(Title = "Find With Conductor Tab 2")]
+@* @attribute [R_Page(Title = "_Title")] *@
+
+<R_StackLayout Style="width:800px;">
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Product Id</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_NumericTextBox @ref="_numericIdRef"
+                                @bind-Value="@ViewModel.Data.Id"
+                                R_ConductorSource="@_conductorRef"
+                                R_EnableAdd />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Product Name</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_TextBox @ref="_productNameRef"
+                        Id="txtName"
+                        @bind-Value="@ViewModel.Data.Name"
+                        R_ConductorSource="@_conductorRef"
+                        R_EnableAdd
+                        R_EnableEdit>
+            </R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Category</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_DropDownList @ref="@_dropdownCategoryRef"
+                            Data="@ViewModel.CategoryList"
+                            ValueField="@nameof(CategoryDTO.Id)"
+                            TextField="@nameof(CategoryDTO.Name)"
+                            @bind-Value="@ViewModel.Data.CategoryId"
+                            R_ConductorSource="@_conductorRef"
+                            R_EnableAdd
+                            R_EnableEdit />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Price</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_NumericTextBox @bind-Value="@ViewModel.Data.Price"
+                                R_ConductorSource="@_conductorRef"
+                                R_EnableAdd
+                                R_EnableEdit
+                                Decimals="2" />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Release Date</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_DatePicker @ref="@_datePickerRef"
+                            Value="@ViewModel.ReleaseDate"
+                            R_ConductorSource="@_conductorRef"
+                            ValueChanged="((DateTime? value) => DatePicker_ValueChanged(value))"
+                            R_EnableAdd
+                            R_EnableEdit />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Active</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_CheckBox @ref="@_checkboxActiveRef"
+                        @bind-Value="@ViewModel.Data.Active"
+                        R_ConductorSource="@_conductorRef"
+                        R_EnableAdd
+                        R_EnableEdit />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Testing</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="4">
+            <R_TextBox Id="txtName"
+                        @bind-Value="@ViewModel.TextBox1"
+                        R_ConductorSource="@_conductorRef"
+                        Enabled="@(_conductorRef.R_ConductorMode != R_BlazorFrontEnd.Enums.R_eConductorMode.Normal && ViewModel.Data.Active)">
+            </R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_Button OnClick="@OnClose">Close</R_Button>
+    <R_Button OnClick="@OnCancel">Cancel</R_Button>
+</R_StackLayout>
+
+
+
+<R_Conductor @ref="@_conductorRef"
+             R_ViewModel="@ViewModel"
+             R_IsHeader
+             R_ServiceGetRecord="@Conductor_ServiceGetRecord"
+             R_Display="Conductor_Display"
+             />

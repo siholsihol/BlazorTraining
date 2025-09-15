@@ -12,6 +12,7 @@ namespace SAB00900Front
         public List<CategoryDTO> CategoryList { get; set; } = new List<CategoryDTO>();
         public List<ProductDTO> ProductList = new List<ProductDTO>();
         public DateTime? ReleaseDate { get; set; }
+        public string TextBox1 = "";
 
         public void GetProductById(int productId)
         {
@@ -64,6 +65,30 @@ namespace SAB00900Front
             {
                 var loParam = new ProductDTO { Id = productId };
                 ProductService.DeleteProduct(loParam);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        public void Validation(ProductDTO poData)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(poData.Name))
+                {
+                    loEx.Add("", "Please fill Product Name.");
+                }
+
+                if (poData.Price == 0)
+                {
+                    loEx.Add("", "Please fill Price.");
+                }
             }
             catch (Exception ex)
             {
