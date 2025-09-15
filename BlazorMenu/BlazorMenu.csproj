@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03300Front\SAB03300Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03400Front\SAB03400Front.csproj" />
+    <ProjectReference Include="..\Example\SAB00100Front\SAB00100Front.csproj" />
     <ProjectReference Include="..\Example\SAB00600Front\SAB00600Front.csproj" />
     <ProjectReference Include="..\Example\SAB00700Front\SAB00700Front.csproj" />
     <ProjectReference Include="..\Example\SAB00800Front\SAB00800Front.csproj" />
