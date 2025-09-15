@@ -1,6 +1,6 @@
 ﻿using BlazorMenu.Authentication;
 using BlazorMenu.Constants;
-using BlazorMenuModel;
+using BlazorMenuModel.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using R_BlazorFrontEnd.Controls;
@@ -16,7 +16,8 @@ namespace BlazorMenu.Pages.Authentication
         [Inject] private R_ToastService _toastService { get; set; }
         [Inject] private R_PreloadService _preloadService { get; set; }
 
-        private readonly R_LoginViewModel _loginVM = new();
+        private LoginRequest _loginRequest = new();
+
         private string _captcha = "";
         private int _captchaLength = 4;
         private string validateCaptcha;
