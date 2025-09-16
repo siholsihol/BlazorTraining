@@ -114,6 +114,29 @@
     <R_Button OnClick="@OnCancel">Cancel</R_Button>
 </R_StackLayout>
 
+<R_StackLayout Row>
+    <R_Popup R_ConductorSource="@_conductorRef"
+             R_Before_Open_Popup="@R_Before_Open_Popup"
+             R_After_Open_Popup="@R_After_Open_Popup"
+             R_EnableOther>Popup Product</R_Popup>
+
+    <R_Popup R_ConductorSource="@_conductorRef"
+             R_Before_Open_Popup="@R_Before_Open_Popup_From_Namespace"
+             R_After_Open_Popup="@R_After_Open_Popup_From_Namespace"
+             R_EnableOther>Popup Product From Namespace</R_Popup>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail"
+              R_After_Open_Detail="@R_After_Open_Detail">
+        Detail
+    </R_Detail>
+
+    <R_Detail R_Before_Open_Detail="@R_Before_Open_Detail_From_Namespace"
+              R_After_Open_Detail="@R_After_Open_Detail_From_Namespace">
+        Detail From Namespace
+    </R_Detail>
+</R_StackLayout>
 
 
 <R_Conductor @ref="@_conductorRef"

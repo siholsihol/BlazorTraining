@@ -80,13 +80,49 @@ namespace SAB00900Front
         }
         #endregion
 
-        #region Predefined Dock
-        private void R_InstantiateDock(R_InstantiateDockEventArgs eventArgs)
+        #region Popup
+        public void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
         {
             eventArgs.TargetPageType = typeof(SAB00901);
+            eventArgs.Parameter = _conductorRef.R_GetCurrentData();
+        }
+        public async Task R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
+        {
+            if (!eventArgs.Success || eventArgs.Result is null) return;
+            await _conductorRef.R_SetCurrentData(eventArgs.Result);
         }
 
-        private async Task R_AfterOpenPredefinedDock(R_AfterOpenPredefinedDockEventArgs eventArgs)
+        public void R_Before_Open_Popup_From_Namespace(R_BeforeOpenPopupEventArgs eventArgs)
+        {
+            eventArgs.PageNamespace = "SAB00900Front.SAB00901";
+            eventArgs.Parameter = _conductorRef.R_GetCurrentData();
+        }
+
+        public async Task R_After_Open_Popup_From_Namespace(R_AfterOpenPopupEventArgs eventArgs)
+        {
+            if (!eventArgs.Success || eventArgs.Result is null) return;
+            await _conductorRef.R_SetCurrentData(eventArgs.Result);
+        }
+        #endregion
+
+        #region Detail
+        private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(SAB00901);
+            eventArgs.Parameter = _conductorRef.R_GetCurrentData();
+        }
+        private async Task R_After_Open_Detail(R_AfterOpenDetailEventArgs eventArgs)
+        {
+            if (eventArgs.Result is null) return;
+            await _conductorRef.R_SetCurrentData(eventArgs.Result);
+        }
+
+        private void R_Before_Open_Detail_From_Namespace(R_BeforeOpenDetailEventArgs eventArgs)
+        {
+            eventArgs.PageNamespace = "SAB00900Front.SAB00901";
+            eventArgs.Parameter = _conductorRef.R_GetCurrentData();
+        }
+        private async Task R_After_Open_Detail_From_Namespace(R_AfterOpenDetailEventArgs eventArgs)
         {
             if (eventArgs.Result is null) return;
             await _conductorRef.R_SetCurrentData(eventArgs.Result);

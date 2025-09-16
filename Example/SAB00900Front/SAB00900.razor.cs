@@ -1,4 +1,5 @@
-﻿using DataDummyProvider.DTOs;
+﻿using BlazorClientHelper;
+using DataDummyProvider.DTOs;
 using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
@@ -11,6 +12,8 @@ using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Controls.Popup;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Interfaces;
+using SAB00900FrontResources;
 
 namespace SAB00900Front
 {
@@ -537,28 +540,26 @@ namespace SAB00900Front
         #region Popup
         [Inject] public R_MessageBoxService MessageBoxService { get; set; }
         [Inject] public R_PopupService PopupService { get; set; }
+        [Inject] public IClientHelper ClientHelper { get; set; }
+        [Inject] public R_PreloadService PreloadService { get; set; }
+        [Inject] public R_ILocalizer<Resources_Dummy_Class> Localizer { get; set; }
         private async Task popupButtonOnClick()
         {
             var loEx = new R_Exception();
 
             try
             {
-                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
-
-                //if (leResult == R_eMessageBoxResult.OK)
-                //{
-                //var loResult = await PopupService.Show(typeof(TabTest), "Dari PopupService");
                 var loPopupSettings = new R_PopupSettings
                 {
                     PageTitle = "Title dari popup settings",
                     WithLock = true,
-                    Page = this
+                    Page = this,
                 };
 
-                var loResult = await PopupService.Show(typeof(SAB00900), "Dari PopupService", poPopupSettings: loPopupSettings);
-                //}
+                var loResult = await PopupService.Show(typeof(SAB00901), _conductorRef.R_GetCurrentData(), poPopupSettings: loPopupSettings);
 
-                //var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+                var loData = (ProductDTO)loResult.Result;
+                await _conductorRef.R_SetCurrentData(loData);
             }
             catch (Exception ex)
             {

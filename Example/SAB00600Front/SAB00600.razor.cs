@@ -1,13 +1,12 @@
 ﻿using DataDummyProvider.DTOs;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
-using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
-using R_BlazorFrontEnd.Extensions;
 using R_CommonFrontBackAPI;
+using SAB00900Front;
 
 namespace SAB00600Front
 {
@@ -30,9 +29,6 @@ namespace SAB00600Front
                 CustomerViewModel.GetGenders();
 
                 await _gridRef.R_RefreshGrid(null);
-
-                //await _gridRef.AddAsync();
-                //await _gridRef.R_SelectCurrentDataAsync(CustomerViewModel.CustomerList.ElementAt(1));
             }
             catch (Exception ex)
             {
@@ -40,13 +36,6 @@ namespace SAB00600Front
             }
 
             loEx.ThrowExceptionIfErrors();
-        }
-
-        private void TextValueChanged(string value)
-        {
-            _access = value;
-            var formAccess = value.Split(",").Select((string x) => x.ToEnum<R_eFormAccess>()).ToArray();
-            _conGridCustomerRef.R_SetMeAndChildAccess(formAccess);
         }
 
         private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
@@ -124,7 +113,6 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         private void Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -143,7 +131,66 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
+        private void R_Display(R_DisplayEventArgs eventArgs)
+        {
 
+        }
+        private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
+        {
+            var loData = (CustomerDTO)eventArgs.Data;
+
+            if (loData.GenderId == "M")
+            {
+                eventArgs.RowClass = "myCustomRowFormatting";
+            }
+        }
+        private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnName == "CompanyName")
+            {
+                var loData = eventArgs.CurrentRow as CustomerDTO;
+                loData.ContactName = eventArgs.Value as string;
+            }
+
+            if (eventArgs.ColumnName == "GenderId")
+            {
+                var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
+                loContactNameColumn.Enabled = eventArgs.Value.ToString() != "F";
+            }
+        }
+        private void R_CellLostFocus(R_CellLostFocusedEventArgs eventArgs)
+        {
+
+        }
+        private void R_Before_Open_Grid_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(ProductPage);
+        }
+        private void R_After_Open_Grid_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
+        {
+            var loData = (CustomerDTO)eventArgs.ColumnData;
+
+            var loResult = (ProductDTO)eventArgs.Result;
+
+            loData.ProductId = loResult.Id;
+            loData.ProductName = loResult.Name;
+        }
+
+        #region Add
+        private void Grid_BeforeAdd(R_BeforeAddEventArgs eventArgs)
+        {
+            //TODO Validation
+            //eventArgs.Cancel = true;
+        }
+        private void Grid_AfterAdd(R_AfterAddEventArgs eventArgs)
+        {
+            var loData = (CustomerDTO)eventArgs.Data;
+            //loData.Id = "SIHOL";
+            //loData.CompanyName = "Realta";
+        }
+        #endregion
+
+        #region Edit
         private void Grid_BeforeEdit(R_BeforeEditEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -162,26 +209,37 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
+        #endregion
 
-        private void Grid_BeforeCancel(R_BeforeCancelEventArgs eventArgs)
+        #region Delete
+        private void Grid_BeforeDelete(R_BeforeDeleteEventArgs eventArgs)
         {
             //TODO Validation
             //eventArgs.Cancel = true;
         }
-
-        private void Grid_BeforeAdd(R_BeforeAddEventArgs eventArgs)
+        private void Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
-            //TODO Validation
-            //eventArgs.Cancel = true;
-        }
+            var loEx = new R_Exception();
 
-        private void Grid_AfterAdd(R_AfterAddEventArgs eventArgs)
+            try
+            {
+                var loData = (CustomerDTO)eventArgs.Data;
+                CustomerViewModel.DeleteCustomer(loData.Id);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+        private async Task Grid_AfterDelete()
         {
-            var loData = (CustomerDTO)eventArgs.Data;
-            loData.Id = "SIHOL";
-            loData.CompanyName = "Realta";
+            await R_MessageBox.Show("Success", "Success Delete", R_eMessageBoxButtonType.OK);
         }
+        #endregion
 
+        #region Save
         private void Grid_Validation(R_ValidationEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -202,7 +260,6 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         private void Grid_Saving(R_SavingEventArgs eventArgs)
         {
             if (eventArgs.ConductorMode == R_eConductorMode.Add)
@@ -211,7 +268,6 @@ namespace SAB00600Front
                 loData.Address = "Depok";
             }
         }
-
         private void Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -229,44 +285,19 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         private async Task Grid_AfterSave(R_AfterSaveEventArgs eventArgs)
         {
             await R_MessageBox.Show("Success", "Success", R_eMessageBoxButtonType.OK);
         }
+        #endregion
 
-        private void Grid_BeforeDelete(R_BeforeDeleteEventArgs eventArgs)
+        #region Cancel
+        private void Grid_BeforeCancel(R_BeforeCancelEventArgs eventArgs)
         {
             //TODO Validation
             //eventArgs.Cancel = true;
         }
-
-        private void Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
-        {
-            var loEx = new R_Exception();
-
-            try
-            {
-                var loData = (CustomerDTO)eventArgs.Data;
-                CustomerViewModel.DeleteCustomer(loData.Id);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-        }
-
-        private async Task Grid_AfterDelete()
-        {
-            await R_MessageBox.Show("Success", "Success Delete", R_eMessageBoxButtonType.OK);
-        }
-
-        private void R_Display(R_DisplayEventArgs eventArgs)
-        {
-
-        }
+        #endregion
 
         #region CHECK EVENT
         private void R_CheckAdd(R_CheckAddEventArgs eventArgs)
@@ -275,13 +306,11 @@ namespace SAB00600Front
             //var loCurrentData = _gridRef.GetCurrentData() as CustomerDTO;
             //eventArgs.Allow = loCurrentData.GenderId == "M";
         }
-
         private void R_CheckEdit(R_CheckEditEventArgs eventArgs)
         {
             //TODO Validation
             //eventArgs.Allow = false;
         }
-
         private void R_CheckDelete(R_CheckDeleteEventArgs eventArgs)
         {
             //TODO Validation
@@ -295,30 +324,40 @@ namespace SAB00600Front
             //TODO Validation
             //eventArgs.Allow = false;
         }
-
         private void R_CheckGridEdit(R_CheckGridEventArgs eventArgs)
         {
-            //TODO Validation
-            //eventArgs.Allow = false;
-        }
+            //var loList = (ObservableCollection<CustomerDTO>)eventArgs.DataList;
+            //if (loList.Where(x => x.GenderId == "M").ToList().Count > 0)
+            //{
+            //    eventArgs.Allow = false;
+            //}
 
+            //foreach (var item in loList)
+            //{
+            //    if (item.GenderId == "M")
+            //    {
+            //        eventArgs.Allow = false;
+            //        break;
+            //    }
+            //}
+        }
         private void R_CheckGridDelete(R_CheckGridEventArgs eventArgs)
         {
             //TODO Validation
             //eventArgs.Allow = false;
         }
         #endregion
-
+        #region SET GRID COLUMN
         private void R_SetAddGridColumn(R_SetAddGridColumnEventArgs eventArgs)
         {
-            //var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "CompanyName");
+            var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "CompanyName");
+            var loData = (CustomerDTO)eventArgs.Data;
 
-            //if (loColumn != null)
-            //{
-            //    loColumn.Enabled = false;
-            //}
+            if (!string.IsNullOrWhiteSpace(loData.CompanyName))
+            {
+                loColumn.Enabled = false;
+            }
         }
-
         private void R_SetEditGridColumn(R_SetEditGridColumnEventArgs eventArgs)
         {
             //var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "GenderId");
@@ -327,37 +366,21 @@ namespace SAB00600Front
             //{
             //    loColumn.Enabled = false;
             //}
+
+            //var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "CompanyName");
+            //var loData = (CustomerDTO)eventArgs.Data;
+
+            //if (!string.IsNullOrWhiteSpace(loData.CompanyName))
+            //{
+            //    loColumn.Enabled = false;
+            //}
         }
         #endregion
-
-        private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
-        {
-            var loData = (CustomerDTO)eventArgs.Data;
-
-            if (loData.GenderId == "M")
-            {
-                eventArgs.RowClass = "myCustomRowFormatting";
-            }
-        }
+        #endregion
 
         private bool _checkBoxValue = true;
         private bool _isContactNameColumnVisible = true;
         private bool _isAddNewRowVisible = true;
-
-        private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnName == "CompanyName")
-            {
-                var loData = eventArgs.CurrentRow as CustomerDTO;
-                loData.ContactName = eventArgs.Value as string;
-            }
-
-            if (eventArgs.ColumnName == "GenderId")
-            {
-                var loContactNameColumn = eventArgs.Columns.FirstOrDefault(x => x.Name == "ContactName");
-                loContactNameColumn.Enabled = eventArgs.Value.ToString() != "F";
-            }
-        }
 
         private async Task OnClick()
         {
@@ -378,17 +401,6 @@ namespace SAB00600Front
         private string _prefixText = "Mr.";
         private int _valuePrefix = 0;
         private string _suffixText = "Kg";
-
-        //private void R_CellRender(R_GridCellRenderEventArgs eventArgs)
-        //{
-        //    var lcGenderId = eventArgs.Value as string;
-
-        //    if (lcGenderId == "F")
-        //    {
-        //        eventArgs.CellClass = "myCustomCellFormatting";
-        //    }
-        //}
-
         private void R_CellRender(R_GridCellRenderEventArgs eventArgs)
         {
             var lcCompanyName = eventArgs.Value as string;
