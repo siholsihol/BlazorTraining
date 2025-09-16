@@ -1,4 +1,6 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Enums;
@@ -17,13 +19,18 @@ namespace SAB01000Front
 
         private SAB01000ViewModel _viewModel = new();
 
+        [Inject] private IProductService ProductService { get; set; }
+        [Inject] private ICategoryService CategoryService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                _viewModel.GetCategories();
+                _viewModel = new SAB01000ViewModel(ProductService, CategoryService);
+
+                await _viewModel.GetCategoriesAsync();
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -34,13 +41,13 @@ namespace SAB01000Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                _viewModel.GetProducts();
+                await _viewModel.GetProductsAsync();
 
                 eventArgs.ListEntityResult = _viewModel.Products;
             }

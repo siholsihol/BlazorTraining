@@ -1,5 +1,5 @@
-﻿using DataDummyProvider.DTOs;
-using DataDummyProvider.Services;
+﻿using DataDummyProvider.Services;
+using DataProvider.DTOs;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using R_CommonFrontBackAPI;

@@ -1,5 +1,5 @@
-﻿using DataDummyProvider.DTOs;
-using DataDummyProvider.Services;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
@@ -14,15 +14,26 @@ namespace SAB01500Front
         public ObservableCollection<CategoryGridDTO> CategoryList = new ObservableCollection<CategoryGridDTO>();
 
         public CategoryDTO Category = new CategoryDTO();
+        private readonly ICategoryService _categoryService;
+
+        public SAB01500ViewModel()
+        {
+
+        }
+
+        public SAB01500ViewModel(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
 
         #region Category
-        public void GetCategoryList()
+        public async Task GetCategoryListAsync()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = CategoryService.GetCategories();
+                var loResult = await _categoryService.GetCategoriesAsync();
                 var loGridData = R_FrontUtility.ConvertCollectionToCollection<CategoryGridDTO>(loResult);
                 CategoryList = new ObservableCollection<CategoryGridDTO>(loGridData);
             }
@@ -34,13 +45,13 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetCategoryById(int piCategoryId)
+        public async Task GetCategoryByIdAsync(int piCategoryId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                Category = CategoryService.GetCategory(piCategoryId);
+                Category = await _categoryService.GetCategoryAsync(piCategoryId);
             }
             catch (Exception ex)
             {
@@ -50,7 +61,7 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveCategory(CategoryDTO poEntity, eCRUDMode peCRUDMode)
+        public async Task SaveCategoryAsync(CategoryDTO poEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
 
@@ -58,14 +69,14 @@ namespace SAB01500Front
             {
                 if (peCRUDMode == eCRUDMode.AddMode)
                 {
-                    CategoryService.CreateCategory(poEntity);
+                    await _categoryService.CreateCategoryAsync(poEntity);
                 }
                 else
                 {
-                    CategoryService.UpdateCategory(poEntity);
+                    await _categoryService.UpdateCategoryAsync(poEntity);
                 }
 
-                Category = CategoryService.GetCategory(poEntity.Id);
+                Category = await _categoryService.GetCategoryAsync(poEntity.Id);
             }
             catch (Exception ex)
             {
@@ -75,14 +86,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void DeleteCategory(int piCategoryId)
+        public async Task DeleteCategoryAsync(int piCategoryId)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = new CategoryDTO { Id = piCategoryId };
-                CategoryService.DeleteCategory(loParam);
+                await _categoryService.DeleteCategoryAsync(loParam);
             }
             catch (Exception ex)
             {

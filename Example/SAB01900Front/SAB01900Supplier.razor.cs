@@ -1,4 +1,4 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;

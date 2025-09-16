@@ -1,4 +1,6 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Enums;
@@ -19,13 +21,17 @@ namespace SAB00600Front
         private int _pageSize = 10;
         private string _access { get; set; } = "A,U,D,P,V";
 
+        [Inject] private ICustomerService CustomerService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                CustomerViewModel.GetGenders();
+                CustomerViewModel = new SAB00600ViewModel(CustomerService);
+
+                await CustomerViewModel.GetGendersAsync();
 
                 await _gridRef.R_RefreshGrid(null);
 
@@ -105,13 +111,13 @@ namespace SAB00600Front
         //}
 
         #region Conductor Grid Events
-        private void Grid_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task Grid_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                CustomerViewModel.GetCustomerList();
+                await CustomerViewModel.GetCustomerList();
 
                 eventArgs.ListEntityResult = CustomerViewModel.CustomerList;
             }
@@ -123,14 +129,14 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (CustomerDTO)eventArgs.Data;
-                CustomerViewModel.GetCustomerById(loParam.Id);
+                await CustomerViewModel.GetCustomerByIdAsync(loParam.Id);
 
                 eventArgs.Result = CustomerViewModel.Customer;
             }
@@ -210,13 +216,13 @@ namespace SAB00600Front
             }
         }
 
-        private void Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                CustomerViewModel.SaveCustomer((CustomerDTO)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
+                await CustomerViewModel.SaveCustomerAsync((CustomerDTO)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = CustomerViewModel.Customer;
             }
@@ -239,14 +245,14 @@ namespace SAB00600Front
             //eventArgs.Cancel = true;
         }
 
-        private void Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loData = (CustomerDTO)eventArgs.Data;
-                CustomerViewModel.DeleteCustomer(loData.Id);
+                await CustomerViewModel.DeleteCustomerAsync(loData.Id);
             }
             catch (Exception ex)
             {

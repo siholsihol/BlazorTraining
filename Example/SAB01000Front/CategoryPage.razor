@@ -1,8 +1,9 @@
 ﻿@inherits R_Page
 @attribute [R_Page(Title = "Category List")]
-@using R_BlazorFrontEnd.Exceptions
-@using R_BlazorFrontEnd.Controls.Events
 @using System.Collections.ObjectModel
+@using DataProvider.DTOs
+@using R_BlazorFrontEnd.Controls.Events
+@using R_BlazorFrontEnd.Exceptions
 
 <R_GroupBox ShowBorder="false">
     <R_Grid @ref="@_gridRef"

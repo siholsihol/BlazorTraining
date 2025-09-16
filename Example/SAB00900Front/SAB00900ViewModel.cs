@@ -1,5 +1,5 @@
-﻿using DataDummyProvider.DTOs;
-using DataDummyProvider.Services;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
@@ -11,15 +11,30 @@ namespace SAB00900Front
         public ProductDTO Product { get; set; } = new ProductDTO();
         public List<CategoryDTO> CategoryList { get; set; } = new List<CategoryDTO>();
         public List<ProductDTO> ProductList = new List<ProductDTO>();
+        private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+
         public DateTime? ReleaseDate { get; set; }
 
-        public void GetProductById(int productId)
+        public SAB00900ViewModel()
+        {
+
+        }
+
+        public SAB00900ViewModel(IProductService productService,
+            ICategoryService categoryService)
+        {
+            _productService = productService;
+            _categoryService = categoryService;
+        }
+
+        public async Task GetProductById(int productId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = ProductService.GetProduct(productId);
+                var loResult = await _productService.GetProductAsync(productId);
 
                 Product = loResult;
             }
@@ -31,7 +46,7 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveProduct(ProductDTO poNewEntity, R_eConductorMode conductorMode)
+        public async Task SaveProduct(ProductDTO poNewEntity, R_eConductorMode conductorMode)
         {
             var loEx = new R_Exception();
 
@@ -39,14 +54,14 @@ namespace SAB00900Front
             {
                 if (conductorMode == R_eConductorMode.Add)
                 {
-                    ProductService.CreateProduct(poNewEntity);
+                    await _productService.CreateProductAsync(poNewEntity);
                 }
                 else
                 {
-                    ProductService.UpdateProduct(poNewEntity);
+                    await _productService.UpdateProductAsync(poNewEntity);
                 }
 
-                Product = ProductService.GetProduct(poNewEntity.Id);
+                Product = await _productService.GetProductAsync(poNewEntity.Id);
             }
             catch (Exception ex)
             {
@@ -56,14 +71,14 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void DeleteProduct(int productId)
+        public async Task DeleteProduct(int productId)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = new ProductDTO { Id = productId };
-                ProductService.DeleteProduct(loParam);
+                await _productService.DeleteProductAsync(loParam);
             }
             catch (Exception ex)
             {
@@ -73,13 +88,13 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetCategories()
+        public async Task GetCategories()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = CategoryService.GetCategories();
+                var loResult = await _categoryService.GetCategoriesAsync();
 
                 CategoryList = loResult;
             }
@@ -91,13 +106,13 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetProductList()
+        public async Task GetProductList()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = ProductService.GetProducts();
+                var loResult = await _productService.GetProductsAsync();
                 ProductList = loResult;
             }
             catch (Exception ex)

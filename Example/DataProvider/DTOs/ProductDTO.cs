@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataDummyProvider.DTOs
+namespace DataProvider.DTOs
 {
     public class ProductDTO
     {
@@ -10,6 +10,6 @@ namespace DataDummyProvider.DTOs
         public DateTime? ReleaseDate { get; set; }
         public bool Active { get; set; } = true;
         public int CategoryId { get; set; }
-        public int SupplierId { get; set; }
+        //public int SupplierId { get; set; }
     }
 }

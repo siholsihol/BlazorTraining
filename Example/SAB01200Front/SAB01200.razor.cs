@@ -1,4 +1,6 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -13,12 +15,16 @@ namespace SAB01200Front
         private R_ConductorGrid _conGridCategoryRef;
         private R_Grid<CategoryDTO> _gridRef;
 
+        [Inject] private ICategoryService CategoryService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
+                CategoryViewModel = new SAB01200CategoryViewModel(CategoryService);
+
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -29,13 +35,13 @@ namespace SAB01200Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                CategoryViewModel.GetCategoryList();
+                await CategoryViewModel.GetCategoryListAsync();
 
                 eventArgs.ListEntityResult = CategoryViewModel.Categories;
             }
@@ -48,14 +54,14 @@ namespace SAB01200Front
         }
 
         #region Conductor
-        private void Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (CategoryDTO)eventArgs.Data;
-                CategoryViewModel.GetCategoryById(loParam.Id);
+                await CategoryViewModel.GetCategoryByIdAsync(loParam.Id);
 
                 eventArgs.Result = CategoryViewModel.Category;
             }
@@ -88,13 +94,13 @@ namespace SAB01200Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                CategoryViewModel.SaveCategory((CategoryDTO)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
+                await CategoryViewModel.SaveCategoryAsync((CategoryDTO)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = CategoryViewModel.Category;
             }
@@ -106,14 +112,14 @@ namespace SAB01200Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loData = (CategoryDTO)eventArgs.Data;
-                CategoryViewModel.DeleteCategory(loData.Id);
+                await CategoryViewModel.DeleteCategoryAsync(loData.Id);
             }
             catch (Exception ex)
             {

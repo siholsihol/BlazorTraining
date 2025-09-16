@@ -1,5 +1,4 @@
-﻿using DataDummyProvider.DTOs;
-using DataDummyProvider.Services;
+﻿using DataProvider.DTOs;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using System.Collections.ObjectModel;

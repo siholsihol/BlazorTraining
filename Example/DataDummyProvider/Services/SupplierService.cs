@@ -1,18 +1,26 @@
 ﻿using Bogus;
-using DataDummyProvider.DTOs;
+using DataProvider.DTOs;
+using DataProvider.Services;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataDummyProvider.Services
 {
-    public class SupplierService
+    public class SupplierService : ISupplierService
     {
         private static List<SupplierDTO> _suppliers = new List<SupplierDTO>();
+        private readonly IProductService _productService;
 
-        public static List<SupplierDTO> GetSuppliers()
+        public SupplierService(IProductService productService)
+        {
+            _productService = productService;
+        }
+
+        public Task<List<SupplierDTO>> GetSuppliersAsync()
         {
             if (_suppliers.Count != 0)
-                return _suppliers;
+                return Task.FromResult(_suppliers);
 
             var faker = new Faker<SupplierDTO>()
             .RuleFor(u => u.Id, f => f.IndexFaker)
@@ -20,17 +28,17 @@ namespace DataDummyProvider.Services
 
             _suppliers = faker.Generate(10);
 
-            return _suppliers;
+            return Task.FromResult(_suppliers);
         }
 
-        public static List<SupplierDTO> GetSuppliersByCategory(int categoryId)
+        public async Task<List<SupplierDTO>> GetSuppliersByCategoryAsync(int categoryId)
         {
             List<SupplierDTO> loResult = _suppliers;
 
             if (_suppliers.Count == 0)
-                loResult = GetSuppliers();
+                loResult = await GetSuppliersAsync();
 
-            var loProducts = ProductService.GetProductsByCategory(categoryId);
+            var loProducts = await _productService.GetProductsByCategoryAsync(categoryId);
             var loSupplierByProduct = loProducts.GroupBy(x => x.SupplierId).Select(x => x.First().SupplierId);
 
             var query = from supplier in loResult

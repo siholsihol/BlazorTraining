@@ -1,4 +1,6 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -19,12 +21,18 @@ namespace SAB01500Front
         private ProductViewModel _productViewModel = new();
         private R_Conductor _productConductorRef;
 
+        [Inject] private ICategoryService CategoryService { get; set; }
+        [Inject] private IProductService ProductService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
+                _viewModel = new SAB01500ViewModel(CategoryService);
+                _productViewModel = new ProductViewModel(ProductService, CategoryService);
+
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -36,13 +44,13 @@ namespace SAB01500Front
         }
 
         #region Category
-        private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                _viewModel.GetCategoryList();
+                await _viewModel.GetCategoryListAsync();
 
                 eventArgs.ListEntityResult = _viewModel.CategoryList;
             }
@@ -54,14 +62,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = R_FrontUtility.ConvertObjectToObject<CategoryDTO>(eventArgs.Data);
-                _viewModel.GetCategoryById(loParam.Id);
+                await _viewModel.GetCategoryByIdAsync(loParam.Id);
 
                 eventArgs.Result = _viewModel.Category;
             }
@@ -92,14 +100,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Conductor_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Conductor_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (CategoryDTO)eventArgs.Data;
-                _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
+                await _viewModel.SaveCategoryAsync(loParam, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = _viewModel.Category;
             }
@@ -111,14 +119,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (CategoryDTO)eventArgs.Data;
-                _viewModel.DeleteCategory(loParam.Id);
+                await _viewModel.DeleteCategoryAsync(loParam.Id);
             }
             catch (Exception ex)
             {
@@ -169,7 +177,7 @@ namespace SAB01500Front
         #endregion
 
         #region Product
-        private void R_Grid_Product_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task R_Grid_Product_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
@@ -177,7 +185,7 @@ namespace SAB01500Front
             {
                 var liCategoryId = (int)eventArgs.Parameter;
 
-                _productViewModel.GetProductList(liCategoryId);
+                await _productViewModel.GetProductListAsync(liCategoryId);
 
                 eventArgs.ListEntityResult = _productViewModel.ProductList;
             }
@@ -189,14 +197,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Conductor_Product_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Conductor_Product_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = R_FrontUtility.ConvertObjectToObject<ProductDTO>(eventArgs.Data);
-                _productViewModel.GetProductById(loParam.Id);
+                await _productViewModel.GetProductByIdAsync(loParam.Id);
 
                 eventArgs.Result = _productViewModel.Product;
             }
@@ -227,14 +235,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Conductor_Product_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Conductor_Product_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                _productViewModel.SaveProduct(loParam, eventArgs.ConductorMode);
+                await _productViewModel.SaveProductAsync(loParam, eventArgs.ConductorMode);
 
                 eventArgs.Result = _productViewModel.Product;
             }
@@ -246,14 +254,14 @@ namespace SAB01500Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Conductor_Product_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Conductor_Product_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                _productViewModel.DeleteProduct(loParam.Id);
+                await _productViewModel.DeleteProductAsync(loParam.Id);
             }
             catch (Exception ex)
             {

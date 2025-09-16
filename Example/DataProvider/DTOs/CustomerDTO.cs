@@ -1,4 +1,4 @@
-﻿namespace DataDummyProvider.DTOs
+﻿namespace DataProvider.DTOs
 {
     public class CustomerDTO
     {
@@ -11,11 +11,5 @@
         public string Country { get; set; }
 
         public string GenderId { get; set; }
-    }
-
-    public class GenderDTO
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
     }
 }

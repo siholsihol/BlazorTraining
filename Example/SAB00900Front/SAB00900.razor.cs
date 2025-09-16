@@ -1,4 +1,5 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
@@ -19,16 +20,20 @@ namespace SAB00900Front
         private SAB00900ViewModel ViewModel = new();
         private R_Conductor _conductorRef;
         [Inject] public R_IFileConverter _fileConverter { get; set; }
+        [Inject] private IProductService ProductService { get; set; }
+        [Inject] private ICategoryService CategoryService { get; set; }
 
-        protected override Task R_Init_From_Master(object poParameter)
+        protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
+                ViewModel = new SAB00900ViewModel(ProductService, CategoryService);
+
                 //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
 
-                ViewModel.GetCategories();
+                await ViewModel.GetCategories();
             }
             catch (Exception ex)
             {
@@ -36,18 +41,16 @@ namespace SAB00900Front
             }
 
             loEx.ThrowExceptionIfErrors();
-
-            return Task.CompletedTask;
         }
 
-        public void Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        public async Task Conductor_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                ViewModel.GetProductById(loParam.Id);
+                await ViewModel.GetProductById(loParam.Id);
 
                 eventArgs.Result = ViewModel.Product;
             }
@@ -109,14 +112,14 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void Conductor_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        public async Task Conductor_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                ViewModel.SaveProduct(loParam, eventArgs.ConductorMode);
+                await ViewModel.SaveProduct(loParam, eventArgs.ConductorMode);
 
                 eventArgs.Result = ViewModel.Product;
             }
@@ -138,14 +141,14 @@ namespace SAB00900Front
                 R_MessageBox.Show("", $"Edit {loData.Id} success.", R_eMessageBoxButtonType.OK);
         }
 
-        public void Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        public async Task Conductor_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                ViewModel.DeleteProduct(loParam.Id);
+                await ViewModel.DeleteProduct(loParam.Id);
             }
             catch (Exception ex)
             {
@@ -156,14 +159,16 @@ namespace SAB00900Front
         }
 
         #region Find
+
         public void R_Before_Open_Find(R_BeforeOpenFindEventArgs eventArgs)
         {
             eventArgs.TargetPageType = typeof(ProductPage);
             eventArgs.Parameter = "Dari Find";
             eventArgs.PageTitle = "Title dari event argument";
         }
+
         public int Count = 0;
-        public async Task R_FindModel(R_FindModelEventArgs eventArgs)
+        public void R_FindModel(R_FindModelEventArgs eventArgs)
         {
             if (Count % 2 == 0)
             {
@@ -175,6 +180,7 @@ namespace SAB00900Front
             }
             Count++;
         }
+
         public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
         {
             if (eventArgs.Result == null)
@@ -185,7 +191,6 @@ namespace SAB00900Front
 
             await _conductorRef.R_GetEntity(loParam);
         }
-
 
         #endregion
 

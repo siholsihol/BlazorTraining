@@ -1,32 +1,34 @@
 ﻿using Bogus;
-using DataDummyProvider.DTOs;
+using DataProvider.DTOs;
+using DataProvider.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataDummyProvider.Services
 {
-    public static class CustomerService
+    public class CustomerService : ICustomerService
     {
         private static List<CustomerDTO> _customer = new List<CustomerDTO>();
         private static readonly List<GenderDTO> _gender = new List<GenderDTO>();
 
-        public static List<GenderDTO> GetGenders()
+        public Task<List<GenderDTO>> GetGendersAsync()
         {
             if (_gender.Count > 0)
-                return _gender;
+                return Task.FromResult(_gender);
 
-            return new List<GenderDTO>
+            return Task.FromResult(new List<GenderDTO>
             {
                 new GenderDTO { Id = "M", Name = "Male"},
                 new GenderDTO { Id = "F", Name = "Female"}
-            };
+            });
         }
 
-        public static List<CustomerDTO> GetCustomers()
+        public Task<List<CustomerDTO>> GetCustomersAsync()
         {
             if (_customer.Count != 0)
-                return _customer;
+                return Task.FromResult(_customer);
 
             var faker = new Faker<CustomerDTO>()
             .RuleFor(u => u.Id, f => f.Random.AlphaNumeric(5).ToUpper())
@@ -40,15 +42,17 @@ namespace DataDummyProvider.Services
 
             _customer = faker.Generate(200);
 
-            return _customer;
+            return Task.FromResult(_customer);
         }
 
-        public static CustomerDTO GetCustomer(string customerId)
+        public Task<CustomerDTO> GetCustomerAsync(string customerId)
         {
-            return _customer.FirstOrDefault(x => x.Id == customerId);
+            var result = _customer.FirstOrDefault(x => x.Id == customerId);
+
+            return Task.FromResult(result);
         }
 
-        public static void CreateCustomer(CustomerDTO itemToAdd)
+        public Task CreateCustomerAsync(CustomerDTO itemToAdd)
         {
             var exist = _customer.Any(x => x.Id == itemToAdd.Id);
 
@@ -56,9 +60,11 @@ namespace DataDummyProvider.Services
                 throw new Exception($"Duplicate customer {itemToAdd.Id}.");
 
             _customer.Add(itemToAdd);
+
+            return Task.CompletedTask;
         }
 
-        public static void UpdateCustomer(CustomerDTO itemToUpdate)
+        public Task UpdateCustomerAsync(CustomerDTO itemToUpdate)
         {
             var exist = _customer.Any(x => x.Id == itemToUpdate.Id);
             if (!exist)
@@ -68,14 +74,18 @@ namespace DataDummyProvider.Services
 
             if (index != -1)
                 _customer[index] = itemToUpdate;
+
+            return Task.CompletedTask;
         }
 
-        public static void DeleteCustomer(CustomerDTO itemToDelete)
+        public Task DeleteCustomerAsync(CustomerDTO itemToDelete)
         {
             var index = _customer.FindIndex(x => x.Id == itemToDelete.Id);
 
             if (index != -1)
                 _customer.Remove(_customer[index]);
+
+            return Task.CompletedTask;
         }
     }
 }

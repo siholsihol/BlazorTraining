@@ -2,6 +2,8 @@ using BlazorMenu.Extensions;
 using BlazorMenu.Services;
 using BlazorPrettyCode;
 using BlazorTraining.Controls.Preload;
+using DataDummyProvider.Services;
+using DataProvider.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd;
@@ -35,6 +37,11 @@ Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", builder.HostEnviron
 builder.Services.AddMultiTenantancy();
 
 builder.Services.AddBlazorPrettyCode();
+
+builder.Services.AddSingleton<ICategoryService, CategoryService>();
+builder.Services.AddSingleton<ICustomerService, CustomerService>();
+builder.Services.AddSingleton<IProductService, ProductService>();
+//builder.Services.AddSingleton<ISupplierService, SupplierService>();
 
 var host = builder.Build();
 

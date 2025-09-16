@@ -1,4 +1,4 @@
-﻿namespace DataDummyProvider.DTOs
+﻿namespace DataProvider.DTOs
 {
     public class TenantDTO
     {

@@ -1,5 +1,5 @@
-﻿using DataDummyProvider.DTOs;
-using DataDummyProvider.Services;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using R_CommonFrontBackAPI;
@@ -12,15 +12,27 @@ namespace SAB00600Front
         public ObservableCollection<CustomerDTO> CustomerList { get; set; } = new ObservableCollection<CustomerDTO>();
 
         public CustomerDTO Customer = new();
+        private readonly ICustomerService _customerService;
+
         public List<GenderDTO> Genders { get; set; } = new List<GenderDTO>();
 
-        public void GetCustomerList()
+        public SAB00600ViewModel()
+        {
+
+        }
+
+        public SAB00600ViewModel(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
+
+        public async Task GetCustomerList()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = CustomerService.GetCustomers().ToList();
+                var loResult = await _customerService.GetCustomersAsync();
                 CustomerList = new ObservableCollection<CustomerDTO>(loResult);
             }
             catch (Exception ex)
@@ -31,13 +43,13 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetCustomerById(string customerId)
+        public async Task GetCustomerByIdAsync(string customerId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = CustomerService.GetCustomer(customerId);
+                var loResult = await _customerService.GetCustomerAsync(customerId);
 
                 Customer = loResult;
             }
@@ -49,7 +61,7 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveCustomer(CustomerDTO poNewEntity, eCRUDMode peCRUDMode)
+        public async Task SaveCustomerAsync(CustomerDTO poNewEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
 
@@ -57,14 +69,14 @@ namespace SAB00600Front
             {
                 if (peCRUDMode == eCRUDMode.AddMode)
                 {
-                    CustomerService.CreateCustomer(poNewEntity);
+                    await _customerService.CreateCustomerAsync(poNewEntity);
                 }
                 else
                 {
-                    CustomerService.UpdateCustomer(poNewEntity);
+                    await _customerService.UpdateCustomerAsync(poNewEntity);
                 }
 
-                Customer = CustomerService.GetCustomer(poNewEntity.Id);
+                Customer = await _customerService.GetCustomerAsync(poNewEntity.Id);
             }
             catch (Exception ex)
             {
@@ -74,14 +86,14 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void DeleteCustomer(string customerId)
+        public async Task DeleteCustomerAsync(string customerId)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = new CustomerDTO { Id = customerId };
-                CustomerService.DeleteCustomer(loParam);
+                await _customerService.DeleteCustomerAsync(loParam);
             }
             catch (Exception ex)
             {
@@ -91,9 +103,9 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetGenders()
+        public async Task GetGendersAsync()
         {
-            var loGenders = CustomerService.GetGenders();
+            var loGenders = await _customerService.GetGendersAsync();
 
             Genders = loGenders;
         }

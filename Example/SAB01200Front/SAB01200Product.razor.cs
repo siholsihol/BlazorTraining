@@ -1,4 +1,6 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -12,12 +14,16 @@ namespace SAB01200Front
         private R_ConductorGrid _conGridProductRef;
         private R_Grid<ProductDTO> _gridRef;
 
+        [Inject] private IProductService ProductService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
+                ProductViewModel = new SAB01200ProductViewModel(ProductService);
+
                 await _gridRef.R_RefreshGrid(poParameter);
             }
             catch (Exception ex)
@@ -28,13 +34,13 @@ namespace SAB01200Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                ProductViewModel.GetProductListByCategory((int)eventArgs.Parameter);
+                await ProductViewModel.GetProductListByCategoryAsync((int)eventArgs.Parameter);
 
                 eventArgs.ListEntityResult = ProductViewModel.Products;
             }
@@ -47,14 +53,14 @@ namespace SAB01200Front
         }
 
         #region Conductor
-        private void Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                ProductViewModel.GetProductById(loParam.Id);
+                await ProductViewModel.GetProductByIdAsync(loParam.Id);
 
                 eventArgs.Result = ProductViewModel.Product;
             }
@@ -87,13 +93,13 @@ namespace SAB01200Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                ProductViewModel.SaveProduct((ProductDTO)eventArgs.Data, eventArgs.ConductorMode);
+                await ProductViewModel.SaveProductAsync((ProductDTO)eventArgs.Data, eventArgs.ConductorMode);
 
                 eventArgs.Result = ProductViewModel.Product;
             }
@@ -105,14 +111,14 @@ namespace SAB01200Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loData = (CategoryDTO)eventArgs.Data;
-                ProductViewModel.DeleteProduct(loData.Id);
+                await ProductViewModel.DeleteProductAsync(loData.Id);
             }
             catch (Exception ex)
             {

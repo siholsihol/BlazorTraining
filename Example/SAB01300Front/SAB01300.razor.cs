@@ -1,4 +1,6 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -18,12 +20,17 @@ namespace SAB01300Front
         private R_Grid<ProductDTO> _productGridRef;
         private R_ConductorGrid _conGridProductRef;
 
+        [Inject] private ICategoryService CategoryService { get; set; }
+        [Inject] private IProductService ProductService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
+                _viewModel = new SAB01300ViewModel(CategoryService, ProductService);
+
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -34,13 +41,13 @@ namespace SAB01300Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void GridCategory_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task GridCategory_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                _viewModel.GetCategoryList();
+                await _viewModel.GetCategoryList();
 
                 eventArgs.ListEntityResult = _viewModel.CategoryList;
             }
@@ -52,14 +59,14 @@ namespace SAB01300Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Navigator_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Navigator_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = R_FrontUtility.ConvertObjectToObject<CategoryDTO>(eventArgs.Data);
-                _viewModel.GetCategoryById(loParam.Id);
+                await _viewModel.GetCategoryByIdAsync(loParam.Id);
 
                 eventArgs.Result = _viewModel.Category;
             }
@@ -90,14 +97,14 @@ namespace SAB01300Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Navigator_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Navigator_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (CategoryDTO)eventArgs.Data;
-                _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
+                await _viewModel.SaveCategoryAsync(loParam, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = _viewModel.Category;
             }
@@ -109,14 +116,14 @@ namespace SAB01300Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Navigator_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Navigator_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (CategoryDTO)eventArgs.Data;
-                _viewModel.DeleteCategory(loParam.Id);
+                await _viewModel.DeleteCategoryAsync(loParam.Id);
             }
             catch (Exception ex)
             {
@@ -170,14 +177,14 @@ namespace SAB01300Front
         }
 
         #region PRODUCT
-        private void GridProduct_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task GridProduct_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var liCategoryId = (Int32)eventArgs.Parameter;
-                _viewModel.GetProductsByCategory(liCategoryId);
+                await _viewModel.GetProductsByCategoryAsync(liCategoryId);
 
                 eventArgs.ListEntityResult = _viewModel.Products;
             }

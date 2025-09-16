@@ -1,4 +1,4 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
 
 namespace SAB01000Front.DTOs
 {

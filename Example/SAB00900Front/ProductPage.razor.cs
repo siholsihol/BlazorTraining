@@ -1,4 +1,5 @@
-﻿using DataDummyProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -15,6 +16,8 @@ namespace SAB00900Front
         private SAB00900ViewModel ViewModel = new();
 
         [Inject] public R_MessageBoxService MessageBoxService { get; set; }
+        [Inject] private IProductService ProductService { get; set; }
+        [Inject] private ICategoryService CategoryService { get; set; }
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -22,6 +25,8 @@ namespace SAB00900Front
 
             try
             {
+                GridViewModel = new ProductPageViewModel(ProductService);
+                ViewModel = new SAB00900ViewModel(ProductService, CategoryService);
                 //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
 
                 Parameter = (string)poParameter;
