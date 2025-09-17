@@ -25,13 +25,14 @@
             <R_GridTextColumn FieldName="@nameof(EmployeeDTO.FirstName)"
                               HeaderText="First Name" />
 
-            @*<R_GridDropDownListColumn Data="@GenderList"
+            @* <R_GridComboBoxColumn Data="@GenderList"
                                       ValueField="@nameof(GenderDTO.Id)"
                                       TextField="@nameof(GenderDTO.Description)"
                                       FieldName="@nameof(EmployeeDTO.Gender)"
-                                      HeaderText="Gender"
-                                      R_EnableAdd
-                                      R_EnableEdit />*@
+                                      HeaderText="Gender" /> *@
+
+            <R_GridDatePickerColumn FieldName="@nameof(EmployeeDTO.DHIRE_DATE)"
+                                    HeaderText="Hire Date" />
         </R_GridColumns>
     </R_Grid>
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
@@ -46,17 +47,21 @@
     [Inject] private R_IExcel ExcelProvider { get; set; }
 
     private ObservableCollection<EmployeeDTO> GridList = new();
-    private List<GenderDTO> GenderList = new();
+    private List<GenderDTO> GenderList = new()
+    {
+         new GenderDTO() {Id = "M", Description = "Male"},
+        new GenderDTO() {Id = "F", Description = "Female"}
+    };
     private R_Grid<EmployeeDTO> GridRef;
 
-    protected override void OnInitialized()
-    {
-        GenderList = new List<GenderDTO>()
-        {
-            new GenderDTO() {Id = 1, Description = "L"},
-            new GenderDTO() {Id = 2, Description = "P"}
-        };
-    }
+    // protected override void OnInitialized()
+    // {
+    //     GenderList = new List<GenderDTO>()
+    //     {
+    //         new GenderDTO() {Id = "M", Description = "Male"},
+    //         new GenderDTO() {Id = "F", Description = "Female"}
+    //     };
+    // }
 
     private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
     {
@@ -76,12 +81,12 @@
 
             foreach (var employee in resultEmployee)
             {
-                employee.DHIRE_DATE = DateTime.ParseExact(employee.HireDate, "dd/mm/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                employee.DHIRE_DATE = R_FrontUtility.R_ConvertToDateTime(employee.HireDate, "yyyyMMdd");
             }
 
-            //await GridRef.R_RefreshGrid(resultEmployee);
+            await GridRef.R_RefreshGrid(resultEmployee);
 
-            Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
+            // Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
         }
         catch (Exception ex)
         {
@@ -102,8 +107,8 @@
         {
             var loEmployeList = new List<EmployeeDTO>()
             {
-                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Sihol", Gender=1},
-                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Siholwati", Gender=2}
+                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Sihol", Gender="M", HireDate = "20250917"},
+                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Siholwati", Gender="F", HireDate = "20250917"}
             };
 
             var loDataTable = R_FrontUtility.R_ConvertTo(loEmployeList);
@@ -129,7 +134,7 @@
             var loRtn = await R_HTTPClientWrapper.R_APIRequestObject<DownloadFileDTO>(
                     "api/BatchAndExcel",
                     "DownloadFile",
-                    "",
+                    "GS",
                     false,
                     false);
 
@@ -137,9 +142,9 @@
 
             await JS.downloadFileFromStreamHandler(saveFileName, loRtn.FileBytes);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            Console.WriteLine(ex.Message);
         }
     }
     #endregion

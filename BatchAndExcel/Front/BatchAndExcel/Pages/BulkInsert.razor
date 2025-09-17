@@ -20,7 +20,7 @@
             var loFake = new Faker<EmployeeDTO>()
                .CustomInstantiator(x => new EmployeeDTO())
                .RuleFor(x => x.FirstName, x => x.Name.FirstName())
-               .RuleFor(x => x.Gender, x => x.PickRandom(new[] { 1, 2 }))
+               .RuleFor(x => x.Gender, x => x.PickRandom(new[] { "M", "F" }))
                .RuleFor(x => x.Id, x => Guid.NewGuid().ToString());
             EmployeeList = loFake.Generate(100);
         }

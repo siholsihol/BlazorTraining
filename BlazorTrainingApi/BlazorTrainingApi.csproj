@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Realta.BackCollectionNuGet" Version="1.0.1" />
+    <PackageReference Include="Realta.BackCollectionNuGet" Version="1.0.2" />
     <PackageReference Include="Realta.CommonCollectionNuGet" Version="1.0.0" />
   </ItemGroup>
 
@@ -29,6 +29,9 @@
     </Reference>
     <Reference Include="R_HelperController">
       <HintPath>..\Dll\Dll Back\R_HelperController.dll</HintPath>
+    </Reference>
+    <Reference Include="R_ReportFastReportBack">
+      <HintPath>..\Dll\Dll Back\R_ReportFastReportBack.dll</HintPath>
     </Reference>
     <Reference Include="R_ReportServerClient">
       <HintPath>..\Dll\Dll Back\R_ReportServerClient.dll</HintPath>
