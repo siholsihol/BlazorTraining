@@ -14,8 +14,8 @@ builder.Services.R_AddBlazorFrontEndControls();
 
 builder.R_RegisterBlazorServices(option =>
 {
-    option.R_DisableBlazorContext();
-    option.R_DisableCrossPlatformSecurity();
+    //option.R_DisableBlazorContext();
+    //option.R_DisableCrossPlatformSecurity();
     option.R_DisableAuthentication();
 });
 
