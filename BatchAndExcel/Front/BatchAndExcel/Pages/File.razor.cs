@@ -1,4 +1,5 @@
-﻿using BatchAndExcelCommon.DTOs;
+﻿using BatchAndExcel.ViewModels;
+using BatchAndExcelCommon.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -10,35 +11,23 @@ using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using R_ProcessAndUploadFront;
+using Telerik.Blazor;
 
 namespace BatchAndExcel.Pages
 {
     public partial class File
     {
+        [CascadingParameter] private DialogFactory Dialog { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
 
         private UploadFileViewModel _uploadFileViewModel = new();
-        //private int _percentage = 0;
-        //private string _message = string.Empty;
-        private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
-        private byte[] fileByte = null;
+        private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Doc };
+        private byte[] _fileByte = null;
 
         //public void StateChangeInvoke()
         //{
         //    StateHasChanged();
         //}
-
-        public void ShowErrorInvoke(R_APIException poException)
-        {
-            var loEx = R_FrontUtility.R_ConvertFromAPIException(poException);
-            //this.R_DisplayException(loEx);
-            Console.WriteLine(R_FrontUtility.Dump(loEx));
-        }
-
-        public void ShowSuccessInvoke()
-        {
-            //TO DO Success upload
-        }
 
         protected override void OnInitialized()
         {
@@ -58,36 +47,37 @@ namespace BatchAndExcel.Pages
                 //read file as byte
                 var loMS = new MemoryStream();
                 await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
-                fileByte = loMS.ToArray();
+                _fileByte = loMS.ToArray();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(R_FrontUtility.Dump(ex));
+                loEx.Add(ex);
             }
+
+            if (loEx.HasError)
+                await Dialog.AlertAsync(loEx.ErrorList[0].ErrDescp, "Error");
         }
 
         private async Task OnClickAttachHandler()
         {
             var loEx = new R_Exception();
-            R_UploadPar loUploadPar;
-            R_ProcessAndUploadClient loCls;
 
             try
             {
-                if (fileByte == null)
+                if (_fileByte == null)
                     return;
 
                 //Instantiate ProcessClient
-                loCls = new R_ProcessAndUploadClient(
+                var loCls = new R_ProcessAndUploadClient(
                     plSendWithContext: false,
                     plSendWithToken: false,
                     poProcessProgressStatus: _uploadFileViewModel);
 
                 //add filebyte to DTO
-                var loUploadFile = new UploadFileDTO { FileBytes = fileByte };
+                var loUploadFile = new UploadFileDTO { FileBytes = _fileByte };
 
                 //preapare Batch Parameter
-                loUploadPar = new R_UploadPar
+                var loUploadPar = new R_UploadPar
                 {
                     COMPANY_ID = "RCD",
                     USER_ID = "cp",
@@ -103,8 +93,11 @@ namespace BatchAndExcel.Pages
             }
             catch (Exception ex)
             {
-                Console.WriteLine(R_FrontUtility.Dump(ex));
+                loEx.Add(ex);
             }
+
+            if (loEx.HasError)
+                await Dialog.AlertAsync(loEx.ErrorList[0].ErrDescp, "Error");
         }
 
         #endregion
@@ -113,6 +106,8 @@ namespace BatchAndExcel.Pages
 
         private async Task OnClickDownloadFile()
         {
+            var loEx = new R_Exception();
+
             try
             {
                 R_HTTPClientWrapper.httpClientName = "R_DefaultServiceUrl";
@@ -123,14 +118,33 @@ namespace BatchAndExcel.Pages
                         false,
                         false);
 
-                var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
+                var lcSaveFileName = $"{Guid.NewGuid().ToString()}.docx";
 
-                await JSRuntime.downloadFileFromStreamHandler(saveFileName, loRtn.FileBytes);
+                await JSRuntime.downloadFileFromStreamHandler(lcSaveFileName, loRtn.FileBytes);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                loEx.Add(ex);
             }
+
+            if (loEx.HasError)
+                await Dialog.AlertAsync(loEx.ErrorList[0].ErrDescp, "Error");
+        }
+
+        #endregion
+
+        #region Handler
+
+        public void ShowErrorInvoke(R_APIException poException)
+        {
+            var loEx = R_FrontUtility.R_ConvertFromAPIException(poException);
+            //this.R_DisplayException(loEx);
+            Console.WriteLine(R_FrontUtility.Dump(loEx));
+        }
+
+        public void ShowSuccessInvoke()
+        {
+            //TO DO Success upload
         }
 
         #endregion

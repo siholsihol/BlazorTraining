@@ -5,9 +5,9 @@ using R_CommonFrontBackAPI;
 
 namespace BatchAndExcelBack
 {
-    public class AttachFileCls : R_IAttachFile
+    public class AttachFileCls : R_IAttachFileAsync
     {
-        public void R_AttachFile(R_AttachFilePar poAttachFile)
+        public Task R_AttachFileAsync(R_AttachFilePar poAttachFile)
         {
             var loEx = new R_Exception();
 
@@ -23,6 +23,9 @@ namespace BatchAndExcelBack
                 var lcFileName = Path.Combine(@"D:\", Guid.NewGuid().ToString() + ".docx");
 
                 R_NetCoreUtility.R_DeserializeFileFromByte(lcFileName, loFile.FileBytes);
+
+                //simulate error
+                //throw new Exception("eh ada error.");
             }
             catch (Exception ex)
             {
@@ -30,6 +33,8 @@ namespace BatchAndExcelBack
             }
 
             loEx.ThrowExceptionIfErrors();
+
+            return Task.CompletedTask;
         }
     }
 }

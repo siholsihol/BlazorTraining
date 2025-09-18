@@ -1,128 +1,21 @@
 ﻿@page "/excel"
-@using BatchAndExcelCommon.DTOs;
-@using R_APIClient;
-@using R_BlazorFrontEnd.Controls.Enums;
-@using R_BlazorFrontEnd;
-@using R_BlazorFrontEnd.Controls;
-@using R_BlazorFrontEnd.Exceptions;
-@using R_BlazorFrontEnd.Helpers;
-@using System.Collections.ObjectModel
-@using R_BlazorFrontEnd.Controls.Grid.Columns
-@using R_BlazorFrontEnd.Controls.Events
-@inject IJSRuntime JS;
 
 <R_GroupBox Title="Excel">
-    <R_Grid @ref="@GridRef" 
-            DataSource="@GridList"
-            R_GridType="@R_eGridType.Batch"
-            AllowAddNewRow="true"
-            AllowEditRow="true"
-            AllowDeleteRow="true" R_ServiceGetListRecord="@R_ServiceGetListRecord">
-        <R_GridColumns>
-            <R_GridTextColumn FieldName="@nameof(EmployeeDTO.Id)"
-                              HeaderText="User Id" />
+    <TelerikGrid Data="@_gridList"
+                 Pageable
+                 Sortable
+                 Width="100vw">
+        <GridColumns>
+            <GridColumn Field="@nameof(EmployeeDTO.Id)" Title="Employee Id" />
+            <GridColumn Field="@nameof(EmployeeDTO.FirstName)" Title="Employee Name" />
+            <GridColumn Field="@nameof(EmployeeDTO.Gender)" Title="Gender" />
+            <GridColumn Field="@nameof(EmployeeDTO.DHIRE_DATE)" Title="Hire Date" DisplayFormat="{0:dd MMM yy}" />
+        </GridColumns>
+    </TelerikGrid>
 
-            <R_GridTextColumn FieldName="@nameof(EmployeeDTO.FirstName)"
-                              HeaderText="First Name" />
-
-            @* <R_GridComboBoxColumn Data="@GenderList"
-                                      ValueField="@nameof(GenderDTO.Id)"
-                                      TextField="@nameof(GenderDTO.Description)"
-                                      FieldName="@nameof(EmployeeDTO.Gender)"
-                                      HeaderText="Gender" /> *@
-
-            <R_GridDatePickerColumn FieldName="@nameof(EmployeeDTO.DHIRE_DATE)"
-                                    HeaderText="Hire Date" />
-        </R_GridColumns>
-    </R_Grid>
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
+
+    <br />
+
     <R_Button OnClick="@OnClickHandler">Download Template Excel</R_Button>
 </R_GroupBox>
-
-@code {
-    #region FILE SELECT
-    private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
-
-    [Inject] private R_IExcel ExcelProvider { get; set; }
-
-    private ObservableCollection<EmployeeDTO> GridList = new();
-    private List<GenderDTO> GenderList = new()
-    {
-         new GenderDTO() {Id = "M", Description = "Male"},
-        new GenderDTO() {Id = "F", Description = "Female"}
-    };
-    private R_Grid<EmployeeDTO> GridRef;
-
-    // protected override void OnInitialized()
-    // {
-    //     GenderList = new List<GenderDTO>()
-    //     {
-    //         new GenderDTO() {Id = "M", Description = "Male"},
-    //         new GenderDTO() {Id = "F", Description = "Female"}
-    //     };
-    // }
-
-    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
-    {
-        var loEx = new R_Exception();
-
-        try
-        {
-            //read excel as byte
-            var loMS = new MemoryStream();
-            await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
-            var loByteFile = loMS.ToArray();
-
-            //import from excel
-            var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile, new string[] { "Employee" });
-
-            var resultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(loDataSet.Tables[0]);
-
-            foreach (var employee in resultEmployee)
-            {
-                employee.DHIRE_DATE = R_FrontUtility.R_ConvertToDateTime(employee.HireDate, "yyyyMMdd");
-            }
-
-            await GridRef.R_RefreshGrid(resultEmployee);
-
-            // Console.WriteLine(R_FrontUtility.Dump(resultEmployee));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(R_FrontUtility.Dump(ex));
-        }
-    }
-
-    private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
-    {
-        GridList = new ObservableCollection<EmployeeDTO>((List<EmployeeDTO>)eventArgs.Parameter);
-
-        eventArgs.ListEntityResult = GridList;
-    }
-
-    private async Task OnClickHandler()
-    {
-        try
-        {
-            var loEmployeList = new List<EmployeeDTO>()
-            {
-                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Sihol", Gender="M", HireDate = "20250917"},
-                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Siholwati", Gender="F", HireDate = "20250917"}
-            };
-
-            var loDataTable = R_FrontUtility.R_ConvertTo(loEmployeList);
-            loDataTable.TableName = "Employee";
-
-            //export to excel
-            var loByteFile = ExcelProvider.R_WriteToExcel(loDataTable);
-            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
-
-            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-    #endregion
-}
