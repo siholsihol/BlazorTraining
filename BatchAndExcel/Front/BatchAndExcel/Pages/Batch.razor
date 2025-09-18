@@ -6,11 +6,11 @@
     <R_ProgressBar Label="@_message" MaxValue="100" Value="@_percentage"></R_ProgressBar>
 </R_GroupBox>
 
-<R_GroupBox Title="Upload File">
+@* <R_GroupBox Title="Upload File">
     <R_InputFile Accepts="@accepts" OnChange="@OnChangeHandler"></R_InputFile>
     <R_Button OnClick="@OnClickAttachHandler">Upload File</R_Button>
     <R_ProgressBar Label="@_message" MaxValue="100" Value="@_percentage"></R_ProgressBar>
-</R_GroupBox>
+</R_GroupBox> *@
 
 @code {
     public List<EmployeeDTO> EmployeeList { get; set; } = new();
@@ -69,60 +69,60 @@
     #endregion
 
     #region File Upload
-    private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
-    private byte[] fileByte = null;
+    // private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
+    // private byte[] fileByte = null;
 
-    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
-    {
-        var loEx = new R_Exception();
+    // private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    // {
+    //     var loEx = new R_Exception();
 
-        try
-        {
-            //read file as byte
-            var loMS = new MemoryStream();
-            await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
-            fileByte = loMS.ToArray();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(R_FrontUtility.Dump(ex));
-        }
-    }
+    //     try
+    //     {
+    //         //read file as byte
+    //         var loMS = new MemoryStream();
+    //         await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
+    //         fileByte = loMS.ToArray();
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Console.WriteLine(R_FrontUtility.Dump(ex));
+    //     }
+    // }
 
-    private async Task OnClickAttachHandler()
-    {
-        var loEx = new R_Exception();
-        R_UploadPar loUploadPar;
-        R_ProcessAndUploadClient loCls;
+    // private async Task OnClickAttachHandler()
+    // {
+    //     var loEx = new R_Exception();
+    //     R_UploadPar loUploadPar;
+    //     R_ProcessAndUploadClient loCls;
 
-        try
-        {
-            if (fileByte == null)
-                return;
+    //     try
+    //     {
+    //         if (fileByte == null)
+    //             return;
 
-            //Instantiate ProcessClient
-            loCls = new R_ProcessAndUploadClient(
-                plSendWithContext: false,
-                plSendWithToken: false,
-                poProcessProgressStatus: this);
+    //         //Instantiate ProcessClient
+    //         loCls = new R_ProcessAndUploadClient(
+    //             plSendWithContext: false,
+    //             plSendWithToken: false,
+    //             poProcessProgressStatus: this);
 
-            //add filebyte to DTO
-            var loUploadFile = new UploadFileDTO { FileBytes = fileByte };
+    //         //add filebyte to DTO
+    //         var loUploadFile = new UploadFileDTO { FileBytes = fileByte };
 
-            //preapare Batch Parameter
-            loUploadPar = new R_UploadPar();
-            loUploadPar.COMPANY_ID = "RCD";
-            loUploadPar.USER_ID = "cp";
-            loUploadPar.ClassName = "BatchAndExcelBack.AttachFileCls";
-            loUploadPar.BigObject = loUploadFile;
+    //         //preapare Batch Parameter
+    //         loUploadPar = new R_UploadPar();
+    //         loUploadPar.COMPANY_ID = "RCD";
+    //         loUploadPar.USER_ID = "cp";
+    //         loUploadPar.ClassName = "BatchAndExcelBack.AttachFileCls";
+    //         loUploadPar.BigObject = loUploadFile;
 
-            await loCls.R_AttachFile<UploadFileDTO>(loUploadPar);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(R_FrontUtility.Dump(ex));
-        }
-    }
+    //         await loCls.R_AttachFile<UploadFileDTO>(loUploadPar);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Console.WriteLine(R_FrontUtility.Dump(ex));
+    //     }
+    // }
     #endregion
 
     #region Status

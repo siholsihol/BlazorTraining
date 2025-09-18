@@ -14,6 +14,10 @@ namespace BatchAndExcelBack
             try
             {
                 var loFile = R_NetCoreUtility.R_DeserializeObjectFromByte<UploadFileDTO>(poAttachFile.BigObject);
+                var lcCompanyId = poAttachFile.Key.COMPANY_ID;
+                var lcUserId = poAttachFile.Key.USER_ID;
+                var lcKeyGuid = poAttachFile.Key.KEY_GUID;
+                var loUserParameters = poAttachFile.UserParameters;
 
                 //TODO save file 
                 var lcFileName = Path.Combine(@"D:\", Guid.NewGuid().ToString() + ".docx");

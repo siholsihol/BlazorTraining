@@ -37,7 +37,6 @@
     </R_Grid>
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
     <R_Button OnClick="@OnClickHandler">Download Template Excel</R_Button>
-    <R_Button OnClick="@OnClickDownloadFile">Download File From Server</R_Button>
 </R_GroupBox>
 
 @code {
@@ -123,28 +122,6 @@
         catch (Exception)
         {
             throw;
-        }
-    }
-
-    private async Task OnClickDownloadFile()
-    {
-        try
-        {
-            R_HTTPClientWrapper.httpClientName = "R_DefaultServiceUrl";
-            var loRtn = await R_HTTPClientWrapper.R_APIRequestObject<DownloadFileDTO>(
-                    "api/BatchAndExcel",
-                    "DownloadFile",
-                    "GS",
-                    false,
-                    false);
-
-            var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
-
-            await JS.downloadFileFromStreamHandler(saveFileName, loRtn.FileBytes);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
         }
     }
     #endregion

@@ -1,0 +1,9 @@
+﻿@page "/file"
+
+<R_GroupBox Title="Upload File">
+    <R_InputFile Accepts="@accepts" OnChange="@OnChangeHandler" />
+    <R_Button OnClick="@OnClickAttachHandler">Upload File</R_Button>
+    <R_ProgressBar Label="@_uploadFileViewModel.Message" MaxValue="100" Value="@_uploadFileViewModel.Percentage" />
+</R_GroupBox>
+
+<R_Button OnClick="@OnClickDownloadFile">Download File From Server</R_Button>
