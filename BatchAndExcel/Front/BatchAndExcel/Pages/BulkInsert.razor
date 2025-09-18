@@ -1,7 +1,7 @@
 ﻿@page "/bulkinsert"
 @implements R_IProcessProgressStatus
 
-<R_GroupBox Title="Batch Process">
+<R_GroupBox Title="Bulk Insert">
     <R_Button OnClick="@OnClickHandler">Process</R_Button>
     <R_ProgressBar Label="@_message" MaxValue="100" Value="@_percentage"></R_ProgressBar>
 </R_GroupBox>
@@ -22,6 +22,7 @@
                .RuleFor(x => x.FirstName, x => x.Name.FirstName())
                .RuleFor(x => x.Gender, x => x.PickRandom(new[] { "M", "F" }))
                .RuleFor(x => x.Id, x => Guid.NewGuid().ToString());
+
             EmployeeList = loFake.Generate(100);
         }
         catch (Exception ex)
