@@ -1,14 +1,18 @@
 ﻿using BatchAndExcelCommon.DTOs;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using R_APIClient;
 using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
+using Telerik.Blazor;
 
 namespace BatchAndExcel.Pages
 {
     public partial class Storage
     {
+        [CascadingParameter] private DialogFactory Dialog { get; set; }
+
         private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Image };
         private byte[] _byteFile = default;
         private string _fileName = default;
@@ -49,6 +53,8 @@ namespace BatchAndExcel.Pages
                 };
 
                 await AddAttachmentAsync(loParam);
+
+                await Dialog.ConfirmAsync("Success add to storage.");
             }
             catch (Exception)
             {

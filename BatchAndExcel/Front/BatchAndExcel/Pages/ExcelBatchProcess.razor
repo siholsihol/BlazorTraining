@@ -3,13 +3,16 @@
 @using R_BlazorFrontEnd.Controls;
 @implements R_IProcessProgressStatus
 
-<R_GroupBox Title="Excel">
+<R_GroupBox Title="Batch Process From Excel">
     <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize"></R_InputFile>
     <R_Button OnClick="@OnClickHandler">Process</R_Button>
-    <R_Label>@_message</R_Label>
     <R_OpenFileDialogButton OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize">
         Browse File
     </R_OpenFileDialogButton>
+
+    <br />
+
+    <R_Label>@_message</R_Label>
 </R_GroupBox>
 
 @code {
@@ -62,7 +65,7 @@
             var loBatchPar = new R_BatchParameter();
             loBatchPar.COMPANY_ID = "RCD";
             loBatchPar.USER_ID = "cp";
-            loBatchPar.ClassName = "BatchAndExcelBack.SaveBatchWithBulkCopyCls";
+            loBatchPar.ClassName = "BatchAndExcelBack.SaveBatchWithBulkCopyWithTaskCls";
             loBatchPar.BigObject = _resultEmployeeExcel;
             var lcGuid = await loCls.R_BatchProcess<List<EmployeeBatchProcessDTO>>(loBatchPar, 10);
         }

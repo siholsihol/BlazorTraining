@@ -23,14 +23,13 @@ namespace BatchAndExcelBack
                                                     x.EmployeeId == poParameter.EmployeeId &&
                                                     x.FileName == poParameter.FileName).FirstOrDefault();
 
-                if (loStorage != null || string.IsNullOrWhiteSpace(loStorage.StorageId))
+                if (loStorage == null || string.IsNullOrWhiteSpace(loStorage.StorageId))
                     throw new Exception("Data not found");
 
                 var loReadParameter = new R_ReadParameter()
                 {
                     StorageId = loStorage.StorageId
                 };
-
                 var loReadResult = R_StorageUtility.ReadFile(loReadParameter, "R_DefaultConnectionString");
 
                 loResult = new EmployeeAttachmentDTO()
@@ -61,9 +60,6 @@ namespace BatchAndExcelBack
                 var loStorage = _storageData.Where(x => x.CompanyId == poParameter.CompanyId &&
                                                     x.EmployeeId == poParameter.EmployeeId &&
                                                     x.FileName == poParameter.FileName).FirstOrDefault();
-
-                if (loStorage != null)
-                    throw new Exception("Data already exist.");
 
                 var loAddParameter = new R_AddParameter()
                 {

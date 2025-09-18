@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-2">
-        <R_NumericTextBox @bind-Value="@_countProduct"></R_NumericTextBox>
+        <R_NumericTextBox @bind-Value="@_countProduct" Min="0"></R_NumericTextBox>
     </div>
     <div class="col-2">
         <R_Button OnClick="@GenerateReport">Generate Report</R_Button>
