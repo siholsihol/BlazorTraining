@@ -160,7 +160,18 @@ namespace SAB00600Front
         }
         private void R_CellLostFocus(R_CellLostFocusedEventArgs eventArgs)
         {
+            if (eventArgs.ColumnName == nameof(CustomerDTO.ProductId))
+            {
+                var loData = eventArgs.CurrentRow as CustomerDTO;
+                ProductPageViewModel loProductPageViewModel = new ProductPageViewModel();
 
+                var loResult = loProductPageViewModel.GetProductById(loData.ProductId);
+                if (loResult != null)
+                {
+                    loData.ProductId = loResult.Id;
+                    loData.ProductName = loResult.Name;
+                }
+            }
         }
         private void R_Before_Open_Grid_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
         {
@@ -168,12 +179,14 @@ namespace SAB00600Front
         }
         private void R_After_Open_Grid_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
         {
-            var loData = (CustomerDTO)eventArgs.ColumnData;
+            if (eventArgs.ColumnName == nameof(CustomerDTO.ProductId))
+            {
+                var loData = (CustomerDTO)eventArgs.ColumnData;
+                var loResult = (ProductDTO)eventArgs.Result;
 
-            var loResult = (ProductDTO)eventArgs.Result;
-
-            loData.ProductId = loResult.Id;
-            loData.ProductName = loResult.Name;
+                loData.ProductId = loResult.Id;
+                loData.ProductName = loResult.Name;
+            }
         }
 
         #region Add
@@ -350,13 +363,13 @@ namespace SAB00600Front
         #region SET GRID COLUMN
         private void R_SetAddGridColumn(R_SetAddGridColumnEventArgs eventArgs)
         {
-            var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "CompanyName");
-            var loData = (CustomerDTO)eventArgs.Data;
+            //var loColumn = eventArgs.Columns.FirstOrDefault(x => x.FieldName == "CompanyName");
+            //var loData = (CustomerDTO)eventArgs.Data;
 
-            if (!string.IsNullOrWhiteSpace(loData.CompanyName))
-            {
-                loColumn.Enabled = false;
-            }
+            //if (!string.IsNullOrWhiteSpace(loData.CompanyName))
+            //{
+            //    loColumn.Enabled = false;
+            //}
         }
         private void R_SetEditGridColumn(R_SetEditGridColumnEventArgs eventArgs)
         {
