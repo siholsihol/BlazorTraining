@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\BatchAndExcelCommon\BatchAndExcelCommon.csproj" />
+    <ProjectReference Include="..\SaveBatchEmployeeWithResourcesResources\SaveBatchEmployeeWithResourcesResources.csproj" />
   </ItemGroup>
 
   <ItemGroup>

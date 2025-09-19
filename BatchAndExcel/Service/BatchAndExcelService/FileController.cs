@@ -37,5 +37,34 @@ namespace BatchAndExcelService
 
             return loRtn;
         }
+
+        [HttpPost]
+        public DownloadFileDTO DownloadFileExcelEmployee()
+        {
+            var loEx = new R_Exception();
+            var loRtn = new DownloadFileDTO();
+
+            try
+            {
+                var loAsm = Assembly.GetExecutingAssembly();
+                var lcResourceFile = "BatchAndExcelService.File.TestExcelBatchProcess.xlsx";
+                using (Stream resFilestream = loAsm.GetManifestResourceStream(lcResourceFile))
+                {
+                    var ms = new MemoryStream();
+                    resFilestream.CopyTo(ms);
+                    var bytes = ms.ToArray();
+
+                    loRtn.FileBytes = bytes;
+                }
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loRtn;
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Transactions;
 
 namespace BatchAndExcelBack
 {
-    public class BatchAndExcelCls : R_IBatchProcessAsync
+    public class BatchCls : R_IBatchProcessAsync
     {
         public Task R_BatchProcessAsync(R_BatchProcessPar poBatchProcessPar)
         {
@@ -139,7 +139,6 @@ namespace BatchAndExcelBack
                  $"'{poBatchProcessPar.Key.USER_ID}', " +
                  $"'{poBatchProcessPar.Key.KEY_GUID}', " +
                  $"100, '{loEx.ErrorList[0].ErrDescp}', 9";
-
                 await loDb.SqlExecNonQueryAsync(lcQuery);
             }
 

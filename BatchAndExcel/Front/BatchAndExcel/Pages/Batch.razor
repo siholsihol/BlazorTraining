@@ -61,7 +61,7 @@
             {
                 COMPANY_ID = "RCD",
                 USER_ID = "cp",
-                ClassName = "BatchAndExcelBack.BatchAndExcelCls",
+                ClassName = "BatchAndExcelBack.BatchCls",
                 BigObject = _employeeList,
                 UserParameters = new List<R_KeyValue>
                 {
@@ -89,7 +89,6 @@
     {
         var loEx = R_FrontUtility.R_ConvertFromAPIException(poException);
         //this.R_DisplayException(loEx);
-        // Console.WriteLine(R_FrontUtility.Dump(loEx));
 
         if (loEx.HasError)
             await Dialog.AlertAsync(string.Join(" | ", loEx.ErrorList.Select(x => x.ErrDescp)), "Error");

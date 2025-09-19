@@ -1,154 +1,20 @@
 ﻿@page "/excelbatchprocess"
 @using R_BlazorFrontEnd;
 @using R_BlazorFrontEnd.Controls;
-@implements R_IProcessProgressStatus
 
 <R_GroupBox Title="Batch Process From Excel">
-    <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize"></R_InputFile>
-    <R_Button OnClick="@OnClickHandler">Process</R_Button>
+    @* <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize"></R_InputFile> *@
+    <R_Button OnClick="@OnClickDownloadFile">Download File From Server</R_Button>
+
     <R_OpenFileDialogButton OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize">
         Browse File
     </R_OpenFileDialogButton>
 
+    <R_Button OnClick="@OnClickHandler">Process</R_Button>
+
+    <R_Button OnClick="@OnClickHandlerWithResources">Process With Resources</R_Button>
+
     <br />
 
-    <R_Label>@_message</R_Label>
+    <R_Label>@_excelBatchProcessViewModel.Message</R_Label>
 </R_GroupBox>
-
-@code {
-    [Inject] private R_IExcel ExcelProvider { get; set; }
-    [Inject] private IJSRuntime JS { get; set; }
-
-    private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
-    private long _maximumFileSize = 5 * 1024 * 1024;
-    private List<EmployeeBatchProcessDTO> _resultEmployeeExcel = new();
-    private string _message = "";
-    private int _percentage = 0;
-    private System.Data.DataSet loDataSet = new();
-
-    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
-    {
-        var loEx = new R_Exception();
-
-        try
-        {
-            _message = "";
-
-            //read excel as byte
-            var loMS = new MemoryStream();
-            await eventArgs.File.OpenReadStream(maxAllowedSize: _maximumFileSize).CopyToAsync(loMS);
-            var loByteFile = loMS.ToArray();
-
-            loDataSet.Tables.Clear();
-
-            //import from excel
-            loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile);
-
-            _resultEmployeeExcel = R_FrontUtility.R_ConvertTo<EmployeeBatchProcessDTO>(loDataSet.Tables[0]).ToList();
-        }
-        catch (Exception ex)
-        {
-            _message = ex.Message;
-        }
-    }
-
-    private async Task OnClickHandler()
-    {
-        try
-        {
-            var loCls = new R_ProcessAndUploadClient(
-                        plSendWithContext: false,
-                        plSendWithToken: false,
-                        poProcessProgressStatus: this);
-
-            //preapare Batch Parameter
-            var loBatchPar = new R_BatchParameter();
-            loBatchPar.COMPANY_ID = "RCD";
-            loBatchPar.USER_ID = "cp";
-            loBatchPar.ClassName = "BatchAndExcelBack.SaveBatchWithBulkCopyWithTaskCls";
-            loBatchPar.BigObject = _resultEmployeeExcel;
-            var lcGuid = await loCls.R_BatchProcess<List<EmployeeBatchProcessDTO>>(loBatchPar, 10);
-        }
-        catch (Exception ex)
-        {
-            _message = ex.Message;
-        }
-    }
-
-    #region Status
-    async Task R_IProcessProgressStatus.ProcessComplete(string pcKeyGuid, eProcessResultMode poProcessResultMode)
-    {
-        if (poProcessResultMode == eProcessResultMode.Success)
-        {
-            _message = string.Format("Process Complete and success with GUID {0}", pcKeyGuid);
-        }
-
-        if (poProcessResultMode == eProcessResultMode.Fail)
-        {
-            _message = string.Format("Process Complete but fail with GUID {0}", pcKeyGuid);
-            await ServiceGetError(pcKeyGuid);
-        }
-
-        StateHasChanged();
-
-        await Task.CompletedTask;
-    }
-
-    async Task R_IProcessProgressStatus.ProcessError(string pcKeyGuid, R_APIException ex)
-    {
-        _message = string.Format("Process Error with GUID {0}", pcKeyGuid);
-
-        StateHasChanged();
-
-        await Task.CompletedTask;
-    }
-
-    async Task R_IProcessProgressStatus.ReportProgress(int lnProgress, string lcStatus)
-    {
-        _message = string.Format("Process Progress {0} with status {1}", lnProgress, lcStatus);
-
-        _percentage = lnProgress;
-        _message = string.Format("Process Progress {0} with status {1}", lnProgress, lcStatus);
-
-        StateHasChanged();
-
-        await Task.CompletedTask;
-    }
-    #endregion
-
-    private async Task ServiceGetError(string pcKeyGuid)
-    {
-        List<R_ErrorStatusReturn> loResultData;
-        R_UploadAndProcessKey loParameterData;
-        R_ProcessAndUploadClient loCls;
-
-        try
-        {
-            loParameterData = new R_UploadAndProcessKey()
-            {
-                COMPANY_ID = "RCD",
-                USER_ID = "cp",
-                KEY_GUID = pcKeyGuid
-            };
-            loCls = new R_ProcessAndUploadClient(plSendWithContext: false, plSendWithToken: false);
-            loResultData = await loCls.R_GetErrorProcess(loParameterData);
-
-            var loDataTable = R_FrontUtility.R_ConvertTo(loResultData);
-            loDataTable.TableName = "ErrorList";
-
-            var loErrorDataSet = loDataSet.Copy();
-
-            loErrorDataSet.Tables.Add(loDataTable);
-
-            //export to excel
-            var loByteFile = ExcelProvider.R_WriteToExcel(loErrorDataSet);
-            var saveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
-
-            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
-        }
-        catch (Exception ex)
-        {
-            _message = ex.Message;
-        }
-    }
-}
