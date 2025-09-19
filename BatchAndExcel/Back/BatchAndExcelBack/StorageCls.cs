@@ -7,37 +7,25 @@ namespace BatchAndExcelBack
 {
     public class StorageCls
     {
-        private static List<StorageDTO> _storageData = new List<StorageDTO>()
-        {
-            new StorageDTO() { CompanyId = "001", EmployeeId = "Employee02", FileExtension = ".jpg", FileName="Day_old_chick.jpg", StorageId = "f91c49d99be34b03930b5ae08ed97e61"}
-        };
-
-        public EmployeeAttachmentDTO GetAttachment(EmployeeAttachmentDTO poParameter)
+        public GetAttachmentDTO GetAttachment(string pcStorageId)
         {
             var loEx = new R_Exception();
-            EmployeeAttachmentDTO loResult = default;
+            GetAttachmentDTO loResult = new();
 
             try
             {
-                var loStorage = _storageData.Where(x => x.CompanyId == poParameter.CompanyId &&
-                                                    x.EmployeeId == poParameter.EmployeeId &&
-                                                    x.FileName == poParameter.FileName).FirstOrDefault();
-
-                if (loStorage == null || string.IsNullOrWhiteSpace(loStorage.StorageId))
-                    throw new Exception("Data not found");
-
                 var loReadParameter = new R_ReadParameter()
                 {
-                    StorageId = loStorage.StorageId
+                    StorageId = pcStorageId
                 };
+
                 var loReadResult = R_StorageUtility.ReadFile(loReadParameter, "R_DefaultConnectionString");
 
-                loResult = new EmployeeAttachmentDTO()
+                loResult = new GetAttachmentDTO()
                 {
-                    CompanyId = loStorage.CompanyId,
-                    EmployeeId = loStorage.EmployeeId,
-                    FileName = loStorage.FileName,
-                    FileExtension = loStorage.FileExtension,
+                    FileName = loReadResult.FileName,
+                    FileExtension = loReadResult.FileExtension,
+                    Url = loReadResult.Url,
                     Data = loReadResult.Data
                 };
             }
@@ -51,16 +39,13 @@ namespace BatchAndExcelBack
             return loResult;
         }
 
-        public void AddAttachment(EmployeeAttachmentDTO poParameter)
+        public string AddAttachment(AddAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
+            var lcResult = string.Empty;
 
             try
             {
-                var loStorage = _storageData.Where(x => x.CompanyId == poParameter.CompanyId &&
-                                                    x.EmployeeId == poParameter.EmployeeId &&
-                                                    x.FileName == poParameter.FileName).FirstOrDefault();
-
                 var loAddParameter = new R_AddParameter()
                 {
                     StorageType = R_EStorageType.Cloud,
@@ -68,7 +53,7 @@ namespace BatchAndExcelBack
                     FileName = poParameter.FileName,
                     FileExtension = poParameter.FileExtension,
                     UploadData = poParameter.Data,
-                    UserId = "cp",
+                    UserId = poParameter.UserId,
                     BusinessKeyParameter = new R_BusinessKeyParameter()
                     {
                         CCOMPANY_ID = poParameter.CompanyId,
@@ -80,14 +65,8 @@ namespace BatchAndExcelBack
 
                 var loSaveResult = R_StorageUtility.AddFile(loAddParameter, "R_DefaultConnectionString");
 
-                _storageData.Add(new StorageDTO()
-                {
-                    CompanyId = poParameter.CompanyId,
-                    EmployeeId = poParameter.EmployeeId,
-                    FileName = poParameter.FileName,
-                    FileExtension = poParameter.FileExtension,
-                    StorageId = loSaveResult.StorageId
-                });
+                if (loSaveResult is not null)
+                    lcResult = loSaveResult.StorageId;
             }
             catch (Exception ex)
             {
@@ -95,32 +74,28 @@ namespace BatchAndExcelBack
             }
 
             loEx.ThrowExceptionIfErrors();
+
+            return lcResult;
         }
 
-        public void UpdateAttachment(EmployeeAttachmentDTO poParameter)
+        public string UpdateAttachment(UpdateAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
+            var lcResult = string.Empty;
 
             try
             {
-                var loStorage = _storageData.Where(x => x.CompanyId == poParameter.CompanyId &&
-                                                    x.EmployeeId == poParameter.EmployeeId &&
-                                                    x.FileName == poParameter.FileName).FirstOrDefault();
-
-                if (loStorage == null)
-                    throw new Exception("Data not exist.");
-
                 var loUpdateParameter = new R_UpdateParameter()
                 {
-                    StorageId = loStorage.StorageId,
+                    StorageId = poParameter.StorageId,
                     UploadData = poParameter.Data,
-                    UserId = "cp",
-                    OptionalSaveAs = new R_UpdateParameter.OptionalSaveAsParameter()
-                    {
-                        FileName = poParameter.FileName,
-                        FileExtension = poParameter.FileExtension
-                    }
+                    UserId = poParameter.UserId
                 };
+
+                var loUpdateResult = R_StorageUtility.UpdateFile(loUpdateParameter, "R_DefaultConnectionString");
+
+                if (loUpdateResult is not null)
+                    lcResult = loUpdateResult.StorageId;
             }
             catch (Exception ex)
             {
@@ -128,30 +103,23 @@ namespace BatchAndExcelBack
             }
 
             loEx.ThrowExceptionIfErrors();
+
+            return lcResult;
         }
 
-        public void DeleteAttachment(EmployeeAttachmentDTO poParameter)
+        public void DeleteAttachment(DeleteAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loStorage = _storageData.Where(x => x.CompanyId == poParameter.CompanyId &&
-                                                    x.EmployeeId == poParameter.EmployeeId &&
-                                                    x.FileName == poParameter.FileName).FirstOrDefault();
-
-                if (loStorage == null)
-                    throw new Exception("Data not exist.");
-
                 var loDeleteParameter = new R_DeleteParameter()
                 {
-                    StorageId = loStorage.StorageId,
-                    UserId = "cp"
+                    StorageId = poParameter.StorageId,
+                    UserId = poParameter.UserId
                 };
 
                 R_StorageUtility.DeleteFile(loDeleteParameter, "R_DefaultConnectionString");
-
-                _storageData.Remove(loStorage);
             }
             catch (Exception ex)
             {
