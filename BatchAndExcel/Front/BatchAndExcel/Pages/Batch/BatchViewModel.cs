@@ -1,10 +1,12 @@
-﻿using R_APICommonDTO;
+﻿using BatchAndExcelCommon.DTOs;
+using Bogus;
+using R_APICommonDTO;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using R_ProcessAndUploadFront;
 
-namespace BatchAndExcel.ViewModels
+namespace BatchAndExcel.Pages.Batch
 {
     public class BatchViewModel : R_IProcessProgressStatus
     {
@@ -13,6 +15,69 @@ namespace BatchAndExcel.ViewModels
         public Action ShowSuccessAction { get; set; }
         public string Message { get; set; }
         public int Percentage { get; set; }
+
+        private List<EmployeeDTO> _employeeList { get; set; } = new();
+
+        public void GenerateEmployeeData()
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var employeeId = 1;
+                var loFake = new Faker<EmployeeDTO>()
+                   .CustomInstantiator(x => new EmployeeDTO())
+                   .RuleFor(x => x.FirstName, x => x.Name.FirstName())
+                   .RuleFor(x => x.Gender, x => x.PickRandom(new[] { "M", "F" }))
+                   .RuleFor(x => x.Id, x => employeeId++.ToString());
+
+                _employeeList = loFake.Generate(100);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        public async Task BatchProcessEmployeeAsync()
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                //instantiate ProcessClient
+                var loCls = new R_ProcessAndUploadClient(
+                    plSendWithContext: false,
+                    plSendWithToken: false,
+                    poProcessProgressStatus: this);
+
+                //prepare Batch Parameter
+                var loBatchPar = new R_BatchParameter
+                {
+                    COMPANY_ID = "RCD",
+                    USER_ID = "cp",
+                    ClassName = "BatchAndExcelBack.BatchCls",
+                    BigObject = _employeeList,
+                    UserParameters = new List<R_KeyValue>
+                {
+                    new R_KeyValue { Key = "IsError", Value = false },
+                    new R_KeyValue { Key = "ErrorEmployeeId", Value = new int[] {3, 4, 5} }
+                }
+                };
+
+                await loCls.R_BatchProcess<List<EmployeeDTO>>(loBatchPar, _employeeList.Count);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        #region PROCESS STATUS
 
         public async Task ProcessComplete(string pcKeyGuid, eProcessResultMode poProcessResultMode)
         {
@@ -62,15 +127,6 @@ namespace BatchAndExcel.ViewModels
 
             try
             {
-                // Add Parameter
-                //var loParameterMultiLanguage = new R_GetErrorWithMultiLanguageParameter()
-                //{
-                //    COMPANY_ID = "RCD",
-                //    USER_ID = "cp",
-                //    KEY_GUID = pcKeyGuid,
-                //    RESOURCE_NAME = "RSP_UPLOAD_GSM_CENTERResources"
-                //};
-
                 var loParameter = new R_UploadAndProcessKey
                 {
                     COMPANY_ID = "RCD",
@@ -79,11 +135,10 @@ namespace BatchAndExcel.ViewModels
                 };
 
                 var loCls = new R_ProcessAndUploadClient(
-                    plSendWithContext: true,
-                    plSendWithToken: true);
+                    plSendWithContext: false,
+                    plSendWithToken: false);
 
                 // Get error result
-                //loResultData = await loCls.R_GetStreamErrorProcess(loParameterMultiLanguage);
                 loResultData = await loCls.R_GetErrorProcess(loParameter);
 
                 if (loResultData.Count > 0)
@@ -105,5 +160,7 @@ namespace BatchAndExcel.ViewModels
 
             return loAPIEx;
         }
+
+        #endregion
     }
 }
