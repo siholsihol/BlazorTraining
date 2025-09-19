@@ -1,0 +1,6 @@
+﻿@page "/bulkinsert"
+
+<R_GroupBox Title="Bulk Insert">
+    <R_Button OnClick="@OnClickHandler">Process</R_Button>
+    <R_ProgressBar Label="@_bulkInsertViewModel.Message" MaxValue="100" Value="@_bulkInsertViewModel.Percentage"></R_ProgressBar>
+</R_GroupBox>
