@@ -101,8 +101,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcel", "BatchAndEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAndExcelService", "BatchAndExcel\Service\BatchAndExcelService\BatchAndExcelService.csproj", "{CDDF8A31-DFF2-46A5-2CE8-2E57D92AD5BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R_ProcessAndUploadFront", "..\RealtaLibrary\Microservices\R_ProcessAndUploadFront\R_ProcessAndUploadFront.csproj", "{9E340178-FEBF-BE70-0F2C-E92E0B82F3E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,10 +215,6 @@ Global
 		{CDDF8A31-DFF2-46A5-2CE8-2E57D92AD5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDDF8A31-DFF2-46A5-2CE8-2E57D92AD5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDDF8A31-DFF2-46A5-2CE8-2E57D92AD5BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E340178-FEBF-BE70-0F2C-E92E0B82F3E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E340178-FEBF-BE70-0F2C-E92E0B82F3E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E340178-FEBF-BE70-0F2C-E92E0B82F3E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E340178-FEBF-BE70-0F2C-E92E0B82F3E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -268,7 +262,6 @@ Global
 		{FCD9CC1F-113E-C120-01FD-BC458F4E081A} = {AA239EFC-B2A5-4460-B69E-4184833A1430}
 		{F04A46B6-6533-2658-DE1B-6C08FD1B1FEE} = {AA239EFC-B2A5-4460-B69E-4184833A1430}
 		{CDDF8A31-DFF2-46A5-2CE8-2E57D92AD5BB} = {AA239EFC-B2A5-4460-B69E-4184833A1430}
-		{9E340178-FEBF-BE70-0F2C-E92E0B82F3E2} = {E95524EE-9A0A-4F22-8EAD-47B2E1ECF7C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {326F6793-B282-4539-8298-FACE822E7925}
