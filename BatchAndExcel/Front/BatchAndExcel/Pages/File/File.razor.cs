@@ -1,5 +1,4 @@
-﻿using BatchAndExcel.ViewModels;
-using BatchAndExcelCommon.DTOs;
+﻿using BatchAndExcelCommon.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -13,14 +12,14 @@ using R_CommonFrontBackAPI;
 using R_ProcessAndUploadFront;
 using Telerik.Blazor;
 
-namespace BatchAndExcel.Pages
+namespace BatchAndExcel.Pages.File
 {
     public partial class File
     {
         [CascadingParameter] private DialogFactory Dialog { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
 
-        private UploadFileViewModel _uploadFileViewModel = new();
+        private FileViewModel _uploadFileViewModel = new();
         private R_eFileSelectAccept[] _accepts = { R_eFileSelectAccept.Doc };
         private byte[] _fileByte = null;
 

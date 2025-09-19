@@ -41,10 +41,10 @@ namespace BatchAndExcel.Pages.Excel
             try
             {
                 var loEmployeeList = new List<EmployeeDTO>()
-            {
-                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Sihol", Gender="M", HireDate = "20250917"},
-                new EmployeeDTO() {Id = Guid.NewGuid().ToString(), FirstName="Siholwati", Gender="F", HireDate = "20250917"}
-            };
+                {
+                    new EmployeeDTO() { Id = Guid.NewGuid().ToString(), FirstName = "Sihol", Gender = "M", HireDate = "20250917" },
+                    new EmployeeDTO() { Id = Guid.NewGuid().ToString(), FirstName = "Siholwati", Gender = "F", HireDate = "20250917" }
+                };
 
                 loDataTable = R_FrontUtility.R_ConvertTo(loEmployeeList);
                 loDataTable.TableName = "Employee";

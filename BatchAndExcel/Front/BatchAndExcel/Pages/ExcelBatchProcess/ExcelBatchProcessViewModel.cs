@@ -6,7 +6,7 @@ using R_CommonFrontBackAPI;
 using R_ProcessAndUploadFront;
 using System.Data;
 
-namespace BatchAndExcel.ViewModels
+namespace BatchAndExcel.Pages.ExcelBatchProcess
 {
     public class ExcelBatchProcessViewModel : R_IProcessProgressStatus
     {
@@ -16,6 +16,7 @@ namespace BatchAndExcel.ViewModels
         public string Message { get; set; }
         public int Percentage { get; set; }
         public DataSet EmployeeDataSet { get; private set; }
+        public long MaximumFileSize => 5 * 1024 * 1024;
 
         public async Task SaveBatchEmployeeAsync(DataSet poEmployeeExcelDataSet)
         {

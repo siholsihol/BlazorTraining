@@ -1,5 +1,4 @@
-﻿using BatchAndExcel.ViewModels;
-using BatchAndExcelCommon.DTOs;
+﻿using BatchAndExcelCommon.DTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -11,7 +10,7 @@ using R_BlazorFrontEnd.Exceptions;
 using System.Data;
 using Telerik.Blazor;
 
-namespace BatchAndExcel.Pages
+namespace BatchAndExcel.Pages.ExcelBatchProcess
 {
     public partial class ExcelBatchProcess
     {
@@ -21,7 +20,7 @@ namespace BatchAndExcel.Pages
 
         private ExcelBatchProcessViewModel _excelBatchProcessViewModel = new();
         private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
-        private long _maximumFileSize = 5 * 1024 * 1024;
+        //private long _maximumFileSize = 5 * 1024 * 1024;
         private DataSet _dataSetEmployee = new();
 
         protected override async Task OnInitializedAsync()
@@ -87,7 +86,7 @@ namespace BatchAndExcel.Pages
 
                 //read excel as byte
                 var loMS = new MemoryStream();
-                await eventArgs.File.OpenReadStream(maxAllowedSize: _maximumFileSize).CopyToAsync(loMS);
+                await eventArgs.File.OpenReadStream(maxAllowedSize: _excelBatchProcessViewModel.MaximumFileSize).CopyToAsync(loMS);
                 var loByteFile = loMS.ToArray();
 
                 _dataSetEmployee.Tables.Clear();

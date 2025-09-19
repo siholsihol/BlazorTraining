@@ -1,5 +1,4 @@
 ﻿@page "/fastreport"
-@using R_BlazorFrontEnd.Interfaces
 
 <div class="row">
     <div class="col-2">
@@ -26,7 +25,7 @@
                 GenerateCountProduct = _countProduct
             };
 
-            //await _reportService.GetReport(
+            // await _reportService.GetReport(
             //    "R_DefaultServiceUrl",
             //    "",
             //    "api/Report/AllProductPost",
@@ -35,7 +34,7 @@
 
             await _reportService.GetReport(
                 "R_DefaultServiceUrl",
-                "GS",
+                "",
                 "rpt/UpdateReport/AllProductPost",
                 "rpt/UpdateReport/AllStreamProductGet",
                 loParam);

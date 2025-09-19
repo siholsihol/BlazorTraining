@@ -2,9 +2,9 @@
 using R_CommonFrontBackAPI;
 using R_ProcessAndUploadFront;
 
-namespace BatchAndExcel.ViewModels
+namespace BatchAndExcel.Pages.File
 {
-    public class UploadFileViewModel : R_IProcessProgressStatus
+    public class FileViewModel : R_IProcessProgressStatus
     {
         public Action<R_APIException> ShowErrorAction { get; set; }
         public Action StateChangeAction { get; set; }
