@@ -1,7 +1,7 @@
 ﻿@page "/excel"
 
 <R_GroupBox Title="Excel">
-    <TelerikGrid Data="@_gridList"
+    <TelerikGrid Data="@_excelViewModel.EmployeeList"
                  Pageable
                  Sortable>
         <GridColumns>
@@ -12,7 +12,7 @@
         </GridColumns>
     </TelerikGrid>
 
-    <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts"></R_InputFile>
+    <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
 
     <br />
 
