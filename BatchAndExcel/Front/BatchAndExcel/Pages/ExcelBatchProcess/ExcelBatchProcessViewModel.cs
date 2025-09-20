@@ -155,19 +155,19 @@ namespace BatchAndExcel.Pages.ExcelBatchProcess
                     plSendWithToken: false);
 
                 // Get error result
-                //loResultData = await loCls.R_GetStreamErrorProcess(loParameterMultiLanguage); //dengan resources
-                loResultData = await loCls.R_GetErrorProcess(loParameter); //tanpa multi resources
+                loResultData = await loCls.R_GetStreamErrorProcess(loParameterMultiLanguage); //dengan resources
+                //loResultData = await loCls.R_GetErrorProcess(loParameter); //tanpa multi resources
 
                 if (loResultData.Count > 0)
                 {
                     //manipulate dengan resources
-                    //var loEmployeeListFromExcel = R_FrontUtility.R_ConvertTo<EmployeeBatchProcessDTO>(EmployeeDataSet.Tables[0]).ToList();
+                    var loEmployeeListFromExcel = R_FrontUtility.R_ConvertTo<EmployeeBatchProcessDTO>(EmployeeDataSet.Tables[0]).ToList();
 
-                    //loResultData = loResultData.Select(x => new R_ErrorStatusReturn
-                    //{
-                    //    SeqNo = x.SeqNo,
-                    //    ErrorMessage = string.Format(x.ErrorMessage, loEmployeeListFromExcel.FirstOrDefault(y => y.SeqNo == x.SeqNo)?.EmployeeId)
-                    //}).ToList();
+                    loResultData = loResultData.Select(x => new R_ErrorStatusReturn
+                    {
+                        SeqNo = x.SeqNo,
+                        ErrorMessage = string.Format(x.ErrorMessage, loEmployeeListFromExcel.FirstOrDefault(y => y.SeqNo == x.SeqNo)?.EmployeeId)
+                    }).ToList();
 
                     var loDataTable = R_FrontUtility.R_ConvertTo(loResultData);
                     loDataTable.TableName = "ErrorList";

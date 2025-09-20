@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BatchAndExcelCommon.DTOs;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Enums;
+using R_BlazorFrontEnd.Excel.Mappings;
 using R_BlazorFrontEnd.Exceptions;
+using System.Data;
 using Telerik.Blazor;
 
 namespace BatchAndExcel.Pages.Excel
@@ -33,7 +36,23 @@ namespace BatchAndExcel.Pages.Excel
                 var loByteFile = loMS.ToArray();
 
                 //import from excel
-                var loDataSet = ExcelProvider.R_ReadFromExcel(loByteFile, new string[] { "Employee" });
+                var loMapping = new List<R_DataColumnMapping>
+                {
+                    new R_DataColumnMapping(0,"Id"),
+                    new R_DataColumnMapping(1,nameof(EmployeeDTO.FirstName)),
+                    new R_DataColumnMapping(2,"Gender"),
+                    new R_DataColumnMapping(3,"HireDate"),
+                    new R_DataColumnMapping(4,"WNI"),
+                };
+
+                //var loDataSet = ExcelProvider.R_ReadExcel(loByteFile);
+                var loDataSet = ExcelProvider.R_ReadExcel(loByteFile, action =>
+                {
+                    action.WithHeader = true;
+                    action.TableNames = new string[] { "Employee", "Gender" };
+                    //action.ColumnMappings = loMapping;
+                    //action.Range = "A2:E2";
+                });
 
                 _excelViewModel.SetEmployeeListFromDataSet(loDataSet);
             }
@@ -46,18 +65,45 @@ namespace BatchAndExcel.Pages.Excel
                 await Dialog.AlertAsync(loEx.ErrorList[0].ErrDescp, "Error");
         }
 
+        private void SetParameterExcel(R_ReadFromExcelOption option)
+        {
+            var loMapping = new List<R_DataColumnMapping>
+                {
+                    new R_DataColumnMapping(0,"Id"),
+                    new R_DataColumnMapping(1,nameof(EmployeeDTO.FirstName)),
+                    new R_DataColumnMapping(2,"Gender"),
+                    new R_DataColumnMapping(3,"HireDate"),
+                    new R_DataColumnMapping(4,"WNI"),
+                };
+
+            option.WithHeader = true;
+            option.TableNames = new string[] { "Employee" };
+            option.ColumnMappings = loMapping;
+            option.Range = "A2:E2";
+        }
+
         private async Task OnClickHandler()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loDataTable = _excelViewModel.CreateDataTableEmployee();
-                if (loDataTable is null)
+                var loDataTableEmployee = _excelViewModel.CreateDataTableEmployee();
+                if (loDataTableEmployee is null)
+                    return;
+
+                var loDataTableGender = _excelViewModel.CreateDataTableGender();
+                if (loDataTableGender is null)
                     return;
 
                 //export to excel
-                var loByteFile = ExcelProvider.R_WriteToExcel(loDataTable);
+                //var loByteFile = ExcelProvider.R_WriteToExcel(loDataTableEmployee);
+                var loDataSet = new DataSet();
+                loDataSet.Tables.Add(loDataTableEmployee);
+                loDataSet.Tables.Add(loDataTableGender);
+
+                var loByteFile = ExcelProvider.R_WriteToExcel(loDataSet);
+
                 var lcSaveFileName = $"{Guid.NewGuid().ToString()}.xlsx";
 
                 await JSRuntime.downloadFileFromStreamHandler(lcSaveFileName, loByteFile);

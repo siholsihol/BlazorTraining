@@ -15,7 +15,7 @@ namespace BatchAndExcelBack
 
             try
             {
-                _BatchProcess(poBatchProcessPar);
+                Task.Run(async () => await _BatchProcess(poBatchProcessPar));
             }
             catch (Exception ex)
             {

@@ -25,7 +25,9 @@ namespace BatchAndExcelBack
                     goto END;
                 }
 
-                R_BatchProcessTasksync(poBatchProcessPar);
+                //throw new Exception("error nih");
+
+                Task.Run(async () => await R_BatchProcessTaskAsync(poBatchProcessPar));
             }
             catch (Exception ex)
             {
@@ -38,7 +40,7 @@ namespace BatchAndExcelBack
             return Task.CompletedTask;
         }
 
-        private async Task R_BatchProcessTasksync(R_BatchProcessPar poBatchProcessPar)
+        private async Task R_BatchProcessTaskAsync(R_BatchProcessPar poBatchProcessPar)
         {
             var loEx = new R_Exception();
             var llIsError = false;
@@ -71,7 +73,7 @@ namespace BatchAndExcelBack
                     CCOMPANY_ID = poBatchProcessPar.Key.COMPANY_ID,
                     CUSER_ID = poBatchProcessPar.Key.USER_ID,
                     CKEY_GUID = poBatchProcessPar.Key.KEY_GUID,
-                    ICOUNT = 0,
+                    ISTEP = 0,
                     CACTION = "Process Start",
                     ISTATUS = liFinishFlag
                 };
@@ -104,7 +106,7 @@ namespace BatchAndExcelBack
                 }
 
                 //simulate error with unhandled exception
-                //throw new Exception("error nya disengaja");
+                throw new Exception("error nya disengaja");
 
                 if (llIsError && liErrorEmployeeIds is not null)
                 {
@@ -160,7 +162,7 @@ namespace BatchAndExcelBack
                 loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poParameter.CCOMPANY_ID);
                 loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 50, poParameter.CUSER_ID);
                 loDb.R_AddCommandParameter(loCmd, "@CKEY_GUID", DbType.String, 50, poParameter.CKEY_GUID);
-                loDb.R_AddCommandParameter(loCmd, "@ICOUNT", DbType.Int32, 50, poParameter.ICOUNT);
+                loDb.R_AddCommandParameter(loCmd, "@ICOUNT", DbType.Int32, 50, poParameter.ISTEP);
                 loDb.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, 50, poParameter.CACTION);
                 loDb.R_AddCommandParameter(loCmd, "@ISTATUS", DbType.Int32, 50, poParameter.ISTATUS);
 

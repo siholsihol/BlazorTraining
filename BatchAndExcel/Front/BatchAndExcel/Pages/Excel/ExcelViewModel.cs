@@ -16,7 +16,8 @@ namespace BatchAndExcel.Pages.Excel
 
             try
             {
-                var loResultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(poDataSetEmployee.Tables[0]);
+                var loResultEmployee = R_FrontUtility.R_ConvertTo<EmployeeDTO>(poDataSetEmployee.Tables["Employee"]);
+                var loResultGender = R_FrontUtility.R_ConvertTo<GenderDTO>(poDataSetEmployee.Tables["Gender"]);
 
                 foreach (var loEmployee in loResultEmployee)
                 {
@@ -42,8 +43,8 @@ namespace BatchAndExcel.Pages.Excel
             {
                 var loEmployeeList = new List<EmployeeDTO>()
                 {
-                    new EmployeeDTO() { Id = Guid.NewGuid().ToString(), FirstName = "Sihol", Gender = "M", HireDate = "20250917" },
-                    new EmployeeDTO() { Id = Guid.NewGuid().ToString(), FirstName = "Siholwati", Gender = "F", HireDate = "20250917" }
+                    new EmployeeDTO() { Id = Guid.NewGuid().ToString(), FirstName = "Sihol", Gender = "M", HireDate = "20250917", WNI = false },
+                    new EmployeeDTO() { Id = Guid.NewGuid().ToString(), FirstName = "Siholwati", Gender = "F", HireDate = "20250917" , WNI = true }
                 };
 
                 loDataTable = R_FrontUtility.R_ConvertTo(loEmployeeList);
@@ -58,5 +59,37 @@ namespace BatchAndExcel.Pages.Excel
 
             return loDataTable;
         }
+
+        public DataTable CreateDataTableGender()
+        {
+            var loEx = new R_Exception();
+            DataTable loDataTable = null;
+
+            try
+            {
+                var loGenderList = new List<GenderDTO>()
+                {
+                    new GenderDTO { Id = "F", Desc = "Female" },
+                    new GenderDTO { Id = "M", Desc = "Male" }
+                };
+
+                loDataTable = R_FrontUtility.R_ConvertTo(loGenderList);
+                loDataTable.TableName = "Gender";
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loDataTable;
+        }
+    }
+
+    public class GenderDTO
+    {
+        public string Id { get; set; }
+        public string Desc { get; set; }
     }
 }

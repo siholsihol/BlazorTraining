@@ -9,5 +9,7 @@ namespace BatchAndExcelCommon.DTOs
         public string Gender { get; set; }
         public string HireDate { get; set; }
         public DateTime? DHIRE_DATE { get; set; }
+
+        public bool WNI { get; set; }
     }
 }
