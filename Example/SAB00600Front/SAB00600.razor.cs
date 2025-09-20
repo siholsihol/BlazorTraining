@@ -14,12 +14,8 @@ namespace SAB00600Front
     {
         private SAB00600ViewModel CustomerViewModel = new();
         private R_ConductorGrid _conGridCustomerRef;
-        private R_ConductorGrid _conGridCustomer2Ref;
         private R_Grid<CustomerDTO> _gridRef;
-        private R_BatchEditGrid<CustomerDTO> _grid2Ref;
         private int _pageSize = 10;
-        private string _access { get; set; } = "A,U,D,P,V";
-
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -406,11 +402,6 @@ namespace SAB00600Front
             await Task.Delay(3000);
         }
 
-        private void ValueChanged(bool value)
-        {
-            _isAddNewRowVisible = value;
-        }
-
         private string _prefixText = "Mr.";
         private int _valuePrefix = 0;
         private string _suffixText = "Kg";
@@ -422,6 +413,11 @@ namespace SAB00600Front
             {
                 eventArgs.CellClass = "myCustomCellFormatting";
             }
+        }
+
+        private void R_InstantiateDock(R_InstantiateDockEventArgs eventArgs)
+        {
+            eventArgs.TargetPageType = typeof(SAB00601);
         }
     }
 }
