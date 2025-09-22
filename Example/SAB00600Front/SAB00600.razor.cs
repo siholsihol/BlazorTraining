@@ -336,12 +336,12 @@ namespace SAB00600Front
 
         private void R_RowRender(R_GridRowRenderEventArgs eventArgs)
         {
-            var loData = (CustomerDTO)eventArgs.Data;
+            //var loData = (CustomerDTO)eventArgs.Data;
 
-            if (loData.GenderId == "M")
-            {
-                eventArgs.RowClass = "myCustomRowFormatting";
-            }
+            //if (loData.GenderId == "M")
+            //{
+            //    eventArgs.RowClass = "myCustomRowFormatting";
+            //}
         }
 
         private bool _checkBoxValue = true;

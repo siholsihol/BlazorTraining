@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
-using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Forms;
 using R_BlazorFrontEnd.Controls.Lookup;
@@ -17,23 +16,26 @@ namespace SAB00900Front
 {
     public partial class SAB00900 : R_Page
     {
-        private SAB00900ViewModel ViewModel = new();
-        private R_Conductor _conductorRef;
-        [Inject] public R_IFileConverter _fileConverter { get; set; }
-        [Inject] private IProductService ProductService { get; set; }
-        [Inject] private ICategoryService CategoryService { get; set; }
+        [Inject] public R_IFileConverter FileConverter { get; set; } = default!;
+        [Inject] private IProductService ProductService { get; set; } = default!;
+        [Inject] private ICategoryService CategoryService { get; set; } = default!;
+        [Inject] public R_LookupService LookupService { get; set; } = default!;
+        [Inject] public R_PopupService PopupService { get; set; } = default!;
+        [Inject] public R_MessageBoxService MessageBoxService { get; set; } = default!;
 
-        protected override async Task R_Init_From_Master(object poParameter)
+        private SAB00900ViewModel _viewModel = new();
+        private R_Conductor _conductorRef = default!;
+        private R_CheckBox _checkboxActiveRef = default!;
+
+        protected override async Task R_Init_From_Master(object? poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                ViewModel = new SAB00900ViewModel(ProductService, CategoryService);
+                _viewModel = new SAB00900ViewModel(ProductService, CategoryService);
 
-                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
-
-                await ViewModel.GetCategories();
+                await _viewModel.GetCategories();
             }
             catch (Exception ex)
             {
@@ -49,10 +51,13 @@ namespace SAB00900Front
 
             try
             {
-                var loParam = (ProductDTO)eventArgs.Data;
-                await ViewModel.GetProductById(loParam.Id);
+                if (eventArgs.Data == null)
+                    return;
 
-                eventArgs.Result = ViewModel.Product;
+                var loParam = (ProductDTO)eventArgs.Data;
+                await _viewModel.GetProductById(loParam.Id);
+
+                eventArgs.Result = _viewModel.Product;
             }
             catch (Exception ex)
             {
@@ -62,16 +67,11 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private R_NumericTextBox<int> _numericIdRef;
-        private R_DropDownList<CategoryDTO, int> _dropdownCategoryRef;
-        private R_DatePicker<DateTime?> _datePickerRef;
-        private R_CheckBox _checkboxActiveRef;
         private async Task Conductor_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
             var loEntity = (ProductDTO)eventArgs.Data;
 
             loEntity.CategoryId = 1;
-            loEntity.ReleaseDate = DateTime.Now;
 
             await _checkboxActiveRef.FocusAsync();
         }
@@ -86,20 +86,13 @@ namespace SAB00900Front
 
                 if (string.IsNullOrWhiteSpace(loData.Name))
                 {
-                    //loEx.Add("", "Please fill Product Name.");
-                    _errorMessage = "Please fill Product Name.";
-                }
-                else
-                {
-                    _errorMessage = "";
+                    loEx.Add("", "Please fill Product Name.");
                 }
 
                 if (loData.Price == 0)
                 {
                     loEx.Add("", "Please fill Price.");
                 }
-
-                //StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -119,9 +112,9 @@ namespace SAB00900Front
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                await ViewModel.SaveProduct(loParam, eventArgs.ConductorMode);
+                await _viewModel.SaveProduct(loParam, eventArgs.ConductorMode);
 
-                eventArgs.Result = ViewModel.Product;
+                eventArgs.Result = _viewModel.Product;
             }
             catch (Exception ex)
             {
@@ -148,7 +141,7 @@ namespace SAB00900Front
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                await ViewModel.DeleteProduct(loParam.Id);
+                await _viewModel.DeleteProduct(loParam.Id);
             }
             catch (Exception ex)
             {
@@ -167,18 +160,19 @@ namespace SAB00900Front
             eventArgs.PageTitle = "Title dari event argument";
         }
 
-        public int Count = 0;
+        //private int _count = 0;
         public void R_FindModel(R_FindModelEventArgs eventArgs)
         {
-            if (Count % 2 == 0)
-            {
-                eventArgs.FindModel = R_eFindModel.NoDisplay;
-            }
-            else if (Count % 2 == 1)
-            {
-                eventArgs.FindModel = R_eFindModel.ViewOnly;
-            }
-            Count++;
+            //if (_count % 2 == 0)
+            //{
+            //    eventArgs.FindModel = R_eFindModel.NoDisplay;
+            //}
+            //else if (_count % 2 == 1)
+            //{
+            //    eventArgs.FindModel = R_eFindModel.ViewOnly;
+            //}
+
+            //_count++;
         }
 
         public async Task R_After_Open_Find(R_AfterOpenFindEventArgs eventArgs)
@@ -195,6 +189,7 @@ namespace SAB00900Front
         #endregion
 
         #region Lookup
+
         public void R_Before_Open_Lookup(R_BeforeOpenLookupEventArgs eventArgs)
         {
             eventArgs.TargetPageType = typeof(ProductPage);
@@ -212,7 +207,6 @@ namespace SAB00900Front
             await _conductorRef.R_GetEntity(loParam);
         }
 
-        [Inject] public R_LookupService LookupService { get; set; }
         private async Task lookupButtonOnClick()
         {
             var loEx = new R_Exception();
@@ -233,20 +227,13 @@ namespace SAB00900Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
         #endregion
 
         #region Popup
-        [Inject] public R_MessageBoxService MessageBoxService { get; set; }
+
         public Task R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
         {
-            //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
-
-            //if (leResult == R_eMessageBoxResult.OK)
-            //{
-            //    eventArgs.TargetPageType = typeof(ProductPage);
-            //    eventArgs.Parameter = "Dari Popup";
-            //}
-
             eventArgs.TargetPageType = typeof(ProductPage);
             eventArgs.Parameter = "Dari Popup";
 
@@ -263,18 +250,12 @@ namespace SAB00900Front
             await _conductorRef.R_GetEntity(loParam);
         }
 
-        [Inject] public R_PopupService PopupService { get; set; }
         private async Task popupButtonOnClick()
         {
             var loEx = new R_Exception();
 
             try
             {
-                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
-
-                //if (leResult == R_eMessageBoxResult.OK)
-                //{
-                //var loResult = await PopupService.Show(typeof(TabTest), "Dari PopupService");
                 var loPopupSettings = new R_PopupSettings
                 {
                     PageTitle = "Title dari popup settings",
@@ -294,24 +275,25 @@ namespace SAB00900Front
 
             loEx.ThrowExceptionIfErrors();
         }
+
         #endregion
 
-        public async Task Conductor_BeforeEdit(R_BeforeEditEventArgs eventArgs)
+        public void Conductor_BeforeEdit(R_BeforeEditEventArgs eventArgs)
         {
-            var loEx = new R_Exception();
+            //var loEx = new R_Exception();
 
-            try
-            {
-                var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
+            //try
+            //{
+            //    var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
 
-                eventArgs.Cancel = !loResult.Success;
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
+            //    eventArgs.Cancel = !loResult.Success;
+            //}
+            //catch (Exception ex)
+            //{
+            //    loEx.Add(ex);
+            //}
 
-            loEx.ThrowExceptionIfErrors();
+            //loEx.ThrowExceptionIfErrors();
         }
 
         public async Task buttonCloseOnClick()
@@ -326,26 +308,20 @@ namespace SAB00900Front
         //    return Task.CompletedTask;
         //}
 
-        private string _errorMessage = "";
-
         public void Conductor_BeforeCancel()
         {
-            _errorMessage = "";
         }
 
         public void Conductor_Display(R_DisplayEventArgs eventArgs)
         {
-            var loData = eventArgs.Data as ProductDTO;
-            if (loData != null && eventArgs.ConductorMode == R_eConductorMode.Normal)
-            {
-                ViewModel.ReleaseDate = loData.ReleaseDate;
-            }
         }
 
-        protected override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
-        {
-            return Task.FromResult(false);
-        }
+        //protected override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
+        //{
+        //    return Task.FromResult(false);
+        //}
+
+        #region Detail
 
         private void R_Before_Open_Detail(R_BeforeOpenDetailEventArgs eventArgs)
         {
@@ -360,25 +336,16 @@ namespace SAB00900Front
 
         }
 
-        private async Task DatePicker_ValueChanged(DateTime? pdValue)
-        {
-            if (pdValue.HasValue)
-            {
-                ViewModel.ReleaseDate = pdValue.Value;
-
-                var loResult = await PopupService.Show(typeof(ProductPage), "Dari PopupService");
-            }
-        }
-
-
+        #endregion
 
         private async Task OnClickPrint()
         {
             var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
 
-            var loByteFile = _fileConverter.R_GetByteFromHtmlString($"<b>{ViewModel.Data.Id}</b>", R_eDocumentType.Docx); //kalo mau save langsung jadi file
+            var loByteFile = FileConverter.R_GetByteFromHtmlString($"<b>{_viewModel.Data.Id}</b>", R_eDocumentType.Docx); //kalo mau save langsung jadi file
 
-            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+            if (loByteFile != null)
+                await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
         }
     }
 }

@@ -120,14 +120,14 @@
                                      Decimals="3"
                                      TValue="decimal" />
 
-                <R_GridDatePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
+                @* <R_GridDatePickerColumn FieldName="@nameof(ProductDTO.ReleaseDate)"
                                         HeaderText="Release Date"
                                         R_EnableAdd
                                         R_EnableEdit
-                                        Width="200px" />
+                                        Width="200px" /> *@
 
-                <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Active)"
-                                      HeaderText="Active"
+                <R_GridCheckBoxColumn FieldName="@nameof(ProductDTO.Discontinued)"
+                                      HeaderText="Discontinued"
                                       R_EnableAdd
                                       R_EnableEdit 
                                       Width="200px" />

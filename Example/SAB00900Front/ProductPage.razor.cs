@@ -10,29 +10,25 @@ namespace SAB00900Front
 {
     public partial class ProductPage : R_Page
     {
-        private ProductPageViewModel GridViewModel = new();
-        private R_Grid<ProductDTO> _gridRef;
-        private string Parameter = "";
-        private SAB00900ViewModel ViewModel = new();
+        private ProductPageViewModel _gridViewModel = new();
+        private R_Grid<ProductDTO> _gridRef = default!;
+        private string _parameter = string.Empty;
 
-        [Inject] public R_MessageBoxService MessageBoxService { get; set; }
-        [Inject] private IProductService ProductService { get; set; }
-        [Inject] private ICategoryService CategoryService { get; set; }
+        [Inject] public R_MessageBoxService MessageBoxService { get; set; } = default!;
+        [Inject] private IProductService ProductService { get; set; } = default!;
 
-        protected override async Task R_Init_From_Master(object poParameter)
+        protected override async Task R_Init_From_Master(object? poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                GridViewModel = new ProductPageViewModel(ProductService);
-                ViewModel = new SAB00900ViewModel(ProductService, CategoryService);
-                //var leResult = await MessageBoxService.Show("test", "test", R_eMessageBoxButtonType.OK);
+                _gridViewModel = new ProductPageViewModel(ProductService);
 
-                Parameter = (string)poParameter;
+                if (poParameter != null)
+                    _parameter = (string)poParameter;
+
                 await _gridRef.R_RefreshGrid(null);
-
-                //loEx.Add(new R_Error("01", "test exception"));
             }
             catch (Exception ex)
             {
@@ -47,15 +43,15 @@ namespace SAB00900Front
             await this.Close(true, _gridRef.GetCurrentData());
         }
 
-        private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                GridViewModel.GetProductList();
+                await _gridViewModel.GetProductListAsync();
 
-                eventArgs.ListEntityResult = GridViewModel.ProductList;
+                eventArgs.ListEntityResult = _gridViewModel.ProductList;
             }
             catch (Exception ex)
             {
@@ -65,34 +61,34 @@ namespace SAB00900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
-        {
-            eventArgs.TargetPageType = typeof(ProductPage);
-            eventArgs.Parameter = "Dari Popup dalam popup";
-        }
+        //private void R_Before_Open_Popup(R_BeforeOpenPopupEventArgs eventArgs)
+        //{
+        //    eventArgs.TargetPageType = typeof(ProductPage);
+        //    eventArgs.Parameter = "Dari Popup dalam popup";
+        //}
 
-        private void R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
-        {
+        //private void R_After_Open_Popup(R_AfterOpenPopupEventArgs eventArgs)
+        //{
 
-        }
+        //}
 
-        protected override async Task R_PageClosing(R_PageClosingEventArgs eventArgs)
-        {
-            R_eMessageBoxResult result = await MessageBoxService.Show("Exit Confirmation",
-            "Are you sure to close this page?",
-            R_eMessageBoxButtonType.OKCancel);
+        //protected override async Task R_PageClosing(R_PageClosingEventArgs eventArgs)
+        //{
+        //    R_eMessageBoxResult result = await MessageBoxService.Show("Exit Confirmation",
+        //    "Are you sure to close this page?",
+        //    R_eMessageBoxButtonType.OKCancel);
 
-            eventArgs.Cancel = result != R_eMessageBoxResult.OK;
-        }
+        //    eventArgs.Cancel = result != R_eMessageBoxResult.OK;
+        //}
 
-        private void ThrowException()
-        {
-            var loEx = new R_Exception();
+        //private void ThrowException()
+        //{
+        //    var loEx = new R_Exception();
 
-            loEx.Add(new R_Error("01", "test exception"));
+        //    loEx.Add(new R_Error("01", "test exception"));
 
-            //loEx.ThrowExceptionIfErrors();
-            R_DisplayException(loEx);
-        }
+        //    //loEx.ThrowExceptionIfErrors();
+        //    R_DisplayException(loEx);
+        //}
     }
 }

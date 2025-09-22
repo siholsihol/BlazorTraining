@@ -203,9 +203,9 @@ namespace SAB01300Front
 
         private void Batch_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
-            var loData = (ProductDTO)eventArgs.Data;
+            //var loData = (ProductDTO)eventArgs.Data;
 
-            loData.ReleaseDate = DateTime.Now;
+            //loData.ReleaseDate = DateTime.Now;
         }
 
         //private void R_ServiceSave(R_ServiceSaveEventArgs eventArgs)

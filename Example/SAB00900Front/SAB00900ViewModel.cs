@@ -10,18 +10,15 @@ namespace SAB00900Front
     {
         public ProductDTO Product { get; set; } = new ProductDTO();
         public List<CategoryDTO> CategoryList { get; set; } = new List<CategoryDTO>();
-        public List<ProductDTO> ProductList = new List<ProductDTO>();
-        private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
+        public List<ProductDTO> ProductList { get; set; } = new List<ProductDTO>();
 
-        public DateTime? ReleaseDate { get; set; }
+        private readonly IProductService _productService = default!;
+        private readonly ICategoryService _categoryService = default!;
 
-        public SAB00900ViewModel()
-        {
+        public SAB00900ViewModel() { }
 
-        }
-
-        public SAB00900ViewModel(IProductService productService,
+        public SAB00900ViewModel(
+            IProductService productService,
             ICategoryService categoryService)
         {
             _productService = productService;
@@ -36,7 +33,7 @@ namespace SAB00900Front
             {
                 var loResult = await _productService.GetProductAsync(productId);
 
-                Product = loResult;
+                Product = loResult ?? new ProductDTO();
             }
             catch (Exception ex)
             {
@@ -61,7 +58,7 @@ namespace SAB00900Front
                     await _productService.UpdateProductAsync(poNewEntity);
                 }
 
-                Product = await _productService.GetProductAsync(poNewEntity.Id);
+                Product = await _productService.GetProductAsync(poNewEntity.Id) ?? new ProductDTO();
             }
             catch (Exception ex)
             {

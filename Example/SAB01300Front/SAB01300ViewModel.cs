@@ -11,20 +11,17 @@ namespace SAB01300Front
 {
     public class SAB01300ViewModel : R_ViewModel<CategoryDTO>
     {
-        public ObservableCollection<CategoryGridDTO> CategoryList = new ObservableCollection<CategoryGridDTO>();
-
-        public CategoryDTO Category = new CategoryDTO();
+        public CategoryDTO Category = new();
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
 
+        public ObservableCollection<CategoryGridDTO> CategoryList { get; set; } = new ObservableCollection<CategoryGridDTO>();
         public ObservableCollection<ProductDTO> Products { get; set; } = new ObservableCollection<ProductDTO>();
 
-        public SAB01300ViewModel()
-        {
+        public SAB01300ViewModel() { }
 
-        }
-
-        public SAB01300ViewModel(ICategoryService categoryService,
+        public SAB01300ViewModel(
+            ICategoryService categoryService,
             IProductService productService)
         {
             _categoryService = categoryService;

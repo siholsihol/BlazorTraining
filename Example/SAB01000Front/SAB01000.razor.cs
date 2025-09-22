@@ -66,9 +66,9 @@ namespace SAB01000Front
 
         private void R_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
-            var loData = (SelectedProductDTO)eventArgs.Data;
+            //var loData = (SelectedProductDTO)eventArgs.Data;
 
-            loData.ReleaseDate = DateTime.Now;
+            //loData.ReleaseDate = DateTime.Now;
         }
 
         #region Save Batch

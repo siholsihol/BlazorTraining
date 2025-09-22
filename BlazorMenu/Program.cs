@@ -42,6 +42,7 @@ builder.Services.AddBlazorPrettyCode();
 builder.Services.AddSingleton<ICategoryService, CategoryService>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
+builder.Services.AddSingleton<ISupplierService, SupplierService>();
 
 builder.Services.AddCaching();
 

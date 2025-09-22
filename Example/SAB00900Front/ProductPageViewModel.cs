@@ -7,20 +7,17 @@ namespace SAB00900Front
 {
     public class ProductPageViewModel
     {
-        private readonly IProductService _productService;
+        private readonly IProductService _productService = default!;
         public ObservableCollection<ProductDTO> ProductList = new ObservableCollection<ProductDTO>();
 
-        public ProductPageViewModel()
-        {
-
-        }
+        public ProductPageViewModel() { }
 
         public ProductPageViewModel(IProductService productService)
         {
             _productService = productService;
         }
 
-        public async Task GetProductList()
+        public async Task GetProductListAsync()
         {
             var loEx = new R_Exception();
 
