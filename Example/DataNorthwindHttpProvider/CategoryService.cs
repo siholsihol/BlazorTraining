@@ -1,4 +1,10 @@
-﻿namespace DataNorthwindHttpProvider
+﻿using DataProvider.Cache;
+using DataProvider.Constants;
+using DataProvider.DTOs;
+using DataProvider.Extensions;
+using DataProvider.Services;
+
+namespace DataNorthwindHttpProvider
 {
     public class CategoryService : ICategoryService
     {
