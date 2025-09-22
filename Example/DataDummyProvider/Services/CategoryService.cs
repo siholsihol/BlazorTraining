@@ -4,6 +4,7 @@ using DataProvider.Constants;
 using DataProvider.DTOs;
 using DataProvider.Extensions;
 using DataProvider.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace DataDummyProvider.Services
                 CacheConstant.AllCategory,
                 GetCategories);
 
-            return categories;
+            return categories ?? Enumerable.Empty<CategoryDTO>().ToList();
         }
 
         private Task<List<CategoryDTO>> GetCategories()
@@ -42,7 +43,7 @@ namespace DataDummyProvider.Services
             return Task.FromResult(result);
         }
 
-        public async Task<CategoryDTO> GetCategoryAsync(int categoryId)
+        public async Task<CategoryDTO?> GetCategoryAsync(int categoryId)
         {
             var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
             var result = categories.FirstOrDefault(x => x.Id == categoryId);
@@ -53,6 +54,9 @@ namespace DataDummyProvider.Services
         public async Task CreateCategoryAsync(CategoryDTO itemToAdd)
         {
             var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            if (categories == null)
+                throw new NullReferenceException();
+
             itemToAdd.Id = categories.Count;
             categories.Add(itemToAdd);
 
@@ -62,23 +66,32 @@ namespace DataDummyProvider.Services
         public async Task UpdateCategoryAsync(CategoryDTO itemToUpdate)
         {
             var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            if (categories == null)
+                throw new NullReferenceException();
+
             var index = categories.FindIndex(x => x.Id == itemToUpdate.Id);
 
             if (index != -1)
+            {
                 categories[index] = itemToUpdate;
-
-            await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
+                await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
+            }
         }
 
         public async Task DeleteCategoryAsync(CategoryDTO itemToDelete)
         {
             var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            if (categories == null)
+                throw new NullReferenceException();
+
             var index = categories.FindIndex(x => x.Id == itemToDelete.Id);
 
             if (index != -1)
+            {
                 categories.Remove(categories[index]);
 
-            await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
+                await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
+            }
         }
     }
 }

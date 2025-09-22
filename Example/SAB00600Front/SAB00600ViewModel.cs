@@ -14,7 +14,7 @@ namespace SAB00600Front
         public CustomerDTO Customer = new();
         private readonly ICustomerService _customerService;
 
-        public List<GenderDTO> Genders { get; set; } = new List<GenderDTO>();
+        //public List<GenderDTO> Genders { get; set; } = new List<GenderDTO>();
 
         public SAB00600ViewModel()
         {
@@ -103,11 +103,11 @@ namespace SAB00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        public async Task GetGendersAsync()
-        {
-            var loGenders = await _customerService.GetGendersAsync();
+        //public async Task GetGendersAsync()
+        //{
+        //    var loGenders = await _customerService.GetGendersAsync();
 
-            Genders = loGenders;
-        }
+        //    Genders = loGenders;
+        //}
     }
 }

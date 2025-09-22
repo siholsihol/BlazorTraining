@@ -31,7 +31,7 @@ namespace SAB00600Front
             {
                 CustomerViewModel = new SAB00600ViewModel(CustomerService);
 
-                await CustomerViewModel.GetGendersAsync();
+                //await CustomerViewModel.GetGendersAsync();
 
                 await _gridRef.R_RefreshGrid(null);
 
@@ -53,7 +53,7 @@ namespace SAB00600Front
             _conGridCustomerRef.R_SetMeAndChildAccess(formAccess);
         }
 
-        private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
+        //private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
 
         //protected override async Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
         //{

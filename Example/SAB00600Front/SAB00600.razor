@@ -53,13 +53,13 @@
                               PrefixText="@_prefixText"
                               SuffixText="@_suffixText"
                               Ellipsis />
-            <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
+            @* <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"
                                   FieldName="@nameof(CustomerDTO.GenderId)"
                                   HeaderText="Gender Id"
                                   Enabled="@_checkBoxValue"
-                                  Width="200px" />
+                                  Width="200px" /> *@
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
                               R_EnableAdd="@_checkBoxValue"

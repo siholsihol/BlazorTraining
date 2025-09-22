@@ -9,8 +9,7 @@ namespace DataProvider.Cache
     {
         private readonly IMemoryCache _cache;
 
-        public LocalCacheService(
-            IMemoryCache cache)
+        public LocalCacheService(IMemoryCache cache)
         {
             _cache = cache;
         }

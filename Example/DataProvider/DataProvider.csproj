@@ -7,10 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTOs\SupplierDTO.cs" />
+    <Compile Remove="DTOs\GenderDTO.cs" />
     <Compile Remove="DTOs\TenantDTO.cs" />
     <Compile Remove="DTOs\UserDTO.cs" />
-    <Compile Remove="Services\ISupplierService.cs" />
   </ItemGroup>
 
   <ItemGroup>

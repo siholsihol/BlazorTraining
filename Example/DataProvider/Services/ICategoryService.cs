@@ -10,6 +10,6 @@ namespace DataProvider.Services
         public Task UpdateCategoryAsync(CategoryDTO itemToUpdate);
         public Task DeleteCategoryAsync(CategoryDTO itemToDelete);
         public Task<List<CategoryDTO>> GetCategoriesAsync();
-        public Task<CategoryDTO> GetCategoryAsync(int categoryId);
+        public Task<CategoryDTO?> GetCategoryAsync(int categoryId);
     }
 }
