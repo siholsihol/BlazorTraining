@@ -1,10 +1,11 @@
+using DataProvider.Cache;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DataProvider.Cache
+namespace DataProvider.Extensions
 {
-    public static class CacheServiceExtensions
+    public static class CacheServiceExtension
     {
         public static T? GetOrSet<T>(
             this ICacheService cache,

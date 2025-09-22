@@ -2,6 +2,7 @@
 using DataProvider.Cache;
 using DataProvider.Constants;
 using DataProvider.DTOs;
+using DataProvider.Extensions;
 using DataProvider.Services;
 using System.Collections.Generic;
 using System.Linq;

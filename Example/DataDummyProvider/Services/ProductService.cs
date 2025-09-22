@@ -1,5 +1,8 @@
 ﻿using Bogus;
+using DataProvider.Cache;
+using DataProvider.Constants;
 using DataProvider.DTOs;
+using DataProvider.Extensions;
 using DataProvider.Services;
 using System;
 using System.Collections.Generic;
@@ -10,97 +13,88 @@ namespace DataDummyProvider.Services
 {
     public class ProductService : IProductService
     {
-        private static List<ProductDTO> _products = new List<ProductDTO>();
         private readonly ICategoryService _categoryService;
-        //private readonly ISupplierService _supplierService;
+        private readonly ICacheService _cacheService;
 
-        public ProductService(ICategoryService categoryService)
+        public ProductService(
+            ICategoryService categoryService,
+            ICacheService cacheService)
         {
             _categoryService = categoryService;
-            //_supplierService = supplierService;
+            _cacheService = cacheService;
         }
 
         public async Task<List<ProductDTO>> GetProductsAsync()
         {
-            if (_products.Count != 0)
-                return _products;
+            var products = await _cacheService.GetOrSetAsync(
+                CacheConstant.AllProduct,
+                GetProducts);
 
+            return products;
+        }
+
+        private async Task<List<ProductDTO>> GetProducts()
+        {
             var categories = await _categoryService.GetCategoriesAsync();
-            //var suppliers = await _supplierService.GetSuppliersAsync();
+            var startId = 1;
 
             var faker = new Faker<ProductDTO>()
-            .RuleFor(u => u.Id, f => f.Random.Number(0, 9999))
-            .RuleFor(u => u.Name, f => f.Commerce.Product())
+            .RuleFor(u => u.Id, f => startId++)
+            .RuleFor(u => u.Name, f => f.Commerce.ProductName())
             .RuleFor(u => u.Price, f => Convert.ToDecimal(f.Commerce.Price(10000, 1000000)))
             .RuleFor(u => u.ReleaseDate, f => f.Date.Recent(10))
             .RuleFor(u => u.Active, f => Convert.ToBoolean(f.Random.Number(0, 1)))
             .RuleFor(u => u.CategoryId, f => f.PickRandom(categories).Id);
 
-            _products = faker.Generate(30);
+            var products = faker.Generate(30);
 
-            return _products;
+            return products;
         }
 
-        public Task<ProductDTO> GetProductAsync(int productId)
+        public async Task<ProductDTO> GetProductAsync(int productId)
         {
-            var result = _products.FirstOrDefault(x => x.Id == productId);
+            var products = await _cacheService.GetAsync<List<ProductDTO>>(CacheConstant.AllProduct);
+            var result = products.FirstOrDefault(x => x.Id == productId);
 
-            return Task.FromResult(result);
+            return result;
         }
 
-        public Task CreateProductAsync(ProductDTO itemToAdd)
+        public async Task CreateProductAsync(ProductDTO itemToAdd)
         {
-            _products.Add(itemToAdd);
+            var products = await _cacheService.GetAsync<List<ProductDTO>>(CacheConstant.AllProduct);
+            itemToAdd.Id = products.Count;
+            products.Add(itemToAdd);
 
-            return Task.CompletedTask;
+            await _cacheService.SetAsync(CacheConstant.AllProduct, products);
         }
 
-        public Task UpdateProductAsync(ProductDTO itemToUpdate)
+        public async Task UpdateProductAsync(ProductDTO itemToUpdate)
         {
-            var index = _products.FindIndex(x => x.Id == itemToUpdate.Id);
+            var products = await _cacheService.GetAsync<List<ProductDTO>>(CacheConstant.AllProduct);
+            var index = products.FindIndex(x => x.Id == itemToUpdate.Id);
 
             if (index != -1)
-                _products[index] = itemToUpdate;
+                products[index] = itemToUpdate;
 
-            return Task.CompletedTask;
+            await _cacheService.SetAsync(CacheConstant.AllProduct, products);
         }
 
-        public Task DeleteProductAsync(ProductDTO itemToDelete)
+        public async Task DeleteProductAsync(ProductDTO itemToDelete)
         {
-            var index = _products.FindIndex(x => x.Id == itemToDelete.Id);
+            var products = await _cacheService.GetAsync<List<ProductDTO>>(CacheConstant.AllProduct);
+            var index = products.FindIndex(x => x.Id == itemToDelete.Id);
 
             if (index != -1)
-                _products.Remove(_products[index]);
+                products.Remove(products[index]);
 
-            return Task.CompletedTask;
+            await _cacheService.SetAsync(CacheConstant.AllProduct, products);
         }
 
         public async Task<List<ProductDTO>> GetProductsByCategoryAsync(int categoryId)
         {
-            List<ProductDTO> loResult = _products;
+            var products = await _cacheService.GetAsync<List<ProductDTO>>(CacheConstant.AllProduct);
 
-            if (_products.Count == 0)
-                loResult = await GetProductsAsync();
-
-            loResult = loResult.Where(x => x.CategoryId == categoryId).ToList();
-
-            return loResult;
-        }
-
-        public async Task<List<ProductDTO>> GetNewProductsAsync()
-        {
-            var categories = await _categoryService.GetCategoriesAsync();
-            //var suppliers = await _supplierService.GetSuppliersAsync();
-
-            var faker = new Faker<ProductDTO>()
-            .RuleFor(u => u.Id, f => f.Random.Number(0, 9999))
-            .RuleFor(u => u.Name, f => f.Commerce.Product())
-            .RuleFor(u => u.Price, f => Convert.ToDecimal(f.Commerce.Price(10000, 1000000)))
-            .RuleFor(u => u.ReleaseDate, f => f.Date.Recent(10))
-            .RuleFor(u => u.Active, f => Convert.ToBoolean(f.Random.Number(0, 1)))
-            .RuleFor(u => u.CategoryId, f => f.PickRandom(categories).Id);
-
-            var loResult = faker.Generate(10);
+            var loResult = products.Where(x => x.CategoryId == categoryId).ToList();
 
             return loResult;
         }
