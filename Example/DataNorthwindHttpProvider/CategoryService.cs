@@ -3,16 +3,23 @@ using DataProvider.Constants;
 using DataProvider.DTOs;
 using DataProvider.Extensions;
 using DataProvider.Services;
+using System.Net.Http.Json;
 
 namespace DataNorthwindHttpProvider
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICacheService _cacheService;
+        private const string _jsonFile = "sample-data/categories.json";
 
-        public CategoryService(ICacheService cacheService)
+        private readonly ICacheService _cacheService;
+        private readonly HttpClient _httpClient;
+
+        public CategoryService(
+            ICacheService cacheService,
+            HttpClient httpClient)
         {
             _cacheService = cacheService;
+            _httpClient = httpClient;
         }
 
         public async Task<List<CategoryDTO>> GetCategoriesAsync()
@@ -24,24 +31,17 @@ namespace DataNorthwindHttpProvider
             return categories ?? Enumerable.Empty<CategoryDTO>().ToList();
         }
 
-        private Task<List<CategoryDTO>> GetCategories()
+        private async Task<List<CategoryDTO>> GetCategories()
         {
-            var startId = 1;
+            var result = await _httpClient.GetFromJsonAsync<List<CategoryDTO>>(_jsonFile);
 
-            var faker = new Faker<CategoryDTO>()
-                    .RuleFor(u => u.Id, f => startId++)
-                    .RuleFor(u => u.Name, f => f.Commerce.Categories(1)[0])
-                    .RuleFor(u => u.Description, f => f.Lorem.Sentence(10));
-
-            var result = faker.Generate(3);
-
-            return Task.FromResult(result);
+            return result ?? Enumerable.Empty<CategoryDTO>().ToList();
         }
 
         public async Task<CategoryDTO?> GetCategoryAsync(int categoryId)
         {
             var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
-            var result = categories.FirstOrDefault(x => x.Id == categoryId);
+            var result = categories?.FirstOrDefault(x => x.Id == categoryId);
 
             return result;
         }

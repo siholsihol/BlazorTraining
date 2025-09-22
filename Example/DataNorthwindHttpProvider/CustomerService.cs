@@ -1,23 +1,25 @@
-﻿using Bogus;
-using DataProvider.Cache;
+﻿using DataProvider.Cache;
 using DataProvider.Constants;
 using DataProvider.DTOs;
 using DataProvider.Extensions;
 using DataProvider.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http.Json;
 
-namespace DataDummyProvider.Services
+namespace DataNorthwindHttpProvider
 {
     public class CustomerService : ICustomerService
     {
-        private readonly ICacheService _cacheService;
+        private const string _jsonFile = "sample-data/customers.json";
 
-        public CustomerService(ICacheService cacheService)
+        private readonly ICacheService _cacheService;
+        private readonly HttpClient _httpClient;
+
+        public CustomerService(
+            ICacheService cacheService,
+            HttpClient httpClient)
         {
             _cacheService = cacheService;
+            _httpClient = httpClient;
         }
 
         public async Task<List<CustomerDTO>> GetCustomersAsync()
@@ -29,25 +31,17 @@ namespace DataDummyProvider.Services
             return customers ?? Enumerable.Empty<CustomerDTO>().ToList();
         }
 
-        private Task<List<CustomerDTO>> GetCustomers()
+        private async Task<List<CustomerDTO>> GetCustomers()
         {
-            var faker = new Faker<CustomerDTO>()
-            .RuleFor(u => u.Id, f => f.Random.AlphaNumeric(5).ToUpper())
-            .RuleFor(u => u.CompanyName, f => f.Company.CompanyName())
-            .RuleFor(u => u.ContactName, f => f.Name.FirstName())
-            .RuleFor(u => u.Address, f => f.Address.FullAddress())
-            .RuleFor(u => u.City, f => f.Address.City())
-            .RuleFor(u => u.Country, f => f.Address.Country());
+            var result = await _httpClient.GetFromJsonAsync<List<CustomerDTO>>(_jsonFile);
 
-            var result = faker.Generate(100);
-
-            return Task.FromResult(result);
+            return result ?? Enumerable.Empty<CustomerDTO>().ToList();
         }
 
         public async Task<CustomerDTO?> GetCustomerAsync(string customerId)
         {
             var customers = await _cacheService.GetAsync<List<CustomerDTO>>(CacheConstant.AllCustomer);
-            var result = customers.FirstOrDefault(x => x.Id == customerId);
+            var result = customers?.FirstOrDefault(x => x.Id == customerId);
 
             return result;
         }

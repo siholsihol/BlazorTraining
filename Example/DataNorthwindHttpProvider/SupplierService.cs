@@ -1,22 +1,25 @@
-﻿using Bogus;
-using DataProvider.Cache;
+﻿using DataProvider.Cache;
 using DataProvider.Constants;
 using DataProvider.DTOs;
 using DataProvider.Extensions;
 using DataProvider.Services;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http.Json;
 
-namespace DataDummyProvider.Services
+namespace DataNorthwindHttpProvider
 {
     public class SupplierService : ISupplierService
     {
-        private readonly ICacheService _cacheService;
+        private const string _jsonFile = "sample-data/suppliers.json";
 
-        public SupplierService(ICacheService cacheService)
+        private readonly ICacheService _cacheService;
+        private readonly HttpClient _httpClient;
+
+        public SupplierService(
+            ICacheService cacheService,
+            HttpClient httpClient)
         {
             _cacheService = cacheService;
+            _httpClient = httpClient;
         }
 
         public async Task<List<SupplierDTO>> GetSuppliersAsync()
@@ -28,15 +31,11 @@ namespace DataDummyProvider.Services
             return suppliers ?? Enumerable.Empty<SupplierDTO>().ToList();
         }
 
-        private Task<List<SupplierDTO>> GetSuppliers()
+        private async Task<List<SupplierDTO>> GetSuppliers()
         {
-            var faker = new Faker<SupplierDTO>()
-            .RuleFor(u => u.Id, f => f.IndexFaker)
-            .RuleFor(u => u.Name, f => f.Company.CompanyName());
+            var result = await _httpClient.GetFromJsonAsync<List<SupplierDTO>>(_jsonFile);
 
-            var suppliers = faker.Generate(10);
-
-            return Task.FromResult(suppliers);
+            return result ?? Enumerable.Empty<SupplierDTO>().ToList();
         }
     }
 }

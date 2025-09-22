@@ -2,9 +2,7 @@ using BlazorMenu.Extensions;
 using BlazorMenu.Services;
 using BlazorPrettyCode;
 using BlazorTraining.Controls.Preload;
-using DataDummyProvider.Services;
-using DataProvider.Extensions;
-using DataProvider.Services;
+using DataNorthwindHttpProvider.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd;
@@ -39,12 +37,10 @@ builder.Services.AddMultiTenantancy();
 
 builder.Services.AddBlazorPrettyCode();
 
-builder.Services.AddSingleton<ICategoryService, CategoryService>();
-builder.Services.AddSingleton<ICustomerService, CustomerService>();
-builder.Services.AddSingleton<IProductService, ProductService>();
-builder.Services.AddSingleton<ISupplierService, SupplierService>();
+//builder.Services.AddDataDummyProvider(); //with bogus
+builder.Services.AddDataHttpProvider(); //with http file
 
-builder.Services.AddCaching();
+builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 var host = builder.Build();
 

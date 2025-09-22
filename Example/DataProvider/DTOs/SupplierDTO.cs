@@ -1,8 +1,12 @@
-﻿namespace DataProvider.DTOs
+﻿using System.Text.Json.Serialization;
+
+namespace DataProvider.DTOs
 {
     public class SupplierDTO
     {
+        [JsonPropertyName("SupplierID")]
         public int Id { get; set; }
-        public string CompanyName { get; set; } = string.Empty;
+        [JsonPropertyName("SupplierName")]
+        public string Name { get; set; } = string.Empty;
     }
 }

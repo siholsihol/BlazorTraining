@@ -46,7 +46,7 @@ namespace DataDummyProvider.Services
         public async Task<CategoryDTO?> GetCategoryAsync(int categoryId)
         {
             var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
-            var result = categories.FirstOrDefault(x => x.Id == categoryId);
+            var result = categories?.FirstOrDefault(x => x.Id == categoryId);
 
             return result;
         }
