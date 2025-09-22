@@ -3,6 +3,7 @@ using BlazorMenu.Services;
 using BlazorPrettyCode;
 using BlazorTraining.Controls.Preload;
 using DataDummyProvider.Services;
+using DataProvider.Cache;
 using DataProvider.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -41,7 +42,8 @@ builder.Services.AddBlazorPrettyCode();
 builder.Services.AddSingleton<ICategoryService, CategoryService>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
-//builder.Services.AddSingleton<ISupplierService, SupplierService>();
+builder.Services.AddTransient<ICacheService, LocalCacheService>();
+builder.Services.AddMemoryCache();
 
 var host = builder.Build();
 

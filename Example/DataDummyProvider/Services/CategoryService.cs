@@ -1,4 +1,6 @@
 ﻿using Bogus;
+using DataProvider.Cache;
+using DataProvider.Constants;
 using DataProvider.DTOs;
 using DataProvider.Services;
 using System.Collections.Generic;
@@ -9,57 +11,73 @@ namespace DataDummyProvider.Services
 {
     public class CategoryService : ICategoryService
     {
-        private static List<CategoryDTO> _categories = new List<CategoryDTO>();
+        private readonly ICacheService _cacheService;
 
-        public Task<List<CategoryDTO>> GetCategoriesAsync()
+        public CategoryService(ICacheService cacheService)
         {
-            if (_categories.Count != 0)
-                return Task.FromResult(_categories);
+            _cacheService = cacheService;
+        }
 
+        public async Task<List<CategoryDTO>> GetCategoriesAsync()
+        {
+            var categories = await _cacheService.GetOrSetAsync(
+                CacheConstant.AllCategory,
+                GetCategories);
+
+            return categories;
+        }
+
+        private Task<List<CategoryDTO>> GetCategories()
+        {
             var startId = 1;
 
             var faker = new Faker<CategoryDTO>()
                     .RuleFor(u => u.Id, f => startId++)
-                    .RuleFor(u => u.Name, f => f.Commerce.Department())
-                    .RuleFor(u => u.Description, f => f.Commerce.ProductDescription());
+                    .RuleFor(u => u.Name, f => f.Commerce.Categories(1)[0])
+                    .RuleFor(u => u.Description, f => f.Lorem.Sentence(10));
 
-            _categories = faker.Generate(3);
-
-            return Task.FromResult(_categories);
-        }
-
-        public Task<CategoryDTO> GetCategoryAsync(int categoryId)
-        {
-            var result = _categories.FirstOrDefault(x => x.Id == categoryId);
+            var result = faker.Generate(3);
 
             return Task.FromResult(result);
         }
 
-        public Task CreateCategoryAsync(CategoryDTO itemToAdd)
+        public async Task<CategoryDTO> GetCategoryAsync(int categoryId)
         {
-            _categories.Add(itemToAdd);
+            var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            var result = categories.FirstOrDefault(x => x.Id == categoryId);
 
-            return Task.CompletedTask;
+            return result;
         }
 
-        public Task UpdateCategoryAsync(CategoryDTO itemToUpdate)
+        public async Task CreateCategoryAsync(CategoryDTO itemToAdd)
         {
-            var index = _categories.FindIndex(x => x.Id == itemToUpdate.Id);
+            var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            itemToAdd.Id = categories.Count;
+            categories.Add(itemToAdd);
 
-            if (index != -1)
-                _categories[index] = itemToUpdate;
-
-            return Task.CompletedTask;
+            await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
         }
 
-        public Task DeleteCategoryAsync(CategoryDTO itemToDelete)
+        public async Task UpdateCategoryAsync(CategoryDTO itemToUpdate)
         {
-            var index = _categories.FindIndex(x => x.Id == itemToDelete.Id);
+            var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            var index = categories.FindIndex(x => x.Id == itemToUpdate.Id);
 
             if (index != -1)
-                _categories.Remove(_categories[index]);
+                categories[index] = itemToUpdate;
 
-            return Task.CompletedTask;
+            await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
+        }
+
+        public async Task DeleteCategoryAsync(CategoryDTO itemToDelete)
+        {
+            var categories = await _cacheService.GetAsync<List<CategoryDTO>>(CacheConstant.AllCategory);
+            var index = categories.FindIndex(x => x.Id == itemToDelete.Id);
+
+            if (index != -1)
+                categories.Remove(categories[index]);
+
+            await _cacheService.SetAsync(CacheConstant.AllCategory, categories);
         }
     }
 }

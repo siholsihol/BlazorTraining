@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.14" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.14" PrivateAssets="all" />
+	  <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.3" />
     <PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="1.0.6-alpha" />
   </ItemGroup>
 
