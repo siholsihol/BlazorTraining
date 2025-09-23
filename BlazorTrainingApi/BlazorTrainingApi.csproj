@@ -14,6 +14,11 @@
   <ItemGroup>
     <PackageReference Include="Realta.BackCollectionNuGet" Version="1.0.1" />
     <PackageReference Include="Realta.CommonCollectionNuGet" Version="1.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Example\DataNorthwindSqlService\DataNorthwindSqlService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +30,12 @@
     </Reference>
     <Reference Include="R_HelperController">
       <HintPath>..\Dll\Dll Back\R_HelperController.dll</HintPath>
+    </Reference>
+    <Reference Include="R_ReportServerClient">
+      <HintPath>..\Dll\Dll Back\R_ReportServerClient.dll</HintPath>
+    </Reference>
+    <Reference Include="R_ValidationAPIMiddleware">
+      <HintPath>..\Dll\Dll Back\R_ValidationAPIMiddleware.dll</HintPath>
     </Reference>
   </ItemGroup>
 

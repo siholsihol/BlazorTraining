@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.R_RegisterServices(option =>
 {
     option.R_DisableAuthentication();
+    option.R_DisableFastReport();
+    option.R_DisableReportServerClient();
 });
 
 var app = builder.Build();

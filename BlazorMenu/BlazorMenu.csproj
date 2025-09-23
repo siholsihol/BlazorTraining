@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Controls\SAB03300Front\SAB03300Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03400Front\SAB03400Front.csproj" />
     <ProjectReference Include="..\Example\DataNorthwindHttpProvider\DataNorthwindHttpProvider.csproj" />
+    <ProjectReference Include="..\Example\DataNorthwindSqlProvider\DataNorthwindSqlProvider.csproj" />
     <ProjectReference Include="..\Example\DataProvider\DataProvider.csproj" />
     <ProjectReference Include="..\Example\SAB00100Front\SAB00100Front.csproj" />
     <ProjectReference Include="..\Example\SAB00600Front\SAB00600Front.csproj" />

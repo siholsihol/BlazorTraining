@@ -2,7 +2,8 @@ using BlazorMenu.Extensions;
 using BlazorMenu.Services;
 using BlazorPrettyCode;
 using BlazorTraining.Controls.Preload;
-using DataNorthwindHttpProvider.Extensions;
+using DataProvider.Services;
+//using DataNorthwindHttpProvider.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using R_BlazorFrontEnd;
@@ -13,6 +14,8 @@ using R_BlazorFrontEnd.Interfaces;
 using R_BlazorFrontEnd.Report;
 using R_BlazorFrontEnd.Tenant.Extensions;
 using R_BlazorStartup;
+using System.Globalization;
+using System.Net.Http.Headers;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<BlazorMenu.App>("#app");
@@ -38,9 +41,17 @@ builder.Services.AddMultiTenantancy();
 builder.Services.AddBlazorPrettyCode();
 
 //builder.Services.AddDataDummyProvider(); //with bogus
-builder.Services.AddDataHttpProvider(); //with http file
+//builder.Services.AddDataHttpProvider(); //with http file
+builder.Services.AddSingleton<ICategoryService, DataNorthwindSqlProvider.CategoryService>();
 
 builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddHttpClient(DataNorthwindSqlProvider.Constants.HttpClientConstant.Name, client =>
+ {
+     client.DefaultRequestHeaders.AcceptLanguage.Clear();
+     client.DefaultRequestHeaders.AcceptLanguage.ParseAdd(CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName);
+     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+     client.BaseAddress = new Uri("http://localhost:5108");
+ });
 
 var host = builder.Build();
 
