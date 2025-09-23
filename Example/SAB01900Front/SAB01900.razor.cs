@@ -1,5 +1,6 @@
-﻿using DataDummyProvider.DTOs;
-using DataProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -12,13 +13,15 @@ namespace SAB01900Front
 {
     public partial class SAB01900
     {
-        private SAB01900ProductViewModel ProductViewModel = new();
-        private SAB01900CategoryViewModel CategoryViewModel = new();
+        private SAB01900ProductViewModel _productViewModel = new();
+        private SAB01900CategoryViewModel _categoryViewModel = new();
         private R_ConductorGrid _conGridProductRef;
         private R_Grid<ProductDTO> _gridRef;
-
         public bool _enableComboCategory = true;
         public bool _pageSupplierOnCRUDmode = false;
+
+        [Inject] private IProductService ProductService { get; set; }
+        [Inject] private ICategoryService CategoryService { get; set; }
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -26,9 +29,12 @@ namespace SAB01900Front
 
             try
             {
-                CategoryViewModel.GetComboCategoryList();
+                _categoryViewModel = new SAB01900CategoryViewModel(CategoryService);
+                _productViewModel = new SAB01900ProductViewModel(ProductService);
 
-                await _gridRef.R_RefreshGrid(CategoryViewModel.CurrentComboboxValue);
+                await _categoryViewModel.GetComboCategoryListAsync();
+
+                await _gridRef.R_RefreshGrid(_categoryViewModel.CurrentComboboxValue);
             }
             catch (Exception ex)
             {
@@ -38,15 +44,15 @@ namespace SAB01900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                ProductViewModel.GetProductListByCategory((int)eventArgs.Parameter);
+                await _productViewModel.GetProductListByCategoryAsync((int)eventArgs.Parameter);
 
-                eventArgs.ListEntityResult = ProductViewModel.Products;
+                eventArgs.ListEntityResult = _productViewModel.Products;
             }
             catch (Exception ex)
             {
@@ -57,16 +63,16 @@ namespace SAB01900Front
         }
 
         #region Conductor
-        private void Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = (ProductDTO)eventArgs.Data;
-                ProductViewModel.GetProductById(loParam.Id);
+                await _productViewModel.GetProductByIdAsync(loParam.Id);
 
-                eventArgs.Result = ProductViewModel.Product;
+                eventArgs.Result = _productViewModel.Product;
             }
             catch (Exception ex)
             {
@@ -97,15 +103,15 @@ namespace SAB01900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
+        private async Task Grid_ServiceSave(R_ServiceSaveEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                ProductViewModel.SaveProduct((ProductDTO)eventArgs.Data, eventArgs.ConductorMode);
+                await _productViewModel.SaveProductAsync((ProductDTO)eventArgs.Data, eventArgs.ConductorMode);
 
-                eventArgs.Result = ProductViewModel.Product;
+                eventArgs.Result = _productViewModel.Product;
             }
             catch (Exception ex)
             {
@@ -115,14 +121,14 @@ namespace SAB01900Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
+        private async Task Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loData = (CategoryDTO)eventArgs.Data;
-                ProductViewModel.DeleteProduct(loData.Id);
+                await _productViewModel.DeleteProductAsync(loData.Id);
             }
             catch (Exception ex)
             {
@@ -142,19 +148,19 @@ namespace SAB01900Front
         {
             if (_conGridProductRef.R_ConductorMode == R_eConductorMode.Normal)
             {
-                await _gridRef.R_RefreshGrid(CategoryViewModel.CurrentComboboxValue);
+                await _gridRef.R_RefreshGrid(_categoryViewModel.CurrentComboboxValue);
 
                 if (_tabStrip.ActiveTab.Id == "TabSupplier")
                 {
-                    await _tabPageSupplier.InvokeRefreshTabPageAsync(CategoryViewModel.CurrentComboboxValue);
+                    await _tabPageSupplier.InvokeRefreshTabPageAsync(_categoryViewModel.CurrentComboboxValue);
                 }
             }
         }
 
         private void R_Before_Open_TabPage(R_BeforeOpenTabPageEventArgs eventArgs)
         {
-            eventArgs.TargetPageType = typeof(SAB01900Supplier);
-            eventArgs.Parameter = CategoryViewModel.CurrentComboboxValue;
+            //eventArgs.TargetPageType = typeof(SAB01900Supplier);
+            //eventArgs.Parameter = _categoryViewModel.CurrentComboboxValue;
         }
 
         private void R_After_Open_TabPage(R_AfterOpenTabPageEventArgs eventArgs)

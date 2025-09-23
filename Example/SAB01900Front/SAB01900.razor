@@ -6,13 +6,14 @@
         <R_StackLayout Row>
             <R_Label FontColor="@R_eFontColor.Danger" FontStyle="R_eFontStyle.Bold">Category</R_Label>
 
-            <R_ComboBox Data="CategoryViewModel.ComboCategory"
+            <R_ComboBox Data="_categoryViewModel.ComboCategory"
                         TextField="@nameof(CategoryDTO.Name)"
                         ValueField="@nameof(CategoryDTO.Id)"
-                        @bind-Value="@CategoryViewModel.CurrentComboboxValue" 
+                        @bind-Value="@_categoryViewModel.CurrentComboboxValue" 
                         Class="ms-5" 
                         OnChanged="@ComboCategoryOnChanged" 
-                        Enabled="@_comboboxEnabled" Tooltip="choose category">
+                        Enabled="@_comboboxEnabled" 
+                        Tooltip="choose category">
             </R_ComboBox>
         </R_StackLayout>
         
@@ -23,7 +24,7 @@
     <R_TabStripTab Title="Product">
         <R_StackLayout>
             <R_Grid @ref="@_gridRef" 
-                    DataSource="@ProductViewModel.Products"
+                    DataSource="@_productViewModel.Products"
                     Pageable
                     R_ConductorGridSource="@_conGridProductRef"
                     R_GridType="@R_eGridType.Original"

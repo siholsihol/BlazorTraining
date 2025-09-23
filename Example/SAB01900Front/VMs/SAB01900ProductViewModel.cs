@@ -1,5 +1,5 @@
-﻿using DataDummyProvider.DTOs;
-using DataDummyProvider.Services;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
@@ -9,16 +9,25 @@ namespace SAB01900Front.VMs
 {
     public class SAB01900ProductViewModel : R_ViewModel<ProductDTO>
     {
+        private readonly IProductService _productService;
+
         public ObservableCollection<ProductDTO> Products { get; set; } = new ObservableCollection<ProductDTO>();
         public ProductDTO Product { get; set; } = new ProductDTO();
 
-        public void GetProductListByCategory(int categoryId)
+        public SAB01900ProductViewModel() { }
+
+        public SAB01900ProductViewModel(IProductService productService)
+        {
+            _productService = productService;
+        }
+
+        public async Task GetProductListByCategoryAsync(int categoryId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = ProductService.GetProductsByCategory(categoryId);
+                var loResult = await _productService.GetProductsByCategoryAsync(categoryId);
                 Products = new ObservableCollection<ProductDTO>(loResult);
             }
             catch (Exception ex)
@@ -29,13 +38,13 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetProductById(int productId)
+        public async Task GetProductByIdAsync(int productId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = ProductService.GetProduct(productId);
+                var loResult = await _productService.GetProductAsync(productId);
 
                 Product = loResult;
             }
@@ -47,7 +56,7 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveProduct(ProductDTO poNewEntity, R_eConductorMode conductorMode)
+        public async Task SaveProductAsync(ProductDTO poNewEntity, R_eConductorMode conductorMode)
         {
             var loEx = new R_Exception();
 
@@ -55,14 +64,14 @@ namespace SAB01900Front.VMs
             {
                 if (conductorMode == R_eConductorMode.Add)
                 {
-                    ProductService.CreateProduct(poNewEntity);
+                    await _productService.CreateProductAsync(poNewEntity);
                 }
                 else
                 {
-                    ProductService.UpdateProduct(poNewEntity);
+                    await _productService.UpdateProductAsync(poNewEntity);
                 }
 
-                Product = ProductService.GetProduct(poNewEntity.Id);
+                Product = await _productService.GetProductAsync(poNewEntity.Id);
             }
             catch (Exception ex)
             {
@@ -72,14 +81,14 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void DeleteProduct(int productId)
+        public async Task DeleteProductAsync(int productId)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = new ProductDTO { Id = productId };
-                ProductService.DeleteProduct(loParam);
+                await _productService.DeleteProductAsync(loParam);
             }
             catch (Exception ex)
             {

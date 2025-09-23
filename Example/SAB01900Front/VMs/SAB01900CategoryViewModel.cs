@@ -1,5 +1,5 @@
-﻿using DataDummyProvider.Services;
-using DataProvider.DTOs;
+﻿using DataProvider.DTOs;
+using DataProvider.Services;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using R_CommonFrontBackAPI;
@@ -9,20 +9,27 @@ namespace SAB01900Front.VMs
 {
     public class SAB01900CategoryViewModel : R_ViewModel<CategoryDTO>
     {
+        private readonly ICategoryService _categoryService;
+
         public ObservableCollection<CategoryDTO> Categories { get; set; } = new ObservableCollection<CategoryDTO>();
-
         public CategoryDTO Category { get; set; } = new CategoryDTO();
-
         public List<CategoryDTO> ComboCategory { get; set; } = new List<CategoryDTO>();
         public int CurrentComboboxValue { get; set; } = 0;
 
-        public void GetComboCategoryList()
+        public SAB01900CategoryViewModel() { }
+
+        public SAB01900CategoryViewModel(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
+        public async Task GetComboCategoryListAsync()
         {
             var loEx = new R_Exception();
 
             try
             {
-                ComboCategory = CategoryService.GetCategories();
+                ComboCategory = await _categoryService.GetCategoriesAsync();
 
                 CurrentComboboxValue = ComboCategory.FirstOrDefault().Id;
             }
@@ -34,13 +41,13 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetCategoryList()
+        public async Task GetCategoryListAsync()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = CategoryService.GetCategories();
+                var loResult = await _categoryService.GetCategoriesAsync();
                 Categories = new ObservableCollection<CategoryDTO>(loResult);
             }
             catch (Exception ex)
@@ -51,13 +58,13 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void GetCategoryById(int piCategoryId)
+        public async Task GetCategoryByIdAsync(int piCategoryId)
         {
             var loEx = new R_Exception();
 
             try
             {
-                Category = CategoryService.GetCategory(piCategoryId);
+                Category = await _categoryService.GetCategoryAsync(piCategoryId);
             }
             catch (Exception ex)
             {
@@ -67,7 +74,7 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void SaveCategory(CategoryDTO poEntity, eCRUDMode peCRUDMode)
+        public async Task SaveCategoryAsync(CategoryDTO poEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
 
@@ -75,14 +82,14 @@ namespace SAB01900Front.VMs
             {
                 if (peCRUDMode == eCRUDMode.AddMode)
                 {
-                    CategoryService.CreateCategory(poEntity);
+                    await _categoryService.CreateCategoryAsync(poEntity);
                 }
                 else
                 {
-                    CategoryService.UpdateCategory(poEntity);
+                    await _categoryService.UpdateCategoryAsync(poEntity);
                 }
 
-                Category = CategoryService.GetCategory(poEntity.Id);
+                Category = await _categoryService.GetCategoryAsync(poEntity.Id);
             }
             catch (Exception ex)
             {
@@ -92,14 +99,14 @@ namespace SAB01900Front.VMs
             loEx.ThrowExceptionIfErrors();
         }
 
-        public void DeleteCategory(int piCategoryId)
+        public void DeleteCategoryAsync(int piCategoryId)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loParam = new CategoryDTO { Id = piCategoryId };
-                CategoryService.DeleteCategory(loParam);
+                _categoryService.DeleteCategoryAsync(loParam);
             }
             catch (Exception ex)
             {

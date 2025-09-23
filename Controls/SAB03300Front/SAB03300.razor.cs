@@ -1,4 +1,6 @@
 ﻿using DataProvider.DTOs;
+using DataProvider.Services;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
@@ -13,13 +15,18 @@ namespace SAB03300Front
 
         private SAB03300ViewModel _viewModel = new();
 
+        [Inject] private IProductService ProductService { get; set; }
+        [Inject] private ICategoryService CategoryService { get; set; }
+
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
 
             try
             {
-                _viewModel.GetCategories();
+                _viewModel = new SAB03300ViewModel(ProductService, CategoryService);
+
+                await _viewModel.GetCategoriesAsync();
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -30,13 +37,13 @@ namespace SAB03300Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+        private async Task R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
-                _viewModel.GetProducts();
+                await _viewModel.GetProductsAsync();
 
                 eventArgs.ListEntityResult = _viewModel.Products;
             }
@@ -55,12 +62,13 @@ namespace SAB03300Front
 
         private void R_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
-            var loData = (ProductDTO)eventArgs.Data;
+            //var loData = (ProductDTO)eventArgs.Data;
 
-            loData.ReleaseDate = DateTime.Now;
+            //loData.ReleaseDate = DateTime.Now;
         }
 
         #region Save Batch
+
         private void R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)
         {
             var loData = (List<ProductDTO>)events.Data;
@@ -88,6 +96,7 @@ namespace SAB03300Front
         {
 
         }
+
         #endregion
 
         private async Task OnClickSave()
@@ -96,6 +105,7 @@ namespace SAB03300Front
         }
 
         #region Drag Drop
+
         private void R_GridRowBeforeDrop(R_GridDragDropBeforeDropEventArgs<ProductDTO> eventArgs)
         {
             //eventArgs.Cancel = true;
@@ -125,6 +135,7 @@ namespace SAB03300Front
         {
             await _gridRef.R_MoveToLastRow();
         }
+
         #endregion
     }
 }

@@ -6,6 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="SAB01900Supplier.razor.cs" />
+    <Compile Remove="VMs\SAB01900SupplierViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="SAB01900Supplier.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

@@ -3,49 +3,47 @@ using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Tab;
-using R_BlazorFrontEnd.Exceptions;
-using SAB01900Front.VMs;
 
 namespace SAB01900Front
 {
     public partial class SAB01900Supplier : R_Page, R_ITabPage
     {
-        private SAB01900SupplierViewModel SupplierViewModel = new();
+        //private SAB01900SupplierViewModel SupplierViewModel = new();
         private R_ConductorGrid _conGridProductRef;
         private R_Grid<SupplierDTO> _gridRef;
 
-        protected override async Task R_Init_From_Master(object poParameter)
-        {
-            var loEx = new R_Exception();
+        //protected override async Task R_Init_From_Master(object poParameter)
+        //{
+        //    var loEx = new R_Exception();
 
-            try
-            {
-                await _gridRef.R_RefreshGrid((int)poParameter);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
+        //    try
+        //    {
+        //        await _gridRef.R_RefreshGrid((int)poParameter);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        loEx.Add(ex);
+        //    }
 
-            loEx.ThrowExceptionIfErrors();
-        }
+        //    loEx.ThrowExceptionIfErrors();
+        //}
 
         private void Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
-            var loEx = new R_Exception();
+            //var loEx = new R_Exception();
 
-            try
-            {
-                SupplierViewModel.GetSuppliersByCategory((int)eventArgs.Parameter);
+            //try
+            //{
+            //    SupplierViewModel.GetSuppliersByCategoryAsync((int)eventArgs.Parameter);
 
-                eventArgs.ListEntityResult = SupplierViewModel.Suppliers;
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
+            //    eventArgs.ListEntityResult = SupplierViewModel.Suppliers;
+            //}
+            //catch (Exception ex)
+            //{
+            //    loEx.Add(ex);
+            //}
 
-            loEx.ThrowExceptionIfErrors();
+            //loEx.ThrowExceptionIfErrors();
         }
 
         private async Task Grid_R_SetOther(R_SetEventArgs eventArgs)
