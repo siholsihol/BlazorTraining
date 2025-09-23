@@ -1,0 +1,8 @@
+﻿@inherits R_Page
+@typeparam TPage
+
+<Demo Type="@typeof(TPage)" Tabs />
+
+@code {
+    [Parameter] public TPage? PageType { get; set; }
+}

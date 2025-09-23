@@ -7,20 +7,21 @@
                         Data="@_dropDownList"
                         TextField="@nameof(CategoryDTO.Name)"
                         ValueField="@nameof(CategoryDTO.Id)"
-                        @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
-
-        </R_DropDownList>
+                        @bind-Value="@_selectedCategory" 
+                        PopupMaxHeight="50px" />
     </R_ItemLayout>
 </R_GroupBox>
 
 @code {
+    [Inject] private ICategoryService CategoryService { get; set; }
+
     private List<CategoryDTO> _dropDownList = new();
     private int _selectedCategory = 0;
     private R_DropDownList<CategoryDTO, int> _ddlRef;
 
     protected override async Task R_Init_From_Master(object poParameter)
     {
-        _dropDownList = CategoryService.GetCategories();
+        _dropDownList = await CategoryService.GetCategoriesAsync();
 
         await _ddlRef.FocusAsync();
     }

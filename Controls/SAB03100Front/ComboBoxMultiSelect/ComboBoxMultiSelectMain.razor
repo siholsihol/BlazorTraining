@@ -7,9 +7,7 @@
                                TextField="@nameof(CategoryDTO.Name)"
                                ValueField="@nameof(CategoryDTO.Id)"
                                @bind-Value="@_selectedCategory"
-                               PopupMaxHeight="50px">
-
-        </R_ComboBoxMultiSelect>
+                               PopupMaxHeight="50px" />
     </R_ItemLayout>
 
     @foreach (var item in _selectedCategory)
@@ -19,13 +17,15 @@
 </R_GroupBox>
 
 @code {
+    [Inject] private ICategoryService CategoryService { get; set; }
+
     private List<CategoryDTO> _comboBoxList = new();
     private List<int> _selectedCategory = new();
     private R_ComboBoxMultiSelect<CategoryDTO, int> _comboboxRef;
 
     protected override async Task R_Init_From_Master(object poParameter)
     {
-        _comboBoxList = CategoryService.GetCategories();
+        _comboBoxList = await CategoryService.GetCategoriesAsync();
 
         await _comboboxRef.FocusAsync();
     }

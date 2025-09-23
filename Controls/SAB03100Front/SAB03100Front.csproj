@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Example\DataDummyProvider\DataDummyProvider.csproj" />
+    <ProjectReference Include="..\..\Example\DataProvider\DataProvider.csproj" />
     <ProjectReference Include="..\BlazorTraining.Controls\BlazorTraining.Controls.csproj" />
   </ItemGroup>
 

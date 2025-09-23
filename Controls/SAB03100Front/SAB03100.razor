@@ -1,11 +1,10 @@
 ﻿@page "/SAB03100"
-@using SAB03100Front.RTFViewer
 @inherits R_Page
 @attribute [R_Page(Title = "R_NumericTextBox")]
 
 <NumericTextBoxMain />
 
-@* <PrettyCode CodeFile="_content/SAB03100Front/snippets/SAB03100.razor" Title="SAB03100.cs" /> *@
+<PrettyCode CodeFile="_content/SAB03100Front/snippets/SAB03100.razor" Title="SAB03100.cs" />
 
 <R_PredefinedDock R_InstantiateDock="@InstantiateDateTimePicker" Title="R_DateTimePicker"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateDatePicker" Title="R_DatePicker"></R_PredefinedDock>
@@ -81,7 +80,7 @@
 
     private void InstantiateTextBox(R_InstantiateDockEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(TextBox_Demo_01_Overview);
+        eventArgs.TargetPageType = typeof(TextBoxMain);
     }
 
     private void InstantiateTextEditor(R_InstantiateDockEventArgs eventArgs)

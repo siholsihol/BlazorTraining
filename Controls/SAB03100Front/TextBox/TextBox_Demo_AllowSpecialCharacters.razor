@@ -1,0 +1,8 @@
+﻿@inherits R_Page
+
+<R_TextBox @bind-Value="@StringValue"
+           AllowSpecialCharacters="false" />
+
+@code {
+    private string StringValue { get; set; }
+}

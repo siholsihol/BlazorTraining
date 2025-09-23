@@ -6,7 +6,7 @@
 </div>
 
 <SectionHeading Size="HeadingSize.H2" Text="Textbox Overview" HashTagName="textbox-overview" />
-<Demo Type="typeof(TextBox_Demo_01_Overview)" Tabs="true" />
+<Demo Type="typeof(TextBox_Demo_01_Overview)" Tabs />
 
 <SectionHeading Size="HeadingSize.H2" Text="Textbox Parameters" HashTagName="textbox-parameters" />
 <div>
@@ -33,13 +33,13 @@
                 <th scope="row"><code>AllowSpaces</code></th>
                 <td>bool (true)</td>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@AllowSpacesOnClick">Try</R_Button></td>
             </tr>
             <tr>
                 <th scope="row"><code>AllowSpecialCharacters</code></th>
                 <td>bool (true)</td>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@AllowSpecialCharactersOnClick">Try</R_Button></td>
             </tr>
             <tr>
                 <th scope="row"><code>Class</code></th>
@@ -51,19 +51,19 @@
                 <th scope="row"><code>@nameof(R_TextBox.CharacterCasing)</code></th>
                 <td>R_eCharacterCasing (Normal)</td>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@CharacterCasingOnClick">Try</R_Button></td>
             </tr>
             <tr>
                 <th scope="row"><code>Enabled</code></th>
                 <td>bool (true)</td>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@EnabledOnClick">Try</R_Button></td>
             </tr>
             <tr>
                 <th scope="row"><code>MaxLength</code></th>
                 <td>int?</td>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@MaxLengthOnClick">Try</R_Button></td>
             </tr>
         </tbody>
     </table>
@@ -117,17 +117,7 @@
         </thead>
         <tbody class="table-group-divider">
             <tr>
-                <th scope="row"><code>OnChanged</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>OnLostFocus</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>ValueChanged</code></th>
+                <th scope="row"><code>FocusAsync()</code></th>
                 <td></td>
                 <td>Try</td>
             </tr>
