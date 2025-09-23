@@ -1,0 +1,19 @@
+﻿<div class="mb-3">
+    <p>TextBox value: @StringValue</p>
+</div>
+
+<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue" OnChanged="@OnChanged" />
+</div>
+
+<p>TextBox OnChanged value: @OnChangedValue</p>
+
+@code {
+    private string StringValue { get; set; }
+    private string OnChangedValue { get; set; }
+
+    private void OnChanged(object value)
+    {
+        OnChangedValue = (string)value;
+    }
+}

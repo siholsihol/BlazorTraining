@@ -1,0 +1,15 @@
+﻿<div class="mb-3">
+    <R_TextBox @ref="@_textboxRef" @bind-Value="@StringValue" />
+</div>
+
+<R_Button OnClick="@FocusOnClick">Set Focus to textbox</R_Button>
+
+@code {
+    private string StringValue { get; set; }
+    private R_TextBox _textboxRef;
+
+    private async Task FocusOnClick()
+    {
+        await _textboxRef.FocusAsync();
+    }
+}

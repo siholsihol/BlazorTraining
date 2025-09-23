@@ -1,0 +1,11 @@
+﻿<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               TabIndex="2" />
+</div>
+
+<R_TextBox @bind-Value="@StringValue"
+           TabIndex="1" />
+
+@code {
+    private string StringValue { get; set; }
+}

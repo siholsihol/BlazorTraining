@@ -1,0 +1,18 @@
+﻿<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               TextAlignment="@R_eTextAlignment.Left" />
+</div>
+
+<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               TextAlignment="@R_eTextAlignment.Center" />
+</div>
+
+<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               TextAlignment="@R_eTextAlignment.Right" />
+</div>
+
+@code {
+    private string StringValue { get; set; }
+}

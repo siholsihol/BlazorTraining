@@ -1,0 +1,19 @@
+﻿<div class="mb-3">
+    <R_CheckBox @bind-Value="@_isCheck" Enabled="@_enabled" />
+</div>
+
+<div class="mb-3">Is Checked : @_isCheck</div>
+
+<R_Button OnClick="@EnabledOnClick">@_buttonText</R_Button>
+
+@code {
+    private bool _isCheck = true;
+    private bool _enabled = true;
+    private string _buttonText = "enable";
+
+    private void EnabledOnClick()
+    {
+        _enabled = !_enabled;
+        _buttonText = _enabled ? "enable" : "disable";
+    }
+}

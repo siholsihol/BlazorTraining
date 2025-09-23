@@ -1,0 +1,19 @@
+﻿<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               ReadOnly="@_readonly" />
+</div>
+
+<R_Button OnClick="@EnabledOnClick">@_buttonText</R_Button>
+
+@code {
+    private string StringValue { get; set; }
+
+    private bool _readonly = false;
+    private string _buttonText = "readonly";
+
+    private void EnabledOnClick()
+    {
+        _readonly = !_readonly;
+        _buttonText = _readonly ? "normal" : "readonly";
+    }
+}

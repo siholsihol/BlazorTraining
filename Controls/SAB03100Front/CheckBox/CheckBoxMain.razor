@@ -1,6 +1,17 @@
 ﻿@inherits R_Page
 
-<R_GroupBox Title="R_CheckBox">
+<h1>Realta Blazor Checkbox</h1>
+<div class="lead mb-3">
+    Realta Blazor checkbox component.
+</div>
+
+<SectionHeading Size="HeadingSize.H2" Text="Checkbox Overview" HashTagName="checkbox-overview" />
+<Demo Type="typeof(CheckBox_Demo_Overview)" Tabs />
+
+<SectionHeading Size="HeadingSize.H2" Text="Checkbox Enabled" HashTagName="checkbox-enabled" />
+<Demo Type="typeof(CheckBox_Demo_Enabled)" Tabs />
+
+@* <R_GroupBox Title="R_CheckBox">
     <R_StackLayout Row>
         <R_ItemLayout col="1">
             <R_CheckBox @bind-Value="@_isCheck"
@@ -24,7 +35,7 @@
             @_disableText
         }
     </R_Button>
-</R_GroupBox>
+</R_GroupBox> *@
 
 @code {
     private bool _isCheck = true;

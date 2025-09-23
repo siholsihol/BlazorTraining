@@ -1,0 +1,18 @@
+﻿<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               CharacterCasing="@R_eCharacterCasing.Lower" />
+</div>
+
+<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               CharacterCasing="@R_eCharacterCasing.Upper" />
+</div>
+
+<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue"
+               CharacterCasing="@R_eCharacterCasing.Normal" />
+</div>
+
+@code {
+    private string StringValue { get; set; }
+}

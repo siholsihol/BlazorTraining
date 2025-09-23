@@ -1,0 +1,14 @@
+﻿<div class="mb-3">
+    <p>TextBox value: @StringValue</p>
+</div>
+
+<R_TextBox Value="@StringValue" ValueChanged="@ValueChanged" />
+
+@code {
+    private string StringValue { get; set; }
+
+    private void ValueChanged(string value)
+    {
+        StringValue = value;
+    }
+}

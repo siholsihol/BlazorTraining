@@ -6,17 +6,17 @@
 </div>
 
 <SectionHeading Size="HeadingSize.H2" Text="Textbox Overview" HashTagName="textbox-overview" />
-<Demo Type="typeof(TextBox_Demo_01_Overview)" Tabs />
+<Demo Type="typeof(TextBox_Demo_Overview)" Tabs />
 
-<SectionHeading Size="HeadingSize.H2" Text="Textbox Parameters" HashTagName="textbox-parameters" />
+<SectionHeading Size="HeadingSize.H2" Text="Textbox Properties" HashTagName="textbox-properties" />
 <div>
-    Realta Blazor textbox parameters.
+    Realta Blazor textbox properties.
 </div>
 <div>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Parameter</th>
+                <th scope="col">Property</th>
                 <th scope="col">Type and Default Value</th>
                 <th scope="col">Description</th>
                 <th scope="col"></th>
@@ -65,6 +65,42 @@
                 <td></td>
                 <td><R_Button OnClick="@MaxLengthOnClick">Try</R_Button></td>
             </tr>
+            <tr>
+                <th scope="row"><code>Password</code></th>
+                <td>bool (false)</td>
+                <td></td>
+                <td><R_Button OnClick="@PasswordOnClick">Try</R_Button></td>
+            </tr>
+            <tr>
+                <th scope="row"><code>Placeholder</code></th>
+                <td>string</td>
+                <td></td>
+                <td><R_Button OnClick="@PlaceholderOnClick">Try</R_Button></td>
+            </tr>
+            <tr>
+                <th scope="row"><code>ReadOnly</code></th>
+                <td>bool</td>
+                <td></td>
+                <td><R_Button OnClick="@ReadOnlyOnClick">Try</R_Button></td>
+            </tr>
+            <tr>
+                <th scope="row"><code>TabIndex</code></th>
+                <td>int</td>
+                <td></td>
+                <td><R_Button OnClick="@TabIndexOnClick">Try</R_Button></td>
+            </tr>
+            <tr>
+                <th scope="row"><code>TextAlignment</code></th>
+                <td>R_eTextAlignment (Left)</td>
+                <td></td>
+                <td><R_Button OnClick="@TextAlignmentOnClick">Try</R_Button></td>
+            </tr>
+            <tr>
+                <th scope="row"><code>Tooltip</code></th>
+                <td>string</td>
+                <td></td>
+                <td><R_Button OnClick="@TooltipOnClick">Try</R_Button></td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -86,17 +122,17 @@
             <tr>
                 <th scope="row"><code>OnChanged</code></th>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@OnChangedOnClick">Try</R_Button></td>
             </tr>
             <tr>
                 <th scope="row"><code>OnLostFocus</code></th>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@OnLostFocusOnClick">Try</R_Button></td>
             </tr>
             <tr>
                 <th scope="row"><code>ValueChanged</code></th>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@ValueChangedOnClick">Try</R_Button></td>
             </tr>
         </tbody>
     </table>
@@ -117,9 +153,9 @@
         </thead>
         <tbody class="table-group-divider">
             <tr>
-                <th scope="row"><code>FocusAsync()</code></th>
+                <th scope="row"><code>FocusAsync</code></th>
                 <td></td>
-                <td>Try</td>
+                <td><R_Button OnClick="@FocusAsyncOnClick">Try</R_Button></td>
             </tr>
         </tbody>
     </table>

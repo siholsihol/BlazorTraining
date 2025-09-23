@@ -1,0 +1,19 @@
+﻿<div class="mb-3">
+    <p>TextBox value: @StringValue</p>
+</div>
+
+<div class="mb-3">
+    <R_TextBox @bind-Value="@StringValue" OnLostFocus="@OnLostFocus" />
+</div>
+
+<p>TextBox OnLostFocus value: @OnLostFocusValue</p>
+
+@code {
+    private string StringValue { get; set; }
+    private string OnLostFocusValue { get; set; }
+
+    private void OnLostFocus(object value)
+    {
+        OnLostFocusValue = (string)value;
+    }
+}

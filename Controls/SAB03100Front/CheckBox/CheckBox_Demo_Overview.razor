@@ -1,0 +1,9 @@
+﻿<div class="mb-3">
+    <R_CheckBox @bind-Value="@_isCheck" />
+</div>
+
+<div class="mb-3">Is Checked : @_isCheck</div>
+
+@code {
+    private bool _isCheck = true;
+}
