@@ -1,0 +1,7 @@
+﻿@page "/batch"
+
+<R_GroupBox Title="Batch Process">
+    <R_Button OnClick="@OnClickHandler">Process</R_Button>
+    <R_ProgressBar Label="@_batchViewModel.Message" MaxValue="100" Value="@_batchViewModel.Percentage" />
+</R_GroupBox>
+

@@ -15,7 +15,12 @@
                 AllowDeleteRow="true"
                 R_ServiceGetListRecord="@R_ServiceGetListRecord" 
                 R_Before_Open_Grid_Lookup="@R_Before_Open_Grid_Lookup" 
-                R_After_Open_Grid_Lookup="@R_After_Open_Grid_Lookup">
+                R_After_Open_Grid_Lookup="@R_After_Open_Grid_Lookup"
+                R_ServiceGetRecord="@R_ServiceGetRecord"
+                R_AfterAdd="@R_AfterAdd"
+                R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                R_AfterSaveBatch="@R_AfterSaveBatch">
             <R_GridColumns>
                 @*<R_GridTextColumn FieldName="@nameof(UserDTO.Id)"
                           HeaderText="User Id" R_EnableAdd />
@@ -77,10 +82,4 @@
 </R_StackLayout>
 
 <R_ConductorGrid @ref="@_conGridEmployeeRef"
-                 R_ViewModel="@_viewModel"
-                 R_IsHeader
-                 R_ServiceGetRecord="@R_ServiceGetRecord"
-                 R_AfterAdd="@R_AfterAdd" 
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch" 
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch" 
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+                 R_IsHeader />

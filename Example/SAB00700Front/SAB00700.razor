@@ -70,6 +70,10 @@
         </R_ItemLayout>
     </R_StackLayout>
 
+    <R_StackLayout Row>
+        <R_TextBox Value="@_access" ValueChanged="(string value) => TextValueChanged(value)"></R_TextBox>
+    </R_StackLayout>
+
     <R_StackLayout Row Spacing="3" Class="mt-3">
         <R_ItemLayout col="12">
             <R_AddButton R_Conductor="@_conductorRef" TabIndex="5" />
@@ -77,6 +81,7 @@
             <R_DeleteButton R_Conductor="@_conductorRef" TabIndex="7" />
             <R_SaveButton R_Conductor="@_conductorRef" TabIndex="8" />
             <R_CancelButton R_Conductor="@_conductorRef" TabIndex="9" />
+            <R_PrintButton R_Conductor="@_conductorRef" OnClick="OnClickPrint" TabIndex="10" />
 
             @* <R_Button R_ConductorSource="@_conductorRef"
                       OnClick="@buttonOnClick" TabIndex="10">

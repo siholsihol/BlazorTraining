@@ -1,4 +1,5 @@
 ﻿@page "/SAB03100"
+@using SAB03100Front.RTFViewer
 @inherits R_Page
 @attribute [R_Page(Title = "R_NumericTextBox")]
 
@@ -18,6 +19,7 @@
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextArea" Title="R_TextArea"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextBox" Title="R_TextBox"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateTextEditor" Title="R_TextEditor"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateRTFViewer" Title="R_RTFViewer"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateImageBox" Title="R_ImageBox"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateComboBoxMultiSelect" Title="R_ComboBoxMultiSelect"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateQRCode" Title="R_QRCode"></R_PredefinedDock>
@@ -79,7 +81,7 @@
 
     private void InstantiateTextBox(R_InstantiateDockEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(TextBoxMain);
+        eventArgs.TargetPageType = typeof(TextBox_Demo_01_Overview);
     }
 
     private void InstantiateTextEditor(R_InstantiateDockEventArgs eventArgs)
@@ -120,5 +122,10 @@
     private void InstantiateListBox(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(ListBoxMain);
+    }
+
+    private void InstantiateRTFViewer(R_InstantiateDockEventArgs eventArgs)
+    {
+        eventArgs.TargetPageType = typeof(RTFViewerMain);
     }
 }

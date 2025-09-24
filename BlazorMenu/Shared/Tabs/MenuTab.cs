@@ -8,16 +8,17 @@ namespace BlazorMenu.Shared.Tabs
         public Guid Id { get; set; } = Guid.NewGuid();
         public bool IsActive { get; set; }
         public bool IsInited { get; set; }
-        public string Title { get; set; }
-        public string Url { get; set; }
-        public RenderFragment Body { get; set; }
+        public bool HasRendered { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public RenderFragment? Body { get; set; }
         public bool Disabled { get; set; }
         public bool Visible { get; set; } = true;
         public bool Closeable { get; set; } = true;
-        public string Access { get; set; }
-        public string PageTitle { get; set; }
+        public string Access { get; set; } = "V";
+        public string? PageTitle { get; set; }
 
-        public Func<Task<bool>> OnCloseMenuTab { get; set; }
+        public Func<Task<bool>>? OnCloseMenuTab { get; set; }
 
         public string AssemblyName => $"{Url}Front";
         public string AssemblyResourceName => $"{Url}FrontResources";

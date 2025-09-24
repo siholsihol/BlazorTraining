@@ -112,7 +112,7 @@ namespace SAB03400Front
 
         private async Task OnClickSave()
         {
-            await _conGridProductRef.R_SaveBatch();
+            await _gridRef.R_SaveBatch();
         }
 
         #region Drag Drop

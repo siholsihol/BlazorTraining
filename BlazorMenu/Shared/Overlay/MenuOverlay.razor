@@ -1,0 +1,206 @@
+@inherits BaseComponent
+@namespace BlazorMenu.Shared.Overlay
+@using BlazorMenu.Constants
+@using BlazorMenu.Helper
+
+<div class="r-content-menu-overlay" />
+
+<div id="@Id" class="@ClassNames" tabindex="-1" style="@StyleNames" @attributes="@Attributes" @onkeydown="@HandleKeyDown">
+    <div class="r-menu-overlay-content" tabindex="-1">
+        <div class="r-menu-overlay-header" tabindex="-1">
+            @if (!string.IsNullOrWhiteSpace(_breadCrumbs))
+            {
+                <div class="r-menu-overlay-breadcrumbs">@_breadCrumbs</div>
+            }
+            <div class="r-menu-overlay-header-close">
+                <button class="telerik-blazor k-button k-window-titlebar-action k-button-flat k-rounded-md k-button-md k-button-flat-base k-icon-button" tabindex="0" type="button" @onclick="@Hide">
+                    <span class="telerik-blazor k-button-icon k-icon k-svg-icon k-svg-i-x" aria-hidden="true">
+                        <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M416 141.3 301.3 256 416 370.7 370.7 416 256 301.3 141.3 416 96 370.7 210.7 256 96 141.3 141.3 96 256 210.7 370.7 96z"></path>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="r-menu-overlay-tiles" tabindex="-1">
+            @if (_drawerMenuItem != null && _drawerMenuItem.Children.Count > 0)
+            {
+                int index = 0;
+                foreach (var item in _drawerMenuItem.Children)
+                {
+                    if (index == 0)
+                    {
+                        <div @ref="@ElementRef" class="r-menu-overlay-content-item" tabindex="0" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))" @onkeydown="@(async (e) => await HandleKeyDownItem(e, item.Text, item.Id))">
+                            <svg class="r-menu-overlay-content-icon">
+                                <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item.Id, Default = _defaultIconId }))" />
+                            </svg>
+                            <div class="r-menu-overlay-content-text">
+                                <p class="r-menu-overlay-content-text-title">@item.Text</p>
+                                <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                    <div class="r-menu-overlay-content-item" tabindex="0" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))">
+                        <svg class="r-menu-overlay-content-icon">
+                            <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item.Id, Default = _defaultIconId }))" />
+                        </svg>
+                        <div class="r-menu-overlay-content-text">
+                            <p class="r-menu-overlay-content-text-title">@item.Text</p>
+                            <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
+                        </div>
+                    </div>
+                    }
+
+                    index++;
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .r-content-menu-overlay {
+        display: none;
+    }
+
+    .r-menu-overlay-show .r-content-menu-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--falcon-body-bg) !important;
+        z-index: 1;
+    }
+
+    .r-menu-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0;
+        padding: 0;
+        background: none !important;
+        z-index: -1;
+        padding-bottom: 1rem;
+        padding-right: 1rem;
+
+        /* These control visibility */
+        opacity: 0;
+        pointer-events: none;
+
+        /* Smooth animation */
+        transition: opacity 0.2s ease;
+    }
+
+        .r-menu-overlay:focus,
+        .r-menu-overlay:focus-visible,
+        .r-menu-overlay:focus-within,
+        .r-menu-overlay *:focus,
+        .r-menu-overlay *:focus-visible,
+        .r-menu-overlay *:focus-within {
+            outline: none;
+        }
+
+    .r-menu-overlay-show .r-menu-overlay
+    {
+        opacity: 1;
+        pointer-events: all !important;
+        z-index: 2;
+    }
+
+    .r-menu-overlay-content {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        pointer-events: all;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        border-color: rgba(0,0,0,0.125);
+        border-radius: 5px;
+    }
+
+    .r-menu-overlay-header {
+        display: flex;
+        justify-content: space-between;
+        pointer-events: all;
+        width: 100%;
+        border-bottom: 1px solid black;
+        border-color: rgba(0,0,0,0.125);
+        padding: 1.5rem 2rem;
+    }
+
+    .r-menu-overlay-breadcrumbs{
+        font-weight: 600;
+        font-size: 20px;
+        color: #777777;
+    }
+
+    .r-menu-overlay-header-close {
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .r-menu-overlay-tiles {
+        display: grid;
+        padding: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-auto-rows: min-content;
+        gap: 2rem;
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+    }
+
+    .r-menu-overlay-content-item {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 10px;
+        width: 100%;
+        min-height: 76px;
+        background-color: #f6f6f6;
+        border: 1px solid #EAEAEA;
+        border-radius: 10px;
+    }
+
+    .r-menu-overlay-content-icon{
+        min-width: 56px;
+        width: 56px;
+        height: 56px;
+    }
+
+    .r-menu-overlay-content-text {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .r-menu-overlay-content-text-title {
+        font-size: 16px;
+        color: #777777;
+        font-weight: 500;
+        margin-bottom: 0 !important;
+    }
+
+    .r-menu-overlay-content-text-subtitle{
+        font-size: 12px;
+        color: #999999;
+        font-weight: 400;
+        margin-bottom: 0 !important;
+    }
+
+    .navbar-vertical-collapsed.r-menu-overlay-show .r-menu-overlay {
+        padding-left: 12.5rem;
+    }
+</style>

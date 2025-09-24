@@ -1,20 +1,27 @@
-﻿<div class="p-3">
+﻿@using BlazorMenu.Constants
+@* @using BlazorMenu.Managers.Menu *@
+@using BlazorMenu.Resources
+@using R_BlazorFrontEnd.Configurations
+
+<div class="p-3">
     <p class="d-flex flex-between-center mb-1">
-        <b><i class="fa fa-check me-1 text-success"></i>Database :</b> <span>@_info.DatabaseName</span>
+        <b><i class="fa fa-check me-1 text-success"></i>@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Database", pcResourceName: "BlazorMenuResources") + ": ")</b> <span>@_info.DatabaseName</span>
     </p>
     <p class="d-flex flex-between-center mb-1">
-        <b><i class="fa fa-check me-1 text-success"></i>Database Server :</b> <span>@_info.DatabaseServer</span>
+        <b><i class="fa fa-check me-1 text-success"></i>@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_DatabaseServer", pcResourceName: "BlazorMenuResources") + ": ")</b> <span>@_info.DatabaseServer</span>
     </p>
     <p class="d-flex flex-between-center mb-1">
-        <b><i class="fa fa-check me-1 text-success"></i>Menu Version :</b> <span>1.0.0.0</span>
+        <b><i class="fa fa-check me-1 text-success"></i>@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_MenuVersion", pcResourceName: "BlazorMenuResources") + ": ")</b> <span>1.0.0.0</span>
     </p>
     <p class="d-flex flex-between-center mb-1">
-        <b><i class="fa fa-check me-1 text-success"></i>FrontEnd Version :</b> <span>1.0.0.0</span>
+        <b><i class="fa fa-check me-1 text-success"></i>@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_FrontEndVersion", pcResourceName: "BlazorMenuResources") + ": ")</b> <span>1.0.0.0</span>
     </p>
 </div>
 
 @code {
-    private R_MenuModel _menuModel = new();
+    // [Inject] private IMenuManager MenuManager { get; set; } = default!;
+
+    // private R_MenuModel _menuModel = new();
     private InfoDTO _info = new();
 
     protected override async Task OnInitializedAsync()
@@ -23,12 +30,12 @@
 
         try
         {
-            var loResult = await _menuModel.GetInfoAsync(new GetInfoParameterDTO
-                {
-                    CAPPLICATION_ID = "BIMASAKTI"
-                });
+            // var loResult = await MenuManager.GetInfoAsync(new GetInfoParameterDTO
+            // {
+            //     CAPPLICATION_ID = R_FrontConfig.R_GetConfigAsString(ConfigNames.ApplicationId),
+            // });
 
-            _info = loResult.Data;
+            _info = new();
         }
         catch (Exception)
         {

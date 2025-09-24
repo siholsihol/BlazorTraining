@@ -1,0 +1,19 @@
+﻿@page "/storage"
+
+<h3>Storage</h3>
+
+<R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
+<R_Button OnClick="@OnClickHandlerAdd">Save Image</R_Button>
+<R_Button OnClick="@OnClickHandlerUpdate">Update Image</R_Button>
+<R_Button OnClick="@OnClickHandlerDelete">Delete Image</R_Button>
+
+<EditForm Model="@_storageViewModel">
+    <label>
+        Storage Id :
+        <InputText @bind-Value="_storageViewModel.StorageId" />
+    </label>
+</EditForm>
+
+<br />
+
+<R_Button OnClick="@OnClickHandlerGet">Get Image</R_Button>

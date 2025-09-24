@@ -1,8 +1,13 @@
 ﻿using DataDummyProvider.DTOs;
+using Microsoft.AspNetCore.Components;
+using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
+using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Extensions;
 using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using SAB00700Front.DTOs;
@@ -14,6 +19,8 @@ namespace SAB00700Front
         private SAB00700ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
         private R_Grid<CategoryGridDTO> _gridRef;
+        private string _access { get; set; } = "A,U,D,P,V";
+        [Inject] public R_IFileConverter _fileConverter { get; set; }
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -293,9 +300,20 @@ namespace SAB00700Front
             _txtDescEnabled = string.IsNullOrWhiteSpace(name) ? false : true;
         }
 
-        private async Task delaynih()
+        private async Task OnClickPrint()
         {
-            await Task.Delay(3000);
+            var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
+
+            var loByteFile = _fileConverter.R_GetByteFromHtmlString("<b>test string</b>", R_eDocumentType.Docx); //kalo mau save langsung jadi file
+
+            await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
+        }
+
+        private void TextValueChanged(string value)
+        {
+            _access = value;
+            var formAccess = value.Split(",").Select((string x) => x.ToEnum<R_eFormAccess>()).ToArray();
+            _conductorRef.R_SetMeAndChildAccess(formAccess);
         }
     }
 }

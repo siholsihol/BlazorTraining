@@ -42,6 +42,11 @@ namespace SAB00900Front
             await this.Close(true, _gridRef.GetCurrentData());
         }
 
+        private async Task OnCancel()
+        {
+            await this.Close(false, null);
+        }
+
         private void R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -73,11 +78,11 @@ namespace SAB00900Front
 
         protected override async Task R_PageClosing(R_PageClosingEventArgs eventArgs)
         {
-            R_eMessageBoxResult result = await MessageBoxService.Show("Exit Confirmation",
-            "Are you sure to close this page?",
-            R_eMessageBoxButtonType.OKCancel);
+            //R_eMessageBoxResult result = await MessageBoxService.Show("Exit Confirmation",
+            //"Are you sure to close this page?",
+            //R_eMessageBoxButtonType.OKCancel);
 
-            eventArgs.Cancel = result != R_eMessageBoxResult.OK;
+            eventArgs.Cancel = false;
         }
 
         private void ThrowException()

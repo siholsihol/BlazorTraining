@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BatchAndExcelController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="File\TestExcelBatchProcess.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="File\EditorContent.docx" />
+    <EmbeddedResource Include="File\TestExcelBatchProcess.xlsx" />
   </ItemGroup>
 
 	<ItemGroup>

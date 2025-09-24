@@ -1,0 +1,21 @@
+﻿@page "/excel"
+
+<R_GroupBox Title="Excel">
+    <TelerikGrid Data="@_excelViewModel.EmployeeList"
+                 Pageable
+                 Sortable>
+        <GridColumns>
+            <GridColumn Field="@nameof(EmployeeDTO.Id)" Title="Employee Id" />
+            <GridColumn Field="@nameof(EmployeeDTO.FirstName)" Title="Employee Name" />
+            <GridColumn Field="@nameof(EmployeeDTO.Gender)" Title="Gender" />
+            <GridColumn Field="@nameof(EmployeeDTO.DHIRE_DATE)" Title="Hire Date" DisplayFormat="{0:dd MMM yy}" />
+            <GridColumn Field="@nameof(EmployeeDTO.WNI)" Title="WNI" />
+        </GridColumns>
+    </TelerikGrid>
+
+    <R_InputFile OnChange="@OnChangeHandler" Accepts="@_accepts"></R_InputFile>
+
+    <br />
+
+    <R_Button OnClick="@OnClickHandler">Download Template Excel</R_Button>
+</R_GroupBox>

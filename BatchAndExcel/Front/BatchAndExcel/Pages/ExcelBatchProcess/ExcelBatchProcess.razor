@@ -1,0 +1,20 @@
+﻿@page "/excelbatchprocess"
+@using R_BlazorFrontEnd;
+@using R_BlazorFrontEnd.Controls;
+
+<R_GroupBox Title="Batch Process From Excel">
+    @* <R_InputFile OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_maximumFileSize"></R_InputFile> *@
+    <R_Button OnClick="@OnClickDownloadFile">Download File From Server</R_Button>
+
+    <R_OpenFileDialogButton OnChange="@OnChangeHandler" Accepts="@accepts" MaxFileSize="@_excelBatchProcessViewModel.MaximumFileSize">
+        Browse File
+    </R_OpenFileDialogButton>
+
+    <R_Button OnClick="@OnClickHandler">Process</R_Button>
+
+    <R_Button OnClick="@OnClickHandlerWithResources">Process With Resources</R_Button>
+
+    <br />
+
+    <R_Label>@_excelBatchProcessViewModel.Message</R_Label>
+</R_GroupBox>

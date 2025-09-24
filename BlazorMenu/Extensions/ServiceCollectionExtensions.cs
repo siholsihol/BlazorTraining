@@ -1,6 +1,6 @@
 ﻿using BlazorClientHelper;
 using BlazorMenu.Authentication;
-using BlazorMenu.Constants.Storage;
+using BlazorMenu.Constants;
 using BlazorMenu.Services;
 using BlazorMenu.Shared;
 using BlazorMenu.Shared.Tabs;

@@ -1,0 +1,157 @@
+@using BlazorMenu.Constants
+@using R_BlazorFrontEnd.Controls.Constants
+
+
+<div class="card-body overflow-hidden p-0">
+    <XTabs @ref="@_tabsRef"
+    RenderMode="BlazorXTabs.Configuration.RenderMode.Full"
+    CloseTabs
+    CloseAllTabs
+    CloseAllTabsButtonThreshold="2"
+    JustifiedHeader="false"
+    NewTabSetActive
+    OnTabRemoved="@OnTabRemoved"
+    OnActiveTabChanged="@OnActiveTabChanged" />
+</div>
+
+@code {
+    [CascadingParameter(Name = "MenuTabSet")] private MenuTabSet? _menuTabSet { get; set; }
+    [Inject] private R_PreloadService _preloadService { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private XTabs? _tabsRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (_menuTabSet is not null && _menuTabSet.NavigationManager is not null)
+                _menuTabSet.NavigationManager.LocationChanged += OnLocationChanged;
+
+            await JSRuntime.InvokeVoidAsync(JsConstants.EnableHorizontalScroll, "xtabs-header");
+        }
+    }
+
+    private async void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        // Call your JS function after navigation
+        await JSRuntime.InvokeVoidAsync(JsConstants.ScrollToActiveTab);
+    }
+
+    public void Dispose()
+    {
+        if (_menuTabSet is not null && _menuTabSet.NavigationManager is not null)
+            _menuTabSet.NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    private async Task OnTabRemoved(XTab poTab)
+    {
+        if (_menuTabSet is null) return;
+
+        var loTab = _menuTabSet.Tabs.FirstOrDefault(x => x.Id == Guid.Parse(poTab.Id));
+
+        if (loTab is not null)
+        {
+            if (loTab.OnCloseMenuTab is not null)
+            {
+                var llPageClose = await loTab.OnCloseMenuTab.Invoke();
+                if (!llPageClose)
+                    return;
+            }
+
+            _menuTabSet.Tabs.Remove(loTab);
+
+            var liTabIndex = _menuTabSet.Tabs.IndexOf(loTab);
+            if (loTab.IsActive)
+            {
+                MenuTab? activeTab = null;
+                if (liTabIndex > 0)
+                    activeTab = _menuTabSet.Tabs[liTabIndex - 1];
+                else if (_menuTabSet.Tabs.Count > 0)
+                    activeTab = _menuTabSet.Tabs[0];
+
+                if (activeTab != null && _menuTabSet._tabSetTool is not null)
+                    _menuTabSet._tabSetTool.NavigateToTab(activeTab.Title, activeTab.Url);
+                else if (_menuTabSet.NavigationManager is not null)
+                {
+                    _menuTabSet.NavigationManager.NavigateTo("/" + _menuTabSet._tenant?.Identifier ?? "");
+                }
+            }
+        }
+    }
+
+    private async Task OnActiveTabChanged(XTab poTab)
+    {
+        MenuTab? loTab = null;
+
+        try
+        {
+            if (_menuTabSet is null) return;
+            loTab = _menuTabSet.Tabs.FirstOrDefault(x => x.Id == Guid.Parse(poTab.Id));
+
+            if (loTab is not null && _menuTabSet._tabSetTool is not null)
+            {
+                if (loTab.HasRendered)
+                    await _preloadService.Show();
+
+                _menuTabSet._tabSetTool.NavigateToTab(loTab.Title, loTab.Url);
+            }
+        }
+        finally
+        {
+            if (loTab != null && loTab.HasRendered)
+                await _preloadService.Hide();
+        }
+
+    }
+
+    internal async Task OpenTabAsync(MenuTab selTab)
+    {
+        if (_tabsRef is null)
+            return;
+
+        XTab? selXTab = _tabsRef.TabContent.FirstOrDefault(x => Guid.Parse(x.Id) == selTab.Id);
+
+        if (selXTab is not null)
+        {
+            await _preloadService.Show();
+            await _tabsRef.SetActiveAsync(selXTab); // Change Active XTab
+            await _preloadService.Hide();
+        }
+    }
+
+    internal async Task CreateNewTab(MenuTab poTab)
+    {
+        var loNewTab = new XTab(_tabsRef, poTab.Title, CreatePageBody(poTab), "", false, poTab.Url);
+        loNewTab.Id = poTab.Id.ToString();
+
+        if (_tabsRef is not null && !_tabsRef.TabContent.Any(x => x.Id == poTab.Id.ToString()))
+            await _tabsRef.AddPageAsync(loNewTab);
+    }
+
+    internal async Task CloseTabFromProgram(R_IMenuTab poTab)
+    {
+        var loTab = (MenuTab)poTab;
+
+        if (_tabsRef is not null)
+        {
+            var loXTab = _tabsRef.TabContent.FirstOrDefault(x => x.Id == poTab.Id.ToString());
+
+            await _tabsRef.CloseTabAsync(loXTab);
+        }
+    }
+
+    private RenderFragment CreatePageBody(MenuTab poTab)
+    {
+        RenderFragment bodyContent = __builder =>
+           {
+               <CascadingValue Value="@poTab" Name="currentTabMenu">
+                   <MainBody>
+                       @poTab.Body
+                   </MainBody>
+               </CascadingValue>
+           };
+
+        return bodyContent;
+    }
+}

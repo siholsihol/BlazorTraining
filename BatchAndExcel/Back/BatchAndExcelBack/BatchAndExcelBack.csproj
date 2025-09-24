@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EmailEngineCls.cs" />
+    <Compile Remove="SaveBatchWithBulkCopyCls.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\BatchAndExcelCommon\BatchAndExcelCommon.csproj" />
+    <ProjectReference Include="..\SaveBatchEmployeeWithResourcesResources\SaveBatchEmployeeWithResourcesResources.csproj" />
   </ItemGroup>
 
   <ItemGroup>

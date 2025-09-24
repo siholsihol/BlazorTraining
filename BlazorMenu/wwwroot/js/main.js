@@ -259,4 +259,83 @@
             element.classList.remove('d-none');
         }
     },
+
+    /* Enable Horizontal Scroll in XTabs */
+    enableHorizontalScroll: function (elementClass) {
+        const element = document.getElementsByClassName(elementClass)[0];
+        if (!element) return;
+
+        element.addEventListener('wheel', function (e) {
+            // Only if there's a horizontal scrollbar
+            if (element.scrollWidth > element.clientWidth) {
+                e.preventDefault();
+                element.scrollLeft += e.deltaY;
+            }
+        }, { passive: false });
+    },
+
+    scrollToActiveTab: function () {
+        const xtabsHeader = document.querySelector('.xtabs-header');
+        if (!xtabsHeader) return;
+
+        // Find the active tab (adjust selector if needed)
+        const activeTab = xtabsHeader.querySelector('.active') 
+        if (!activeTab) return;
+
+        // Get bounding rectangles
+        const containerRect = xtabsHeader.getBoundingClientRect();
+        const activeRect = activeTab.getBoundingClientRect();
+
+        // Calculate how much to scroll to bring active tab fully into view
+        if (activeRect.left < containerRect.left) {
+            // Scroll left if active tab is hidden on left side
+            xtabsHeader.scrollBy({ left: activeRect.left - containerRect.left, behavior: 'smooth' });
+        } else if (activeRect.right > containerRect.right) {
+            // Scroll right if active tab is hidden on right side
+            xtabsHeader.scrollBy({ left: activeRect.right - containerRect.right, behavior: 'smooth' });
+        }
+    },
+
+    navbar: {
+        toggleFooter: function (footerId) {
+            const footer = document.getElementById(footerId);
+            const html = document.querySelector("html");
+
+            // Attach listener to the custom event fired by theme.js
+            const toggleButton = document.querySelector(".navbar-vertical-toggle");
+            if (toggleButton && footer) {
+                toggleButton.addEventListener("navbar.vertical.toggle", function () {
+                    const isCollapsed = html.classList.contains("navbar-vertical-collapsed");
+                    footer.style.display = isCollapsed ? "none" : "block";
+                });
+
+                // Set initial state on page load
+                footer.style.display = html.classList.contains("navbar-vertical-collapsed")
+                    ? "none"
+                    : "block";
+            }
+        },
+        toggleMenuOverlay: function (plVisible) {
+            const html = document.querySelector("html");
+            const visibleClassName = "r-menu-overlay-show";
+            const isVisible = html.classList.contains(visibleClassName);
+
+            if (plVisible && !isVisible) {
+                html.classList.add(visibleClassName);
+            }
+
+            if (!plVisible && isVisible) {
+                html.classList.remove(visibleClassName);
+            }
+        }
+    },
+
+    svg: {
+        injectSvgToBody: function (svgContent) {
+            const wrapper = document.createElement("div");
+            wrapper.style.display = "none";
+            wrapper.innerHTML = svgContent;
+            document.body.insertBefore(wrapper, document.body.firstChild);
+        }
+    }
 }

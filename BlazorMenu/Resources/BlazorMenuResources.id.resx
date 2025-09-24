@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthError_001" xml:space="preserve">
+    <value>Terjadi kesalahan saat mencoba masuk.</value>
+    <comment>An error occurred while trying to log you in.</comment>
+  </data>
+  <data name="Auth_E002" xml:space="preserve">
+    <value>Token refresh tidak valid.</value>
+    <comment>Invalid refresh token.</comment>
+  </data>
+  <data name="Auth_E003" xml:space="preserve">
+    <value>Kredensial pengguna tidak valid.</value>
+    <comment>Invalid user credentials.</comment>
+  </data>
+  <data name="Auth_E004" xml:space="preserve">
+    <value>Captcha salah.</value>
+    <comment>Incorrect captcha.</comment>
+  </data>
+  <data name="Auth_E005" xml:space="preserve">
+    <value>Login gagal.</value>
+    <comment>Login failed.</comment>
+  </data>
+  <data name="ChangePassword_M001" xml:space="preserve">
+    <value>Password berhasil diubah.</value>
+    <comment>Password changed successfully.</comment>
+  </data>
+  <data name="ChangePassword_P001" xml:space="preserve">
+    <value>Password Lama</value>
+    <comment>Old Password</comment>
+  </data>
+  <data name="ChangePassword_P002" xml:space="preserve">
+    <value>Password Baru</value>
+    <comment>New Password</comment>
+  </data>
+  <data name="ChangePassword_P003" xml:space="preserve">
+    <value>Password Password</value>
+    <comment>Confirm Password</comment>
+  </data>
+  <data name="ChangePassword_V001" xml:space="preserve">
+    <value>Kolom Password Lama wajib diisi.</value>
+    <comment>The Old Password field is required.</comment>
+  </data>
+  <data name="ChangePassword_V002" xml:space="preserve">
+    <value>Kolom Password Baru wajib diisi.</value>
+    <comment>The New Password field is required.</comment>
+  </data>
+  <data name="ChangePassword_V003" xml:space="preserve">
+    <value>Kolom Konfirmasi Password wajib diisi.</value>
+    <comment>The Confirmation Password field is required.</comment>
+  </data>
+  <data name="ChangePassword_V004" xml:space="preserve">
+    <value>Password tidak cocok.</value>
+    <comment>Passwords do not match.</comment>
+  </data>
+  <data name="ChangePassword_V005" xml:space="preserve">
+    <value>Password harus terdiri dari minimal {0} karakter.</value>
+    <comment>Password must be at least {0} characters long.</comment>
+  </data>
+  <data name="ChangePassword_V006" xml:space="preserve">
+    <value>Anda hanya dapat mengubah password setelah {0} hari sejak pembaruan terakhir.</value>
+    <comment>You can change your password only after {0} days from your last update.</comment>
+  </data>
+  <data name="ChangePassword_V007" xml:space="preserve">
+    <value>Anda tidak dapat menggunakan {0} password terakhir Anda.</value>
+    <comment>You cannot use your last {0} passwords.</comment>
+  </data>
+  <data name="ChangePassword_V008" xml:space="preserve">
+    <value>Password harus mengandung setidaknya satu huruf.</value>
+    <comment>Password must contain at least one letter.</comment>
+  </data>
+  <data name="ChangePassword_V009" xml:space="preserve">
+    <value>Password harus mengandung setidaknya satu huruf kapital.</value>
+    <comment>Password must contain at least one uppercase letter.</comment>
+  </data>
+  <data name="ChangePassword_V010" xml:space="preserve">
+    <value>Password harus mengandung setidaknya satu huruf kecil.</value>
+    <comment>Password must contain at least one lowercase letter.</comment>
+  </data>
+  <data name="ChangePassword_V011" xml:space="preserve">
+    <value>Password harus mengandung setidaknya satu angka.</value>
+    <comment>Password must contain at least one number.</comment>
+  </data>
+  <data name="ChangePassword_V012" xml:space="preserve">
+    <value>Password harus mengandung setidaknya satu karakter khusus.</value>
+    <comment>Password must contain at least one special character.</comment>
+  </data>
+  <data name="ChangePassword_V013" xml:space="preserve">
+    <value>Password tidak boleh mengandung ID pengguna.</value>
+    <comment>Password cannot contain the user ID.</comment>
+  </data>
+  <data name="Common_E001" xml:space="preserve">
+    <value>Referensi ke {0} tidak ditemukan.</value>
+    <comment>Reference to {0} is null.</comment>
+  </data>
+  <data name="Common_E002" xml:space="preserve">
+    <value>{0} dibutuhkan.</value>
+    <comment>{0} is required.</comment>
+  </data>
+  <data name="Common_E003" xml:space="preserve">
+    <value>{0} bernilai null.</value>
+    <comment>{0} is null.</comment>
+  </data>
+  <data name="CONST_CompanyName" xml:space="preserve">
+    <value>Realta Chakradarma</value>
+    <comment>Realta Chakradarma</comment>
+  </data>
+  <data name="CONST_CopyrightYear" xml:space="preserve">
+    <value>Hak Cipta © 2025</value>
+    <comment>Copyright © 2025</comment>
+  </data>
+  <data name="MenuTab_E001" xml:space="preserve">
+    <value>{0} tidak ditemukan.</value>
+    <comment>{0} not found.</comment>
+  </data>
+  <data name="Page_E001" xml:space="preserve">
+    <value>TargetPageType harus mewarisi dari R_Page.</value>
+    <comment>TargetPageType must inherit from R_Page.</comment>
+  </data>
+  <data name="Profile_M001" xml:space="preserve">
+    <value>Informasi pengguna berhasil diperbarui.</value>
+    <comment>User info updated successfully.</comment>
+  </data>
+  <data name="Profile_V001" xml:space="preserve">
+    <value>Kolom Nama Pengguna wajib diisi.</value>
+    <comment>The Username field is required.</comment>
+  </data>
+  <data name="Profile_V002" xml:space="preserve">
+    <value>Kolom Alamat Email wajib diisi.</value>
+    <comment>The Email Address field is required.</comment>
+  </data>
+  <data name="Resource_E001" xml:space="preserve">
+    <value>Terjadi kesalahan untuk ID pesan {0} : {1}.</value>
+    <comment>Error occurred for message ID {0} : {1}.</comment>
+  </data>
+  <data name="ValidationMessage_E001" xml:space="preserve">
+    <value>EditContext dibutuhkan tetapi tidak disediakan.</value>
+    <comment>EditContext is required but was not provided.</comment>
+  </data>
+  <data name="_1d" xml:space="preserve">
+    <value>1 hari</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="_404Message" xml:space="preserve">
+    <value>Pastikan alamat sudah benar dan halaman tersebut tidak dipindahkan.</value>
+    <comment>Make sure the address is correct and that the page hasn't moved.</comment>
+  </data>
+  <data name="_500Message" xml:space="preserve">
+    <value>Coba muat ulang halaman, atau kembali dan lakukan tindakan tersebut lagi.</value>
+    <comment>Try refreshing the page, or going back and attempting the action again.</comment>
+  </data>
+  <data name="_AllRightsReserved" xml:space="preserve">
+    <value>Seluruh hak cipta dilindungi undang-undang.</value>
+    <comment>All rights reserved.</comment>
+  </data>
+  <data name="_Author" xml:space="preserve">
+    <value>Pengirim</value>
+    <comment>Author</comment>
+  </data>
+  <data name="_Cancel" xml:space="preserve">
+    <value>Batal</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="_ChangePassword" xml:space="preserve">
+    <value>Ganti Password</value>
+    <comment>Change Password</comment>
+  </data>
+  <data name="_CompanyID" xml:space="preserve">
+    <value>ID Perusahaan</value>
+    <comment>Company ID</comment>
+  </data>
+  <data name="_ContactUs" xml:space="preserve">
+    <value>Hubungi Kami</value>
+    <comment>Contact Us</comment>
+  </data>
+  <data name="_CultureID" xml:space="preserve">
+    <value>Culture ID</value>
+    <comment>Culture ID</comment>
+  </data>
+  <data name="_Database" xml:space="preserve">
+    <value>Database</value>
+    <comment>Database</comment>
+  </data>
+  <data name="_DatabaseServer" xml:space="preserve">
+    <value>Server Database</value>
+    <comment>Database Server</comment>
+  </data>
+  <data name="_Earlier" xml:space="preserve">
+    <value>Sebelumnya</value>
+    <comment>Earlier</comment>
+  </data>
+  <data name="_EditPhoto" xml:space="preserve">
+    <value>Edit Foto</value>
+    <comment>Edit Photo</comment>
+  </data>
+  <data name="_Email" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="_FrontEndVersion" xml:space="preserve">
+    <value>Versi FrontEnd</value>
+    <comment>FrontEnd Version</comment>
+  </data>
+  <data name="_HoursAgo" xml:space="preserve">
+    <value>{0} jam yang lalu</value>
+    <comment>{0} hours ago</comment>
+  </data>
+  <data name="_JustNow" xml:space="preserve">
+    <value>Baru Saja</value>
+    <comment>Just Now</comment>
+  </data>
+  <data name="_LastUpdatePassword" xml:space="preserve">
+    <value>Pembaruan Password Terakhir</value>
+    <comment>Last Password Update</comment>
+  </data>
+  <data name="_Login" xml:space="preserve">
+    <value>Masuk</value>
+    <comment>Login</comment>
+  </data>
+  <data name="_Logout" xml:space="preserve">
+    <value>Keluar</value>
+    <comment>Logout</comment>
+  </data>
+  <data name="_MarkAllAsRead" xml:space="preserve">
+    <value>Tandai semua sudah dibaca</value>
+    <comment>Mark all as read</comment>
+  </data>
+  <data name="_MenuVersion" xml:space="preserve">
+    <value>Versi Menu</value>
+    <comment>Menu Version</comment>
+  </data>
+  <data name="_Message" xml:space="preserve">
+    <value>Pesan</value>
+    <comment>Message</comment>
+  </data>
+  <data name="_MessageDate" xml:space="preserve">
+    <value>Tanggal Pesan</value>
+    <comment>Message Date</comment>
+  </data>
+  <data name="_MinutesAgo" xml:space="preserve">
+    <value>{0} menit yang lalu</value>
+    <comment>{0} minutes ago</comment>
+  </data>
+  <data name="_MoreInformation" xml:space="preserve">
+    <value>Informasi Tambahan</value>
+    <comment>More Information</comment>
+  </data>
+  <data name="_NoNotification" xml:space="preserve">
+    <value>Tidak ada notifikasi. Anda sudah mendapatkan semua informasi terbaru!</value>
+    <comment>No notifications found. You are up to date!</comment>
+  </data>
+  <data name="_Notifications" xml:space="preserve">
+    <value>Notifikasi</value>
+    <comment>Notifications</comment>
+  </data>
+  <data name="_PageNotFound" xml:space="preserve">
+    <value>Halaman yang Anda cari tidak ditemukan.</value>
+    <comment>The page you're looking for is not found.</comment>
+  </data>
+  <data name="_Password" xml:space="preserve">
+    <value>Password</value>
+    <comment>Password</comment>
+  </data>
+  <data name="_Position" xml:space="preserve">
+    <value>Jabatan</value>
+    <comment>Position</comment>
+  </data>
+  <data name="_Profile" xml:space="preserve">
+    <value>Profil</value>
+    <comment>Profile</comment>
+  </data>
+  <data name="_ProfileAccount" xml:space="preserve">
+    <value>Akun &amp; Profil</value>
+    <comment>Profile &amp; Account</comment>
+  </data>
+  <data name="_Read" xml:space="preserve">
+    <value>Sudah Dibaca</value>
+    <comment>Read</comment>
+  </data>
+  <data name="_Search" xml:space="preserve">
+    <value>Cari</value>
+    <comment>Search</comment>
+  </data>
+  <data name="_Unread" xml:space="preserve">
+    <value>Belum Dibaca</value>
+    <comment>Unread</comment>
+  </data>
+  <data name="_Update" xml:space="preserve">
+    <value>Perbarui</value>
+    <comment>Update</comment>
+  </data>
+  <data name="_UserID" xml:space="preserve">
+    <value>ID Pengguna</value>
+    <comment>User ID</comment>
+  </data>
+  <data name="_Username" xml:space="preserve">
+    <value>Nama Pengguna</value>
+    <comment>Username</comment>
+  </data>
+  <data name="_ViewAll" xml:space="preserve">
+    <value>Lihat Semua</value>
+    <comment>View All</comment>
+  </data>
+  <data name="_Whoops" xml:space="preserve">
+    <value>Ups, terjadi kesalahan!</value>
+    <comment>Whoops, something went wrong!</comment>
+  </data>
+</root>

@@ -7,18 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\sample-data\**" />
-    <Content Remove="wwwroot\sample-data\**" />
-    <EmbeddedResource Remove="wwwroot\sample-data\**" />
-    <None Remove="wwwroot\sample-data\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="Shared\SurveyPrompt.razor" />
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="EPPlus" Version="6.2.4" />
+	  <PackageReference Include="EPPlus" Version="6.2.14" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.26" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.26" PrivateAssets="all" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -55,6 +48,9 @@
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Report">
       <HintPath>..\..\..\Dll\Dll Front\R_BlazorFrontEnd.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="R_BlazorFrontEnd.Tenant">
+      <HintPath>..\..\..\Dll\Dll Front\R_BlazorFrontEnd.Tenant.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorStartup">
       <HintPath>..\..\..\Dll\Dll Front\R_BlazorStartup.dll</HintPath>

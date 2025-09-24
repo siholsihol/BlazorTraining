@@ -13,33 +13,36 @@
             AllowAddNewRow
             AllowEditRow
             AllowDeleteRow
-            R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
             Height="300px"
-            R_CellValueChanged="@R_CellValueChanged"
-            R_ServiceGetRecord="@Grid_ServiceGetRecord" 
-            R_BeforeEdit="@Grid_BeforeEdit" 
-            R_BeforeCancel="@Grid_BeforeCancel" 
-            R_BeforeAdd="@Grid_BeforeAdd" 
-            R_AfterAdd="@Grid_AfterAdd" 
-            R_Validation="@Grid_Validation" 
-            R_Saving="@Grid_Saving" 
-            R_ServiceSave="@Grid_ServiceSave" 
-            R_AfterSave="@Grid_AfterSave" 
-            R_BeforeDelete="@Grid_BeforeDelete" 
-            R_ServiceDelete="@Grid_ServiceDelete" 
-            R_AfterDelete="@Grid_AfterDelete" 
-            R_Display="R_Display" 
-            R_CheckAdd="R_CheckAdd" 
-            R_CheckEdit="R_CheckEdit" 
-            R_CheckDelete="R_CheckDelete" 
-            R_CheckGridAdd="R_CheckGridAdd" 
-            R_CheckGridEdit="R_CheckGridEdit" 
+            R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
+            R_ServiceGetRecord="@Grid_ServiceGetRecord"
+            R_Display="R_Display"
+            R_CheckGridAdd="R_CheckGridAdd"
+            R_CheckGridEdit="R_CheckGridEdit"
             R_CheckGridDelete="R_CheckGridDelete"
-            R_DisableDeleteConfirmation="false"
-            R_DisableCancelConfirmation
             R_SetAddGridColumn="@R_SetAddGridColumn"
-            R_SetEditGridColumn="@R_SetEditGridColumn" 
-            R_RowRender="@R_RowRender">
+            R_SetEditGridColumn="@R_SetEditGridColumn"
+            R_CellValueChanged="@R_CellValueChanged"
+            R_CellLostFocused="@R_CellLostFocus"
+            R_Before_Open_Grid_Lookup="R_Before_Open_Grid_Lookup"
+            R_After_Open_Grid_Lookup="R_After_Open_Grid_Lookup"
+            R_RowRender="@R_RowRender"
+            R_CheckAdd="R_CheckAdd"
+            R_CheckEdit="R_CheckEdit"
+            R_CheckDelete="R_CheckDelete"
+            R_BeforeAdd="@Grid_BeforeAdd"
+            R_BeforeEdit="@Grid_BeforeEdit"
+            R_BeforeDelete="@Grid_BeforeDelete"
+            R_BeforeCancel="@Grid_BeforeCancel"
+            R_Validation="@Grid_Validation"
+            R_Saving="@Grid_Saving"
+            R_AfterAdd="@Grid_AfterAdd"
+            R_ServiceSave="@Grid_ServiceSave"
+            R_AfterSave="@Grid_AfterSave"
+            R_ServiceDelete="@Grid_ServiceDelete"
+            R_AfterDelete="@Grid_AfterDelete"
+            R_DisableDeleteConfirmation="false"
+            R_DisableCancelConfirmation>
         <R_GridColumns>
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
@@ -49,10 +52,21 @@
                               HeaderText="Company Name"
                               R_EnableAdd
                               R_EnableEdit
-                              Width="400px" 
+                              Width="400px"
                               PrefixText="@_prefixText"
                               SuffixText="@_suffixText"
+                              R_CellRender="@R_CellRender" 
                               Ellipsis />
+            <R_GridLookupColumn FieldName="@nameof(CustomerDTO.ProductId)"
+                                HeaderText="Product Id"
+                                Width="200px"
+                                R_EnableAdd
+                                R_EnableEdit
+                                TextboxEnabled />
+            <R_GridTextColumn FieldName="@nameof(CustomerDTO.ProductName)"
+                              Enabled="false"
+                              Width="200px"
+                              HeaderText="Product Name" />
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"
@@ -63,15 +77,9 @@
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
                               R_EnableAdd="@_checkBoxValue"
-                              Visible="@_isContactNameColumnVisible" 
-                              Width="400px" 
-                              R_CellRender="@R_CellRender" Ellipsis />
-
-            @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
-                              HeaderText="Contact Name"
-                              Enabled="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible"
-                              Width="400px" /> *@
+                              Width="400px"
+                              Ellipsis />
         </R_GridColumns>
     </R_Grid>
 
@@ -83,11 +91,6 @@
     <R_StackLayout Row>
         <R_CheckBox @bind-Value="@_isContactNameColumnVisible"></R_CheckBox>
         <R_Label>Show Field Contact Name</R_Label>
-    </R_StackLayout>
-
-    <R_StackLayout Row>
-        <R_CheckBox Value="@_isAddNewRowVisible" ValueChanged="@ValueChanged" />
-        <R_Label>Show Add New Row</R_Label>
     </R_StackLayout>
 
     <R_StackLayout Row>
@@ -104,6 +107,29 @@
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"
                  R_IsHeader />
+
+@*
+    List of Available Public Method dari grid
+    
+    _gridRef.AddAsync();
+    _gridRef.EditAsync();
+    _gridRef.DeleteAsync();
+    _gridRef.SaveAsync();
+    _gridRef.CancelAsync();
+
+    _gridRef.GetFilteredGridData();
+    _gridRef.R_SelectCurrentDataAsync();
+
+    
+    List<R_GridGroupDescriptor> loGroups = new List<R_GridGroupDescriptor>();
+    loGroups.Add(new R_GridGroupDescriptor()
+    {
+        FieldName = "GenderId"
+    });
+    await _gridRef.R_GroupBy(loGroups);
+*@
+
+<R_PredefinedDock R_InstantiateDock="R_InstantiateDock" Title="Batch Edit Grid"></R_PredefinedDock>
 
 <style>
     .k-grid .k-master-row.myCustomRowFormatting:hover {

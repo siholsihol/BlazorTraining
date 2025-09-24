@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BlazorClientHelper">
+      <HintPath>..\..\Dll\Dll Menu\BlazorClientHelper.dll</HintPath>
+    </Reference>
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
     </Reference>

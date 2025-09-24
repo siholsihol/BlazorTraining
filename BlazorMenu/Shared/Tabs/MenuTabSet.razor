@@ -1,12 +1,13 @@
-﻿@inherits ComponentBase
+﻿@using BlazorMenu.Extensions
+@inherits ComponentBase
 @implements R_IMenuTabSet
 
 @if (Tabs.Count == 0)
 {
     <style>
         .card {
-            box-shadow:none;
-            background:transparent;
+        box-shadow:none;
+        background:transparent;
         }
     </style>
     <div class="d-flex align-items-center justify-content-between mt-3 mx-5">
@@ -15,22 +16,22 @@
             <p>We are team of talented programmer to make an easy way to manage your business</p>
         </div>
         <div class="me-5">
-            <img src="assets/img/bg-home.png" width="400px" />
+            <img src="assets/img/bg-home.png" width="400" />
         </div>
     </div>
     <div class="row text-center">
         <div class="col">
-            <img src="assets/img/box.png" width="50px">
+            <img src="assets/img/box.png" width="50">
             <h3 class="mt-3">Simple Application</h3>
             <p>Our application takes less time<br />than making cup of coffee.</p>
         </div>
         <div class="col">
-            <img src="assets/img/program.png" width="50px">
+            <img src="assets/img/program.png" width="50">
             <h3 class="mt-3">Program For Everyone</h3>
             <p>We offer financing for nearly all<br />credit ranges and price points.</p>
         </div>
         <div class="col">
-            <img src="assets/img/bag.png" width="50px">
+            <img src="assets/img/bag.png" width="50">
             <h3 class="mt-3">Flexible Payment</h3>
             <p>Payment schedules that are build<br />to fit your needs</p>
         </div>
@@ -39,52 +40,28 @@
 else
 {
     <CascadingValue Value="this" Name="MenuTabSet">
-        <div class="card-body overflow-hidden p-0">
-            <XTabs @ref="@_tabsRef"
-                   RenderMode="BlazorXTabs.Configuration.RenderMode.Full"
-                   CloseTabs
-                   CloseAllTabs
-                   CloseAllTabsButtonThreshold="2"
-                   JustifiedHeader="false"
-                   NewTabSetActive
-                   OnTabRemoved="@OnTabRemoved"
-                   OnActiveTabChanged="@OnActiveTabChanged" />
-        </div>
+        <XTabsWrapper @ref="@_xtabsWrapper" />
     </CascadingValue>
 }
 
-<style>
-    .xtabs-item .xtabs-link.active {
-        padding: .5rem 1rem !important;
-    }
-
-    .xtabs-item .xtabs-link {
-        padding: .5rem 1rem !important;
-    }
-
-    .xtabs-tab-content {
-        padding: 0.25rem !important;
-    }
-
-    .xtabs .xtabs-header {
-        padding: 0rem 1.25rem .75rem !important;
-        overflow-x:auto;
-        overflow-y:hidden;
-    }
-    ul.xtabs-header-tabs {
-        width:max-content;
-    }
-</style>
-
 @code {
-    [CascadingParameter(Name = "RouteView")] public MenuTabsRouteView RouteView { get; set; }
+    [CascadingParameter(Name = "RouteView")] public MenuTabsRouteView? RouteView { get; set; } = default!;
 
-    [Inject] private MenuTabSetTool _tabSetTool { get; set; }
-    [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] internal MenuTabSetTool? _tabSetTool { get; set; } = default!;
+    [Inject] internal NavigationManager? NavigationManager { get; set; } = default!;
+    [Inject] private IServiceProvider ServiceProvider { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private R_PreloadService _preloadService { get; set; } = default!;
 
-    public List<MenuTab> Tabs => _tabSetTool.Tabs;
+    public List<MenuTab> Tabs => _tabSetTool?.Tabs ?? new List<MenuTab>();
 
-    private XTabs _tabsRef;
+    private XTabsWrapper? _xtabsWrapper;
+    internal R_ITenant? _tenant;
+
+    protected override void OnInitialized()
+    {
+        // _tenant = ServiceProvider.GetTenantFromService();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -92,83 +69,35 @@ else
             return;
 
         var loItem = Tabs.FirstOrDefault(x => x.IsActive);
-        if (loItem is not null)
+        if (loItem is not null && _xtabsWrapper is not null)
         {
-            await CreateNewTab(loItem);
+            await _xtabsWrapper.CreateNewTab(loItem);
         }
     }
 
-    private async Task OnTabRemoved(XTab poTab)
+    public async Task OpenTabAsync(string title, string url, string access = "")
     {
-        var loTab = Tabs.FirstOrDefault(x => x.Id == Guid.Parse(poTab.Id));
+        MenuTab? selTab = Tabs.FirstOrDefault(m => m.Url == url && (m.Title == title || string.IsNullOrEmpty(m.Title)));
 
-        if (loTab is not null)
+        if (selTab is null)
         {
-            if (loTab.OnCloseMenuTab is not null)
-            {
-                var llPageClose = await loTab.OnCloseMenuTab.Invoke();
-                if (!llPageClose)
-                    return;
-            }
-
-            Tabs.Remove(loTab);
-
-            var liTabIndex = Tabs.IndexOf(loTab);
-            if (loTab.IsActive)
-            {
-                MenuTab activeTab = null;
-                if (liTabIndex > 0)
-                    activeTab = Tabs[liTabIndex - 1];
-                else if (Tabs.Count > 0)
-                    activeTab = Tabs[0];
-
-                if (activeTab != null)
-                    _tabSetTool.AddTab(activeTab.Title, activeTab.Url);
-                else
-                    NavigationManager.NavigateTo("/");
-            }
+            await _preloadService.Show();
+            if (_tabSetTool is not null)
+                await _tabSetTool.AddTab(title, url, access); // Create new XTab if it doesn't exist yet
+            return;
         }
-    }
 
-    private Task OnActiveTabChanged(XTab poTab)
-    {
-        var loTab = Tabs.FirstOrDefault(x => x.Id == Guid.Parse(poTab.Id));
+        if (_xtabsWrapper is null)
+            return;
 
-        if (loTab is not null)
-            _tabSetTool.AddTab(loTab.Title, loTab.Url);
-
-        return Task.CompletedTask;
-    }
-
-    private async Task CreateNewTab(MenuTab poTab)
-    {
-        var loNewTab = new XTab(_tabsRef, poTab.Title, CreatePageBody(poTab), "", false, poTab.Url);
-        loNewTab.Id = poTab.Id.ToString();
-
-        if (!_tabsRef.TabContent.Any(x => x.Id == poTab.Id.ToString()))
-            await _tabsRef.AddPageAsync(loNewTab);
+        await _xtabsWrapper.OpenTabAsync(selTab);
     }
 
     public async Task CloseTabFromProgram(R_IMenuTab poTab)
     {
-        var loTab = (MenuTab)poTab;
-
-        var loXTab = _tabsRef.TabContent.FirstOrDefault(x => x.Id == poTab.Id.ToString());
-
-        await _tabsRef.CloseTabAsync(loXTab);
-    }
-
-    public RenderFragment CreatePageBody(MenuTab poTab)
-    {
-        RenderFragment bodyContent = __builder =>
-           {
-               <CascadingValue Value="@poTab" Name="currentTabMenu">
-                   <MainBody>
-                       @poTab.Body
-                   </MainBody>
-               </CascadingValue>
-           };
-
-        return bodyContent;
+        if (_xtabsWrapper is not null)
+        {
+            await _xtabsWrapper.CloseTabFromProgram(poTab);
+        }
     }
 }

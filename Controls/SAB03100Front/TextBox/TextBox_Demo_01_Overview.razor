@@ -1,7 +1,49 @@
-﻿<p>TextBox value: @_stringValue</p>
+﻿@inherits R_Page
 
-<R_TextBox @bind-Value="@_stringValue" />
+<p>TextBox value: @_stringValue</p>
+
+<R_TextBox AllowSpaces="false"
+           Class="my-style"
+           @ref="@_textBoxRef"
+           Style="font-size: 3rem;"
+           Value="@_stringValue"
+           ValueChanged="ValueChanged"
+           OnLostFocus="OnLostFocused"
+           OnChanged="OnChanged" 
+           Enabled="@_checkboxValue" />
+
+<R_CheckBox @bind-Value="@_checkboxValue">Enable/Disable TextBox</R_CheckBox>
+
+<div>ValueChanged = @_stringValueValueChanged</div>
+<div>OnLostFocused = @_stringValueOnLostFocused</div>
+<div>OnChanged = @_stringValueOnChanged</div>
+<style>
+    .my-style{
+        font-size: 3rem;
+    }
+</style>
 
 @code {
+    private bool _checkboxValue { get; set; }
+    private R_TextBox _textBoxRef;
     private string _stringValue { get; set; }
+    private string _stringValueValueChanged { get; set; }
+    private string _stringValueOnLostFocused { get; set; }
+    private string _stringValueOnChanged { get; set; }
+
+    private void ValueChanged(string value)
+    {
+        _stringValue = value;
+        _stringValueValueChanged = value;
+    }
+
+    private void OnLostFocused(object input)
+    {
+        _stringValueOnLostFocused = _stringValue;
+    }
+
+    private void OnChanged(object input)
+    {
+        _stringValueOnChanged = _stringValue;
+    }
 }

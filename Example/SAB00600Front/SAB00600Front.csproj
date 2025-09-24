@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataDummyProvider\DataDummyProvider.csproj" />
+    <ProjectReference Include="..\SAB00900Front\SAB00900Front.csproj" />
   </ItemGroup>
 
   <ItemGroup>

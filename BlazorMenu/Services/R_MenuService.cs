@@ -58,13 +58,13 @@ namespace BlazorMenu.Services
             CreateGroup(poExistingList, "OT", "Others", "G001", "Others");
 
             CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
+            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()
@@ -95,8 +95,21 @@ namespace BlazorMenu.Services
                     CMENU_NAME = "Example",
                     CPARENT_SUB_MENU_ID = "G001",
                     CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00600",
-                    CSUB_MENU_NAME = "Gridview Original",
+                    CSUB_MENU_ID = "SAB00100",
+                    CSUB_MENU_NAME = "Layout Training",
+                    CSUB_MENU_TYPE = "P",
+                    IFAVORITE_INDEX = 0,
+                    IGROUP_INDEX = 0
+                });
+
+                loResult.Add(new MenuListDTO
+                {
+                    CMENU_ID = "Ex",
+                    CMENU_NAME = "Example",
+                    CPARENT_SUB_MENU_ID = "G001",
+                    CSUB_MENU_ACCESS = "A,U,D,P,V",
+                    CSUB_MENU_ID = "SAB00900",
+                    CSUB_MENU_NAME = "Find with Conductor",
                     CSUB_MENU_TYPE = "P",
                     IFAVORITE_INDEX = 0,
                     IGROUP_INDEX = 0
@@ -121,8 +134,8 @@ namespace BlazorMenu.Services
                     CMENU_NAME = "Example",
                     CPARENT_SUB_MENU_ID = "G001",
                     CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00900",
-                    CSUB_MENU_NAME = "Find with Conductor",
+                    CSUB_MENU_ID = "SAB00600",
+                    CSUB_MENU_NAME = "Gridview Original",
                     CSUB_MENU_TYPE = "P",
                     IFAVORITE_INDEX = 0,
                     IGROUP_INDEX = 0
