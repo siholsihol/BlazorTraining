@@ -20,11 +20,15 @@
                     R_AfterSaveBatch="@R_AfterSaveBatch"
                     Height="400px"
                     Width="500px"
+
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
+
                     R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
                     R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
-                    TargetGridDrop="@_gridRef2">
+                   
+                    TargetGridDrop="@_gridRef2"
+                    >
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"

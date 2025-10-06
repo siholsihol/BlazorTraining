@@ -8,21 +8,27 @@
                      Pageable
                      @bind-PageSize="@_pageSize"
                      R_ConductorGridSource="@_conGridCustomerRef"
+
                      AllowAddNewRow
                      AllowEditRow
                      AllowDeleteRow
+
                      Height="300px"
                      R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
                      R_BeforeAdd="@Grid_BeforeAdd"
                      R_AfterAdd="@Grid_AfterAdd"
+
+                     AllowBulkDelete
                      R_BeforeEditCell="@Grid_BeforeEditCell"
+                     R_BulkDelete="@Grid_R_BulkDelete"
+
                      R_BeforeDelete="@Grid_BeforeDelete"
                      R_AfterDelete="@Grid_AfterDelete"
+
                      R_BeforeSaveBatch="@Grid_R_BeforeSaveBatch"
                      R_ServiceSaveBatch="@Grid_R_ServiceSaveBatch"
                      R_AfterSaveBatch="@Grid_R_AfterSaveBatch"
-                     AllowBulkDelete
-                     R_BulkDelete="@Grid_R_BulkDelete"
+
                      R_CheckGridAdd="R_CheckGridAdd"
                      R_CheckGridEdit="R_CheckGridEdit"
                      R_CheckGridDelete="R_CheckGridDelete"

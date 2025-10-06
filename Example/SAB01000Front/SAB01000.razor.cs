@@ -1,10 +1,12 @@
 ﻿using DataDummyProvider.DTOs;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Grid;
 using R_BlazorFrontEnd.Controls.Grid.Columns.ColumnInfo;
+using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Exceptions;
 using SAB01000Front.DTOs;
 
@@ -16,6 +18,7 @@ namespace SAB01000Front
         private R_Grid<SelectedProductDTO> _gridRef;
 
         private SAB01000ViewModel _viewModel = new();
+        [Inject] public R_MessageBoxService MessageBoxService { get; set; }
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -65,20 +68,25 @@ namespace SAB01000Front
         }
 
         #region Save Batch
-        private void R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)
+        private async Task R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)
         {
             var loData = (List<SelectedProductDTO>)events.Data;
-
+            loData = loData.Where(x => x.Selected).ToList();
+            await MessageBoxService.Show("Before Save", $"Data ada {loData.Count}", R_eMessageBoxButtonType.OK);
             events.Cancel = loData.Count == 0;
         }
 
-        private void R_ServiceSaveBatch(R_ServiceSaveBatchEventArgs eventArgs)
+        private async Task R_ServiceSaveBatch(R_ServiceSaveBatchEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 
             try
             {
+                var loData = (List<SelectedProductDTO>)eventArgs.Data;
+                loData = loData.Where(x => x.Selected).ToList();
+                await MessageBoxService.Show("Service Save", $"Data yang disimpan ada {loData.Count}", R_eMessageBoxButtonType.OK);
 
+                // melakukan save 
             }
             catch (Exception ex)
             {
@@ -88,21 +96,19 @@ namespace SAB01000Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private void R_AfterSaveBatch(R_AfterSaveBatchEventArgs eventArgs)
+        private async Task R_AfterSaveBatch(R_AfterSaveBatchEventArgs eventArgs)
         {
-
+            await MessageBoxService.Show("After Save", $"Data berhasil disimpan", R_eMessageBoxButtonType.OK);
         }
         #endregion
 
         private string _headerTextPrice = "Price";
-        private Task OnClickSave()
+        private async Task OnClickSave()
         {
             //await _conGridProductRef.R_SaveBatch();
             //await _gridRef.R_SaveBatch();
-
             _headerTextPrice = "test price";
-
-            return Task.CompletedTask;
+            await _gridRef.R_SaveBatch();
         }
 
         private void R_CellValueChanged(R_CellValueChangedEventArgs eventArgs)
@@ -128,12 +134,6 @@ namespace SAB01000Front
             }
         }
 
-        private void R_CheckBoxSelectValueChanged(R_CheckBoxSelectValueChangedEventArgs eventArgs)
-        {
-            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
-
-            eventArgs.Enabled = !IsIdBelow5000(loData);
-        }
 
         private void R_CellLostFocused(R_CellLostFocusedEventArgs eventArgs)
         {
@@ -205,20 +205,24 @@ namespace SAB01000Front
         private void R_CheckBoxSelectRender(R_CheckBoxSelectRenderEventArgs eventArgs)
         {
             var loData = (SelectedProductDTO)eventArgs.Data;
-
             eventArgs.Enabled = !IsIdBelow5000(loData);
+        }
+
+        private void R_CheckBoxSelectValueChanged(R_CheckBoxSelectValueChangedEventArgs eventArgs)
+        {
+            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
+            eventArgs.Enabled = !IsIdBelow5000(loData);
+        }
+        private void R_CheckBoxSelectValueChanging(R_CheckBoxSelectValueChangingEventArgs eventArgs)
+        {
+            var loData = (SelectedProductDTO)eventArgs.CurrentRow;
+
+            eventArgs.Cancel = loData.Id > 9000;
         }
 
         private bool IsIdBelow5000(SelectedProductDTO product)
         {
             return product.Id < 5000;
-        }
-
-        private void R_CheckBoxSelectValueChanging(R_CheckBoxSelectValueChangingEventArgs eventArgs)
-        {
-            //var loData = (SelectedProductDTO)eventArgs.CurrentRow;
-
-            //eventArgs.Cancel = loData.Id > 9000;
         }
     }
 }
