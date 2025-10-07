@@ -26,8 +26,8 @@
                 <div class="navbar-vertical-content">
                     <div class="navbar-content">
                         <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-                        @if (_favData != null)
-                        {
+                            @if (_favData != null && _favData.Children.Count > 0)
+                            {
                             <li class="nav-item">
                                 <a class="nav-link cur-pointer" role="button" onclick="@(async () => await OnClickShowMenuOverlay(_favData, new string[] { _favData.Text }))">
                                     <div class="d-flex align-items-center">

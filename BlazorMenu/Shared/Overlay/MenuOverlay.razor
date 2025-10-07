@@ -59,7 +59,7 @@
                             <div data-swapy-slot="@($"slot-{item.Id}")" style="display:flex;">
                                 <div data-swapy-item="@($"item-{item.Id}")"
                                      @ref="@ElementRef"
-                                     title="@item.Title"
+                                     title="@(string.IsNullOrWhiteSpace(item.Title) ? item.DefaultTitle : item.Title)"
                                      class="r-menu-overlay-content-item @(_isFavorite && !item.Favorite ? "removing" : "")"
                                      tabindex="0"
                                      @onclick="@(async () => await OnClickProgramHandler(item))"
@@ -73,7 +73,7 @@
                         {
                             <div data-swapy-slot="@($"slot-{item.Id}")" style="display:flex;">
                                 <div data-swapy-item="@($"item-{item.Id}")"
-                                     title="@item.Title"
+                                     title="@(string.IsNullOrWhiteSpace(item.Title) ? item.DefaultTitle : item.Title)"
                                      class="r-menu-overlay-content-item @(_isFavorite && !item.Favorite ? "removing" : "")"
                                      tabindex="0"
                                      @onclick="@(async () => await OnClickProgramHandler(item))"
@@ -219,6 +219,7 @@
         transition: opacity 0.3s ease;
         align-self: center;
         justify-self: center;
+        cursor: pointer;
     }
 
         .r-menu-overlay-content-item.removing {
