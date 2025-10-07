@@ -8,6 +8,7 @@ using Microsoft.JSInterop;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Base;
 using R_BlazorFrontEnd.Controls.Constants;
+using R_BlazorFrontEnd.Controls.Forms;
 using R_BlazorFrontEnd.Controls.Helpers;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
@@ -22,6 +23,7 @@ namespace BlazorMenu.Shared.Overlay
         #endregion
 
         #region Properties
+        [CascadingParameter(Name = "R_ErrorHandler")] private R_ErrorHandler? ErrorHandler { get; set; }
         public override string Id { get; set; } = IdGeneratorHelper.Generate("MenuOverlay");
 
         protected string ClassNames => new CssBuilder()
@@ -206,8 +208,6 @@ namespace BlazorMenu.Shared.Overlay
                 StateHasChanged();
                 await Task.Delay(1);
             }
-
-            loEx.ThrowExceptionIfErrors();
         }
         #endregion
     }
