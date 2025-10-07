@@ -409,7 +409,7 @@ namespace SAB00600Front
         {
             var lcCompanyName = eventArgs.Value as string;
 
-            if (lcCompanyName.Length < 5)
+            if (lcCompanyName?.Length < 5)
             {
                 eventArgs.CellClass = "myCustomCellFormatting";
             }
