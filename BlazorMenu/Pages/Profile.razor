@@ -2,144 +2,156 @@
 @using BlazorMenu.Constants
 @* @using BlazorMenu.Managers.Account *@
 @using BlazorMenu.Resources
+@using R_BlazorFrontEnd.Controls.DataControls
+@using R_BlazorFrontEnd.Controls.Events
+@using R_BlazorFrontEnd.Controls.Layouts
 @using R_CommonFrontBackAPI
+@inherits R_Page
 
-<EditForm Model="@_userProfile"
-          OnValidSubmit="@OnValidSubmit"
-          OnInvalidSubmit="@OnInvalidSubmit"
-          Context="_context">
-    <DataAnnotationsValidator />
-
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center mb-3">
-            <div class="avatar avatar-5xl">
-                <div class="h-100 w-100 rounded-circle overflow-hidden">
-                    <img class="rounded-circle" src="@_imageBase64" alt="" data-dz-thumbnail="data-dz-thumbnail" />
-                    <InputFile class="d-none" id="profile-image" OnChange="@OnChangeHandler" accept=".jpg" />
-                    <label class="mb-0 overlay-icon d-flex flex-center" for="profile-image">
-                        <span class="bg-holder overlay overlay-0"></span>
-                        <span class="z-index-1 text-white dark__text-white text-center fs--1">
-                            <span class="fas fa-camera"></span>
-                            <span class="d-block">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_EditPhoto", pcResourceName: "BlazorMenuResources"))</span>
-                        </span>
-                    </label>
+<R_StackLayout Style="width: 480px;">
+    <form @onsubmit="@OnSubmitButtonClick" @onsubmit:preventDefault>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center mb-3">
+                <div class="avatar avatar-5xl">
+                    <div class="h-100 w-100 rounded-circle overflow-hidden">
+                        <img class="rounded-circle" src="@_imageBase64" alt="" data-dz-thumbnail="data-dz-thumbnail" />
+                        <R_InputFile Class="d-none" Id="profile-image" OnChange="@OnChangeHandler" Accepts="@_accepts" Multiple="@false" MaxFileSize="@_maxFileSize" />
+                        <label class="mb-0 overlay-icon d-flex flex-center" for="profile-image">
+                            <span class="bg-holder overlay overlay-0"></span>
+                            <span class="z-index-1 text-white dark__text-white text-center fs--1">
+                                <span class="fas fa-camera"></span>
+                                <span class="d-block">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_EditPhoto", pcResourceName: "BlazorMenuResources"))</span>
+                            </span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-        <UserProfileValidationMessage For="@(() => _userProfile.OPHOTO)" Class="col-12 d-flex justify-content-center" />
-    </div>
 
-    <div class="row g-2">
-        <div class="col">
-            <div class="form-floating">
-                <input class="form-control" readonly id="user-id" type="text" @bind-value="_userProfile.CUSER_ID" />
-                <label class="form-label" for="user-id">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_UserID", pcResourceName: "BlazorMenuResources"))</label>
+        <div class="row g-2">
+            <div class="col">
+                <R_TextBox @bind-Value="@_userProfileVM.Data.CUSER_ID"
+                           R_ConductorSource="@_conductorRef"
+                           FieldName="@nameof(UserProfileModel.CUSER_ID)"
+                           ShowValidation
+                           FloatingLabel
+                           Enabled="false"
+                           Label="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_UserID", pcResourceName: "BlazorMenuResources"))" />
+            </div>
+            <div class="col">
+                <R_TextBox @bind-Value="@_userProfileVM.Data.CUSER_NAME"
+                           R_ConductorSource="@_conductorRef"
+                           FieldName="@nameof(UserProfileModel.CUSER_NAME)"
+                           ShowValidation
+                           FloatingLabel
+                           Label="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Username", pcResourceName: "BlazorMenuResources"))" />
+            </div>
+
+            <div class="col-12">
+                <R_TextBox @bind-Value="@_userProfileVM.Data.CEMAIL_ADDRESS"
+                           R_ConductorSource="@_conductorRef"
+                           FieldName="@nameof(UserProfileModel.CEMAIL_ADDRESS)"
+                           ShowValidation
+                           FloatingLabel
+                           Label="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Email", pcResourceName: "BlazorMenuResources"))" />
+            </div>
+
+            <div class="col">
+                <R_DateInput @bind-Value="@_lastUpdatePassword"
+                             Enabled="false"
+                             FloatingLabel
+                             Label="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_LastUpdatePassword", pcResourceName: "BlazorMenuResources"))" />
+
+            </div>
+            <div class="col">
+                <R_TextBox @bind-Value="@_userProfileVM.Data.CPOSITION"
+                           R_ConductorSource="@_conductorRef"
+                           FieldName="@nameof(UserProfileModel.CPOSITION)"
+                           ShowValidation
+                           FloatingLabel
+                           Label="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Position", pcResourceName: "BlazorMenuResources"))" />
+            </div>
+
+            <div class="col-12">
+                <R_ComboBox @bind-Value="@_userProfileVM.Data.CCULTURE_ID"
+                            Data="@_cultures"
+                            TextField="@nameof(CultureModel.CultureName)"
+                            ValueField="@nameof(CultureModel.CultureId)"
+                            R_ConductorSource="@_conductorRef"
+                            FieldName="@nameof(UserProfileModel.CCULTURE_ID)"
+                            ShowValidation
+                            FloatingLabel
+                            Label="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_CultureID", pcResourceName: "BlazorMenuResources"))" />
             </div>
         </div>
-        <div class="col">
-            <div class="form-floating">
-                <input class="form-control @_context.FieldCssClass(() => _userProfile.CUSER_NAME)" id="username" type="text" @bind-value="_userProfile.CUSER_NAME" />
-                <label class="form-label" for="username">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Username", pcResourceName: "BlazorMenuResources"))</label>
-            </div>
-            <ValidationMessage For="@(() => _userProfile.CUSER_NAME)" />
+
+        <div class="modal-footer d-flex justify-content-between px-0 mt-3">
+            <R_Button ThemeConstant="@R_eThemeConstant.Base" ButtonType="R_eButtonType.Button" OnClick="@CloseProfile">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Cancel", pcResourceName: "BlazorMenuResources"))</R_Button>
+            <R_Button ThemeConstant="@R_eThemeConstant.Base" ButtonType="R_eButtonType.Button" OnClick="@ShowChangePasswordPage">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ChangePassword", pcResourceName: "BlazorMenuResources"))</R_Button>
+            <R_Button ThemeConstant="@R_eThemeConstant.Primary">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Update", pcResourceName: "BlazorMenuResources"))</R_Button>
         </div>
 
-        <div class="col-12">
-            <div class="form-floating">
-                <input class="form-control @_context.FieldCssClass(() => _userProfile.CEMAIL_ADDRESS)" id="email" type="text" @bind-value="_userProfile.CEMAIL_ADDRESS" />
-                <label class="form-label" for="email">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Email", pcResourceName: "BlazorMenuResources"))</label>
-            </div>
-            <ValidationMessage For="@(() => _userProfile.CEMAIL_ADDRESS)" class="form-label is-invalid" />
-        </div>
+    </form>
+</R_StackLayout>
 
-        <div class="col">
-            <div class="form-floating">
-                <input class="form-control" id="last-update-password" type="date" @bind-value="_lastUpdatePassword" readonly />
-                <label class="form-label" for="last-update-password">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_LastUpdatePassword", pcResourceName: "BlazorMenuResources"))</label>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-floating">
-                <input class="form-control" id="position" type="text" @bind-value="_userProfile.CPOSITION" />
-                <label class="form-label" for="position">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Position", pcResourceName: "BlazorMenuResources"))</label>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="form-floating">
-                <select class="form-select @_context.FieldCssClass(() => _userProfile.CCULTURE_ID)" id="culture-id" @bind="_userProfile.CCULTURE_ID">
-                    @{
-                        foreach (var culture in _cultures)
-                        {
-                            <option value="@culture.CultureId">@culture.CultureName</option>
-                        }
-                    }
-                </select>
-                <label class="form-label" for="email">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_CultureID", pcResourceName: "BlazorMenuResources"))</label>
-            </div>
-            <ValidationMessage For="@(() => _userProfile.CCULTURE_ID)" />
-        </div>
-    </div>
-
-    <div class="modal-footer d-flex justify-content-between">
-        <button class="btn btn-outline-secondary" type="button" @onclick="CloseProfile">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Cancel", pcResourceName: "BlazorMenuResources"))</button>
-        <button class="btn btn-outline-primary" type="button" @onclick="ShowChangePasswordPage">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ChangePassword", pcResourceName: "BlazorMenuResources"))</button>
-        <button class="btn btn-primary" type="submit">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Update", pcResourceName: "BlazorMenuResources"))</button>
-    </div>
-</EditForm>
-
-<MenuModal @ref="@changePasswordModal"
-           BodyCssClass="px-5"
-           Title="@R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ChangePassword", pcResourceName: "BlazorMenuResources")">
-</MenuModal>
+<R_Conductor @ref="@_conductorRef"
+             R_IsHeader
+             R_ViewModel="@_userProfileVM"
+             R_ServiceGetRecord="@R_ServiceGetRecord"
+             R_ServiceSave="@R_ServiceSave"
+             R_Validation="@R_Validation" />
 
 @code {
-    [Parameter] public Func<bool, Task>? CloseModalTask { get; set; }
-
-    [Inject] private IClientHelper _clientHelper { get; set; } = default!;
-    [Inject] private R_ToastService _toastService { get; set; } = default!;
+    [Inject] private IClientHelper ClientHelper { get; set; } = default!;
+    [Inject] private R_ToastService ToastService { get; set; } = default!;
     // [Inject] private R_ILocalStorage _localStorageService { get; set; } = default!;
     // [Inject] private IAccountManager AccountManager { get; set; } = default!;
+    [Inject] private R_PopupService PopupService { get; set; } = default!;
 
-    // private R_MenuModel _menuModel = new();
-    private UserProfileModel? _userProfile = new();
+    private R_UserProfileViewModel _userProfileVM = new R_UserProfileViewModel();
+    private R_Conductor? _conductorRef;
     private DateTime? _lastUpdatePassword = null;
     private List<CultureModel> _cultures = new();
-    private UserProfileFieldClassProvider _userProfileFieldClassProvider = new();
-    private string _imageBase64 = "assets/img/avatar.png";
-    private MenuModal changePasswordModal = default!;
 
-    protected override async Task OnInitializedAsync()
+    private R_eFileSelectAccept[] _accepts { get; set; } = new R_eFileSelectAccept[] { R_eFileSelectAccept.Image };
+    private string _imageBase64 = "assets/img/avatar.png";
+    private long _maxFileSize { get; set; } = 1024 * 1024; //1mb
+
+    private bool hasSaved = false;
+
+    protected override async Task R_Init_From_Master(object? poParameter)
     {
         var loEx = new R_Exception();
 
         try
         {
+
             // var loResult = await AccountManager.GetUserProfileAsync(new GetUserProfileParameterDTO
             // {
-            //     CCOMPANY_ID = _clientHelper.CompanyId,
-            //     CUSER_ID = _clientHelper.UserId
+            //     CCOMPANY_ID = ClientHelper.CompanyId,
+            //     CUSER_ID = ClientHelper.UserId
             // });
 
-            // _userProfile = R_FrontUtility.ConvertObjectToObject<UserProfileModel>(loResult);
+            // _userProfileVM.UserProfile = R_FrontUtility.ConvertObjectToObject<UserProfileModel>(loResult) ?? new UserProfileModel();
 
-            // if (_userProfile is null)
+            // if (_userProfileVM.UserProfile is null)
             // {
-            //     _userProfile = new UserProfileModel();
-            //     _userProfile.CUSER_ID = _clientHelper.UserId;
-            //     _userProfile.CUSER_NAME = _clientHelper.UserName;
+            //     _userProfileVM.UserProfile = new UserProfileModel();
+            //     _userProfileVM.UserProfile.CUSER_ID = ClientHelper.UserId;
+            //     _userProfileVM.UserProfile.CUSER_NAME = ClientHelper.UserName;
             // }
 
-            // _userProfile.CCULTURE_ID = _userProfile.CCULTURE_ID?.ToLowerInvariant() ?? AppConstants.DefaultCulture;
+            // _userProfileVM.UserProfile.CCULTURE_ID = _userProfileVM.UserProfile.CCULTURE_ID?.ToLowerInvariant() ?? AppConstants.DefaultCulture;
 
-            // if (_userProfile.OPHOTO is not null)
+            // if (_userProfileVM.UserProfile.OPHOTO is not null)
             // {
-            //     var base64Image = Convert.ToBase64String(_userProfile.OPHOTO);
-            //     _imageBase64 = "data:image/jpeg;base64," + base64Image;
+            //     var mimeType = R_FrontUtility.GetImageMimeType(_userProfileVM.UserProfile.OPHOTO);
+            //     var base64Image = Convert.ToBase64String(_userProfileVM.UserProfile.OPHOTO);
+            //     _imageBase64 = $"data:{mimeType};base64,{base64Image}";
             // }
 
             // if (DateTime.TryParseExact(
-            //     _userProfile.CLAST_UPDATE_PASSWORD,
+            //     _userProfileVM.UserProfile.CLAST_UPDATE_PASSWORD,
             //     "yyyyMMdd",
             //     System.Globalization.CultureInfo.InvariantCulture,
             //     System.Globalization.DateTimeStyles.None,
@@ -157,80 +169,152 @@
             //     CultureId = x.Value == "1" ? "en" : "id",
             //     CultureName = x.Name
             // }).ToList();
+
+            if (_conductorRef is not null)
+                await _conductorRef.R_GetEntity(null);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            ToastService.Error(ex.Message);
         }
     }
 
-    public async Task OnValidSubmit(EditContext editContext)
+    #region Conductor Methods
+
+    private void R_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
     {
-        // var loEx = new R_Exception();
-
-        // try
-        // {
-        //     var lcImageBase64 = string.Empty;
-        //     if (!_imageBase64.Equals("assets/img/avatar.png", StringComparison.InvariantCultureIgnoreCase))
-        //         lcImageBase64 = _imageBase64.Replace("data:image/jpeg;base64,", "");
-
-        //     var loParam = R_FrontUtility.ConvertObjectToObject<UpdateUserProfileParameterDTO>(_userProfile);
-
-        //     if (loParam is null)
-        //         throw new Exception(string.Format(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Common_E003", pcResourceName: "BlazorMenuResources"), "Data"));
-
-
-        //     loParam.CUPDATE_BY = _clientHelper.UserId;
-        //     loParam.OPHOTO = string.IsNullOrWhiteSpace(lcImageBase64) ? null : Convert.FromBase64String(lcImageBase64);
-
-        //     await AccountManager.UpdateUserProfileAsync(loParam);
-
-        //     await _localStorageService.SetItemAsync<string>(StorageConstants.Culture, loParam.CCULTURE_ID ?? _clientHelper.CultureUI.TwoLetterISOLanguageName);
-
-        //     if (CloseModalTask is not null)
-        //         await CloseModalTask.Invoke(true);
-        // }
-        // catch (Exception ex)
-        // {
-        //     loEx.Add(ex);
-        // }
-
-        // loEx.ThrowExceptionIfErrors();
+        eventArgs.Result = _userProfileVM.UserProfile;
     }
 
-    public void OnInvalidSubmit(EditContext editContext)
+    private async Task R_ServiceSave(R_ServiceSaveEventArgs eventArgs)
     {
-        // editContext.SetFieldCssClassProvider(_userProfileFieldClassProvider);
+        R_Exception loEx = new R_Exception();
 
-        // StateHasChanged();
+        try
+        {
+            // var loParam = R_FrontUtility.ConvertObjectToObject<UpdateUserProfileParameterDTO>(eventArgs.Data);
+
+            // if (loParam is null)
+            //     throw new Exception(string.Format(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Common_E003", pcResourceName: "BlazorMenuResources"), "Data"));
+
+            // loParam.CUPDATE_BY = ClientHelper.UserId;
+
+            // await AccountManager.UpdateUserProfileAsync(loParam);
+
+            // await _localStorageService.SetItemAsync<string>(StorageConstants.Culture, loParam.CCULTURE_ID ?? _clientHelper.CultureUI.TwoLetterISOLanguageName);
+
+            hasSaved = true;
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+
+            foreach (var error in loEx.GetErrorList())
+            {
+                ToastService.Error(error.ErrDescp);
+            }
+            hasSaved = false;
+        }
+
+        eventArgs.Result = eventArgs.Data;
     }
 
-    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
+    private void R_Validation(R_ValidationEventArgs eventArgs)
     {
-        // var loMS = new MemoryStream();
-        // await eventArgs.File.OpenReadStream().CopyToAsync(loMS);
-        // var loByteFile = loMS.ToArray();
+        hasSaved = false;
 
-        // _userProfile.OPHOTO = loByteFile;
-        // _imageBase64 = $"data:{eventArgs.File.ContentType};base64,{Convert.ToBase64String(loByteFile)}";
+        try
+        {
+            UserProfileModel? Data = R_FrontUtility.ConvertObjectToObject<UserProfileModel>(eventArgs.Data);
+
+            if (Data is null)
+                throw new Exception(string.Format(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Common_E003", pcResourceName: "BlazorMenuResources"), "Data"));
+
+            if (string.IsNullOrWhiteSpace(Data.CUSER_ID))
+            {
+                _userProfileVM.R_SetValidationMessage(nameof(UserProfileModel.CUSER_ID), R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_V003", pcResourceName: "BlazorMenuResources"));
+            }
+
+            if (string.IsNullOrWhiteSpace(Data.CUSER_NAME))
+            {
+                _userProfileVM.R_SetValidationMessage(nameof(UserProfileModel.CUSER_NAME), R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_V001", pcResourceName: "BlazorMenuResources"));
+            }
+
+            if (string.IsNullOrWhiteSpace(Data.CEMAIL_ADDRESS))
+            {
+                _userProfileVM.R_SetValidationMessage(nameof(UserProfileModel.CEMAIL_ADDRESS), R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_V002", pcResourceName: "BlazorMenuResources"));
+            }
+
+            if (string.IsNullOrWhiteSpace(Data.CCULTURE_ID))
+            {
+                _userProfileVM.R_SetValidationMessage(nameof(UserProfileModel.CCULTURE_ID), R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_V004", pcResourceName: "BlazorMenuResources"));
+            }
+
+            if (Data.CUSER_NAME.Length < 5)
+            {
+                _userProfileVM.R_SetValidationMessage(nameof(UserProfileModel.CUSER_NAME), R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_V005", pcResourceName: "BlazorMenuResources"));
+            }
+
+            if (Data.CUSER_NAME.Length > 30)
+            {
+                _userProfileVM.R_SetValidationMessage(nameof(UserProfileModel.CUSER_NAME), R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_V006", pcResourceName: "BlazorMenuResources"));
+            }
+
+            if (_userProfileVM.HasValidationMessage())
+            {
+                eventArgs.Cancel = true;
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            eventArgs.Cancel = true;
+            ToastService.Error(ex.Message);
+        }
+    }
+    #endregion
+
+    #region Button Methods
+    private async Task OnSubmitButtonClick()
+    {
+        if (_conductorRef is not null)
+            await _conductorRef.Save();
+
+        if (hasSaved)
+            await this.Close(true, null);
     }
 
     private async Task CloseProfile()
     {
-        if (CloseModalTask is not null)
-            await CloseModalTask.Invoke(false);
+        await this.Close(false, null);
     }
 
     private async Task ShowChangePasswordPage()
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.Add("CloseModalTask", async () => await OnChangePasswordCloseModalTask());
+        var loPopupSettings = new R_PopupSettings()
+        {
+            PageTitle = R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ChangePassword", pcResourceName: "BlazorMenuResources"),
+        };
 
-        await changePasswordModal.ShowAsync<ChangePassword>(parameters: parameters);
+        await PopupService.Show(typeof(ChangePassword), new object(), poPopupSettings: loPopupSettings);
     }
+    #endregion
 
-    private async Task OnChangePasswordCloseModalTask()
+    #region Input Handler
+    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
     {
-        await changePasswordModal.HideAsync();
+        using var loMS = new MemoryStream();
+
+        await eventArgs.File.OpenReadStream(_maxFileSize).CopyToAsync(loMS);
+        var loByteFile = loMS.ToArray();
+
+        _userProfileVM.Data.OPHOTO = loByteFile;
+        _imageBase64 = $"data:{eventArgs.File.ContentType};base64,{Convert.ToBase64String(loByteFile)}";
     }
+    #endregion
+
+    #region Helper
+
+    #endregion
+
 }

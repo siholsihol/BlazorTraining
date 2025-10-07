@@ -9,6 +9,7 @@
         public static string MenuIconId = "default";
         public static string LoginBackgroundFilePath = "login-bg.*";
         public static string LogoFilePath = "logo.*";
+        public static string FavoriteMenuId = "FAV";
         #endregion
     }
 }

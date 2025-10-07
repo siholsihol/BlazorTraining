@@ -261,8 +261,8 @@
     },
 
     /* Enable Horizontal Scroll in XTabs */
-    enableHorizontalScroll: function (elementClass) {
-        const element = document.getElementsByClassName(elementClass)[0];
+    enableHorizontalScroll: function (elementSelector) {
+        const element = document.querySelector(elementSelector);
         if (!element) return;
 
         element.addEventListener('wheel', function (e) {
@@ -274,12 +274,22 @@
         }, { passive: false });
     },
 
+    scrollToLeftEdge: function (elementSelector) {
+        const element = document.querySelector(elementSelector);
+        element.scrollLeft = 0;
+    },
+
+    scrollToTopEdge: function (elementSelector) {
+        const element = document.querySelector(elementSelector);
+        element.scrollTop = 0;
+    },
+
     scrollToActiveTab: function () {
         const xtabsHeader = document.querySelector('.xtabs-header');
         if (!xtabsHeader) return;
 
         // Find the active tab (adjust selector if needed)
-        const activeTab = xtabsHeader.querySelector('.active') 
+        const activeTab = xtabsHeader.querySelector('.active')
         if (!activeTab) return;
 
         // Get bounding rectangles
@@ -327,8 +337,52 @@
             if (!plVisible && isVisible) {
                 html.classList.remove(visibleClassName);
             }
+        },
+    },
+
+    swapy: {
+        initSwapy: function (pcElementId) {
+            try {
+                const container = document.getElementById(pcElementId);
+
+                if (container._swapyInstance) {
+                    disposeSwapy(pcElementId);
+                }
+
+                container._swapyInstance = Swapy.createSwapy(container, { swapMode: "drop", animation: "spring" });
+
+                container._swapyInstance.enable(true);
+            } catch (err) {
+            }
+        },
+
+        disposeSwapy: function (pcElementId) {
+            try {
+                const container = document.getElementById(pcElementId);
+
+                if (container && container._swapyInstance) {
+                    container._swapyInstance.destroy();
+                    container._swapyInstance = null;
+                }
+            } catch (err) {
+            }
+        },
+
+        getSwapyData: function (pcElementId) {
+            try {
+                const container = document.getElementById(pcElementId);
+
+                if (!container) return [];
+
+                const slotItemMap = container._swapyInstance.slotItemMap();
+
+                return slotItemMap.asArray;
+            } catch (err) {
+                return [];
+            }
         }
     },
+
 
     svg: {
         injectSvgToBody: function (svgContent) {
@@ -336,6 +390,103 @@
             wrapper.style.display = "none";
             wrapper.innerHTML = svgContent;
             document.body.insertBefore(wrapper, document.body.firstChild);
+        }
+    },
+
+    dropzone: {
+        handlers: {},
+
+        initialize: function (dropZoneId, inputFileId) {
+            console.log("initialize dropzone");
+            const inputFile = document.getElementById(inputFileId);
+            const dropZoneElement = document.getElementById(dropZoneId);
+
+            if (!inputFile || !dropZoneElement) {
+                console.warn("Dropzone init failed: missing elements", inputFileId, dropZoneId);
+                return;
+            }
+
+            const dragOverHandler = (e) => {
+                e.preventDefault();
+                if (dropZoneElement.classList.contains("r-disabled")) return;
+
+                dropZoneElement.classList.add("dragover");
+            };
+
+            const dragLeaveHandler = (e) => {
+                if (dropZoneElement.classList.contains("r-disabled")) return;
+
+                if (!dropZoneElement.contains(e.relatedTarget)) {
+                    dropZoneElement.classList.remove("dragover");
+                }
+            };
+
+            const dropHandler = (e) => {
+                e.preventDefault();
+
+                if (dropZoneElement.classList.contains("r-disabled")) return;
+                dropZoneElement.classList.remove("dragover");
+
+                let files = Array.from(e.dataTransfer.files);
+
+                // Get accept attribute (e.g. ".jpg,.png,image/*")
+                const accept = inputFile.getAttribute("accept");
+                let acceptedFiles = files;
+
+                if (accept) {
+                    const acceptList = accept.split(",").map(x => x.trim().toLowerCase());
+
+                    acceptedFiles = files.filter(file => {
+                        const fileName = file.name.toLowerCase();
+                        const mimeType = file.type.toLowerCase();
+
+                        return acceptList.some(rule => {
+                            if (rule.startsWith(".")) {
+                                return fileName.endsWith(rule);
+                            }
+                            else {
+                                return mimeType === rule;
+                            }
+                        });
+                    });
+                }
+
+                if (!inputFile.hasAttribute("multiple") && acceptedFiles.length > 1) {
+                    acceptedFiles = [acceptedFiles[0]]; // just keep the first file
+                }
+
+                const dt = new DataTransfer();
+                for (let i = 0; i < acceptedFiles.length; i++) {
+                    dt.items.add(acceptedFiles[i]);
+                }
+
+                inputFile.files = dt.files;
+                const event = new Event('change', { bubbles: true });
+                inputFile.dispatchEvent(event);
+            };
+
+            // Save handlers so we can remove later
+            this.handlers[dropZoneId] = {
+                dragOverHandler,
+                dragLeaveHandler,
+                dropHandler
+            };
+
+            dropZoneElement.addEventListener('dragover', dragOverHandler);
+            dropZoneElement.addEventListener('dragleave', dragLeaveHandler);
+            dropZoneElement.addEventListener('drop', dropHandler);
+        },
+
+        dispose: function (dropZoneId) {
+            const dropZoneElement = document.getElementById(dropZoneId);
+            const h = this.handlers[dropZoneId];
+            if (dropZoneElement && h) {
+                dropZoneElement.removeEventListener('dragover', h.dragOverHandler);
+                dropZoneElement.removeEventListener('dragleave', h.dragLeaveHandler);
+                dropZoneElement.removeEventListener('drop', h.dropHandler);
+                delete this.handlers[dropZoneId];
+                console.log("disposed dropzone", dropZoneId);
+            }
         }
     }
 }

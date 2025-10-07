@@ -19,6 +19,7 @@ namespace BlazorMenu.Services
                 CSUB_MENU_ACCESS = "",
                 CSUB_MENU_ID = pcSubMenuId,
                 CSUB_MENU_NAME = pcSubMenuName,
+                CSUB_MENU_TOOL_TIP = $"{pcSubMenuId} - {pcSubMenuName}",
                 CSUB_MENU_TYPE = "G",
                 IFAVORITE_INDEX = 0,
                 IGROUP_INDEX = 0
@@ -35,6 +36,7 @@ namespace BlazorMenu.Services
                 CSUB_MENU_ACCESS = "A,U,D,P,V",
                 CSUB_MENU_ID = pcSubMenuId,
                 CSUB_MENU_NAME = pcSubMenuName,
+                CSUB_MENU_TOOL_TIP = $"{pcSubMenuId} - {pcSubMenuName}",
                 CSUB_MENU_TYPE = "P",
                 IFAVORITE_INDEX = 0,
                 IGROUP_INDEX = 0
@@ -48,7 +50,6 @@ namespace BlazorMenu.Services
             CreateProgram(poExistingList, "CT", "G001", "SAB03000", "Tab");
             CreateProgram(poExistingList, "CT", "G001", "SAB03100", "Input Controls");
             CreateProgram(poExistingList, "CT", "G001", "SAB03200", "Buttons");
-
             CreateProgram(poExistingList, "CT", "G001", "SAB03300", "Grid Sequence");
             CreateProgram(poExistingList, "CT", "G001", "SAB03400", "Grid Mover");
         }
@@ -58,13 +59,6 @@ namespace BlazorMenu.Services
             CreateGroup(poExistingList, "OT", "Others", "G001", "Others");
 
             CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
-            //CreateProgram(poExistingList, "OT", "G001", "SAB04000", "Excel");
         }
 
         public Task<List<MenuListDTO>> GetMenuAsync()
@@ -76,177 +70,38 @@ namespace BlazorMenu.Services
             {
                 loResult = new List<MenuListDTO>();
 
-                loResult.Add(new MenuListDTO
+                void AddMenu(string id, string name, string type = "P")
                 {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "Ex",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "G001",
-                    CSUB_MENU_NAME = "Conductor Example",
-                    CSUB_MENU_TYPE = "G",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 1
-                });
+                    loResult.Add(new MenuListDTO
+                    {
+                        CMENU_ID = "Ex",
+                        CMENU_NAME = "Example",
+                        CPARENT_SUB_MENU_ID = "G001",
+                        CSUB_MENU_ACCESS = "A,U,D,P,V",
+                        CSUB_MENU_ID = id,
+                        CSUB_MENU_NAME = name,
+                        CSUB_MENU_TOOL_TIP = $"{id} - {name}",
+                        CSUB_MENU_TYPE = type,
+                        IFAVORITE_INDEX = 0,
+                        IGROUP_INDEX = 0
+                    });
+                }
 
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00100",
-                    CSUB_MENU_NAME = "Layout Training",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00900",
-                    CSUB_MENU_NAME = "Find with Conductor",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00700",
-                    CSUB_MENU_NAME = "Gridview Navigator",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00600",
-                    CSUB_MENU_NAME = "Gridview Original",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB01000",
-                    CSUB_MENU_NAME = "Gridview Batch",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB02400",
-                    CSUB_MENU_NAME = "Batch Process",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB01200",
-                    CSUB_MENU_NAME = "Grid and Grid",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB01400",
-                    CSUB_MENU_NAME = "Detail",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB01900",
-                    CSUB_MENU_NAME = "Tab Header Detail",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB00800",
-                    CSUB_MENU_NAME = "TreeView Navigator",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB01300",
-                    CSUB_MENU_NAME = "Navigator and Batch",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
-
-                loResult.Add(new MenuListDTO
-                {
-                    CMENU_ID = "Ex",
-                    CMENU_NAME = "Example",
-                    CPARENT_SUB_MENU_ID = "G001",
-                    CSUB_MENU_ACCESS = "A,U,D,P,V",
-                    CSUB_MENU_ID = "SAB01500",
-                    CSUB_MENU_NAME = "Navigator and Navigator",
-                    CSUB_MENU_TYPE = "P",
-                    IFAVORITE_INDEX = 0,
-                    IGROUP_INDEX = 0
-                });
+                AddMenu("G001", "Conductor Example", "G");
+                AddMenu("SAB00100", "Layout Training");
+                AddMenu("SAB00900", "Find with Conductor");
+                AddMenu("SAB00700", "Gridview Navigator");
+                AddMenu("SAB00600", "Gridview Original");
+                AddMenu("SAB01000", "Gridview Batch");
+                AddMenu("SAB02400", "Batch Process");
+                AddMenu("SAB01200", "Grid and Grid");
+                AddMenu("SAB01400", "Detail");
+                AddMenu("SAB01900", "Tab Header Detail");
+                AddMenu("SAB00800", "TreeView Navigator");
+                AddMenu("SAB01300", "Navigator and Batch");
+                AddMenu("SAB01500", "Navigator and Navigator");
 
                 CreateControlPrograms(loResult);
-
                 CreateOtherPrograms(loResult);
             }
             catch (Exception ex)

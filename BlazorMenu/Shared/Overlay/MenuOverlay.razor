@@ -2,80 +2,129 @@
 @namespace BlazorMenu.Shared.Overlay
 @using BlazorMenu.Constants
 @using BlazorMenu.Helper
+@using BlazorMenu.Resources
+@using BlazorMenu.Shared.Drawer
 
 <div class="r-content-menu-overlay" />
 
-<div id="@Id" class="@ClassNames" tabindex="-1" style="@StyleNames" @attributes="@Attributes" @onkeydown="@HandleKeyDown">
+<div id="@Id" class="@ClassNames" tabindex="-1" style="@StyleNames" @attributes="@Attributes" @onkeydown="@OnKeyDownHandler">
     <div class="r-menu-overlay-content" tabindex="-1">
         <div class="r-menu-overlay-header" tabindex="-1">
             @if (!string.IsNullOrWhiteSpace(_breadCrumbs))
             {
                 <div class="r-menu-overlay-breadcrumbs">@_breadCrumbs</div>
             }
-            <div class="r-menu-overlay-header-close">
-                <button class="telerik-blazor k-button k-window-titlebar-action k-button-flat k-rounded-md k-button-md k-button-flat-base k-icon-button" tabindex="0" type="button" @onclick="@Hide">
-                    <span class="telerik-blazor k-button-icon k-icon k-svg-icon k-svg-i-x" aria-hidden="true">
-                        <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path d="M416 141.3 301.3 256 416 370.7 370.7 416 256 301.3 141.3 416 96 370.7 210.7 256 96 141.3 141.3 96 256 210.7 370.7 96z"></path>
-                        </svg>
-                    </span>
-                </button>
+
+            <div style="display: flex; gap: 16px;">
+                <div style="display: flex; gap: 8px; align-items: center">
+                    <span>@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ChangeSequence", pcResourceName: "BlazorMenuResources"))</span>
+                    <TelerikSwitch Value="@_dragEnabled" ValueChanged="@((bool value) => ToggleDragDrop(value))" Enabled="@(true)" Size="sm"></TelerikSwitch>
+                </div>
+
+                <div class="r-menu-overlay-header-close">
+                    <button class="telerik-blazor k-button k-window-titlebar-action k-button-flat k-rounded-md k-button-md k-button-flat-base k-icon-button" tabindex="0" type="button" @onclick="@Hide">
+                        <span class="telerik-blazor k-button-icon k-icon k-svg-icon k-svg-i-x" aria-hidden="true">
+                            <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path d="M416 141.3 301.3 256 416 370.7 370.7 416 256 301.3 141.3 416 96 370.7 210.7 256 96 141.3 141.3 96 256 210.7 370.7 96z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="r-menu-overlay-tiles" tabindex="-1">
-            @if (_drawerMenuItem != null && _drawerMenuItem.Children.Count > 0)
-            {
-                int index = 0;
-                foreach (var item in _drawerMenuItem.Children)
+        <TelerikTooltip TargetSelector=".r-menu-overlay-content-item" />
+        <R_ErrorBoundary>
+            <div class="r-menu-overlay-tiles @( _dragEnabled ? "draggable" : "" )" tabindex="-1" id="@_swapyId" @key="_tilesRenderKey">
+                @if (_drawerMenuItem != null && _drawerMenuItem.Children.Count > 0)
                 {
-                    if (index == 0)
-                    {
-                        <div @ref="@ElementRef" class="r-menu-overlay-content-item" tabindex="0" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))" @onkeydown="@(async (e) => await HandleKeyDownItem(e, item.Text, item.Id))">
-                            <svg class="r-menu-overlay-content-icon">
-                                <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item.Id, Default = _defaultIconId }))" />
-                            </svg>
-                            <div class="r-menu-overlay-content-text">
-                                <p class="r-menu-overlay-content-text-title">@item.Text</p>
-                                <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                    <div class="r-menu-overlay-content-item" tabindex="0" @onclick="@(async () => await OnClickProgram(item.Text, item.Id))">
-                        <svg class="r-menu-overlay-content-icon">
-                            <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item.Id, Default = _defaultIconId }))" />
-                        </svg>
-                        <div class="r-menu-overlay-content-text">
-                            <p class="r-menu-overlay-content-text-title">@item.Text</p>
-                            <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
-                        </div>
-                    </div>
-                    }
 
-                    index++;
+                    int index = 0;
+                    foreach (var item in _drawerMenuItem.Children)
+                    {
+                        @if (_isFavorite && !item.Favorite)
+                        {
+                            _ = Task.Run(async () =>
+                            {
+                                await Task.Delay(290);
+                                await InvokeAsync(() =>
+                                    {
+                                _drawerMenuItem.Children.Remove(item);
+                                StateHasChanged();
+                            });
+                            });
+                        }
+
+                        @if (index == 0)
+                        {
+                            <div data-swapy-slot="@($"slot-{item.Id}")" style="display:flex;">
+                                <div data-swapy-item="@($"item-{item.Id}")"
+                                     @ref="@ElementRef"
+                                     title="@item.Title"
+                                     class="r-menu-overlay-content-item @(_isFavorite && !item.Favorite ? "removing" : "")"
+                                     tabindex="0"
+                                     @onclick="@(async () => await OnClickProgramHandler(item))"
+                                     @onkeydown="@(async (e) => await OnKeyDownItemHandler(e, item))">
+                                    @RenderItemContent(item)
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div data-swapy-slot="@($"slot-{item.Id}")" style="display:flex;">
+                                <div data-swapy-item="@($"item-{item.Id}")"
+                                     title="@item.Title"
+                                     class="r-menu-overlay-content-item @(_isFavorite && !item.Favorite ? "removing" : "")"
+                                     tabindex="0"
+                                     @onclick="@(async () => await OnClickProgramHandler(item))"
+                                     @onkeydown="@(async (e) => await OnKeyDownItemHandler(e, item))">
+                                    @RenderItemContent(item)
+                                </div>
+                            </div>
+                        }
+                        index++;
+                    }
                 }
-            }
-        </div>
+            </div>
+        </R_ErrorBoundary>
     </div>
 </div>
 
 <style>
+    :root {
+        /* Colors */
+        --menu-overlay-overlay-bg: #edf2f9;
+        --menu-overlay-card-bg: #fff;
+        --menu-overlay-card-border-color: rgba(0, 0, 0, 0.125);
+        --menu-overlay-card-border: 1px solid var(--menu-overlay-card-border-color);
+        --menu-overlay-tile-bg: #f6f6f6;
+        --menu-overlay-tile-border: 1px solid #EAEAEA;
+        --menu-overlay-text-primary: #777777;
+        --menu-overlay-text-secondary: #999999;
+        /* Radius */
+        --menu-overlay-card-radius: 5px;
+        --menu-overlay-tile-radius: 10px;
+        /* Spacing */
+        --menu-overlay-gap: 2rem;
+        --menu-overlay-header-padding: 1.5rem 2rem;
+        --menu-overlay-tile-padding: 2rem;
+        --menu-overlay-item-padding: 10px;
+        /* Sizes */
+        --menu-overlay-item-min-height: 76px;
+        --menu-overlay-icon-size: 56px;
+        /* Fonts */
+        --menu-overlay-breadcrumbs-size: 20px;
+        --menu-overlay-title-size: 16px;
+        --menu-overlay-subtitle-size: 12px;
+        /* Transition */
+        --menu-overlay-transition: opacity 0.2s ease;
+    }
+
     .r-content-menu-overlay {
         display: none;
     }
 
-    .r-menu-overlay-show .r-content-menu-overlay {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--falcon-body-bg) !important;
-        z-index: 1;
-    }
-
+    /* #region Base Styling */
     .r-menu-overlay {
         display: block;
         position: absolute;
@@ -91,13 +140,9 @@
         z-index: -1;
         padding-bottom: 1rem;
         padding-right: 1rem;
-
-        /* These control visibility */
         opacity: 0;
         pointer-events: none;
-
-        /* Smooth animation */
-        transition: opacity 0.2s ease;
+        transition: var(--menu-overlay-transition);
     }
 
         .r-menu-overlay:focus,
@@ -109,39 +154,31 @@
             outline: none;
         }
 
-    .r-menu-overlay-show .r-menu-overlay
-    {
-        opacity: 1;
-        pointer-events: all !important;
-        z-index: 2;
-    }
-
     .r-menu-overlay-content {
         display: flex;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--menu-overlay-card-bg);
         pointer-events: all;
         width: 100%;
         height: 100%;
-        border: 1px solid black;
-        border-color: rgba(0,0,0,0.125);
-        border-radius: 5px;
+        border: var(--menu-overlay-card-border);
+        border-radius: var(--menu-overlay-card-radius);
     }
 
+    /* #region header */
     .r-menu-overlay-header {
         display: flex;
         justify-content: space-between;
         pointer-events: all;
         width: 100%;
-        border-bottom: 1px solid black;
-        border-color: rgba(0,0,0,0.125);
-        padding: 1.5rem 2rem;
+        border-bottom: var(--menu-overlay-card-border);
+        padding: var(--menu-overlay-header-padding);
     }
 
-    .r-menu-overlay-breadcrumbs{
+    .r-menu-overlay-breadcrumbs {
         font-weight: 600;
-        font-size: 20px;
-        color: #777777;
+        font-size: var(--menu-overlay-breadcrumbs-size);
+        color: var(--menu-overlay-text-primary);
     }
 
     .r-menu-overlay-header-close {
@@ -150,34 +187,98 @@
         justify-content: center;
         align-items: center;
     }
+    /* #endregion */
 
+    /* #region tiles */
     .r-menu-overlay-tiles {
         display: grid;
-        padding: 2rem;
+        padding: var(--menu-overlay-tile-padding);
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         grid-auto-rows: min-content;
-        gap: 2rem;
+        gap: var(--menu-overlay-gap);
         width: 100%;
         height: 100%;
         overflow: scroll;
     }
 
+        .r-menu-overlay-tiles.draggable {
+            pointer-events: none !important; /* blocks all clicks */
+        }
+
     .r-menu-overlay-content-item {
         display: flex;
         align-items: center;
-        gap: 2rem;
-        padding: 10px;
+        gap: var(--menu-overlay-gap);
+        padding: var(--menu-overlay-item-padding);
         width: 100%;
-        min-height: 76px;
-        background-color: #f6f6f6;
-        border: 1px solid #EAEAEA;
-        border-radius: 10px;
+        min-height: var(--menu-overlay-item-min-height);
+        background-color: var(--menu-overlay-tile-bg);
+        border: var(--menu-overlay-tile-border);
+        border-radius: var(--menu-overlay-tile-radius);
+        position: relative;
+        transition: opacity 0.3s ease;
+        align-self: center;
+        justify-self: center;
     }
 
-    .r-menu-overlay-content-icon{
-        min-width: 56px;
-        width: 56px;
-        height: 56px;
+        .r-menu-overlay-content-item.removing {
+            opacity: 0;
+        }
+
+        /* #region favorites */
+        .r-menu-overlay-content-item:hover .r-menu-overlay-content-favorite {
+            opacity: 1;
+            pointer-events: auto;
+            transition: var(--menu-overlay-transition);
+        }
+
+    .r-menu-overlay-content-favorite {
+        position: absolute;
+        display: flex;
+        justify-content: end;
+        align-items: start;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        background: linear-gradient(to left, var(--menu-overlay-tile-bg) 70%, transparent 100%);
+        width: 2.5rem;
+        height: 100%;
+        pointer-events: none;
+        transition: opacity 0.6s ease-out;
+    }
+
+        .r-menu-overlay-content-favorite:not([data-animating]) {
+            opacity: 0;
+        }
+
+    .r-menu-overlay-content-favorite-icon {
+        box-sizing: content-box;
+        width: 1em;
+        height: 1em;
+        padding: 8px;
+    }
+
+        .r-menu-overlay-content-favorite-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .r-menu-overlay-content-favorite-icon .fav-icon,
+        .r-menu-overlay-content-favorite-icon .unfav-icon {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+            .r-menu-overlay-content-favorite-icon .fav-icon.show,
+            .r-menu-overlay-content-favorite-icon .unfav-icon.show {
+                opacity: 1;
+            }
+    /* #endregion*/
+
+    /* #region tiles content*/
+    .r-menu-overlay-content-icon {
+        min-width: var(--menu-overlay-icon-size);
+        width: var(--menu-overlay-icon-size);
+        height: var(--menu-overlay-icon-size);
     }
 
     .r-menu-overlay-content-text {
@@ -187,20 +288,89 @@
     }
 
     .r-menu-overlay-content-text-title {
-        font-size: 16px;
-        color: #777777;
+        font-size: var(--menu-overlay-title-size);
+        color: var(--menu-overlay-text-primary);
         font-weight: 500;
         margin-bottom: 0 !important;
     }
 
-    .r-menu-overlay-content-text-subtitle{
-        font-size: 12px;
-        color: #999999;
+    .r-menu-overlay-content-text-subtitle {
+        font-size: var(--menu-overlay-subtitle-size);
+        color: var(--menu-overlay-text-secondary);
         font-weight: 400;
         margin-bottom: 0 !important;
+    }
+    /* #endregion */
+
+    /* #endregion */
+
+    /* #endregion*/
+
+    /* #region navbar toggle */
+    .r-menu-overlay-show .r-content-menu-overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--menu-overlay-overlay-bg) !important;
+        z-index: 1;
+    }
+
+    .r-menu-overlay-show .r-menu-overlay {
+        opacity: 1;
+        pointer-events: all !important;
+        z-index: 2;
     }
 
     .navbar-vertical-collapsed.r-menu-overlay-show .r-menu-overlay {
         padding-left: 12.5rem;
     }
+    /* #endregion */
+
+    /* #region drag drop */
+    .draggable .r-menu-overlay-content-item .r-menu-overlay-content-favorite {
+        display: none !important;
+    }
+
+    .draggable [data-swapy-item],
+    .draggable [data-swapy-slot] {
+        pointer-events: auto !important;
+        cursor: move !important;
+    }
+
+        .draggable [data-swapy-slot][data-swapy-highlighted] [data-swapy-item] {
+            opacity: 0.3;
+            border: 1px dashed #007bff;
+            background-color: #e6f3ff;
+        }
+    /* #endregion */
+
 </style>
+
+@code {
+    private RenderFragment RenderItemContent(DrawerMenuItem item)
+    {
+        RenderFragment fragment = __builder =>
+        {
+            <svg class="r-menu-overlay-content-icon">
+                <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item.Id, Default = _defaultIconId }))" />
+            </svg>
+            <div class="r-menu-overlay-content-text">
+                <p class="r-menu-overlay-content-text-title">@item.Text</p>
+                <p class="r-menu-overlay-content-text-subtitle">@item.Id</p>
+            </div>
+            <div class="r-menu-overlay-content-favorite" data-favorite="@item.Favorite" data-animating="@item.IsAnimating">
+                <svg class="r-menu-overlay-content-favorite-icon" @onclick="@(async () => await OnClickFavoriteIcon(item))" @onclick:stopPropagation>
+                    <use href="assets/icons/icons.svg#fav"
+                         class="fav-icon @(item.Favorite ? "show" : "hide")" />
+                    <use href="assets/icons/icons.svg#unfav"
+                         class="unfav-icon @(item.Favorite ? "hide" : "show")" />
+                </svg>
+            </div>
+        };
+
+        return fragment;
+    }
+}

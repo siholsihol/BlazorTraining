@@ -225,6 +225,22 @@
     <value>Copyright © 2025</value>
     <comment>Copyright © 2025</comment>
   </data>
+  <data name="Fav_E001" xml:space="preserve">
+    <value>Program {0} could not be favorited</value>
+    <comment>Program {0} could not be favorited</comment>
+  </data>
+  <data name="Fav_E002" xml:space="preserve">
+    <value>Program {0} could not be unfavorited</value>
+    <comment>Program {0} could not be unfavorited</comment>
+  </data>
+  <data name="Fav_E003" xml:space="preserve">
+    <value>Program {0} successfully marked as favorited</value>
+    <comment>Program {0} successfully marked as favorited</comment>
+  </data>
+  <data name="Fav_E004" xml:space="preserve">
+    <value>Program {0} successfully marked as unfavorited</value>
+    <comment>Program {0} successfully marked as unfavorited</comment>
+  </data>
   <data name="MenuTab_E001" xml:space="preserve">
     <value>{0} not found.</value>
     <comment>{0} not found.</comment>
@@ -281,6 +297,10 @@
     <value>Change Password</value>
     <comment>Change Password</comment>
   </data>
+  <data name="_ChangeSequence" xml:space="preserve">
+    <value>Change Sequence</value>
+    <comment>Change Sequence</comment>
+  </data>
   <data name="_CompanyID" xml:space="preserve">
     <value>Company ID</value>
     <comment>Company ID</comment>
@@ -312,6 +332,10 @@
   <data name="_Email" xml:space="preserve">
     <value>Email</value>
     <comment>Email</comment>
+  </data>
+  <data name="_Favorite" xml:space="preserve">
+    <value>Favorite</value>
+    <comment>Favorite</comment>
   </data>
   <data name="_FrontEndVersion" xml:space="preserve">
     <value>FrontEnd Version</value>

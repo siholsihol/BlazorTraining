@@ -11,6 +11,10 @@ namespace BlazorMenu.Shared.Drawer
         public bool Expanded { get; set; }
         public int Level { get; set; }
         public List<DrawerMenuItem> Children { get; set; } = default!;
-        public string Title => $"{Id} - {Text}";
+        public string Title { get; set; } = string.Empty;
+        public int Seq { get; set; } = 0;
+        public bool Favorite { get; set; } = false;
+        public bool IsAnimating { get; set; } = false;
+        public string MenuId { get; set; } = string.Empty;
     }
 }

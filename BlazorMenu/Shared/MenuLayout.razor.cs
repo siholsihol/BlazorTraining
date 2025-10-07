@@ -1,9 +1,12 @@
 ﻿using BlazorClientHelper;
 using BlazorMenu.Authentication;
+using BlazorMenu.Constants;
+using BlazorMenu.Helper;
+using BlazorMenu.Managers.Menu;
 using BlazorMenu.Pages;
+using BlazorMenu.Resources;
 using BlazorMenu.Services;
 using BlazorMenu.Shared.Drawer;
-using BlazorMenu.Shared.Modals;
 using BlazorMenu.Shared.Overlay;
 using BlazorMenu.Shared.Tabs;
 using BlazorMenuCommon.DTOs;
@@ -15,6 +18,10 @@ using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Constants;
 using R_BlazorFrontEnd.Controls.Helpers;
 using R_BlazorFrontEnd.Controls.MessageBox;
+using R_BlazorFrontEnd.Controls.Popup;
+using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Helpers;
+using System.Collections.ObjectModel;
 using Telerik.Blazor.Components;
 
 namespace BlazorMenu.Shared
@@ -28,9 +35,15 @@ namespace BlazorMenu.Shared
         [Inject] private R_MessageBoxService _messageBoxService { get; set; }
         [Inject] private R_PreloadService _preloadService { get; set; }
         [Inject] private R_ToastService _toastService { get; set; }
+        [Inject] private IMenuManager MenuManager { get; set; } = default!;
+        [Inject] private R_ToastService ToastService { get; set; } = default!;
+        [Inject] private R_PopupService PopupService { get; set; } = default!;
+        [Inject] private HttpClient Http { get; set; } = default!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
+        private DrawerMenuItem? _favData = null;
         private int _maxNotificationCount = 5;
         private List<BlazorMenuNotificationDTO> _newNotificationMessages = new List<BlazorMenuNotificationDTO>();
         private List<BlazorMenuNotificationDTO> _oldNotificationMessages = new List<BlazorMenuNotificationDTO>();
@@ -38,27 +51,17 @@ namespace BlazorMenu.Shared
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
         private string _footerId = "navbar-footer";
+        private string? _userIcon = null;
 
         private MenuTabSet _menuTabSetRef;
         private MenuOverlay _menuOverlay;
         private string _logoUrl = string.Empty;
         private string _logoStyle = string.Empty;
 
-        private List<SearchBoxItem> searchBoxData
+        private ObservableCollection<SearchBoxItem> _searchBoxData = new ObservableCollection<SearchBoxItem>();
+        private ObservableCollection<SearchBoxItem> SearchBoxData
         {
-            get
-            {
-                var loData = _menuList.Where(x => x.CSUB_MENU_TYPE == "P")
-                    .GroupBy(x => x.CSUB_MENU_ID)
-                    .Select(x => x.First())
-                    .Select(x => new SearchBoxItem
-                    {
-                        Id = x.CSUB_MENU_ID,
-                        Text = x.CSUB_MENU_ID + " - " + x.CSUB_MENU_NAME
-                    }).ToList();
-
-                return loData;
-            }
+            get => _searchBoxData;
         }
 
         protected string NotificationCssClass;
@@ -69,44 +72,30 @@ namespace BlazorMenu.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            await _preloadService.Show();
+
             try
             {
-                _menuList = await _menuService.GetMenuAsync();
-
-                var menuIds = _menuList.Where(x => x.CMENU_ID != "FAV")
-                    .GroupBy(x => x.CMENU_ID)
-                    .Select(x => x.First()).Select(x => x.CMENU_ID).ToArray();
-
-                _data = menuIds.Select(id => new DrawerMenuItem
-                {
-                    Id = id,
-                    Text = _menuList.FirstOrDefault(x => x.CMENU_ID == id)?.CMENU_NAME ?? string.Empty,
-                    Level = 0,
-                    ProgramButton = _menuList.FirstOrDefault(x => x.CMENU_ID == id)?.CPROGRAM_BUTTON ?? string.Empty,
-                    Children = _menuList.Where(x => x.CSUB_MENU_TYPE == "G" && x.CMENU_ID == id).Select(y => new DrawerMenuItem
-                    {
-                        Id = y.CSUB_MENU_ID,
-                        Text = y.CSUB_MENU_NAME,
-                        Level = 1,
-                        ProgramButton = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == y.CSUB_MENU_ID)?.CPROGRAM_BUTTON ?? string.Empty,
-                        Children = _menuList.Where(z => z.CSUB_MENU_TYPE == "P" && z.CPARENT_SUB_MENU_ID == y.CSUB_MENU_ID && z.CMENU_ID == id).Select(yy => new DrawerMenuItem
-                        {
-                            Id = yy.CSUB_MENU_ID,
-                            Text = yy.CSUB_MENU_NAME,
-                            Level = 2,
-                            ProgramButton = _menuList.FirstOrDefault(x => x.CSUB_MENU_ID == yy.CSUB_MENU_ID)?.CPROGRAM_BUTTON ?? string.Empty,
-                            Children = new()
-                        }).ToList()
-                    }).ToList()
-                }).ToList();
+                await GetMenuListAsync();
 
                 _userId = "TR";
+
+                var baseUri = NavigationManager.BaseUri;
+                var iconsByte = await Http.GetByteArrayAsync($"{baseUri}assets/icons/menu-icon.svg");
+
+                if (iconsByte is not null)
+                {
+                    if (BlazorMenuUtility.GetMenuSVGIds().Length == 0)
+                    {
+                        await _preloadService.Show();
+                        BlazorMenuUtility.SetMenuIconSVGIds(await BlazorMenuUtility.GetSvgSymbolIdsFromFile(iconsByte, JSRuntime));
+                        await _preloadService.Hide();
+                    }
+                }
 
                 _logoUrl = "assets/img/logo-bimasakti.png";
                 _logoStyle = $"width: 125px; height: 35px; background-image: url({_logoUrl}); background-size: cover; background-position: left center; background-repeat: no-repeat;";
 
-                if (_menuOverlay != null)
-                    _menuOverlay.AssignOnClick(OnClickProgram);
             }
             catch (Exception ex)
             {
@@ -115,6 +104,8 @@ namespace BlazorMenu.Shared
             finally
             {
                 await _preloadService.Hide();
+                if (_favData != null)
+                    await OnClickShowMenuOverlay(_favData, new string[] { _favData.Text });
             }
         }
 
@@ -134,9 +125,6 @@ namespace BlazorMenu.Shared
                 await JSRuntime.InvokeVoidAsync(JsConstants.AttachFocusHandler, DotNetReference, _autoCompleteId);
 
                 await JSRuntime.InvokeVoidAsync(JsConstants.ToggleFooter, _footerId);
-
-                if (_menuOverlay != null)
-                    _menuOverlay.AssignOnClick(OnClickProgram);
 
                 // OpenComponent();
             }
@@ -223,6 +211,92 @@ namespace BlazorMenu.Shared
             }
         }
 
+        private async Task GetMenuListAsync()
+        {
+            _menuList = await _menuService.GetMenuAsync();
+
+            var menuGroups = _menuList
+                .Where(x => x.CMENU_ID != "FAV")
+                .ToLookup(x => x.CMENU_ID);
+
+            var subMenusByParent = _menuList
+                .Where(x => x.CSUB_MENU_TYPE == "P")
+                .ToLookup(x => x.CMENU_ID + "-" + x.CPARENT_SUB_MENU_ID);
+
+            _favData = menuGroups[AppConstants.FavoriteMenuId]
+                .Take(1)
+                .Select(menu => new DrawerMenuItem
+                {
+                    Id = menu.CMENU_ID,
+                    Text = menu.CMENU_NAME,
+                    Level = 0,
+                    MenuId = menu.CMENU_ID,
+                    Children = menuGroups[AppConstants.FavoriteMenuId]
+                        .Where(p => p.CSUB_MENU_TYPE == "P")
+                        .Select(p => new DrawerMenuItem
+                        {
+                            Id = p.CSUB_MENU_ID,
+                            Text = p.CSUB_MENU_NAME,
+                            Level = 1,
+                            Seq = p.ICOLUMN_INDEX ?? 0,
+                            Title = p.CSUB_MENU_TOOL_TIP ?? string.Empty,
+                            Children = new(),
+                            Favorite = true,
+                            MenuId = menu.CMENU_ID,
+                        })
+                        .OrderBy(p => p.Seq)
+                        .ToList()
+                }).FirstOrDefault();
+
+            _data = menuGroups
+                .Select(group => new DrawerMenuItem
+                {
+                    Id = group.Key,
+                    Text = group.First().CMENU_NAME ?? string.Empty,
+                    Level = 0,
+                    ProgramButton = group.First().CPROGRAM_BUTTON ?? string.Empty,
+                    Children = group
+                        .Where(x => x.CSUB_MENU_TYPE == "G")
+                        .Select(g => new DrawerMenuItem
+                        {
+                            Id = g.CSUB_MENU_ID,
+                            Text = g.CSUB_MENU_NAME ?? string.Empty,
+                            Level = 1,
+                            ProgramButton = g.CPROGRAM_BUTTON ?? string.Empty,
+                            Children = subMenusByParent[g.CMENU_ID + "-" + g.CSUB_MENU_ID]
+                                .Select(p => new DrawerMenuItem
+                                {
+                                    Id = p.CSUB_MENU_ID,
+                                    Text = p.CSUB_MENU_NAME ?? string.Empty,
+                                    Level = 2,
+                                    Seq = p.ICOLUMN_INDEX ?? 0,
+                                    ProgramButton = p.CPROGRAM_BUTTON ?? string.Empty,
+                                    Title = p.CSUB_MENU_TOOL_TIP ?? string.Empty,
+                                    Favorite = p.LFAVORITE ?? false,
+                                    MenuId = group.Key,
+                                    Children = new()
+                                })
+                                .ToList()
+                        })
+                        .ToList()
+                })
+                .ToList();
+
+            _searchBoxData = new ObservableCollection<SearchBoxItem>(
+                _menuList
+                    .Where(x => x.CSUB_MENU_TYPE == "P")
+                    .GroupBy(x => x.CSUB_MENU_ID)
+                    .OrderBy(x => x.Key)
+                    .Select(x => new SearchBoxItem
+                    {
+                        Id = x.Key,
+                        Text = $"{x.Key} - {x.First().CSUB_MENU_NAME}"
+                    })
+            );
+
+            await InvokeAsync(StateHasChanged);
+        }
+
         private void SearchTextValueChanged(string value)
         {
             _searchText = value;
@@ -279,36 +353,31 @@ namespace BlazorMenu.Shared
         }
 
         #region ProfilePage
-
-        private MenuModal modalProfilePage;
-        private string _modalProfileId = IdGeneratorHelper.Generate("modalprofile");
-
         private async Task ShowProfilePage()
         {
-            var parameters = new Dictionary<string, object>();
-            parameters.Add("CloseModalTask", async (bool isUpdated) => await OnCloseModalProfilePageTask(isUpdated));
+            var loPopupSettings = new R_PopupSettings()
+            {
+                PageTitle = @R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Profile", pcResourceName: "BlazorMenuResources"),
+            };
 
-            await modalProfilePage.ShowAsync<Profile>(parameters: parameters);
+            var loResult = await PopupService.Show(typeof(Profile), new object(), poPopupSettings: loPopupSettings);
+
+            if (loResult.Success)
+            {
+                ToastService.Success(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Profile_M001", pcResourceName: "BlazorMenuResources"));
+            }
         }
-
-        private async Task OnCloseModalProfilePageTask(bool isUpdated)
-        {
-            await modalProfilePage.HideAsync();
-
-            if (isUpdated)
-                _toastService.Success("Success update user info.");
-        }
-
         #endregion
 
         #region Info Page
-
-        private MenuModal modalInfoPage;
-        private string _modalInfo = IdGeneratorHelper.Generate("modalinfo");
-
         private async Task ShowInfoPage()
         {
-            await modalInfoPage.ShowAsync<Info>();
+            var loPopupSettings = new R_PopupSettings()
+            {
+                PageTitle = @R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_MoreInformation", pcResourceName: "BlazorMenuResources"),
+            };
+
+            var loResult = await PopupService.Show(typeof(Info), new object(), poPopupSettings: loPopupSettings);
         }
 
         #endregion
@@ -344,6 +413,91 @@ namespace BlazorMenu.Shared
         ////}
 
         //#endregion
+
+        #region MenuOverlay
+        private async Task SetFavoriteAsync(string pcProgramId)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                await MenuManager.SetFavoriteAsync(new FavoriteParameterDTO()
+                {
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CUSER_ID = _clientHelper.UserId,
+                    CPROGRAM_ID = pcProgramId
+                });
+
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            finally
+            {
+                if (!loEx.HasError)
+                {
+                    await GetMenuListAsync();
+                }
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        private async Task SetUnfavoriteAsync(string pcProgramId)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                await MenuManager.SetUnfavoriteAsync(new FavoriteParameterDTO()
+                {
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CUSER_ID = _clientHelper.UserId,
+                    CPROGRAM_ID = pcProgramId
+                });
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            finally
+            {
+                if (!loEx.HasError)
+                {
+                    await GetMenuListAsync();
+                }
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        private async Task SetUserProgramSequenceAsync(SetUserProgramSequenceParameterDTO poParameter)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                poParameter.CCOMPANY_ID = _clientHelper.CompanyId;
+                poParameter.CUSER_ID = _clientHelper.UserId;
+
+                await MenuManager.SetUserProgramSequenceAsync(poParameter);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            finally
+            {
+                if (!loEx.HasError)
+                {
+                    await GetMenuListAsync();
+                }
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+        #endregion
     }
 
     public class SearchBoxItem

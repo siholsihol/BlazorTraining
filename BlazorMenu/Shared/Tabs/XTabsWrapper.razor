@@ -28,7 +28,7 @@
             if (_menuTabSet is not null && _menuTabSet.NavigationManager is not null)
                 _menuTabSet.NavigationManager.LocationChanged += OnLocationChanged;
 
-            await JSRuntime.InvokeVoidAsync(JsConstants.EnableHorizontalScroll, "xtabs-header");
+            await JSRuntime.InvokeVoidAsync(JsConstants.EnableHorizontalScroll, ".xtabs-header");
         }
     }
 

@@ -1,4 +1,5 @@
 using BlazorMenu.Extensions;
+using BlazorMenu.Managers;
 using BlazorMenu.Services;
 using BlazorPrettyCode;
 using BlazorTraining.Controls.Preload;
@@ -29,6 +30,7 @@ builder.Services.AddSingleton<R_IFileDownloader, R_FileDownloader>();
 builder.Services.AddTransient<HttpInterceptorService>();
 builder.Services.AddSingleton<R_IEnvironment, BlazorMenuEnvironmentService>();
 builder.Services.AddScoped<R_PreloadMenuService>();
+builder.Services.AutoRegisterInterfaces<IManager>();
 
 Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", builder.HostEnvironment.Environment);
 

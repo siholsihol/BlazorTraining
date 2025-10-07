@@ -117,9 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AuthError_001" xml:space="preserve">
+  <data name="Auth_E001" xml:space="preserve">
     <value>Terjadi kesalahan saat mencoba masuk.</value>
-    <comment>An error occurred while trying to log you in.</comment>
   </data>
   <data name="Auth_E002" xml:space="preserve">
     <value>Token refresh tidak valid.</value>
@@ -225,6 +224,18 @@
     <value>Hak Cipta © 2025</value>
     <comment>Copyright © 2025</comment>
   </data>
+  <data name="Fav_E001" xml:space="preserve">
+    <value>Program {0} tidak dapat difavoritkan</value>
+  </data>
+  <data name="Fav_E002" xml:space="preserve">
+    <value>Program {0} tidak dapat dibatalkan dari favorit</value>
+  </data>
+  <data name="Fav_E003" xml:space="preserve">
+    <value>Program {0} berhasil dimasukan ke favorit</value>
+  </data>
+  <data name="Fav_E004" xml:space="preserve">
+    <value>Program {0} berhasil dihapus dari favorit</value>
+  </data>
   <data name="MenuTab_E001" xml:space="preserve">
     <value>{0} tidak ditemukan.</value>
     <comment>{0} not found.</comment>
@@ -281,6 +292,9 @@
     <value>Ganti Password</value>
     <comment>Change Password</comment>
   </data>
+  <data name="_ChangeSequence" xml:space="preserve">
+    <value>Ganti Urutan</value>
+  </data>
   <data name="_CompanyID" xml:space="preserve">
     <value>ID Perusahaan</value>
     <comment>Company ID</comment>
@@ -312,6 +326,9 @@
   <data name="_Email" xml:space="preserve">
     <value>Email</value>
     <comment>Email</comment>
+  </data>
+  <data name="_Favorite" xml:space="preserve">
+    <value>Favorit</value>
   </data>
   <data name="_FrontEndVersion" xml:space="preserve">
     <value>Versi FrontEnd</value>

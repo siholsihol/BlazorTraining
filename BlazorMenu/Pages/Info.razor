@@ -2,8 +2,9 @@
 @* @using BlazorMenu.Managers.Menu *@
 @using BlazorMenu.Resources
 @using R_BlazorFrontEnd.Configurations
+@inherits R_Page
 
-<div class="p-3">
+<div style="width:480px">
     <p class="d-flex flex-between-center mb-1">
         <b><i class="fa fa-check me-1 text-success"></i>@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Database", pcResourceName: "BlazorMenuResources") + ": ")</b> <span>@_info.DatabaseName</span>
     </p>
@@ -20,11 +21,11 @@
 
 @code {
     // [Inject] private IMenuManager MenuManager { get; set; } = default!;
+    [Inject] private R_ToastService ToastService { get; set; } = default!;
 
-    // private R_MenuModel _menuModel = new();
     private InfoDTO _info = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task R_Init_From_Master(object? poParameter)
     {
         var loEx = new R_Exception();
 
@@ -37,9 +38,9 @@
 
             _info = new();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            ToastService.Error(ex.Message);
         }
     }
 }

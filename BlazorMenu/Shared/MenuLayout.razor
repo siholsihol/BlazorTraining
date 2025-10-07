@@ -26,6 +26,21 @@
                 <div class="navbar-vertical-content">
                     <div class="navbar-content">
                         <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+                        @if (_favData != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link cur-pointer" role="button" onclick="@(async () => await OnClickShowMenuOverlay(_favData, new string[] { _favData.Text }))">
+                                    <div class="d-flex align-items-center">
+                                        <div class="nav-link-icon rounded-circle d-flex justify-content-center align-items-center">
+                                            <svg class="r-nav-custom-icon">
+                                                <use href="assets/icons/icons.svg#fav" />
+                                            </svg>
+                                        </div>
+                                        <span class="nav-link-text ps-1">@_favData.Text</span>
+                                    </div>
+                                </a>
+                            </li>
+                        }
                         @foreach (var item in _data)
                         {
                             var itemId = IdGeneratorHelper.Generate(item.Id, 3);
@@ -97,8 +112,8 @@
                     <div id="@_footerId">
                         <div class="fs--1 mt-2">
                             <p class="fs--1 mb-0 text-600">
-                                <span class="fw-bold">@_clientHelper.CompanyId</span> @* | @GetVersion() *@
-                                <a href="#more-info" data-bs-toggle="modal" data-bs-target="@($"#{_modalInfo}")" @onclick="ShowInfoPage">
+                                <span class="fw-bold">@_clientHelper.CompanyId</span>
+                                <a class="cur-pointer" @onclick="ShowInfoPage">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                             </p>
@@ -140,7 +155,7 @@
                     <li class="nav-item">
                         <!-- search box -->
                         <TelerikAutoComplete @ref="@TelerikAutoCompleteRef"
-                                             Data="@searchBoxData"
+                                             Data="@SearchBoxData"
                                              Value="@_searchText"
                                              ValueChanged="@SearchTextValueChanged"
                                              Placeholder="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Search", pcResourceName: "BlazorMenuResources") + "...")"
@@ -150,7 +165,6 @@
                                              Filterable
                                              FilterOperator="StringFilterOperator.Contains"
                                              Class="search-input r-form-control"
-                                             AdaptiveMode="AdaptiveMode.Auto"
                                              Id="@_autoCompleteId">
                             <AutoCompleteSettings>
                                 <AutoCompletePopupSettings Height="auto" MaxHeight="200px" />
@@ -318,18 +332,29 @@
                     <!-- user menu -->
                     <li class="nav-item dropdown" title="User Profile">
                         <a class="nav-link px-0" style="line-height:0px;" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar avatar-xl">
-                                <div class="avatar-name rounded-circle">
-                                    <span>@_userId</span>
+                            @if (_userIcon != null)
+                            {
+                                <div class="avatar avatar-xl">
+                                    <div class="h-100 w-100 rounded-circle overflow-hidden">
+                                        <img class="rounded-circle" src="@_userIcon" alt="" data-dz-thumbnail="data-dz-thumbnail" />
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="avatar avatar-xl">
+                                    <div class="avatar-name rounded-circle">
+                                        <span>@_userId</span>
+                                    </div>
+                                </div>
+                            }
                         </a>
-                        
+
                         <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end py-0" aria-labelledby="navbarDropdownUser">
-                            <div class="bg-white dark__bg-1000 rounded-2 py-2">
-                                <a class="dropdown-item" href="#authentication-modal" data-bs-toggle="modal" data-bs-target="@($"#{_modalProfileId}")" @onclick="@ShowProfilePage">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ProfileAccount", pcResourceName: "BlazorMenuResources"))</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item cur-pointer" @onclick="@Logout">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Logout", pcResourceName: "BlazorMenuResources"))</a>
+                            <div class="bg-white dark__bg-1000 rounded-2 py-0">
+                                <a class="dropdown-item cur-pointer py-2" @onclick="@ShowProfilePage">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_ProfileAccount", pcResourceName: "BlazorMenuResources"))</a>
+                                <div class="dropdown-divider m-0"></div>
+                                <a class="dropdown-item cur-pointer py-2" @onclick="@Logout">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Logout", pcResourceName: "BlazorMenuResources"))</a>
                             </div>
                         </div>
                     </li>
@@ -380,21 +405,17 @@
                         </R_ErrorHandler>
                     </div>
                 </div>
-                <MenuOverlay @ref="@_menuOverlay"/>
+                <R_ErrorBoundary>
+                    <MenuOverlay @ref="@_menuOverlay"
+                                 OnClickProgram="OnClickProgram"
+                                 OnFavorite="SetFavoriteAsync"
+                                 OnUnfavorite="SetUnfavoriteAsync"
+                                 OnUpdateSequence="SetUserProgramSequenceAsync" />
+                </R_ErrorBoundary>
             </div>
 
             <!--FOOTER-->
             
         </div>
-
-        <MenuModal @ref="@modalInfoPage"
-                   BodyCssClass="p-0"
-                   Title="@R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_MoreInformation", pcResourceName: "BlazorMenuResources")"
-                   id="@_modalInfo" />
-
-        <MenuModal @ref="@modalProfilePage"
-                   BodyCssClass="p-3"
-                   Title="@R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Profile", pcResourceName: "BlazorMenuResources")"
-                   Id="@_modalProfileId" />
     </div>
 </main>

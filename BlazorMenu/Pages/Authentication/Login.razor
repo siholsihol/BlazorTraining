@@ -1,14 +1,16 @@
 ﻿@page "/login"
+@using BlazorMenu.Resources
+@using R_BlazorFrontEnd.Controls.DataControls
 @layout MainLayout
 @attribute [AllowAnonymous]
 
 <R_MessageBoxContainer />
 
-<main class="main" id="top">
+<main class="main" id="top" style="position:relative;">
     <div class="container-fluid">
         <div class="row min-vh-100 bg-100">
             <div class="col-6 d-lg-block position-relative">
-                <div class="bg-holder" style="background-image:url(assets/img/bg-illustration.png); background-size:contain; background-position:left;"></div>
+                <div id="login-bg" class="bg-holder" style=@_loginBgStyle></div>
             </div>
             <div class="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-5">
                 <div class="row justify-content-center g-0">
@@ -16,7 +18,7 @@
 
                         <!-- BEGIN::Company Logo -->
                         <span class="d-flex flex-center text-primary mb-3">
-                            <img class="me-2 w-50" style="max-height:80px;max-width:280px;" src="assets/img/logo-bimasakti.png" alt="" />
+                            <img @key="@_loginLogoUrl" class="me-2 w-50" style="max-height:80px;max-width:280px;" src="@_loginLogoUrl" alt="" />
                         </span>
                         <!-- END::Company Logo -->
 
@@ -24,96 +26,90 @@
 
                             <!-- BEGIN::Company Name -->
                             <div class="card-header bg-circle-shape bg-shape text-center p-2 pt-3">
-                                <label class="font-sans-serif fw-bolder fs-4 z-index-1 position-relative link-light light">LOGIN</label>
+                                <label class="font-sans-serif fw-bolder fs-4 z-index-1 position-relative link-light light">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Login", pcResourceName: "BlazorMenuResources").ToUpper())</label>
                             </div>
                             <!-- END::Company Name -->
 
                             <div class="card-body p-4">
-
-                                <!-- BEGIN::Alert! -->
-                                @*<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Invalid Credential!</strong> Please check again.
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>*@
-                                <!-- END::Alert! -->
-
-                                <!--div class="row flex-between-center">
-                                    <div class="col-auto">
-                                        <h3>Login</h3>
-                                    </div>
-                                </div-->
-                                <div class="mb-3">
-                                    <label class="form-label" for="split-login-companyid">Company Id</label>
-                                    <input class="form-control text-uppercase" id="split-login-companyid" type="text" @bind="_loginRequest.CompanyId" @bind:event="oninput" />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="split-login-username">Username</label>
-                                    <input class="form-control text-uppercase" id="split-login-username" type="text" @bind="_loginRequest.UserId" @bind:event="oninput" />
-                                </div>
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between">
-                                        <label class="form-label" for="split-login-password">Password</label>
-                                    </div>
-                                    <input class="form-control" id="split-login-password" type="password" @bind="_loginRequest.Password" @bind:event="oninput" />
-                                </div>
-                                @{
-                                    <div class="d-flex mb-3 gap-3">
-                                        <div class="d-flex col">
-                                            <input class="form-control col" id="split-login-captcha" type="text" @bind="validateCaptcha" @bind:event="oninput" />
-                                        </div>
-
+                                <form @onsubmit="@ValidateUser" @onsubmit:preventDefault autocomplete="on">
+                                    <!-- BEGIN::Alert! -->
+                                    @*<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Invalid Credential!</strong> Please check again.
+                                        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>*@
+                                    <!-- END::Alert! -->
+                                    <!--div class="row flex-between-center">
                                         <div class="col-auto">
-                                            <R_Captcha @bind-CaptchaWord="@_captcha"
-                                                       CharNumber="_captchaLength" />
+                                            <h3>Login</h3>
                                         </div>
+                                    </div-->
+                                    <div class="mb-3">
+                                        <label class="form-label" for="split-login-companyid">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_CompanyID", pcResourceName: "BlazorMenuResources"))</label>
+                                        <R_TextBox @bind-Value="@_loginRequest.CompanyId"
+                                                   Id="split-login-companyid"
+                                                   AutoComplete="organization"
+                                                   Class="r-form-control" />
                                     </div>
-                                }
-                                
-                                <!-- BEGIN::Remember Me -->
-                                @*<div class="row flex-between-center">
-                                    <div class="col-auto">
-                                        <div class="form-check form-switch"><input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" checked="" /><label class="form-check-label mb-0" for="flexSwitchCheckChecked">Remember me</label></div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="split-login-username">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_UserID", pcResourceName: "BlazorMenuResources"))</label>
+                                        <R_TextBox @bind-Value="@_loginRequest.UserId"
+                                                   Id="split-login-username"
+                                                   AutoComplete="username"
+                                                   Class="r-form-control" />
                                     </div>
-                                </div>*@
-                                <!-- END::Remember Me -->
+                                    <div class="mb-3">
+                                        <label class="form-label" for="split-login-password">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Password", pcResourceName: "BlazorMenuResources"))</label>
+                                        <R_TextBox @bind-Value="@_loginRequest.Password"
+                                                   Id="split-login-password"
+                                                   Password
+                                                   AutoComplete="password"
+                                                   Class="r-form-control" />
+                                    </div>
+                                    @{
 
-                                <div class="mb-3">
-                                    <input class="btn btn-primary d-block w-100 mt-3" type="submit" value="Login" @onclick="@ValidateUser" id="login-btn" />
-                                </div>
+                                        <div class="d-flex mb-3 gap-3">
+                                            <div class="d-flex col">
+                                                <input class="form-control col" autocomplete="off" id="split-login-captcha" type="text" @bind="validateCaptcha" @bind:event="oninput" />
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <R_Captcha @bind-CaptchaWord="@_captcha"
+                                                            CharNumber="_captchaLength" />
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <!-- BEGIN::Remember Me -->
+                                    @*<div class="row flex-between-center">
+                                        <div class="col-auto">
+                                            <div class="form-check form-switch"><input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" checked="" /><label class="form-check-label mb-0" for="flexSwitchCheckChecked">Remember me</label></div>
+                                        </div>
+                                    </div>*@
+                                    <!-- END::Remember Me -->
+
+                                    <div class="mb-3">
+                                        <input class="btn btn-primary d-block w-100 mt-3" type="submit" value="Login" id="login-btn" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <p class="mb-0 mt-3 text-600 text-center">2025 &copy; <a href="http://www.realta.co.id" target="_blank">PT. Realta Chakradarma</a>. All rights reserved.</p>
+                <p class="mb-0 mt-3 text-600 text-center">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "CONST_CopyrightYear", pcResourceName: "BlazorMenuResources")) <a href="http://www.realta.co.id" target="_blank">@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "CONST_CompanyName", pcResourceName: "BlazorMenuResources"))</a>. @(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_AllRightsReserved", pcResourceName: "BlazorMenuResources"))</p>
 
             </div>
         </div>
     </div>
-
-    <script suppress-error="BL9992">
-        var inputCompanyId = document.getElementById("split-login-companyid");
-        inputCompanyId.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                document.getElementById("login-btn").click();
-            }
-        });
-
-        var inputUserName = document.getElementById("split-login-username");
-        inputUserName.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                document.getElementById("login-btn").click();
-            }
-        });
-
-        var inputPassword = document.getElementById("split-login-password");
-        inputPassword.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                document.getElementById("login-btn").click();
-            }
-        });
-    </script>
+    <div class="p-3" style="position:absolute; width:fit-content; height: fit-content; top: 0; right: 0;">
+        <div class="theme-control-toggle fa-icon-wait">
+            <input class="form-check-input ms-0 theme-control-toggle-input" id="themeControlToggle" type="checkbox" data-theme-control="theme" value="dark" />
+            <label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Switch to light theme">
+                <span class="fas fa-sun fs-0"></span>
+            </label>
+            <label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Switch to dark theme">
+                <span class="fas fa-moon fs-0"></span>
+            </label>
+        </div>
+    </div>
 </main>
