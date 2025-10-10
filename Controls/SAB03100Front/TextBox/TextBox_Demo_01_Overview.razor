@@ -12,7 +12,10 @@
            OnChanged="OnChanged" 
            Enabled="@_checkboxValue" />
 
-<R_CheckBox @bind-Value="@_checkboxValue">Enable/Disable TextBox</R_CheckBox>
+<R_StackLayout Row>
+    <R_CheckBox @bind-Value="@_checkboxValue"></R_CheckBox>
+    <R_Label>Enable/Disable TextBox</R_Label>
+</R_StackLayout>
 
 <div>ValueChanged = @_stringValueValueChanged</div>
 <div>OnLostFocused = @_stringValueOnLostFocused</div>

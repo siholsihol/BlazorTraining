@@ -171,7 +171,8 @@ namespace SAB00600Front
         }
         private void R_Before_Open_Grid_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
         {
-            eventArgs.TargetPageType = typeof(ProductPage);
+            //eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.PageNamespace = "SAB00900Front.ProductPage";
         }
         private void R_After_Open_Grid_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
         {
