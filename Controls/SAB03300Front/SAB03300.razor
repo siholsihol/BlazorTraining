@@ -20,12 +20,15 @@
                 DragDrop
                 DragClueField="@nameof(ProductDTO.Name)"
 
-                R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
-                R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
-               
+                R_GridRowDropping="@R_GridRowDropping"
+                R_GridRowDropped="@R_GridRowDropped"
+
                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
                 R_AfterSaveBatch="@R_AfterSaveBatch">
+
+                @* R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
+                R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))" *@
             <R_GridColumns>
                 <R_GridMultiHeaderColumn HeaderText="Test">
                     <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"

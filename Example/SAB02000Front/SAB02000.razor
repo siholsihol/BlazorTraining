@@ -1,0 +1,255 @@
+@page "/SAB02000"
+@using R_BlazorFrontEnd.Controls.Controls
+@inherits R_Page
+@attribute [R_Page(Title = "R_GroupBox")]
+
+<R_GroupBox Enabled Title="Enabled in Enabled">
+            <R_StackLayout>
+
+                <!-- R_AutoComplete -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_AutoComplete @bind-Value="@_stringListValue" Data="@_stringList" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_AutoComplete @bind-Value="@_stringListValue" Data="@_stringList" Enabled ThemeConstant="R_eThemeConstant.Success"/>
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_AutoComplete @bind-Value="@_stringListValue" Data="@_stringList" Enabled FloatingLabel Label="AutoComplete" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_AutoComplete @bind-Value="@_stringListValue" Data="@_stringList" Enabled FloatingLabel Label="AutoComplete" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_ComboBox -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_ComboBox @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ComboBox @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ComboBox @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="ComboBox" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ComboBox @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="ComboBox" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_ComboBoxMultiSelect -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_ComboBoxMultiSelect @bind-Value="@_comboBoxMultiSelectValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ComboBoxMultiSelect @bind-Value="@_comboBoxMultiSelectValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ComboBoxMultiSelect @bind-Value="@_comboBoxMultiSelectValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="ComboBoxMultiSelect" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ComboBoxMultiSelect @bind-Value="@_comboBoxMultiSelectValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="ComboBoxMultiSelect" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_DropDownList -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_DropDownList @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DropDownList @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DropDownList @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="DropDownList" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DropDownList @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="DropDownList" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_CheckBox -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_CheckBox @bind-Value="@_checkboxValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_CheckBox @bind-Value="@_checkboxValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_CheckBox @bind-Value="@_checkboxValue" Enabled FloatingLabel Label="CheckBox" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_CheckBox @bind-Value="@_checkboxValue" Enabled FloatingLabel Label="CheckBox" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_RadioGroup -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_RadioGroup @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_RadioGroup @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_RadioGroup @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="RadioGroup" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_RadioGroup @bind-Value="@_itemListValue" Data="@_itemList" TextField="@nameof(ItemDTO.Name)" ValueField="@nameof(ItemDTO.Code)" Enabled FloatingLabel Label="RadioGroup" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_ListBox -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_ListBox @bind-Value="@_listBoxValue" Data="@_itemObservableList" TextField="@nameof(ItemDTO.Name)" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ListBox @bind-Value="@_listBoxValue" Data="@_itemObservableList" TextField="@nameof(ItemDTO.Name)" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ListBox @bind-Value="@_listBoxValue" Data="@_itemObservableList" TextField="@nameof(ItemDTO.Name)" Enabled FloatingLabel Label="ListBox" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_ListBox @bind-Value="@_listBoxValue" Data="@_itemObservableList" TextField="@nameof(ItemDTO.Name)" Enabled FloatingLabel Label="ListBox" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_RTFViewer -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_RTFViewer @bind-Value="@_rtfValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_RTFViewer @bind-Value="@_rtfValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_RTFViewer @bind-Value="@_rtfValue" Enabled FloatingLabel Label="RTFViewer" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_RTFViewer @bind-Value="@_rtfValue" Enabled FloatingLabel Label="RTFViewer" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_TextArea -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_TextArea @bind-Value="@_stringListValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TextArea @bind-Value="@_stringListValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TextArea @bind-Value="@_stringListValue" Enabled FloatingLabel Label="TextArea" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TextArea @bind-Value="@_stringListValue" Enabled FloatingLabel Label="TextArea" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_TextBox -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_TextBox @bind-Value="@_stringListValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TextBox @bind-Value="@_stringListValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TextBox @bind-Value="@_stringListValue" Enabled FloatingLabel Label="TextBox" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TextBox @bind-Value="@_stringListValue" Enabled FloatingLabel Label="TextBox" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_NumericTextBox -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_NumericTextBox @bind-Value="@_numericValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_NumericTextBox @bind-Value="@_numericValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_NumericTextBox @bind-Value="@_numericValue" Enabled FloatingLabel Label="NumericTextBox" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_NumericTextBox @bind-Value="@_numericValue" Enabled FloatingLabel Label="NumericTextBox" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_DateInput -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_DateInput @bind-Value="@_dateValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DateInput @bind-Value="@_dateValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DateInput @bind-Value="@_dateValue" Enabled FloatingLabel Label="DateInput" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DateInput @bind-Value="@_dateValue" Enabled FloatingLabel Label="DateInput" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_DatePicker -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_DatePicker @bind-Value="@_dateValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DatePicker @bind-Value="@_dateValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DatePicker @bind-Value="@_dateValue" Enabled FloatingLabel Label="DatePicker" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DatePicker @bind-Value="@_dateValue" Enabled FloatingLabel Label="DatePicker" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_DateTimePicker -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_DateTimePicker @bind-Value="@_dateValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DateTimePicker @bind-Value="@_dateValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DateTimePicker @bind-Value="@_dateValue" Enabled FloatingLabel Label="DateTimePicker" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_DateTimePicker @bind-Value="@_dateValue" Enabled FloatingLabel Label="DateTimePicker" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+                <!-- R_TimePicker -->
+                <R_StackLayout Row Spacing="0">
+                    <R_ItemLayout col="3">
+                        <R_TimePicker @bind-Value="@_dateValue" Enabled />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TimePicker @bind-Value="@_dateValue" Enabled ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TimePicker @bind-Value="@_dateValue" Enabled FloatingLabel Label="TimePicker" />
+                    </R_ItemLayout>
+                    <R_ItemLayout col="3">
+                        <R_TimePicker @bind-Value="@_dateValue" Enabled FloatingLabel Label="TimePicker" ThemeConstant="R_eThemeConstant.Success" />
+                    </R_ItemLayout>
+                </R_StackLayout>
+
+            </R_StackLayout>
+        </R_GroupBox>
+
+<R_PredefinedDock Title="Disabled in Enabled" R_InstantiateDock="R_InstantiateDock1" />
+<R_PredefinedDock Title="Enabled in Disabled" R_InstantiateDock="R_InstantiateDock2" />
+<R_PredefinedDock Title="Disabled in Disabled" R_InstantiateDock="R_InstantiateDock3" />
+

@@ -320,6 +320,17 @@ namespace SAB00600Front
         {
             //TODO Validation
             //eventArgs.Allow = false;
+
+            var item = (CustomerDTO)eventArgs.Data;
+            var index = _gridRef.DataSource.IndexOf(item);
+            if (index % 2 == 0)
+            {
+                eventArgs.Allow = true;
+            }
+            else
+            {
+                eventArgs.Allow = false;
+            }
         }
         private void R_CheckDelete(R_CheckDeleteEventArgs eventArgs)
         {

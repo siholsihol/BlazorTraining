@@ -11,6 +11,39 @@
 
         </R_DropDownList>
     </R_ItemLayout>
+
+    <R_ItemLayout col="4">
+        <R_DropDownList @ref="@_ddlRef"
+                        Data="@_dropDownList"
+                        TextField="@nameof(CategoryDTO.Name)"
+                        ValueField="@nameof(CategoryDTO.Id)"
+                        Enabled="false"
+                        @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
+        </R_DropDownList>
+    </R_ItemLayout>
+</R_GroupBox>
+
+
+<R_GroupBox Title="R_DropDownList" Enabled="false">
+    <R_ItemLayout col="4">
+        <R_DropDownList @ref="@_ddlRef"
+                        Data="@_dropDownList"
+                        TextField="@nameof(CategoryDTO.Name)"
+                        ValueField="@nameof(CategoryDTO.Id)"
+                        @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
+
+        </R_DropDownList>
+    </R_ItemLayout>
+
+    <R_ItemLayout col="4">
+        <R_DropDownList @ref="@_ddlRef"
+                        Data="@_dropDownList"
+                        TextField="@nameof(CategoryDTO.Name)"
+                        ValueField="@nameof(CategoryDTO.Id)"
+                        Enabled="false"
+                        @bind-Value="@_selectedCategory" PopupMaxHeight="50px">
+        </R_DropDownList>
+    </R_ItemLayout>
 </R_GroupBox>
 
 @code {
