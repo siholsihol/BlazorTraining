@@ -135,13 +135,13 @@ namespace SAB00600Front
         #region Edit
         private void Grid_BeforeEditCell(R_BeforeEditCellEventArgs eventArgs)
         {
-            var loData = eventArgs.Data as CustomerDTO;
+            //var loData = eventArgs.Data as CustomerDTO;
 
-            // Kalau GenderId = "M" maka tidak boleh di edit ContactName
-            if (loData.GenderId == "M" && eventArgs.ColumnName == nameof(CustomerDTO.ContactName))
-            {
-                eventArgs.Cancel = true;
-            }
+            //// Kalau GenderId = "M" maka tidak boleh di edit ContactName
+            //if (loData.GenderId == "M" && eventArgs.ColumnName == nameof(CustomerDTO.ContactName))
+            //{
+            //    eventArgs.Cancel = true;
+            //}
         }
         #endregion
 
@@ -251,6 +251,28 @@ namespace SAB00600Front
         private void R_CheckBoxSelectValueChanged(R_CheckBoxSelectValueChangedEventArgs eventArgs)
         {
             eventArgs.Enabled = true;
+        }
+
+        private void R_CheckBoxSelectRender(R_CheckBoxSelectRenderEventArgs eventArgs)
+        {
+
+        }
+
+        private void R_Before_Open_Grid_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
+        {
+            //eventArgs.TargetPageType = typeof(ProductPage);
+            eventArgs.PageNamespace = "SAB00900Front.ProductPage";
+        }
+        private void R_After_Open_Grid_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnName == nameof(CustomerDTO.ProductId))
+            {
+                var loData = (CustomerDTO)eventArgs.ColumnData;
+                var loResult = (ProductDTO)eventArgs.Result;
+
+                loData.ProductId = loResult.Id;
+                loData.ProductName = loResult.Name;
+            }
         }
     }
 }
