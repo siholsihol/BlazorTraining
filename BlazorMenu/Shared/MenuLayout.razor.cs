@@ -1,7 +1,6 @@
 ﻿using BlazorClientHelper;
 using BlazorMenu.Authentication;
 using BlazorMenu.Constants;
-using BlazorMenu.Helper;
 using BlazorMenu.Managers.Menu;
 using BlazorMenu.Pages;
 using BlazorMenu.Resources;
@@ -21,6 +20,7 @@ using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Controls.Popup;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
+using R_BlazorFrontEnd.Interfaces;
 using System.Collections.ObjectModel;
 using Telerik.Blazor.Components;
 
@@ -40,6 +40,7 @@ namespace BlazorMenu.Shared
         [Inject] private R_PopupService PopupService { get; set; } = default!;
         [Inject] private HttpClient Http { get; set; } = default!;
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] private R_IAssetRepository AssetRepository { get; set; } = default!;
 
         private List<MenuListDTO> _menuList = new();
         private List<DrawerMenuItem> _data = new();
@@ -55,8 +56,6 @@ namespace BlazorMenu.Shared
 
         private MenuTabSet _menuTabSetRef;
         private MenuOverlay _menuOverlay;
-        private string _logoUrl = string.Empty;
-        private string _logoStyle = string.Empty;
 
         private ObservableCollection<SearchBoxItem> _searchBoxData = new ObservableCollection<SearchBoxItem>();
         private ObservableCollection<SearchBoxItem> SearchBoxData
@@ -79,23 +78,6 @@ namespace BlazorMenu.Shared
                 await GetMenuListAsync();
 
                 _userId = "TR";
-
-                var baseUri = NavigationManager.BaseUri;
-                var iconsByte = await Http.GetByteArrayAsync($"{baseUri}assets/icons/menu-icon.svg");
-
-                if (iconsByte is not null)
-                {
-                    if (BlazorMenuUtility.GetMenuSVGIds().Length == 0)
-                    {
-                        await _preloadService.Show();
-                        BlazorMenuUtility.SetMenuIconSVGIds(await BlazorMenuUtility.GetSvgSymbolIdsFromFile(iconsByte, JSRuntime));
-                        await _preloadService.Hide();
-                    }
-                }
-
-                _logoUrl = "assets/img/logo-bimasakti.png";
-                _logoStyle = $"width: 125px; height: 35px; background-image: url({_logoUrl}); background-size: cover; background-position: left center; background-repeat: no-repeat;";
-
             }
             catch (Exception ex)
             {

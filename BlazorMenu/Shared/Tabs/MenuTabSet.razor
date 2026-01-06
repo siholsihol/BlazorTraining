@@ -1,4 +1,5 @@
 ﻿@using BlazorMenu.Extensions
+@using BlazorMenu.Constants
 @inherits ComponentBase
 @implements R_IMenuTabSet
 
@@ -6,36 +7,12 @@
 {
     <style>
         .card {
-        box-shadow:none;
-        background:transparent;
+            box-shadow: none;
+            background: transparent;
+            height: 100%;
         }
     </style>
-    <div class="d-flex align-items-center justify-content-between mt-3 mx-5">
-        <div class="ms-3">
-            <h1 class="fw-bold lh-base">We Provide Better Solution<br />For Your Business</h1>
-            <p>We are team of talented programmer to make an easy way to manage your business</p>
-        </div>
-        <div class="me-5">
-            <img src="assets/img/bg-home.png" width="400" />
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="col">
-            <img src="assets/img/box.png" width="50">
-            <h3 class="mt-3">Simple Application</h3>
-            <p>Our application takes less time<br />than making cup of coffee.</p>
-        </div>
-        <div class="col">
-            <img src="assets/img/program.png" width="50">
-            <h3 class="mt-3">Program For Everyone</h3>
-            <p>We offer financing for nearly all<br />credit ranges and price points.</p>
-        </div>
-        <div class="col">
-            <img src="assets/img/bag.png" width="50">
-            <h3 class="mt-3">Flexible Payment</h3>
-            <p>Payment schedules that are build<br />to fit your needs</p>
-        </div>
-    </div>
+    <div id="home-bg" class="bg-holder" style=@AssetRepository.GetPreloadAsset(AppConstants.HomeBgStyleKey)></div>
 }
 else
 {
@@ -52,6 +29,7 @@ else
     [Inject] private IServiceProvider ServiceProvider { get; set; } = default!;
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
     [Inject] private R_PreloadService _preloadService { get; set; } = default!;
+    [Inject] private R_IAssetRepository AssetRepository { get; set; } = default!;
 
     public List<MenuTab> Tabs => _tabSetTool?.Tabs ?? new List<MenuTab>();
 

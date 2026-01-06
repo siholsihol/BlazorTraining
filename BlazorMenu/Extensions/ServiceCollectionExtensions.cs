@@ -17,6 +17,9 @@ namespace BlazorMenu.Extensions
         internal static IServiceCollection R_AddBlazorMenuServices(this IServiceCollection services)
         {
             services.AddAuthorizationCore();
+
+            services.AddSingleton<R_IAssetRepository, R_AssetRepository>();
+
             services.AddScoped<AuthenticationStateProvider, BlazorMenuAuthenticationStateProvider>();
 
             services.AddSingleton(typeof(R_ILocalizer<>), typeof(R_Localizer<>));

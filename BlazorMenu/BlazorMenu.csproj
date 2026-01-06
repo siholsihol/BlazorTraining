@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>disable</Nullable>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="BlazorPrettyCode" Version="1.6.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.36" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.36" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.36" PrivateAssets="all" />
-		<PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="1.0.8-alpha" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.21" PrivateAssets="all" />
+		<PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="2.0.0-alpha" />
+		<PackageReference Include="Telerik.UI.for.Blazor" Version="9.1.0" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -32,7 +33,7 @@
     <ProjectReference Include="..\Example\SAB01400Front\SAB01400Front.csproj" />
     <ProjectReference Include="..\Example\SAB01500Front\SAB01500Front.csproj" />
     <ProjectReference Include="..\Example\SAB01900Front\SAB01900Front.csproj" />
-    <ProjectReference Include="..\Example\SAB02400Front\SAB02400Front.csproj" />
+	  <ProjectReference Include="..\Example\SAB02400Front\SAB02400Front.csproj" />
     <ProjectReference Include="..\Other\SAB04000Front\SAB04000Front.csproj" />
   </ItemGroup>
 
@@ -54,9 +55,6 @@
     </Reference>
     <Reference Include="R_AuthenticationEnumAndInterface">
       <HintPath>..\Dll\Dll Front\R_AuthenticationEnumAndInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="R_AuthenticationFront">
-      <HintPath>..\Dll\Dll Front\R_AuthenticationFront.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.dll</HintPath>
@@ -100,17 +98,11 @@
     <Reference Include="R_CrossPlatformSecurity">
       <HintPath>..\Dll\Dll Front\R_CrossPlatformSecurity.dll</HintPath>
     </Reference>
-    <Reference Include="R_EmailEngineFront">
-      <HintPath>..\Dll\Dll Front\R_EmailEngineFront.dll</HintPath>
-    </Reference>
     <Reference Include="R_LockingFront">
       <HintPath>..\Dll\Dll Front\R_LockingFront.dll</HintPath>
     </Reference>
     <Reference Include="R_ProcessAndUploadFront">
       <HintPath>..\Dll\Dll Front\R_ProcessAndUploadFront.dll</HintPath>
-    </Reference>
-    <Reference Include="R_Security">
-      <HintPath>..\Dll\Dll Front\R_Security.dll</HintPath>
     </Reference>
     <Reference Include="R_SecurityPolicyCommon">
       <HintPath>..\Dll\Dll Menu\R_SecurityPolicyCommon.dll</HintPath>
@@ -123,8 +115,4 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\img\" />
   </ItemGroup>
-
-    <!--<ItemGroup>
-	    <BlazorWebAssemblyLazyLoad Include="SAB00700Front.dll" />
-    </ItemGroup>-->
 </Project>

@@ -8,13 +8,12 @@
     <title>Blazor Web Test</title>
     <base href="/" />
 
-    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
     <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
 
-    <link href="css/theme.min.css" rel="stylesheet" />
+    <link href="css/theme.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
 
     <!--<link href="css/all.css" rel="stylesheet" />-->
-    <link href="_content/Telerik.UI.for.Blazor/css/kendo-theme-bootstrap/all.css" rel="stylesheet" />
+    <link href="_content/Telerik.UI.for.Blazor/css/kendo-theme-bootstrap/all.css" rel="stylesheet" media="print" onload="this.media='all'" />
 
     <link href="BlazorMenu.styles.css" rel="stylesheet" />
 
@@ -28,6 +27,9 @@
 
     <script type="module" src="_content/R_BlazorFrontEnd.Controls/R_BlazorFrontEnd.Controls.js" defer></script>
     <script src="R_BlazorFrontEnd.Controls.js" defer></script>
+
+    <script type="module" src="_content/R_BlazorFrontEnd.Controls.Captcha/r_captcha.js" defer></script>
+    <script src="r_captcha.js"></script>
 
     <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -46,14 +48,13 @@
 
 <body>
     <div id="app">
-        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-            <div class="k-loader-container k-loader-container-md k-loader-end container-size">
-                <div class="k-loader-container-overlay k-overlay-light"></div>
-                <div class="k-loader-container-inner">
-                    <div class="k-loader k-loader-pulsing-2 k-loader-lg k-loader-info">
-                        <div class="k-loader-canvas">
-                            <span class="k-loader-segment"></span>
-                            <span class="k-loader-segment"></span>
+        <div class="k-dialog-wrapper" style="z-index: 10001;">
+            <div class="k-overlay" tabindex="-1"></div>
+            <div class="k-window telerik-blazor k-centered r-window r-invisible-window" dir="ltr" style="z-index: 10001" aria-modal="true" role="dialog" tabindex="0">
+                <div class="k-window-content">
+                    <div class="fade show" style="display:block;" tabindex="-1">
+                        <div class="spinner-border" role="status" style="color: white;">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 </div>
@@ -66,7 +67,15 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        const mainScript = document.createElement('script');
+        mainScript.src = `js/main.js?cb=${Date.now()}`;
+        document.head.appendChild(mainScript);
+
+        const blazorScript = document.createElement('script');
+        blazorScript.src = `_framework/blazor.webassembly.js?cb=${Date.now()}`;
+        document.head.appendChild(blazorScript);
+    </script>
 
     <script type="text/javascript">
         function encryptText(inputSrt, keyStr, ivStr) {
@@ -88,7 +97,7 @@
 
             var aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes);
 
-            var decryptedBytes = aesCbc.decrypt(encryptedBytes);
+            var decryptedBytes = aesjs.padding.pkcs7.strip(aesCbc.decrypt(encryptedBytes));
             return aesjs.utils.utf8.fromBytes(decryptedBytes);
         }
     </script>
@@ -97,7 +106,7 @@
     <script src="vendors/anchorjs/anchor.min.js"></script>
     <script src="vendors/bootstrap/bootstrap.min.js"></script>
     <script src="vendors/is/is.min.js"></script>
-    <script src="vendors/fontawesome/all.min.js"></script>
+    <script src="vendors/fontawesome/all.min.js" defer></script>
     <script src="vendors/lodash/lodash.min.js"></script>
     <!--<script src="vendors/list.js/list.min.js"></script>-->
     <script src="js/theme.js"></script>

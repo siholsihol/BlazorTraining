@@ -1,4 +1,5 @@
 ﻿@using BlazorMenu.Helper
+@using BlazorMenu.Constants
 @using BlazorMenu.Resources
 @using BlazorMenu.Shared.Overlay
 @using R_BlazorFrontEnd.Controls.Constants
@@ -17,7 +18,7 @@
                 </div>
                 <a class="navbar-brand" href="/">
                     <div class="d-flex align-items-center py-2">
-                        <div style=@_logoStyle></div>
+                        <div style=@AssetRepository.GetPreloadAsset(AppConstants.LogoStyleKey)></div>
                     </div>
                 </a>
             </div>
@@ -71,9 +72,7 @@
                                                 <a class="nav-link cur-pointer" onclick="@(async () => await OnClickShowMenuOverlay(item1, new string[] { item.Text ?? string.Empty, item1.Text }))">
                                                     <div class="d-flex align-items-center">
                                                         <span class="nav-link-icon">
-                                                            <svg class="r-nav-custom-icon">
-                                                                <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item1.Text }))" />
-                                                            </svg>
+                                                            <R_DynamicSVG SvgId="@item1.Text" Class="r-nav-custom-icon" />
                                                         </span>
                                                         <span class="nav-link-text ps-1">@item1.Text</span>
                                                     </div>
@@ -132,7 +131,7 @@
 
             <a class="navbar-brand me-1 me-sm-3" href="/">
                 <div class="d-flex align-items-center">
-                    <img class="me-2" src="@_logoUrl" alt="" width="40" />
+                    <img class="me-2" src=@AssetRepository.GetPreloadAsset(AppConstants.LogoUrlKey) alt="" width="40" />
                 </div>
             </a>
         </nav>
@@ -147,7 +146,7 @@
                 </button>
                 <a class="navbar-brand me-1 me-sm-3" href="/">
                     <div class="d-flex align-items-center">
-                        <img class="me-2" src="@_logoUrl" alt="" width="80" height="25" />
+                        <img class="me-2" src="@AssetRepository.GetPreloadAsset(AppConstants.LogoUrlKey)" alt="" width="80" height="25" />
                     </div>
                 </a>
 

@@ -39,9 +39,8 @@ namespace BlazorMenu.Shared.Overlay
         private DrawerMenuItem? _drawerMenuItem;
         private bool _showMenuOverlay;
         private string? _breadCrumbs;
-        private string _defaultIconId = AppConstants.MenuIconId;
+        private string _placeholderIconId = "default";
         private bool _isFavorite;
-        private bool _isRendered = true;
 
         private string _tilesRenderKey = IdGeneratorHelper.Generate("tiles");
         private readonly string _swapyId = "menu-swapy-container";
@@ -75,7 +74,7 @@ namespace BlazorMenu.Shared.Overlay
 
             _drawerMenuItem = menu;
             _isFavorite = _drawerMenuItem.Id == AppConstants.FavoriteMenuId;
-            _defaultIconId = $"{AppConstants.MenuIconId}-{_drawerMenuItem.Text.ToLowerInvariant()}";
+            _placeholderIconId = $"default-{_drawerMenuItem.Text.ToLowerInvariant()}";
 
             StateHasChanged();
             await Task.Delay(1);
@@ -206,8 +205,6 @@ namespace BlazorMenu.Shared.Overlay
                 StateHasChanged();
                 await Task.Delay(1);
             }
-
-            loEx.ThrowExceptionIfErrors();
         }
         #endregion
     }
