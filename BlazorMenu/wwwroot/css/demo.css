@@ -254,7 +254,7 @@ h1:focus-visible{
     position: relative;
     padding: 1rem;
     margin-top: 1rem;
-    border: solid #dee2e6;
+    border: solid var(--falcon-border-color);
     border-width: 1px;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
@@ -288,8 +288,8 @@ h1:focus-visible{
 .highlight {
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #f8f9fa;
-    border: solid #dee2e6;
+    background-color: var(--falcon-body-bg);
+    border: solid var(--falcon-border-color);
     border-width: 0 1px 1px 1px;
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
@@ -301,7 +301,7 @@ h1:focus-visible{
     }
 }
 
-.highlight pre {
+.highlight pre[class*=language-] {
     padding: 0;
     padding-bottom: 1rem !important;
     margin-top: .65rem;
@@ -311,16 +311,11 @@ h1:focus-visible{
     border: 0
 }
 
-    .highlight pre code {
+    .highlight pre[class*=language-] code {
         font-size: inherit;
-        color: #212529;
+        /*color: #212529;*/
         word-wrap: normal
     }
-
-.tab-pane.fade.active.show .highlight {
-    border: 1px solid #dee2e6;
-    border-top-width: 0;
-}
 
 .show-code-only {
     border-width: 1px;
@@ -368,3 +363,13 @@ h1:focus-visible{
         overflow-y: auto !important;
     }
 }
+
+div.demo div.tab-content {
+    padding: 0 !important;
+}
+
+    div.demo div.tab-content div.bb-example,
+    div.demo div.tab-content div.highlight {
+        margin: 0;
+        border-width: 0;
+    }

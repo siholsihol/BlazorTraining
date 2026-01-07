@@ -1,5 +1,4 @@
 ﻿@page "/SAB03100"
-@using SAB03100Front.RTFViewer
 @inherits R_Page
 @attribute [R_Page(Title = "R_NumericTextBox")]
 
@@ -81,7 +80,7 @@
 
     private void InstantiateTextBox(R_InstantiateDockEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(TextBox_Demo_01_Overview);
+        eventArgs.TargetPageType = typeof(TextBoxMain);
     }
 
     private void InstantiateTextEditor(R_InstantiateDockEventArgs eventArgs)

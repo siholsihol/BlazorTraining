@@ -43,7 +43,9 @@
     <script src="js/swapy.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vs.min.css" integrity="sha512-Jn4HzkCnzA7Bc+lbSQHAMeen0EhSTy71o9yJbXZtQx9VvozKVBV/2zfR3VyuDFIxGvHgbOMMNvb80l+jxFBC1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link id="prism-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-vs.min.css" integrity="sha512-Jn4HzkCnzA7Bc+lbSQHAMeen0EhSTy71o9yJbXZtQx9VvozKVBV/2zfR3VyuDFIxGvHgbOMMNvb80l+jxFBC1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Dark theme -->
+    <link id="prism-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-dracula.min.css" disabled  />
 </head>
 
 <body>
@@ -75,6 +77,20 @@
         const blazorScript = document.createElement('script');
         blazorScript.src = `_framework/blazor.webassembly.js?cb=${Date.now()}`;
         document.head.appendChild(blazorScript);
+
+        function applyPrismTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+
+            document.getElementById('prism-dark').disabled = !isDark;
+            document.getElementById('prism-light').disabled = isDark;
+        }
+
+        // Run on load
+        applyPrismTheme();
+
+        // Optional: observe class changes
+        new MutationObserver(applyPrismTheme)
+            .observe(document.documentElement, { attributes: true });
     </script>
 
     <script type="text/javascript">

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-using Telerik.Blazor.Components;
+using R_BlazorFrontEnd.Controls;
 
 namespace BlazorTraining.Controls
 {
@@ -39,118 +39,106 @@ namespace BlazorTraining.Controls
                 }
             }
         }
-
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             // no base call
-            builder.AddMarkupContent(0, "<!--googleoff: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
+            builder.AddMarkupContent(0, "<!--googleoff: index-->");
+            builder.OpenElement(1, "div");
+            builder.AddAttribute(2, "class", "demo");
 
             if (ShowCodeOnly)
             {
-                builder.OpenElement(300, "div");
-                builder.AddAttribute(301, "class", "highlight show-code-only");
-                builder.OpenElement(400, "pre");
-                builder.OpenElement(401, "code");
-                builder.AddAttribute(402, "class", LanguageCssClass);
+                builder.OpenElement(10, "div");
+                builder.AddAttribute(11, "class", "highlight show-code-only");
+                builder.OpenElement(12, "pre");
+                builder.OpenElement(13, "code");
+                builder.AddAttribute(14, "class", LanguageCssClass);
+
                 if (code != null)
                 {
-                    builder.AddContent(403, code.Trim());
+                    builder.AddContent(15, code.Trim());
                 }
-                builder.CloseElement(); // end: code
-                builder.CloseElement(); // end: pre
-                builder.CloseElement();
+
+                builder.CloseElement(); // code
+                builder.CloseElement(); // pre
+                builder.CloseElement(); // div
             }
             else if (!Tabs)
             {
-                builder.OpenElement(100, "div");
-                builder.AddAttribute(101, "class", "bb-example");
-                builder.OpenComponent(202, Type!);
-                builder.CloseComponent(); // end: div
+                builder.OpenElement(20, "div");
+                builder.AddAttribute(21, "class", "bb-example");
+                builder.OpenComponent(22, Type!);
+                builder.CloseComponent();
                 builder.CloseElement();
 
-                builder.OpenElement(300, "div");
-                builder.AddAttribute(301, "class", "highlight");
-                builder.OpenElement(400, "pre");
-                builder.OpenElement(401, "code");
-                builder.AddAttribute(402, "class", LanguageCssClass);
+                builder.OpenElement(30, "div");
+                builder.AddAttribute(31, "class", "highlight no-tabs");
+                builder.OpenElement(32, "pre");
+                builder.OpenElement(33, "code");
+                builder.AddAttribute(34, "class", LanguageCssClass);
+
                 if (code != null)
                 {
-                    builder.AddContent(403, code.Trim());
+                    builder.AddContent(35, code.Trim());
                 }
-                builder.CloseElement(); // end: code
-                builder.CloseElement(); // end: pre
-                builder.CloseElement();
+
+                builder.CloseElement(); // code
+                builder.CloseElement(); // pre
+                builder.CloseElement(); // div
             }
             else // Tabs = true
             {
-                builder.OpenComponent<TelerikTabStrip>(300);
-                builder.AddAttribute(301, "PersistTabContent", true);
-                builder.AddAttribute(302, "ChildContent", (RenderFragment)((childContentBuilder) =>
-                {
-                    childContentBuilder.OpenComponent<TabStripTab>(303);
-                    childContentBuilder.AddAttribute(304, "Title", "Example");
-                    //childContentBuilder.AddAttribute(304, "Title", (RenderFragment)((titleTemplateBuilder) =>
-                    //{
-                    //    titleTemplateBuilder.OpenComponent<Icon>(501);
-                    //    titleTemplateBuilder.AddAttribute(502, "Name", IconName.Display);
-                    //    titleTemplateBuilder.AddAttribute(503, "class", "me-2");
-                    //    titleTemplateBuilder.CloseComponent(); // end: Icon
-
-                    //    titleTemplateBuilder.OpenElement(504, "b");
-                    //    titleTemplateBuilder.AddContent(505, "Example");
-                    //    titleTemplateBuilder.CloseElement(); // end: b
-                    //}));
-
-                    childContentBuilder.AddAttribute(305, "Content", (RenderFragment)((tabContentBuilder) =>
+                builder.OpenComponent<R_TabStrip>(40);
+                builder.AddAttribute(41, "OnActiveTabIndexChanged",
+                    EventCallback.Factory.Create<R_TabStripTab>(this, async tab =>
                     {
-                        tabContentBuilder.OpenElement(306, "div");
-                        tabContentBuilder.AddAttribute(307, "class", "bb-example border-top-0 mt-0");
-
-                        tabContentBuilder.OpenComponent(308, Type!);
-                        tabContentBuilder.CloseComponent(); // end: div
-
-                        tabContentBuilder.CloseElement();
+                        // "View Source" tab
+                        if (tab.Title == "View Source")
+                        {
+                            await JS.InvokeVoidAsync("highlightCode");
+                        }
                     }));
-
-                    childContentBuilder.CloseComponent();
-
-                    childContentBuilder.OpenComponent<TabStripTab>(400);
-                    childContentBuilder.AddAttribute(304, "Title", "View Source");
-                    //childContentBuilder.AddAttribute(401, "TitleTemplate", (RenderFragment)((titleTemplateBuilder) =>
-                    //{
-                    //    titleTemplateBuilder.OpenComponent<Icon>(601);
-                    //    titleTemplateBuilder.AddAttribute(602, "Name", IconName.CodeSlash);
-                    //    titleTemplateBuilder.AddAttribute(603, "class", "me-2");
-                    //    titleTemplateBuilder.CloseComponent(); // end: Icon
-
-                    //    titleTemplateBuilder.OpenElement(604, "b");
-                    //    titleTemplateBuilder.AddContent(605, "View Source");
-                    //    titleTemplateBuilder.CloseElement(); // end: b
-                    //}));
-
-                    childContentBuilder.AddAttribute(402, "Content", (RenderFragment)((tabContentBuilder) =>
+                builder.AddAttribute(42, "ChildContent", (RenderFragment)((childBuilder) =>
+                {
+                    childBuilder.OpenComponent<R_TabStripTab>(50);
+                    childBuilder.AddAttribute(51, "Title", "Example");
+                    childBuilder.AddAttribute(52, "ChildContent", (RenderFragment)((tabBuilder) =>
                     {
-                        tabContentBuilder.OpenElement(403, "div");
-                        tabContentBuilder.AddAttribute(404, "class", "highlight");
-                        tabContentBuilder.OpenElement(405, "pre");
-                        tabContentBuilder.OpenElement(406, "code");
-                        tabContentBuilder.AddAttribute(407, "class", LanguageCssClass);
+                        tabBuilder.OpenElement(60, "div");
+                        tabBuilder.AddAttribute(61, "class", "bb-example");
+                        tabBuilder.OpenComponent(62, Type!);
+                        tabBuilder.CloseComponent();
+                        tabBuilder.CloseElement();
+                    }));
+                    childBuilder.CloseComponent();
+
+                    childBuilder.OpenComponent<R_TabStripTab>(70);
+                    childBuilder.AddAttribute(71, "Title", "View Source");
+                    childBuilder.AddAttribute(72, "ChildContent", (RenderFragment)((tabBuilder) =>
+                    {
+                        tabBuilder.OpenElement(80, "div");
+                        tabBuilder.AddAttribute(81, "class", "highlight show-code-only");
+                        tabBuilder.OpenElement(82, "pre");
+                        tabBuilder.OpenElement(83, "code");
+                        tabBuilder.AddAttribute(84, "class", LanguageCssClass);
+
                         if (code != null)
                         {
-                            tabContentBuilder.AddContent(408, code.Trim());
+                            tabBuilder.AddContent(85, code.Trim());
                         }
-                        tabContentBuilder.CloseElement(); // end: code
-                        tabContentBuilder.CloseElement(); // end: pre
-                        tabContentBuilder.CloseElement();
-                    }));
 
-                    childContentBuilder.CloseComponent();
+                        tabBuilder.CloseElement(); // code
+                        tabBuilder.CloseElement(); // pre
+                        tabBuilder.CloseElement(); // div
+                    }));
+                    childBuilder.CloseComponent();
                 }));
 
                 builder.CloseComponent();
             }
 
-            builder.AddMarkupContent(700, "<!--googleon: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
+            builder.CloseElement();
+            builder.AddMarkupContent(700, "<!--googleon: index-->");
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
