@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorPrettyCode" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.21" />
   </ItemGroup>
 
