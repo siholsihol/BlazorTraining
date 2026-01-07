@@ -1,4 +1,8 @@
-﻿/*** START: home ***/
+﻿/* ==========================================================================
+   1. Main
+   ========================================================================== */
+
+/*** START: home ***/
 :root {
     --bd-purple: #4c0bce;
     --bd-violet: #712cf9;
@@ -312,7 +316,8 @@ h1:focus-visible{
 }
 
     .highlight pre[class*=language-] code {
-        font-size: inherit;
+        font-size: 0.9rem;
+        line-height: 1.5;
         /*color: #212529;*/
         word-wrap: normal
     }
@@ -364,12 +369,41 @@ h1:focus-visible{
     }
 }
 
-div.demo div.tab-content {
-    padding: 0 !important;
+
+/* ==========================================================================
+   2. Tab
+   ========================================================================== */
+div.demo .k-tabstrip-items-wrapper {
+    border-color: var(--falcon-border-color);
 }
 
-    div.demo div.tab-content div.bb-example,
-    div.demo div.tab-content div.highlight {
-        margin: 0;
-        border-width: 0;
+    div.demo .k-tabstrip-items-wrapper .k-item {
+        color: var(--falcon-body-color);
     }
+
+        div.demo .k-tabstrip-items-wrapper .k-item:active,
+        div.demo .k-tabstrip-items-wrapper .k-item.k-active,
+        div.demo .k-tabstrip-items-wrapper .k-item.k-selected {
+            border-color: var(--falcon-border-color);
+            background-color: transparent;
+        }
+
+        div.demo .k-tabstrip-items-wrapper .k-item:hover,
+        div.demo .k-tabstrip-items-wrapper .k-item.k-hover {
+            border-color: var(--falcon-border-color);
+        }
+
+div.demo .k-tabstrip-content,
+div.demo .k-tabstrip > .k-content {
+    padding: 0;
+    border-color: var(--falcon-border-color);
+    color: var(--falcon-body-color);
+    background-color: transparent;
+}
+
+div.demo div.k-tabstrip-content div.bb-example,
+div.demo div.k-tabstrip-content div.highlight {
+    margin: 0;
+    border-width: 0;
+}
+

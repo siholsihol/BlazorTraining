@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-using R_BlazorFrontEnd.Controls;
+using Telerik.Blazor.Components;
 
 namespace BlazorTraining.Controls
 {
@@ -10,7 +10,7 @@ namespace BlazorTraining.Controls
         #region Members
 
         private string? code;
-
+        private int _selectedTabIndex;
         #endregion
 
         #region Methods
@@ -88,21 +88,22 @@ namespace BlazorTraining.Controls
             }
             else // Tabs = true
             {
-                builder.OpenComponent<R_TabStrip>(40);
-                builder.AddAttribute(41, "OnActiveTabIndexChanged",
-                    EventCallback.Factory.Create<R_TabStripTab>(this, async tab =>
+                builder.OpenComponent<TelerikTabStrip>(40);
+                builder.AddAttribute(41, "PersistTabContent", true);
+                builder.AddAttribute(42, "ActiveTabIndex", _selectedTabIndex); builder.AddAttribute(43, "ActiveTabIndexChanged", EventCallback.Factory.Create<int>(this, async index =>
+                {
+                    _selectedTabIndex = index;
+                    // "View Source" tab index
+                    if (index == 1)
                     {
-                        // "View Source" tab
-                        if (tab.Title == "View Source")
-                        {
-                            await JS.InvokeVoidAsync("highlightCode");
-                        }
-                    }));
+                        await JS.InvokeVoidAsync("highlightCode");
+                    }
+                }));
                 builder.AddAttribute(42, "ChildContent", (RenderFragment)((childBuilder) =>
                 {
-                    childBuilder.OpenComponent<R_TabStripTab>(50);
-                    childBuilder.AddAttribute(51, "Title", "Example");
-                    childBuilder.AddAttribute(52, "ChildContent", (RenderFragment)((tabBuilder) =>
+                    childBuilder.OpenComponent<TabStripTab>(50);
+                    childBuilder.AddAttribute(51, "Title", "👀 Example");
+                    childBuilder.AddAttribute(52, "Content", (RenderFragment)((tabBuilder) =>
                     {
                         tabBuilder.OpenElement(60, "div");
                         tabBuilder.AddAttribute(61, "class", "bb-example");
@@ -112,9 +113,9 @@ namespace BlazorTraining.Controls
                     }));
                     childBuilder.CloseComponent();
 
-                    childBuilder.OpenComponent<R_TabStripTab>(70);
-                    childBuilder.AddAttribute(71, "Title", "View Source");
-                    childBuilder.AddAttribute(72, "ChildContent", (RenderFragment)((tabBuilder) =>
+                    childBuilder.OpenComponent<TabStripTab>(70);
+                    childBuilder.AddAttribute(71, "Title", "</> View Source");
+                    childBuilder.AddAttribute(72, "Content", (RenderFragment)((tabBuilder) =>
                     {
                         tabBuilder.OpenElement(80, "div");
                         tabBuilder.AddAttribute(81, "class", "highlight show-code-only");
