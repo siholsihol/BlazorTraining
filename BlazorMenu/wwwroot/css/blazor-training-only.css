@@ -4,3 +4,7 @@
 table.table {
     color: var(--falcon-body-color)
 }
+
+table tbody th[colspan] {
+    background-color: var(--falcon-200);
+}

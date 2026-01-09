@@ -1,0 +1,70 @@
+<tr>
+    <th colspan="4">Textbox Only</th>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.AllowSpaces)</code></th>
+    <td>bool (true)</td>
+    <td>
+        Determines whether space characters are allowed in the input.
+        If set to false, any spaces entered by the user will be rejected or removed.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.AllowSpecialCharacters)</code></th>
+    <td>bool (true)</td>
+    <td>
+        Indicates whether special characters (such as ! @@ # $ %, etc.) are allowed in the input.
+        If set to false, only alphanumeric characters are permitted.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.CharacterCasing)</code></th>
+    <td>@(nameof(R_eCharacterCasing)) (R_eCharacterCasing.Normal)</td>
+    <td>
+        Specifies how characters entered by the user are transformed:
+        Normal – no transformation
+        Upper – automatically converts to uppercase
+        Lower – automatically converts to lowercase
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.MaxLength)</code></th>
+    <td>int?</td>
+    <td>
+        Specifies the maximum number of characters the user is allowed to enter.
+        When set to a value, the input will prevent additional characters from being entered once the limit is reached.
+        When null, no length limit is applied.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.Password)</code></th>
+    <td>bool (false)</td>
+    <td>
+        Determines whether the input is treated as a password field.
+        When set to true, the entered characters are masked and hidden from view. Internally, the value is only hidden while the password visibility state is active.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.Placeholder)</code></th>
+    <td>string</td>
+    <td>Specifies the placeholder text displayed inside the input when the value is empty. This text is shown as a hint to guide the user on what to enter.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.TextAlignment)</code></th>
+    <td>@(nameof(R_eTextAlignment)) (R_eTextAlignment.Left)</td>
+    <td>Controls how the text inside the input is aligned horizontally (Left, Center, or Right).</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextBox.Width)</code></th>
+    <td>string?</td>
+    <td>Defines the width of the input component using any valid CSS width value (for example: px, %, rem, or auto). If not specified, the component uses its default layout width.</td>
+    <td>Try</td>
+</tr>
+<R_InputWithValidationComponentBaseParameter />

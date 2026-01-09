@@ -1,4 +1,7 @@
-﻿@inherits R_Page
+﻿@using BlazorTraining.Controls.Docs
+@using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Parameter
+@inherits R_Page
 
 <h1>Realta Blazor Textbox</h1>
 <div class="lead mb-3">
@@ -9,100 +12,15 @@
 <Demo Type="typeof(TextBox_Demo_01_Overview)" Tabs="true" />
 
 <SectionHeading Size="HeadingSize.H2" Text="Textbox Parameters" HashTagName="textbox-parameters" />
-<div>
-    Realta Blazor textbox parameters.
-</div>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Parameter</th>
-                <th scope="col">Type and Default Value</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr>
-                <th scope="row"><code>Id</code></th>
-                <td>string</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row"><code>AllowSpaces</code></th>
-                <td>bool (true)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>AllowSpecialCharacters</code></th>
-                <td>bool (true)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>Class</code></th>
-                <td>string</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>@nameof(R_TextBox.CharacterCasing)</code></th>
-                <td>R_eCharacterCasing (Normal)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>Enabled</code></th>
-                <td>bool (true)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>MaxLength</code></th>
-                <td>int?</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<DocTable Header="@(typeof(ParameterHeader))"
+          Body="@(typeof(R_TextBoxParameter))" />
 
 <SectionHeading Size="HeadingSize.H2" Text="Textbox Events" HashTagName="textbox-events" />
-<div>
-    Realta Blazor textbox events.
-</div>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Event</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr>
-                <th scope="row"><code>OnChanged</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>OnLostFocused</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>ValueChanged</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<DocTable Header="@(typeof(EventHeader))"
+          Body="@(typeof(R_TextBoxEvent))" />
 
-<SectionHeading Size="HeadingSize.H2" Text="Textbox Methods" HashTagName="textbox-methods" />
+
+@* <SectionHeading Size="HeadingSize.H2" Text="Textbox Methods" HashTagName="textbox-methods" />
 <div>
     Realta Blazor textbox methods.
 </div>
@@ -133,4 +51,4 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> *@

@@ -1,0 +1,64 @@
+<tr>
+    <th colspan="4">Input Base</th>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.Value)</code></th>
+    <td>TValue</td>
+    <td>Represents the current value of the input component. This is the primary bound value used for data binding and validation.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.ReadOnly)</code></th>
+    <td>bool (false)</td>
+    <td>Determines whether the input is read-only. When set to true, the user can view the value but cannot modify it.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.AutoComplete)</code></th>
+    <td>string ("off")</td>
+    <td>Controls the browser’s autocomplete behavior for the input field.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.ThemeConstant)</code></th>
+    <td>@nameof(R_eThemeConstant) (R_eThemeConstant.Base)</td>
+    <td>Defines the visual theme applied to the input component.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.R_ConductorSource)</code></th>
+    <td>@nameof(R_Conductor)</td>
+    <td>Assigns a conductor that manages this control in form-based operations (Add, Edit, etc). Cannot be used together with @nameof(R_InputComponentBase<object>.R_ConductorGridSource).</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.R_ConductorGridSource)</code></th>
+    <td>@nameof(R_ConductorGrid)</td>
+    <td>Assigns a grid-based conductor that manages this control. Cannot be used together with @nameof(R_InputComponentBase<object>.R_ConductorSource).</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.R_EnableAdd)</code></th>
+    <td>bool (false)</td>
+    <td>Registers this control to participate in Add operations of the assigned conductor. Cannot be used together with @nameof(R_InputComponentBase<object>.R_EnableOther).</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.R_EnableEdit)</code></th>
+    <td>bool (false)</td>
+    <td>Registers this control to participate in Edit operations of the assigned conductor. Cannot be used together with @nameof(R_InputComponentBase<object>.R_EnableOther).</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.R_EnableOther)</code></th>
+    <td>bool (false)</td>
+    <td>Registers this control for custom (non Add/Edit) conductor operations. Cannot be used together with @nameof(R_InputComponentBase<object>.R_EnableAdd) and @nameof(R_InputComponentBase<object>.R_EnableEdit).</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_InputComponentBase<object>.R_EnableHasData)</code></th>
+    <td>bool (false)</td>
+    <td>Registers this control as dependent on the conductor’s HasData state. The conductor will enable or disable this control based on whether data is present.</td>
+    <td>Try</td>
+</tr>
+<R_ControlBaseParameter />

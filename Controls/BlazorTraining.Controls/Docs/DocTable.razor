@@ -1,0 +1,16 @@
+<div>
+    <table class="table">
+        <thead>
+            <DynamicComponent Type="Header" />
+        </thead>
+        <tbody class="table-group-divider">
+            <DynamicComponent Type="Body" />
+        </tbody>
+    </table>
+</div>
+
+@code{
+    [Parameter] public Type? Header { get; set; }
+    [Parameter] public Type? Body { get; set; }
+
+}
