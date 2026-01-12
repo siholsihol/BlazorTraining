@@ -1,128 +1,32 @@
 ﻿@page "/SAB03100"
 @inherits R_Page
-@attribute [R_Page(Title = "R_NumericTextBox")]
+@attribute [R_Page(Title = "Inputs")]
 
-<NumericTextBoxMain />
+<TelerikTabStrip TabPosition="TabPosition.Left" Scrollable="true" Height="600px">
+    <TabStripTab Title="R_NumericTextBox"><NumericTextBoxMain /></TabStripTab>
+    <TabStripTab Title="R_TextArea"><TextAreaMain /></TabStripTab>
+    <TabStripTab Title="R_TextBox"><TextBoxMain/></TabStripTab>
+    <TabStripTab Title="R_TextEditor"><TextEditorMain /></TabStripTab>
+</TelerikTabStrip>
 
-<R_PredefinedDock R_InstantiateDock="@InstantiateDateTimePicker" Title="R_DateTimePicker"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateDatePicker" Title="R_DatePicker"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateDateInput" Title="R_DateInput"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateTimePicker" Title="R_TimePicker"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateComboBox" Title="R_ComboBox"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateDropDownList" Title="R_DropDownList"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateCheckBox" Title="R_CheckBox"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateColorPicker" Title="R_ColorPicker"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateRadioGroup" Title="R_RadioGroup"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateTextArea" Title="R_TextArea"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateTextBox" Title="R_TextBox"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateTextEditor" Title="R_TextEditor"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateRTFViewer" Title="R_RTFViewer"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateImageBox" Title="R_ImageBox"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateComboBoxMultiSelect" Title="R_ComboBoxMultiSelect"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateQRCode" Title="R_QRCode"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateBarcode" Title="R_Barcode"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiatePreload" Title="R_Preload"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateStepper" Title="R_Stepper"></R_PredefinedDock>
-<R_PredefinedDock R_InstantiateDock="@InstantiateListBox" Title="R_ListBox"></R_PredefinedDock>
+
+<R_PredefinedDock R_InstantiateDock="@InstantiateSAB03101" Title="Date & Time"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateSAB03102" Title="Selection"></R_PredefinedDock>
+<R_PredefinedDock R_InstantiateDock="@InstantiateSAB03103" Title="Utility"></R_PredefinedDock>
 
 @code {
-    private void InstantiateDateTimePicker(R_InstantiateDockEventArgs eventArgs)
+    private void InstantiateSAB03101(R_InstantiateDockEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(DateTimePickerMain);
+        eventArgs.TargetPageType = typeof(SAB03101);
     }
 
-    private void InstantiateDatePicker(R_InstantiateDockEventArgs eventArgs)
+    private void InstantiateSAB03102(R_InstantiateDockEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(DatePickerMain);
+        eventArgs.TargetPageType = typeof(SAB03102);
     }
 
-    private void InstantiateDateInput(R_InstantiateDockEventArgs eventArgs)
+    private void InstantiateSAB03103(R_InstantiateDockEventArgs eventArgs)
     {
-        eventArgs.TargetPageType = typeof(DateInputMain);
-    }
-
-    private void InstantiateTimePicker(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(TimePickerMain);
-    }
-
-    private void InstantiateComboBox(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(ComboBoxMain);
-    }
-
-    private void InstantiateDropDownList(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(DropDownListMain);
-    }
-
-    private void InstantiateCheckBox(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(CheckBoxMain);
-    }
-
-    private void InstantiateColorPicker(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(ColorPickerMain);
-    }
-
-    private void InstantiateRadioGroup(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(RadioGroupMain);
-    }
-
-    private void InstantiateTextArea(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(TextAreaMain);
-    }
-
-    private void InstantiateTextBox(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(TextBoxMain);
-    }
-
-    private void InstantiateTextEditor(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(SAB03100Front.TextEditor.TextEditorMain);
-    }
-
-    private void InstantiateImageBox(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(ImageBoxMain);
-    }
-
-    private void InstantiateComboBoxMultiSelect(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(ComboBoxMultiSelectMain);
-    }
-
-    private void InstantiateQRCode(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(QRCodeMain);
-    }
-
-    private void InstantiateBarcode(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(BarcodeMain);
-    }
-
-    private void InstantiatePreload(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(PreloadMain);
-    }
-
-    private void InstantiateStepper(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(StepperMain);
-    }
-
-    private void InstantiateListBox(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(ListBoxMain);
-    }
-
-    private void InstantiateRTFViewer(R_InstantiateDockEventArgs eventArgs)
-    {
-        eventArgs.TargetPageType = typeof(RTFViewerMain);
+        eventArgs.TargetPageType = typeof(SAB03103);
     }
 }

@@ -1,7 +1,6 @@
-﻿@inherits R_Page
-@inject IJSRuntime JS
+﻿@inject IJSRuntime JS
 @inject R_BlazorFrontEnd.R_IFileConverter FileConverter
-@namespace SAB03100Front.TextEditor
+@inherits R_Page
 
 <R_GroupBox Title="R_TextEditor">
     <R_TextEditor @ref="@_textEditorRef"

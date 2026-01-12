@@ -373,37 +373,46 @@ h1:focus-visible{
 /* ==========================================================================
    2. Tab
    ========================================================================== */
-div.demo .k-tabstrip-items-wrapper {
+html body .k-tabstrip-items-wrapper {
     border-color: var(--falcon-border-color);
 }
 
-    div.demo .k-tabstrip-items-wrapper .k-item {
+    html body .k-tabstrip-items-wrapper .k-item {
         color: var(--falcon-body-color);
     }
 
-        div.demo .k-tabstrip-items-wrapper .k-item:active,
-        div.demo .k-tabstrip-items-wrapper .k-item.k-active,
-        div.demo .k-tabstrip-items-wrapper .k-item.k-selected {
+        html body .k-tabstrip-items-wrapper .k-item:active,
+        html body .k-tabstrip-items-wrapper .k-item.k-active,
+        html body .k-tabstrip-items-wrapper .k-item.k-selected {
             border-color: var(--falcon-border-color);
             background-color: transparent;
         }
 
-        div.demo .k-tabstrip-items-wrapper .k-item:hover,
-        div.demo .k-tabstrip-items-wrapper .k-item.k-hover {
+        html body .k-tabstrip-items-wrapper .k-item:hover,
+        html body .k-tabstrip-items-wrapper .k-item.k-hover {
             border-color: var(--falcon-border-color);
         }
 
-div.demo .k-tabstrip-content,
-div.demo .k-tabstrip > .k-content {
-    padding: 0;
+html body .k-tabstrip-content,
+html body .k-tabstrip > .k-content {
     border-color: var(--falcon-border-color);
     color: var(--falcon-body-color);
     background-color: transparent;
 }
+
+
+html body .k-vstack {
+    width: 200px;
+}
+
+div.demo .k-tabstrip-content,
+div.demo .k-tabstrip > .k-content {
+    padding: 0;
+}
+
 
 div.demo div.k-tabstrip-content div.bb-example,
 div.demo div.k-tabstrip-content div.highlight {
     margin: 0;
     border-width: 0;
 }
-
