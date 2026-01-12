@@ -1,0 +1,83 @@
+@using BlazorTraining.Controls.Docs.Parameter
+<tr>
+    <th colspan="4">Numeric TextBox Only</th>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.AccountingNegativeSign)</code></th>
+    <td>bool (false)</td>
+    <td>Determines whether negative numbers are displayed using accounting format, typically enclosed in parentheses instead of using a minus sign (e.g., (100) instead of -100).</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Arrows)</code></th>
+    <td>bool (true)</td>
+    <td>Determines whether increment and decrement arrow buttons are displayed on the numeric input control.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Decimals)</code></th>
+    <td>int (2)</td>
+    <td>Defines the number of decimal places allowed and displayed for the numeric value.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Format)</code></th>
+    <td>string</td>
+    <td>Specifies the numeric display format. This controls how the value is rendered.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Max)</code></th>
+    <td>TValue (MaxValue of TValue)</td>
+    <td>Specifies the maximum allowed numeric value. Values greater than this will be rejected or clamped.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Min)</code></th>
+    <td>TValue (MinValue of TValue)</td>
+    <td>Specifies the minimum allowed numeric value. Values less than this will be rejected or clamped.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.PlaceHolder)</code></th>
+    <td>string</td>
+    <td>Specifies the placeholder text shown when the numeric input has no value.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Step)</code></th>
+    <td>TValue</td>
+    <td>Defines the amount by which the value increases or decreases when the arrow buttons are used or when stepping via the keyboard.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.TextAlignment)</code></th>
+    <td>@(nameof(R_eTextAlignment)) (R_eTextAlignment.Right)</td>
+    <td>Controls how the text inside the input is aligned horizontally (Left, Center, or Right).</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.ThousandSeparator)</code></th>
+    <td>bool (true)</td>
+    <td>Determines whether thousands separators (for example 1,000 or 1.000) are displayed when rendering the numeric value.</td>
+    <td>Try</td>
+</tr>
+
+<tr>
+    <th scope="row"><code>@nameof(R_NumericTextBox<int>.Width)</code></th>
+    <td>string?</td>
+    <td>Defines the width of the input component using any valid CSS width value (for example: px, %, rem, or auto). If not specified, the component uses its default layout width.</td>
+    <td>Try</td>
+</tr>
+
+<R_InputWithValidationComponentBaseParameter />

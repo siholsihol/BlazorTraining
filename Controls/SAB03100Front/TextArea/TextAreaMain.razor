@@ -1,15 +1,21 @@
-﻿@inherits R_Page
+﻿@using BlazorTraining.Controls.Docs
+@using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Parameter
+@inherits R_Page
 
-<R_GroupBox Title="R_TextArea">
-    <R_ItemLayout col="4">
-        <R_TextArea @bind-Value="@_textAreaValue" Width="400px">
+<h1>Realta Blazor TextArea</h1>
+<div class="lead mb-3">
+    Realta Blazor TextArea Component.
+</div>
 
-        </R_TextArea>
-    </R_ItemLayout>
+<SectionHeading Size="HeadingSize.H2" Text=" Textarea Overview" HashTagName="textarea-overview" />
+<Demo Type="typeof(TextArea_Demo_01_Overview)" Tabs="true" />
 
-    <p>TextArea value: @_textAreaValue</p>
-</R_GroupBox>
+<SectionHeading Size="HeadingSize.H2" Text=" Textarea Parameters" HashTagName="textarea-parameters" />
+<DocTable Header="@(typeof(ParameterHeader))"
+          Body="@(typeof(R_TextAreaParameter))" />
 
-@code {
-    private string _textAreaValue { get; set; }
-}
+<SectionHeading Size="HeadingSize.H2" Text=" Textarea Events" HashTagName="textarea-events" />
+<DocTable Header="@(typeof(EventHeader))"
+          Body="@(typeof(R_TextAreaEvent))" />
+

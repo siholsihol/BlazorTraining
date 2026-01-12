@@ -1,12 +1,21 @@
-﻿@inherits R_Page
+﻿@using BlazorTraining.Controls.Docs
+@using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Parameter
+@inherits R_Page
 
-<R_GroupBox Title="R_NumericTextBox">
-    <R_ItemLayout xs="4">
-        <R_NumericTextBox @bind-Value=@_decimalValue />
-    </R_ItemLayout>
-</R_GroupBox>
+<h1>Realta Blazor Numeric TextBox</h1>
+<div class="lead mb-3">
+    Realta Blazor Numeric TextBox Component.
+</div>
 
-@code {
-    private decimal _decimalValue = -143232323.56m;
-    private int _intValue = 1234;
-}
+<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Overview" HashTagName="numerictextbox-overview" />
+<Demo Type="typeof(NumericTextBox_Demo_01_Overview)" Tabs="true" />
+
+<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Parameters" HashTagName="numerictextbox-parameters" />
+<DocTable Header="@(typeof(ParameterHeader))"
+          Body="@(typeof(R_NumericTextBoxParameter))" />
+
+<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Events" HashTagName="numerictextbox-events" />
+<DocTable Header="@(typeof(EventHeader))"
+          Body="@(typeof(R_NumericTextBoxEvent))" />
+
