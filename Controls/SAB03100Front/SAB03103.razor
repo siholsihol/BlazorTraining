@@ -1,13 +1,22 @@
 @inherits R_Page
 @attribute [R_Page(Title = "Utility")]
 
-<TelerikTabStrip TabPosition="TabPosition.Left" Scrollable="true" Height="600px">
-    <TabStripTab Title="R_Barcode"><BarcodeMain/></TabStripTab>
-    <TabStripTab Title="R_ColorPicker"><ColorPickerMain /></TabStripTab>
-    <TabStripTab Title="R_ImageBox"><ImageBoxMain /></TabStripTab>
-    <TabStripTab Title="R_ListBox"><ListBoxMain /></TabStripTab>
-    <TabStripTab Title="R_Preload"><PreloadMain /></TabStripTab>
-    <TabStripTab Title="R_QRCode"><QRCodeMain /></TabStripTab>
-    <TabStripTab Title="R_RTFViewer"><RTFViewerMain /></TabStripTab>
-    <TabStripTab Title="R_Stepper"><StepperMain /></TabStripTab>
-</TelerikTabStrip>
+<VerticalTab Tabs="tabs" />
+
+@code {
+    private Dictionary<string, Type> tabs = new Dictionary<string, Type>();
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        tabs.Add("R_Barcode", typeof(BarcodeMain));
+        tabs.Add("R_ColorPicker", typeof(ColorPickerMain));
+        tabs.Add("R_ImageBox", typeof(ImageBoxMain));
+        tabs.Add("R_ListBox", typeof(ListBoxMain));
+        tabs.Add("R_Preload", typeof(PreloadMain));
+        tabs.Add("R_QRCode", typeof(QRCodeMain));
+        tabs.Add("R_RTFViewer", typeof(RTFViewerMain));
+        tabs.Add("R_Stepper", typeof(StepperMain));
+
+        return Task.CompletedTask;
+    }
+}

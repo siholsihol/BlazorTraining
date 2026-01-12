@@ -1,10 +1,19 @@
 @inherits R_Page
 @attribute [R_Page(Title = "Selection")]
 
-<TelerikTabStrip TabPosition="TabPosition.Left" Scrollable="true" Height="600px">
-    <TabStripTab Title="R_CheckBox"><CheckBoxMain /></TabStripTab>
-    <TabStripTab Title="R_ComboBox"><ComboBoxMain /></TabStripTab>
-    <TabStripTab Title="R_ComboBoxMultiSelect"><ComboBoxMultiSelectMain /></TabStripTab>
-    <TabStripTab Title="R_DropDownList"><DropDownListMain/></TabStripTab>
-    <TabStripTab Title="R_RadioGroup"><RadioGroupMain /></TabStripTab>
-</TelerikTabStrip>
+<VerticalTab Tabs="tabs" />
+
+@code {
+    private Dictionary<string, Type> tabs = new Dictionary<string, Type>();
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        tabs.Add("R_CheckBox", typeof(CheckBoxMain));
+        tabs.Add("R_ComboBox", typeof(ComboBoxMain));
+        tabs.Add("R_ComboBoxMultiSelect", typeof(ComboBoxMultiSelectMain));
+        tabs.Add("R_DropDownList", typeof(DropDownListMain));
+        tabs.Add("R_RadioGroup", typeof(RadioGroupMain));
+
+        return Task.CompletedTask;
+    }
+}

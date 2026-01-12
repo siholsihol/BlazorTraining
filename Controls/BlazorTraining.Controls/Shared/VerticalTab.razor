@@ -1,0 +1,18 @@
+@using Telerik.Blazor
+@using Telerik.Blazor.Components
+
+@if (Tabs.Count > 1)
+{
+    <TelerikTabStrip TabPosition="TabPosition.Left" Scrollable="true" Height="600px">
+        @foreach(var tab in Tabs)
+        {
+            <TabStripTab Title="@tab.Key">
+                <DynamicComponent Type="@tab.Value" />
+            </TabStripTab>
+        }
+    </TelerikTabStrip>
+}
+
+@code {
+    [Parameter] public Dictionary<string, Type> Tabs { get; set; } = new Dictionary<string, Type>();
+}

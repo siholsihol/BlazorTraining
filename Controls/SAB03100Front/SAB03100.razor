@@ -2,19 +2,24 @@
 @inherits R_Page
 @attribute [R_Page(Title = "Inputs")]
 
-<TelerikTabStrip TabPosition="TabPosition.Left" Scrollable="true" Height="600px">
-    <TabStripTab Title="R_NumericTextBox"><NumericTextBoxMain /></TabStripTab>
-    <TabStripTab Title="R_TextArea"><TextAreaMain /></TabStripTab>
-    <TabStripTab Title="R_TextBox"><TextBoxMain/></TabStripTab>
-    <TabStripTab Title="R_TextEditor"><TextEditorMain /></TabStripTab>
-</TelerikTabStrip>
-
+<VerticalTab Tabs="tabs" />
 
 <R_PredefinedDock R_InstantiateDock="@InstantiateSAB03101" Title="Date & Time"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateSAB03102" Title="Selection"></R_PredefinedDock>
 <R_PredefinedDock R_InstantiateDock="@InstantiateSAB03103" Title="Utility"></R_PredefinedDock>
 
 @code {
+    private Dictionary<string, Type> tabs = new Dictionary<string, Type>();
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        tabs.Add("R_NumericTextBox", typeof(NumericTextBoxMain));
+        tabs.Add("R_TextArea", typeof(TextAreaMain));
+        tabs.Add("R_TextBox", typeof(TextBoxMain));
+        tabs.Add("R_TextEditor", typeof(TextEditorMain));
+        return Task.CompletedTask;
+    }
+
     private void InstantiateSAB03101(R_InstantiateDockEventArgs eventArgs)
     {
         eventArgs.TargetPageType = typeof(SAB03101);
