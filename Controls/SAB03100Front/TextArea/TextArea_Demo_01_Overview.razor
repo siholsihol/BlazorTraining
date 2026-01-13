@@ -1,14 +1,12 @@
 @inherits R_Page
 
-<R_GroupBox Title="R_TextArea">
-    <R_ItemLayout col="4">
-        <R_TextArea @bind-Value="@_textAreaValue" Width="400px">
+<R_ItemLayout col="4">
+    <R_TextArea @bind-Value="@_textAreaValue" Width="400px">
 
-        </R_TextArea>
-    </R_ItemLayout>
+    </R_TextArea>
+</R_ItemLayout>
 
-    <p>TextArea value: @_textAreaValue</p>
-</R_GroupBox>
+<p>TextArea value: @_textAreaValue</p>
 
 @code {
     private string _textAreaValue { get; set; }

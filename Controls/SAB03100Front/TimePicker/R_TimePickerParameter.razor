@@ -1,0 +1,31 @@
+@using BlazorTraining.Controls.Docs.Parameter
+
+<tr>
+    <th colspan="4">TimePicker Only</th>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TimePicker<DateTime>.Format)</code></th>
+    <td>string</td>
+    <td>
+        Specifies the date format pattern used to display and parse the date value. If left empty, it is automatically resolved from the current culture using the value of TimePickerFormat and also applied to the placeholder.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TimePicker<DateTime>.TimePickerFormat)</code></th>
+    <td>@nameof(R_eTimePickerFormat) (R_eTimePickerFormat.Long)</td>
+    <td>
+        Determines whether the culture’s short or long date pattern is used when Format is not explicitly set. This value is used during initialization to generate the actual date format assigned to Format.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TimePicker<DateTime>.ShowTimePickerButton)</code></th>
+    <td>bool (true)</td>
+    <td>
+        Controls whether the time button is displayed next to the date input field. When set to false, only the text input is shown and the picker button is hidden.
+    </td>
+    <td>Try</td>
+</tr>
+
+<R_DateInputComponentBaseParameter />

@@ -1,5 +1,6 @@
 ﻿@using BlazorTraining.Controls.Docs
 @using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Method
 @using BlazorTraining.Controls.Docs.Parameter
 @inherits R_Page
 
@@ -11,11 +12,14 @@
 <SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Overview" HashTagName="numerictextbox-overview" />
 <Demo Type="typeof(NumericTextBox_Demo_01_Overview)" Tabs="true" />
 
-<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Parameters" HashTagName="numerictextbox-parameters" />
+<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Parameters" HashTagName="numeric-textbox-parameters" />
 <DocTable Header="@(typeof(ParameterHeader))"
           Body="@(typeof(R_NumericTextBoxParameter))" />
 
-<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Events" HashTagName="numerictextbox-events" />
+<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Events" HashTagName="numeric-textbox-events" />
 <DocTable Header="@(typeof(EventHeader))"
           Body="@(typeof(R_NumericTextBoxEvent))" />
 
+<SectionHeading Size="HeadingSize.H2" Text="Numeric TextBox Methods" HashTagName="numeric-textbox-methods" />
+<DocTable Header="@(typeof(MethodHeader))"
+          Body="@(typeof(R_NumericTextBoxMethod))" />

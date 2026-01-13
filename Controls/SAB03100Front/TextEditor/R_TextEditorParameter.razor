@@ -1,0 +1,27 @@
+@using BlazorTraining.Controls.Docs.Parameter
+<tr>
+    <th colspan="4">TextEditor Only</th>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextEditor.Height)</code></th>
+    <td>string?</td>
+    <td>Defines the height of the input component using any valid CSS height value (for example: px, %, rem, or auto). If not specified, the component uses its default layout height.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextEditor.R_TextEditorToolMode)</code></th>
+    <td>@nameof(R_eTextEditorToolMode) (R_eTextEditorToolMode.Basic)</td>
+    <td>
+        Defines the toolbar configuration of the text editor.
+        This determines which editing tools (such as formatting, lists, links, etc.) are available to the user.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_TextEditor.Width)</code></th>
+    <td>string?</td>
+    <td>Defines the width of the input component using any valid CSS width value (for example: px, %, rem, or auto). If not specified, the component uses its default layout width.</td>
+    <td>Try</td>
+</tr>
+
+<R_InputComponentBaseParameter />

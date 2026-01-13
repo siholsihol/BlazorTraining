@@ -1,0 +1,41 @@
+@inherits R_Page
+@attribute [R_Page(Title = "R_DatePicker")]
+
+<R_StackLayout>
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>DateTime :</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="4">
+            <R_DatePicker @bind-Value=@_dateTimeValue
+                            Min="@_minDateTimeValue"
+                            Max="@_maxDateTimeValue"
+                            ShowPickerButton="false" />
+        </R_ItemLayout>
+        <R_ItemLayout col="4">
+            <R_Label>@_dateTimeValue</R_Label>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <br />
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="2">
+            <R_Label>Nullable DateTime :</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="4">
+            <R_DatePicker @bind-Value=@_nullDateTimeValue />
+        </R_ItemLayout>
+        <R_ItemLayout col="4">
+            <R_Label>@_nullDateTimeValue</R_Label>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+@code {
+    private DateTime _dateTimeValue = DateTime.Now;
+    private DateTime? _nullDateTimeValue;
+
+    private DateTime _minDateTimeValue = DateTime.Now;
+    private DateTime _maxDateTimeValue = DateTime.Now.AddDays(3);
+}

@@ -1,37 +1,25 @@
-﻿@inherits R_Page
-@attribute [R_Page(Title = "R_DateInput")]
+﻿@using BlazorTraining.Controls.Docs
+@using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Method
+@using BlazorTraining.Controls.Docs.Parameter
+@inherits R_Page
 
-<R_GroupBox Title="R_DateInput">
-    <R_StackLayout>
-        <R_StackLayout Row>
-            <R_ItemLayout col="2">
-                <R_Label>DateTime :</R_Label>
-            </R_ItemLayout>
-            <R_ItemLayout col="4">
-                <R_DateInput @bind-Value=@_dateTimeValue />
-            </R_ItemLayout>
-            <R_ItemLayout col="4">
-                <R_Label>@_dateTimeValue</R_Label>
-            </R_ItemLayout>
-        </R_StackLayout>
+<h1>Realta Blazor DateInput</h1>
+<div class="lead mb-3">
+    Realta Blazor DateInput Component.
+</div>
 
-        <br />
+<SectionHeading Size="HeadingSize.H2" Text="DateInput Overview" HashTagName="dateinput-overview" />
+<Demo Type="typeof(DateInput_Demo_01_Overview)" Tabs="true" />
 
-        <R_StackLayout Row>
-            <R_ItemLayout col="2">
-                <R_Label>Nullable DateTime :</R_Label>
-            </R_ItemLayout>
-            <R_ItemLayout col="4">
-                <R_DateInput @bind-Value=@_nullDateTimeValue />
-            </R_ItemLayout>
-            <R_ItemLayout col="4">
-                <R_Label>@_nullDateTimeValue</R_Label>
-            </R_ItemLayout>
-        </R_StackLayout>
-    </R_StackLayout>
-</R_GroupBox>
+<SectionHeading Size="HeadingSize.H2" Text="DateInput Parameters" HashTagName="dateinput-parameters" />
+<DocTable Header="@(typeof(ParameterHeader))"
+          Body="@(typeof(R_DateInputParameter))" />
 
-@code {
-    private DateTime _dateTimeValue = DateTime.Now;
-    private DateTime? _nullDateTimeValue;
-}
+<SectionHeading Size="HeadingSize.H2" Text="DateInput Events" HashTagName="dateinput-events" />
+<DocTable Header="@(typeof(EventHeader))"
+          Body="@(typeof(R_DateInputEvent))" />
+
+<SectionHeading Size="HeadingSize.H2" Text="DateInput Methods" HashTagName="dateinput-methods" />
+<DocTable Header="@(typeof(MethodHeader))"
+          Body="@(typeof(R_DateInputMethod))" />

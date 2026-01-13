@@ -1,5 +1,6 @@
 ﻿@using BlazorTraining.Controls.Docs
 @using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Method
 @using BlazorTraining.Controls.Docs.Parameter
 @inherits R_Page
 
@@ -18,6 +19,10 @@
 <SectionHeading Size="HeadingSize.H2" Text="TextBox Events" HashTagName="textbox-events" />
 <DocTable Header="@(typeof(EventHeader))"
           Body="@(typeof(R_TextBoxEvent))" />
+
+<SectionHeading Size="HeadingSize.H2" Text="TextBox Methods" HashTagName="textbox-methods" />
+<DocTable Header="@(typeof(MethodHeader))"
+          Body="@(typeof(R_TextBoxMethod))" />
 
 
 @* <SectionHeading Size="HeadingSize.H2" Text="TextBox Methods" HashTagName="textbox-methods" />

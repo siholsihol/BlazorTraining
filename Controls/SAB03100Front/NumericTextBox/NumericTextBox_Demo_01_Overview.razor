@@ -1,10 +1,8 @@
 @inherits R_Page
 
-<R_GroupBox Title="R_NumericTextBox">
-    <R_ItemLayout xs="4">
-        <R_NumericTextBox @bind-Value=@_decimalValue />
-    </R_ItemLayout>
-</R_GroupBox>
+<R_ItemLayout xs="4">
+    <R_NumericTextBox @bind-Value=@_decimalValue />
+</R_ItemLayout>
 
 @code {
     private decimal _decimalValue = -143232323.56m;

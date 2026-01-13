@@ -1,5 +1,6 @@
 ﻿@using BlazorTraining.Controls.Docs
 @using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Method
 @using BlazorTraining.Controls.Docs.Parameter
 @inherits R_Page
 
@@ -8,14 +9,18 @@
     Realta Blazor TextArea Component.
 </div>
 
-<SectionHeading Size="HeadingSize.H2" Text=" Textarea Overview" HashTagName="textarea-overview" />
+<SectionHeading Size="HeadingSize.H2" Text="TextArea Overview" HashTagName="textarea-overview" />
 <Demo Type="typeof(TextArea_Demo_01_Overview)" Tabs="true" />
 
-<SectionHeading Size="HeadingSize.H2" Text=" Textarea Parameters" HashTagName="textarea-parameters" />
+<SectionHeading Size="HeadingSize.H2" Text="TextArea Parameters" HashTagName="textarea-parameters" />
 <DocTable Header="@(typeof(ParameterHeader))"
           Body="@(typeof(R_TextAreaParameter))" />
 
-<SectionHeading Size="HeadingSize.H2" Text=" Textarea Events" HashTagName="textarea-events" />
+<SectionHeading Size="HeadingSize.H2" Text="TextArea Events" HashTagName="textarea-events" />
 <DocTable Header="@(typeof(EventHeader))"
           Body="@(typeof(R_TextAreaEvent))" />
+
+<SectionHeading Size="HeadingSize.H2" Text="TextArea Methods" HashTagName="textarea-methods" />
+<DocTable Header="@(typeof(MethodHeader))"
+          Body="@(typeof(R_TextAreaMethod))" />
 

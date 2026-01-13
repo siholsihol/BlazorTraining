@@ -1,92 +1,25 @@
-﻿@inject IJSRuntime JS
-@inject R_BlazorFrontEnd.R_IFileConverter FileConverter
+﻿@using BlazorTraining.Controls.Docs
+@using BlazorTraining.Controls.Docs.Event
+@using BlazorTraining.Controls.Docs.Method
+@using BlazorTraining.Controls.Docs.Parameter
 @inherits R_Page
 
-<R_GroupBox Title="R_TextEditor">
-    <R_TextEditor @ref="@_textEditorRef"
-    @bind-Value="@_editorValue"
-    Height="300px" 
-    R_TextEditorToolMode="@R_eTextEditorToolMode.All" />
+<h1>Realta Blazor TextEditor</h1>
+<div class="lead mb-3">
+    Realta Blazor TextEditor Component.
+</div>
 
-    <R_ItemLayout col="2">
-        <R_Button OnClick="@OnClickSave" EnableLoaderContainer>Save Document</R_Button>
-        <R_Button OnClick="OnClickSaveAsPDF" EnableLoaderContainer>Download as PDF</R_Button>
-    </R_ItemLayout>
+<SectionHeading Size="HeadingSize.H2" Text="TextEditor Overview" HashTagName="texteditor-overview" />
+<Demo Type="typeof(TextEditor_Demo_01_Overview)" Tabs="true" />
 
-    <R_ItemLayout col="2">
-        <R_InputFile OnChange="@OnChangeHandler"
-        Accepts="@accepts"
-        Enabled="@_inputFileEnabled" />
-    </R_ItemLayout>
+<SectionHeading Size="HeadingSize.H2" Text="TextEditor Parameters" HashTagName="texteditor-parameters" />
+<DocTable Header="@(typeof(ParameterHeader))"
+          Body="@(typeof(R_TextEditorParameter))" />
 
-    <R_Button OnClick="@OnClickA" EnableLoaderContainer>Change A</R_Button>
-    <R_Button OnClick="@OnClickB" EnableLoaderContainer>Change B</R_Button>
-    <R_Button OnClick="@OnClickC" EnableLoaderContainer>Change C</R_Button>
-</R_GroupBox>
+<SectionHeading Size="HeadingSize.H2" Text="TextEditor Events" HashTagName="texteditor-events" />
+<DocTable Header="@(typeof(EventHeader))"
+          Body="@(typeof(R_TextEditorEvent))" />
 
-@code {
-    private string _editorValue { get; set; }
-    private R_TextEditor _textEditorRef { get; set; }
-    private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Doc };
-    private bool _inputFileEnabled { get; set; } = false;
-
-    protected override Task R_Init_From_Master(object poParameter)
-    {
-        _editorValue = @"<P>Dear ,</P><P>Dengan ini saya sampaikan bahwa</P><P>Terima kasih atas perhatiannya.</P><P>Salam,</P><P>Nama</P><P>PT IPM</P>";
-
-        return Task.CompletedTask;
-    }
-
-    private byte[] _rawFileByte = null;
-
-    private async Task OnClickSave()
-    {
-        var saveFileName = $"{Guid.NewGuid().ToString()}.docx";
-
-        //_rawFileByte = FileConverter.R_GetByteFromString(_editorValue); //kalo mau langsung save ke database
-        var loByteFile = FileConverter.R_GetByteFromHtmlString(_editorValue, R_eDocumentType.Docx); //kalo mau save langsung jadi file
-
-        await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
-    }
-
-    private async Task OnChangeHandler(InputFileChangeEventArgs eventArgs)
-    {
-        var loEx = new R_Exception();
-
-        try
-        {
-            var loByteFile = await R_FrontUtility.ConvertStreamToByteAsync(eventArgs.File.OpenReadStream());
-
-            //_editorValue = FileConverter.R_GetStringFromByte(_rawFileByte);
-            _editorValue = FileConverter.R_GetHtmlStringFromByte(loByteFile, R_eDocumentType.Docx);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(R_FrontUtility.Dump(ex));
-        }
-    }
-
-    private async Task OnClickSaveAsPDF()
-    {
-        var saveFileName = $"{Guid.NewGuid().ToString()}.pdf";
-
-        var loByteFile = FileConverter.R_GetByteFromHtmlString(_editorValue, R_eDocumentType.Pdf);
-
-        await JS.downloadFileFromStreamHandler(saveFileName, loByteFile);
-    }
-
-    private void OnClickA()
-    {
-        _editorValue = "testing A";
-    }
-
-    private void OnClickB()
-    {
-        _editorValue = "testing B";
-    }
-
-    private void OnClickC()
-    {
-        _editorValue = "testing C";
-    }
-}
+<SectionHeading Size="HeadingSize.H2" Text="TextEditor Methods" HashTagName="texteditor-methods" />
+<DocTable Header="@(typeof(MethodHeader))"
+          Body="@(typeof(R_TextEditorMethod))" />
