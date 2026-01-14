@@ -12,7 +12,12 @@
     --bd-pink-rgb: 214,51,132;
     --bd-teal-rgb: 32,201,151;
     --docsearch-primary-color: var(--bd-violet);
-    --docsearch-logo-color: var(--bd-violet)
+    --docsearch-logo-color: var(--bd-violet);
+    --falcon-card-bg-rgb: 255,255,255;
+}
+
+html.dark {
+    --falcon-card-bg-rgb: 18,30,45;
 }
 
 h1:focus-visible{
@@ -415,4 +420,33 @@ div.demo div.k-tabstrip-content div.bb-example,
 div.demo div.k-tabstrip-content div.highlight {
     margin: 0;
     border-width: 0;
+}
+
+/* ==========================================================================
+   3. Scroll Wrapper
+   ========================================================================== */
+
+.doc-scroll-wrapper {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    --fade-bottom: 0;
+}
+
+.doc-scroll-content {
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 48px;
+}
+
+.scroll-fade-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    pointer-events: none;
+    opacity: var(--fade-bottom);
+    transition: opacity .2s ease;
+    background: linear-gradient( to bottom, rgba(var(--falcon-card-bg-rgb), 0), rgba(var(--falcon-card-bg-rgb), 1) );
 }
