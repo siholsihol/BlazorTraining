@@ -1,13 +1,27 @@
-﻿@inherits R_Page
+﻿@using R_BlazorFrontEnd.Controls.DataControls
+@inherits R_Page
 
 <h3>PageB</h3>
 
 <R_Button OnClick="@OnClick">Set Active Tab 3</R_Button>
 
+<R_AddButton R_Conductor="@_conductorRef" />
+<R_EditButton R_Conductor="@_conductorRef" />
+<R_DeleteButton R_Conductor="@_conductorRef" />
+<R_SaveButton R_Conductor="@_conductorRef" />
+<R_CancelButton R_Conductor="@_conductorRef" />
+<R_PrintButton R_Conductor="@_conductorRef" />
+
+<R_Conductor @ref="@_conductorRef" R_IsHeader R_ViewModel="@sAB03000ViewModel" R_ServiceGetRecord="@GetRecord" R_Display="@R_Display" Name="PageB"/>
+
 @code {
-    protected override Task R_Init_From_Master(object poParameter)
+    private R_Conductor _conductorRef;
+    private SAB03000ViewModel sAB03000ViewModel = new SAB03000ViewModel();
+
+    protected override async Task R_Init_From_Master(object poParameter)
     {
-        return base.R_Init_From_Master(poParameter);
+        await _conductorRef.R_GetEntity(null);
+       // await base.R_Init_From_Master(poParameter);
     }
 
     protected override Task<object> R_Set_Result_TabPage()
@@ -19,5 +33,16 @@
     {
         if (this.ParentTabStrip is not null)
             await this.ParentTabStrip.SetActiveTabAsync("tab3");
+    }
+    private void GetRecord(R_ServiceGetRecordEventArgs eventArgs)
+    {
+        sAB03000ViewModel.GetData();
+        eventArgs.Result = sAB03000ViewModel.dto;
+    }
+
+
+    private void R_Display(R_DisplayEventArgs eventArgs)
+    {
+
     }
 }

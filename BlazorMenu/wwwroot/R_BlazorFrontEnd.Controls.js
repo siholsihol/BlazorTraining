@@ -111,39 +111,63 @@ export function setElementEnabledState(elm, enabled) {
     }
 }
 
-export function setElementTargetable(elm, enabled) {
-    if (!elm) return;
+export function setElementEnabledClass(elm, enabled) {
+    let element = getEnabledElement(elm);
 
-    const currentTabIndex = elm.getAttribute('tabindex');
-    const oldTabIndexAttr = elm.getAttribute('data-old-tabindex');
-    const oldTabIndex = oldTabIndexAttr !== null ? oldTabIndexAttr : (enabled ? -1 : 0);
-
+    if (element) return;
     if (enabled) {
-        // Already enabled, do nothing
-        if (currentTabIndex != -1) return;
-
-        // Enable: swap values
-        elm.removeAttribute('tabindex');
-        elm.removeAttribute('data-old-tabindex');
-        elm.setAttribute('tabindex', oldTabIndex);
-        elm.setAttribute('data-old-tabindex', -1);
-    } else {
-        // Already disabled, do nothing
-        if (currentTabIndex == -1) return;
-
-        // Disable: swap values
-        elm.removeAttribute('tabindex');
-        elm.removeAttribute('data-old-tabindex');
-        elm.setAttribute('tabindex', -1);
-        elm.setAttribute('data-old-tabindex', currentTabIndex);
+        element.classList.remove('k-disabled');
+    }
+    else {
+        element.classList.add('k-disabled');
     }
 }
 
+export function setElementTargetable(elm, enabled) {
+    if (elm) return;
+
+    if (enabled) {
+        // Restore old tabindex if it was saved
+        if (elm.hasAttribute('data-old-tabindex')) {
+            elm.setAttribute('tabindex', elm.getAttribute('data-old-tabindex'));
+            elm.removeAttribute('data-old-tabindex');
+        } else {
+            elm.removeAttribute('tabindex');
+        }
+    } else {
+        // Save current tabindex if it's not already saved
+        if (elm.hasAttribute('tabindex') && elm.getAttribute('tabindex') != -1) {
+            elm.setAttribute('data-old-tabindex', elm.getAttribute('tabindex'));
+        }
+
+        elm.setAttribute('tabindex', '-1');
+    }
+}
+
+export function getEnabledElement(elm) {
+    const tag = elm.tagName.toLowerCase();
+
+    let returnElement = elm;
+
+    if (tag === 'input' && elm.type !== 'radio' && elm.type !== 'checkbox') {
+        returnElement = elm.closest('.k-input');
+    } else if (tag === 'textarea' && elm.id && elm.id.startsWith('TextArea_')) {
+        returnElement = elm.closest('.k-input');
+    } else {
+        returnElement = elm;
+    }
+
+    return returnElement;
+}
+
 export function changeAllControlStatus(elementId, status) {
+    // Get DIV container to be disabled
+    //const container = document.querySelector(containerClass);
     const container = document.getElementById(elementId);
 
     if (!container) return;
-
+    // Check if helper class is there
+    //const isDisabled = container.classList.contains('disabled');
     setElementEnabledState(container, status)
 
     // Query all fields inside DIV.
@@ -154,7 +178,16 @@ export function changeAllControlStatus(elementId, status) {
     // Else, disabled field
     [...allFields].forEach(elm => {
         // check all parents, not just immediate parents
-        let parent = elm.closest('div[id^="GroupBox_"]');
+        let parent = elm.closest('div[id*="GroupBox_"]');
+        let isFieldDisabled = elm.getAttribute('aria-disabled') === 'true' ? true : false;
+
+        if ([...elm.classList].some(cls => cls.startsWith('k-spinner'))) {
+            const spinInput = elm.closest('span.k-numerictextbox')?.querySelector('input[role="spinbutton"]');
+
+            if (spinInput) {
+                isFieldDisabled = spinInput.getAttribute('aria-disabled') === 'true';
+            }
+        }
 
         let isDisabledByAncestor = false;
 
@@ -163,14 +196,25 @@ export function changeAllControlStatus(elementId, status) {
                 isDisabledByAncestor = true;
                 break;
             }
-            parent = parent.parentElement?.closest('div[id^="GroupBox_"]');
+            parent = parent.parentElement?.closest('div[id*="GroupBox_"]');
         }
 
-        // Final status: only enabled if status == true and no parent disables it
-        const enabled = status && !isDisabledByAncestor;
+        const enabled = status && !isDisabledByAncestor && !isFieldDisabled;
 
+        // Final status: only enabled if status == true and no parent disables it
         setElementTargetable(elm, enabled);
+        setElementEnabledState(elm, enabled);
+        setElementEnabledClass(elm, enabled);
     });
+}
+
+export function setAriaDisabled(elementId, enabled) {
+    let element = document.getElementById(elementId);
+    element.setAttribute('aria-disabled', !enabled);
+}
+
+    // Toggle helper class
+    //container.classList.toggle('disabled');
 }
 
 export function setAriaDisabled(elementId, enabled) {
@@ -181,12 +225,9 @@ export function setAriaDisabled(elementId, enabled) {
 export function addValidationMessage(inputWrapperId, iconId) {
     const container = document.getElementById(inputWrapperId);
     if (!container) return;
-    container.classList.add('r-input-invalid');
+    container.className = 'r-input-invalid';
 
-    const icon = container.querySelector(`#${iconId}`);
-    if (icon) return;
-
-    const target = container.querySelector(".telerik-blazor.k-input, .telerik-blazor.k-picker");
+    const target = container.querySelector("span.k-input");
 
     if (target) {
         const div = document.createElement('div');
@@ -197,27 +238,10 @@ export function addValidationMessage(inputWrapperId, iconId) {
     }
 }
 
-export function addValidationMessageToContainer(containerId, iconId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.classList.add('r-target-invalid');
-
-    const icon = container.querySelector(`#${iconId}`);
-    if (icon) return;
-
-    if (container) {
-        const div = document.createElement('div');
-        div.id = iconId;
-        div.className = 'r-icon-container';
-        div.innerHTML = '<div class="r-icon"><i class="fas fa-exclamation-circle text-danger"></i></div>';
-        container.appendChild(div, container.lastChild);
-    }
-}
-
 export function removeValidationMessage(inputWrapperId, iconId) {
     const container = document.getElementById(inputWrapperId);
     if (!container) return;
-    container.classList.remove('r-input-invalid');
+    container.className = '';
 
     const target = container.querySelector(`#${iconId}`);
 
@@ -226,17 +250,6 @@ export function removeValidationMessage(inputWrapperId, iconId) {
     }
 }
 
-export function removeValidationMessageFromContainer(containerId, iconId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.classList.remove('r-target-invalid');
-
-    const icon = container.querySelector(`#${iconId}`);
-
-    if (icon) {
-        container.removeChild(icon);
-    }
-}
 
 export function adjustCustomPagerVisibility(gridId) {
     const grid = document.getElementById(gridId);
