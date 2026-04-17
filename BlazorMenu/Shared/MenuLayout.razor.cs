@@ -51,8 +51,14 @@ namespace BlazorMenu.Shared
 
         private string _searchText = string.Empty;
         private string _userId = string.Empty;
-        private string _footerId = "navbar-footer";
-        private string? _userIcon = null;
+
+        private string Access = "A,P,V";
+        private List<DrawerMenuItem> _filteredData
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_searchText))
+                    return new List<DrawerMenuItem>();
 
         private MenuTabSet _menuTabSetRef;
         private MenuOverlay _menuOverlay;
@@ -171,20 +177,7 @@ namespace BlazorMenu.Shared
         {
             try
             {
-                if (_menuOverlay != null)
-                    await _menuOverlay.Hide();
-
-                if (_menuTabSetRef is not null)
-                {
-                    var laMenuList = _menuList.Where(x => x.CSUB_MENU_ID == id).ToList();
-                    var laMenuAccess = laMenuList
-                                                .SelectMany(x => x.CSUB_MENU_ACCESS?.Split(',') ?? Array.Empty<string>())
-                                                .Distinct()
-                                                .ToArray();
-                    var lcMenuAccess = string.Join(",", laMenuAccess);
-
-                    await _menuTabSetRef.OpenTabAsync(text, id, lcMenuAccess);
-                }
+                await TabSetTool.AddTab(text, id, Access);
             }
             catch (Exception ex)
             {

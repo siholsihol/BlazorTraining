@@ -107,6 +107,13 @@ namespace SAB01000Front
         {
             //await _conGridProductRef.R_SaveBatch();
             //await _gridRef.R_SaveBatch();
+
+            foreach (var a in _viewModel.Products)
+            {
+                if (a.Selected == true)
+                    a.Price = 0;
+            }
+
             _headerTextPrice = "test price";
             await _gridRef.R_SaveBatch();
         }

@@ -7,15 +7,16 @@
 	  <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.21" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.21" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.21" PrivateAssets="all" />
-		<PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="2.0.0-alpha" />
-		<PackageReference Include="Telerik.UI.for.Blazor" Version="9.1.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BlazorPrettyCode" Version="1.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.14" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.14" PrivateAssets="all" />
+    <PackageReference Include="Realta.BlazorMenuCollectionNuget" Version="1.0.5-alpha" />
+  </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\Controls\SAB03000Front\SAB03000Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03100Front\SAB03100Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
@@ -60,9 +61,6 @@
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Authentication">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Authentication.dll</HintPath>
-    </Reference>
-    <Reference Include="R_BlazorFrontEnd.Controls">
-      <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
     </Reference>
     <Reference Include="R_BlazorFrontEnd.Controls.Captcha">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.Captcha.dll</HintPath>

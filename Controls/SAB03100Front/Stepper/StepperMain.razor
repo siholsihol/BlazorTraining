@@ -1,18 +1,19 @@
-﻿@using R_BlazorFrontEnd.Controls.DataControls
+﻿@using R_BlazorFrontEnd.Controls.Controls.Stepper
+@using R_BlazorFrontEnd.Controls.DataControls
 @inherits R_Page
 
+<R_Label>R_FormAccess: @(this.R_FormAccess.Length)</R_Label>
+<R_Label>FormAccess: @(this.FormAccess.Length)</R_Label>
+@if (_conductorRef is not null)
+{
+    <R_Label>Conductor Access: @(_conductorRef.R_Access.Length)</R_Label>
+}
+
 <R_Stepper @ref="@Stepper"
-@bind-Value="@Value"
-OnStepChange="@OnStepChange"
 OnFinish="@OnFinish" 
 UseDefaultButton="false">
     <R_Step Label="Unit Info">
-        <p>Step Unit Info</p>
-
-        <R_TextBox @ref="@textboxRef"
-        R_ConductorSource="@_conductorRef"
-        @bind-Value="@_viewModel.Employee.Id"
-        R_EnableAdd />
+        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage1"/>
 
         <R_StackLayout Row>
             <R_Button>Cancel</R_Button>
@@ -21,7 +22,7 @@ UseDefaultButton="false">
     </R_Step>
 
     <R_Step Label="Billing Rule">
-        <p>Step Billing Rule</p>
+        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage2" />
 
         <R_StackLayout Row>
             <R_Button OnClick="@OnClickBack" @ref="@buttonRef">Back</R_Button>
@@ -31,23 +32,17 @@ UseDefaultButton="false">
     </R_Step>
 
     <R_Step Label="Billing Schedule">
-        <p>Step Billing Schedule</p>
-
-        <R_TextArea R_ConductorSource="@_conductorRef"
-        @bind-Value="@_viewModel.Employee.FirstName"
-        R_EnableAdd />
+        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage3" />
 
         <R_StackLayout Row>
             <R_Button OnClick="@OnClickBack">Back</R_Button>
-            <R_AddButton R_Conductor="@_conductorRef" />
-            <R_CancelButton R_Conductor="@_conductorRef" />
             <R_Button>Cancel</R_Button>
             <R_Button OnClick="@OnClickNext">Next</R_Button>
         </R_StackLayout>
     </R_Step>
 
     <R_Step Label="Document">
-        <p>Step Document</p>
+        <R_StepPage R_Before_Open_StepPage="@R_Before_Open_StepPage4" />
 
         <R_StackLayout Row>
             <R_Button OnClick="@OnClickBack">Back</R_Button>
@@ -56,8 +51,10 @@ UseDefaultButton="false">
     </R_Step>
 </R_Stepper>
 
-<R_Popup R_Before_Open_Popup="@R_Before_Open_Popup">View</R_Popup>
+<R_AddButton R_Conductor="@_conductorRef"/>
+<R_EditButton R_Conductor="@_conductorRef"/>
 
+<R_Popup R_Before_Open_Popup="@R_Before_Open_Popup">View</R_Popup>
 <R_Conductor @ref="@_conductorRef"
 R_ViewModel="@_viewModel"
 R_IsHeader />
@@ -66,11 +63,10 @@ R_IsHeader />
     private int Value { get; set; }
     private R_Stepper Stepper;
     private R_Button buttonRef;
-    private R_TextBox textboxRef;
-
-    private SAB03100ViewModel _viewModel = new();
 
     private R_Conductor _conductorRef;
+    private SAB03100ViewModel _viewModel = new();
+
 
     // protected override async Task R_Init_From_Master(object poParameter)
     // {
@@ -107,5 +103,29 @@ R_IsHeader />
     {
         eventArgs.PageTitle = "test";
         eventArgs.TargetPageType = typeof(StepperMain);
+    }
+
+    private void R_Before_Open_StepPage1(R_BeforeOpenStepPageEventArgs eventArgs)
+    {
+        eventArgs.Parameter = _viewModel;
+        eventArgs.TargetPageType = typeof(StepPage1);
+    }
+
+    private void R_Before_Open_StepPage2(R_BeforeOpenStepPageEventArgs eventArgs)
+    {
+        eventArgs.Parameter = _viewModel;
+        eventArgs.TargetPageType = typeof(StepPage2);
+    }
+
+    private void R_Before_Open_StepPage3(R_BeforeOpenStepPageEventArgs eventArgs)
+    {
+        eventArgs.Parameter = _viewModel;
+        eventArgs.TargetPageType = typeof(StepPage3);
+    }
+
+    private void R_Before_Open_StepPage4(R_BeforeOpenStepPageEventArgs eventArgs)
+    {
+        eventArgs.Parameter = _viewModel;
+        eventArgs.TargetPageType = typeof(StepPage4);
     }
 }
