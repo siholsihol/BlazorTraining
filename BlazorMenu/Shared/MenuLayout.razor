@@ -1,4 +1,5 @@
 ﻿@using BlazorMenu.Helper
+@using BlazorMenu.Constants
 @using BlazorMenu.Resources
 @using BlazorMenu.Shared.Overlay
 @using R_BlazorFrontEnd.Controls.Constants
@@ -17,7 +18,7 @@
                 </div>
                 <a class="navbar-brand" href="/">
                     <div class="d-flex align-items-center py-2">
-                        <div style=@_logoStyle></div>
+                        <div style=@AssetRepository.GetPreloadAsset(AppConstants.LogoStyleKey)></div>
                     </div>
                 </a>
             </div>
@@ -26,8 +27,8 @@
                 <div class="navbar-vertical-content">
                     <div class="navbar-content">
                         <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-                        @if (_favData != null)
-                        {
+                            @if (_favData != null && _favData.Children.Count > 0)
+                            {
                             <li class="nav-item">
                                 <a class="nav-link cur-pointer" role="button" onclick="@(async () => await OnClickShowMenuOverlay(_favData, new string[] { _favData.Text }))">
                                     <div class="d-flex align-items-center">
@@ -71,9 +72,7 @@
                                                 <a class="nav-link cur-pointer" onclick="@(async () => await OnClickShowMenuOverlay(item1, new string[] { item.Text ?? string.Empty, item1.Text }))">
                                                     <div class="d-flex align-items-center">
                                                         <span class="nav-link-icon">
-                                                            <svg class="r-nav-custom-icon">
-                                                                <use href="@(BlazorMenuUtility.GetMenuSVGHref(new() { Id = item1.Text }))" />
-                                                            </svg>
+                                                            <R_DynamicSVG SvgId="@item1.Text" Class="r-nav-custom-icon" />
                                                         </span>
                                                         <span class="nav-link-text ps-1">@item1.Text</span>
                                                     </div>
@@ -132,7 +131,7 @@
 
             <a class="navbar-brand me-1 me-sm-3" href="/">
                 <div class="d-flex align-items-center">
-                    <img class="me-2" src="@_logoUrl" alt="" width="40" />
+                    <img class="me-2" src=@AssetRepository.GetPreloadAsset(AppConstants.LogoUrlKey) alt="" width="40" />
                 </div>
             </a>
         </nav>
@@ -147,30 +146,35 @@
                 </button>
                 <a class="navbar-brand me-1 me-sm-3" href="/">
                     <div class="d-flex align-items-center">
-                        <img class="me-2" src="@_logoUrl" alt="" width="80" height="25" />
+                        <img class="me-2" src="@AssetRepository.GetPreloadAsset(AppConstants.LogoUrlKey)" alt="" width="80" height="25" />
                     </div>
                 </a>
 
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
                         <!-- search box -->
-                        <TelerikAutoComplete @ref="@TelerikAutoCompleteRef"
-                                             Data="@SearchBoxData"
-                                             Value="@_searchText"
-                                             ValueChanged="@SearchTextValueChanged"
-                                             Placeholder="@(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "_Search", pcResourceName: "BlazorMenuResources") + "...")"
-                                             OnChange="@SearchTextOnChange"
-                                             ShowClearButton
-                                             ValueField="@(nameof(SearchBoxItem.Text))"
-                                             Filterable
-                                             FilterOperator="StringFilterOperator.Contains"
-                                             Class="search-input r-form-control"
-                                             Id="@_autoCompleteId">
-                            <AutoCompleteSettings>
-                                <AutoCompletePopupSettings Height="auto" MaxHeight="200px" />
-                            </AutoCompleteSettings>
-                        </TelerikAutoComplete>
+                        <div @onkeypress="@onkeypress">
+                            <TelerikAutoComplete @ref="@TelerikAutoCompleteRef"
+                                                 Data="@searchBoxData"
+                                                 @bind-Value="@_searchText"
+                                                 Placeholder="Search..."
+                                                 OnChange="@SearchTextValueChanged"
+                                                 ShowClearButton
+                                                 ValueField="@(nameof(SearchBoxItem.Text))"
+                                                 Filterable
+                                                 FilterOperator="StringFilterOperator.Contains"
+                                                 Class="form-control search-input"
+                                                 AdaptiveMode="AdaptiveMode.Auto"
+                                                 Id="@_autoCompleteId">
+                                <AutoCompleteSettings>
+                                    <AutoCompletePopupSettings Height="auto" MaxHeight="200px" />
+                                </AutoCompleteSettings>
+                            </TelerikAutoComplete>
+                        </div>
                     </li>
+                </ul>
+                <ul>
+                    <R_TextBox @bind-Value="@Access"></R_TextBox>
                 </ul>
 
                 <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center gap-2 position-relative">

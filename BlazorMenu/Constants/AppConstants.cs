@@ -10,6 +10,12 @@
         public static string LoginBackgroundFilePath = "login-bg.*";
         public static string LogoFilePath = "logo.*";
         public static string FavoriteMenuId = "FAV";
+
+        public static string HomeBackgroundFilePath = "home-bg-bimasakti-11.*";
+        public static string LogoUrlKey = "LogoUrlKey";
+        public static string LogoStyleKey = "LogoStyleKey";
+        public static string HomeBgStyleKey = "HomeBgStyleKey";
+        public static string LoginBgStyleKey = "LoginBgStyleKey";
         #endregion
     }
 }

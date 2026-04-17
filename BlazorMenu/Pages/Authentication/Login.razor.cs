@@ -21,6 +21,7 @@ namespace BlazorMenu.Pages.Authentication
         [Inject] private R_PreloadService _preloadService { get; set; } = default!;
         [Inject] private IClientHelper _clientHelper { get; set; } = default!;
         [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] private R_IAssetRepository AssetRepository { get; set; } = default!;
 
         private LoginRequest _loginRequest = new();
 

@@ -2,7 +2,7 @@
 {
     public class CustomerDTO
     {
-        public bool Selected { get; set; } = true;
+        public bool Selected { get; set; }
         public string Id { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }

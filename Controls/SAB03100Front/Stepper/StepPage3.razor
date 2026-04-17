@@ -1,0 +1,23 @@
+@using R_BlazorFrontEnd.Controls.DataControls
+@inherits R_Page
+
+<p>Step Billing Schedule</p>
+
+<R_Label>R_FormAccess: @(this.R_FormAccess.Length)</R_Label>
+<R_Label>FormAccess: @(this.FormAccess.Length)</R_Label>
+@if (_conductorRef is not null)
+{
+    <R_Label>Conductor Access: @(_conductorRef.R_Access.Length)</R_Label>
+}
+
+
+<R_TextArea R_ConductorSource="@_conductorRef"
+            @bind-Value="@_viewModel.Employee.FirstName"
+            R_EnableAdd />
+
+<R_AddButton R_Conductor="@_conductorRef" />
+<R_EditButton R_Conductor="@_conductorRef" />
+
+<R_Conductor @ref="@_conductorRef"
+            R_ViewModel="@_viewModel"
+            R_IsHeader />

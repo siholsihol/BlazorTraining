@@ -16,5 +16,6 @@ namespace BlazorMenu.Shared.Drawer
         public bool Favorite { get; set; } = false;
         public bool IsAnimating { get; set; } = false;
         public string MenuId { get; set; } = string.Empty;
+        public string DefaultTitle => $"{Id} - {Text}";
     }
 }

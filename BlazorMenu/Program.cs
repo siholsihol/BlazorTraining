@@ -1,7 +1,6 @@
 using BlazorMenu.Extensions;
 using BlazorMenu.Managers;
 using BlazorMenu.Services;
-using BlazorPrettyCode;
 using BlazorTraining.Controls.Preload;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -35,8 +34,6 @@ builder.Services.AutoRegisterInterfaces<IManager>();
 Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", builder.HostEnvironment.Environment);
 
 builder.Services.AddMultiTenantancy();
-
-builder.Services.AddBlazorPrettyCode();
 
 var host = builder.Build();
 

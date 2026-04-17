@@ -8,6 +8,7 @@ using Microsoft.JSInterop;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Base;
 using R_BlazorFrontEnd.Controls.Constants;
+using R_BlazorFrontEnd.Controls.Forms;
 using R_BlazorFrontEnd.Controls.Helpers;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
@@ -22,6 +23,7 @@ namespace BlazorMenu.Shared.Overlay
         #endregion
 
         #region Properties
+        [CascadingParameter(Name = "R_ErrorHandler")] private R_ErrorHandler? ErrorHandler { get; set; }
         public override string Id { get; set; } = IdGeneratorHelper.Generate("MenuOverlay");
 
         protected string ClassNames => new CssBuilder()
@@ -39,9 +41,8 @@ namespace BlazorMenu.Shared.Overlay
         private DrawerMenuItem? _drawerMenuItem;
         private bool _showMenuOverlay;
         private string? _breadCrumbs;
-        private string _defaultIconId = AppConstants.MenuIconId;
+        private string _placeholderIconId = "default";
         private bool _isFavorite;
-        private bool _isRendered = true;
 
         private string _tilesRenderKey = IdGeneratorHelper.Generate("tiles");
         private readonly string _swapyId = "menu-swapy-container";
@@ -75,7 +76,7 @@ namespace BlazorMenu.Shared.Overlay
 
             _drawerMenuItem = menu;
             _isFavorite = _drawerMenuItem.Id == AppConstants.FavoriteMenuId;
-            _defaultIconId = $"{AppConstants.MenuIconId}-{_drawerMenuItem.Text.ToLowerInvariant()}";
+            _placeholderIconId = $"default-{_drawerMenuItem.Text.ToLowerInvariant()}";
 
             StateHasChanged();
             await Task.Delay(1);
@@ -206,8 +207,6 @@ namespace BlazorMenu.Shared.Overlay
                 StateHasChanged();
                 await Task.Delay(1);
             }
-
-            loEx.ThrowExceptionIfErrors();
         }
         #endregion
     }

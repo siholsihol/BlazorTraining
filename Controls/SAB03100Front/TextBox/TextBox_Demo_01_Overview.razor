@@ -1,4 +1,4 @@
-﻿@inherits R_Page
+﻿<p>TextBox value: @_stringValue</p>
 
 <p>TextBox value: @_stringValue</p>
 
@@ -72,8 +72,6 @@
 </style>
 
 @code {
-    private bool _checkboxValue { get; set; }
-    private R_TextBox _textBoxRef;
     private string _stringValue { get; set; }
     private string _stringValueValueChanged { get; set; }
     private string _stringValueOnLostFocused { get; set; }

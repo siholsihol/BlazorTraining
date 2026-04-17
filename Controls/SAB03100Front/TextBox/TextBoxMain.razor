@@ -1,108 +1,126 @@
-﻿@inherits R_Page
+﻿@using R_BlazorFrontEnd.Controls.DataControls
+@inherits R_Page
 
-<h1>Realta Blazor Textbox</h1>
+
+<R_TextBox @bind-Value="@_viewModel.Data.Id"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.Id)"
+ShowValidation/>
+
+<R_TextBox @bind-Value="@_viewModel.Data.FirstName"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.FirstName)"
+ShowValidation />
+
+<R_TextArea @bind-Value="@_viewModel.Data.FirstName"
+Height="100px"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.FirstName)"
+ShowValidation />
+
+<R_NumericTextBox @bind-Value="@_viewModel.Data.Age"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.Age)"
+ShowValidation />
+
+<R_DateInput @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_DatePicker @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_DateTimePicker @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_TimePicker @bind-Value="@_viewModel.Data.DateOfBirth"
+R_ConductorSource="@_conductorRef"
+FieldName="@nameof(TextBoxDTO.DateOfBirth)"
+ShowValidation />
+
+<R_AddButton R_Conductor="@_conductorRef" />
+<R_EditButton R_Conductor="@_conductorRef"/>
+<R_SaveButton R_Conductor="@_conductorRef" />
+<R_CancelButton R_Conductor="@_conductorRef" />
+
+<R_Conductor @ref="@_conductorRef"
+R_IsHeader
+R_ViewModel="@_viewModel"
+R_ServiceGetRecord="@GetRecord"
+R_Validation="@Validating" />
+
+@code{
+    private R_Conductor _conductorRef { get; set; }
+    private TextBoxViewModel _viewModel { get; set; } = new TextBoxViewModel();
+
+    protected override async Task R_Init_From_Master(object parameter)
+    {
+        await _conductorRef.R_GetEntity(null);
+    }
+
+    private void Validating (R_ValidationEventArgs eventArgs )
+    {
+        TextBoxDTO Data = R_FrontUtility.ConvertObjectToObject<TextBoxDTO>(eventArgs.Data);
+
+        if (string.IsNullOrWhiteSpace(Data.Id))
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.Id), "Id cannot be null or empty!");
+        }
+
+        if (string.IsNullOrWhiteSpace(Data.FirstName))
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.FirstName), "FirstName cannot be null or empty!");
+        }
+
+        if (Data.Age < 5)
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.Age), "Age cannot be below 5!");
+        }
+
+        if (Data.DateOfBirth < DateTime.Now)
+        {
+            _viewModel.R_SetValidationMessage(nameof(TextBoxDTO.DateOfBirth), "DateOfBirth cannot be before today!");
+        }
+
+        if (!_viewModel.HasValidationMessage())
+        {
+            eventArgs.Cancel = true;
+        }
+    }
+
+    private void GetRecord (R_ServiceGetRecordEventArgs eventArgs)
+    {
+        eventArgs.Result = _viewModel.GetData();
+    }
+}
+
+<h1>Realta Blazor TextBox</h1>
 <div class="lead mb-3">
-    Realta Blazor textbox component.
+    Realta Blazor TextBox Component.
 </div>
 
-<SectionHeading Size="HeadingSize.H2" Text="Textbox Overview" HashTagName="textbox-overview" />
+<SectionHeading Size="HeadingSize.H2" Text="TextBox Overview" HashTagName="textbox-overview" />
 <Demo Type="typeof(TextBox_Demo_01_Overview)" Tabs="true" />
 
-<SectionHeading Size="HeadingSize.H2" Text="Textbox Parameters" HashTagName="textbox-parameters" />
-<div>
-    Realta Blazor textbox parameters.
-</div>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Parameter</th>
-                <th scope="col">Type and Default Value</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr>
-                <th scope="row"><code>Id</code></th>
-                <td>string</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row"><code>AllowSpaces</code></th>
-                <td>bool (true)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>AllowSpecialCharacters</code></th>
-                <td>bool (true)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>Class</code></th>
-                <td>string</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>@nameof(R_TextBox.CharacterCasing)</code></th>
-                <td>R_eCharacterCasing (Normal)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>Enabled</code></th>
-                <td>bool (true)</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>MaxLength</code></th>
-                <td>int?</td>
-                <td></td>
-                <td>Try</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<SectionHeading Size="HeadingSize.H2" Text="TextBox Parameters" HashTagName="textbox-parameters" />
+<DocTable Header="@(typeof(ParameterHeader))"
+          Body="@(typeof(R_TextBoxParameter))" />
 
-<SectionHeading Size="HeadingSize.H2" Text="Textbox Events" HashTagName="textbox-events" />
-<div>
-    Realta Blazor textbox events.
-</div>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Event</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            <tr>
-                <th scope="row"><code>OnChanged</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>OnLostFocus</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-            <tr>
-                <th scope="row"><code>ValueChanged</code></th>
-                <td></td>
-                <td>Try</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<SectionHeading Size="HeadingSize.H2" Text="TextBox Events" HashTagName="textbox-events" />
+<DocTable Header="@(typeof(EventHeader))"
+          Body="@(typeof(R_TextBoxEvent))" />
 
-<SectionHeading Size="HeadingSize.H2" Text="Textbox Methods" HashTagName="textbox-methods" />
+<SectionHeading Size="HeadingSize.H2" Text="TextBox Methods" HashTagName="textbox-methods" />
+<DocTable Header="@(typeof(MethodHeader))"
+          Body="@(typeof(R_TextBoxMethod))" />
+
+
+@* <SectionHeading Size="HeadingSize.H2" Text="TextBox Methods" HashTagName="textbox-methods" />
 <div>
     Realta Blazor textbox methods.
 </div>
@@ -122,7 +140,7 @@
                 <td>Try</td>
             </tr>
             <tr>
-                <th scope="row"><code>OnLostFocus</code></th>
+                <th scope="row"><code>OnLostFocused</code></th>
                 <td></td>
                 <td>Try</td>
             </tr>
@@ -133,4 +151,4 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> *@

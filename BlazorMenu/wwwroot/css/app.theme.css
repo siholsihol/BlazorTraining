@@ -11,6 +11,7 @@
         margin: 0;
         background-color: var(--falcon-body-bg) !important;
     }
+
         .consistent.navbar-vertical.navbar-expand-xl div.nav-link-icon {
             display: none !important;
         }
@@ -38,9 +39,9 @@
             width: 12.625rem
         }
 
-        .consistent.navbar-vertical.navbar-expand-xl .navbar-collapse .navbar-vertical-content {
-            padding: .5rem 0 0 0;
-        }
+            .consistent.navbar-vertical.navbar-expand-xl .navbar-collapse .navbar-vertical-content {
+                padding: .5rem 0 0 0;
+            }
 
         .consistent.navbar-vertical.navbar-expand-xl .navbar-vertical-content {
             width: 12.625rem;
@@ -214,8 +215,7 @@
     }
 
     .navbar-vertical-collapsed-hover .consistent.navbar-vertical.navbar-expand-xl,
-    .r-menu-overlay-show .consistent.navbar-vertical.navbar-expand-xl
-    {
+    .r-menu-overlay-show .consistent.navbar-vertical.navbar-expand-xl {
         width: 13.8rem !important
     }
 
@@ -315,20 +315,20 @@ ul.nav-tabs .nav-item .nav-link {
     padding: 0rem .5rem .1em;
 }
 
-    ul.nav-tabs .nav-item span.close {
-        transition: background .2s ease-in-out;
-        border-radius: 50px;
-        padding: 1px 5px;
+ul.nav-tabs .nav-item span.close {
+    transition: background .2s ease-in-out;
+    border-radius: 50px;
+    padding: 1px 5px;
+}
+
+    ul.nav-tabs .nav-item span.close:hover {
+        background: var(--falcon-300);
     }
 
-        ul.nav-tabs .nav-item span.close:hover {
-            background: var(--falcon-300);
-        }
-
-    ul.nav-tabs .nav-item span.tab.btn-close {
-        width: 8px !important;
-        height: 8px !important;
-    }
+ul.nav-tabs .nav-item span.tab.btn-close {
+    width: 8px !important;
+    height: 8px !important;
+}
 /* #endregion */
 
 /* ==========================================================================

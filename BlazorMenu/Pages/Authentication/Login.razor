@@ -1,4 +1,5 @@
 ﻿@page "/login"
+@using BlazorMenu.Constants
 @using BlazorMenu.Resources
 @using R_BlazorFrontEnd.Controls.DataControls
 @layout MainLayout
@@ -10,7 +11,7 @@
     <div class="container-fluid">
         <div class="row min-vh-100 bg-100">
             <div class="col-6 d-lg-block position-relative">
-                <div id="login-bg" class="bg-holder" style=@_loginBgStyle></div>
+                <div id="login-bg" class="bg-holder" style=@(AssetRepository.GetPreloadAsset(AppConstants.LoginBgStyleKey))></div>
             </div>
             <div class="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-5">
                 <div class="row justify-content-center g-0">
@@ -18,7 +19,7 @@
 
                         <!-- BEGIN::Company Logo -->
                         <span class="d-flex flex-center text-primary mb-3">
-                            <img @key="@_loginLogoUrl" class="me-2 w-50" style="max-height:80px;max-width:280px;" src="@_loginLogoUrl" alt="" />
+                            <img @key="@AssetRepository.GetPreloadAsset(AppConstants.LogoUrlKey)" class="me-2 w-50" style="max-height:80px;max-width:280px;" src="@AssetRepository.GetPreloadAsset(AppConstants.LogoUrlKey)" alt="" />
                         </span>
                         <!-- END::Company Logo -->
 
