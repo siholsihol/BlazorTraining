@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\GenderDTO.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="R_APICommonDTO">
       <HintPath>..\..\..\Dll\Dll Back\R_APICommonDTO.dll</HintPath>
     </Reference>

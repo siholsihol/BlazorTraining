@@ -8,6 +8,7 @@ namespace SAB00900Front
     public class ProductPageViewModel
     {
         public ObservableCollection<ProductDTO> ProductList = new ObservableCollection<ProductDTO>();
+        public ProductDTO Product = new ProductDTO();
 
         public void GetProductList()
         {
@@ -24,6 +25,24 @@ namespace SAB00900Front
             }
 
             loEx.ThrowExceptionIfErrors();
+        }
+
+        public ProductDTO? GetProductById(int productId)
+        {
+            var loEx = new R_Exception();
+            ProductDTO? loReturn = null;
+            try
+            {
+                loReturn = ProductService.GetProduct(productId);
+                Product = loReturn;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+
+            return loReturn;
         }
     }
 }

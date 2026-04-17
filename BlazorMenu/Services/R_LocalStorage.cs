@@ -63,5 +63,17 @@ namespace BlazorMenu.Services
             _syncLocalStorageService.RemoveItems(pcKey);
         }
         #endregion
+
+        #region Encrypt
+        public ValueTask SetItemEncryptAsync<TValue>(string pcKey, TValue poValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<TValue> GetItemEncryptAsync<TValue>(string pcKey)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

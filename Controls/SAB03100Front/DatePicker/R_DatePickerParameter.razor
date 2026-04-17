@@ -1,0 +1,41 @@
+@using BlazorTraining.Controls.Docs.Parameter
+
+<tr>
+    <th colspan="4">DatePicker Only</th>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DatePicker<DateTime>.DisabledDates)</code></th>
+    <td>
+        @("List<DateTime>")
+    </td>
+    <td>
+        Specifies a list of dates that cannot be selected in the date picker. These dates are disabled in the calendar UI and cannot be chosen by the user.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DatePicker<DateTime>.Format)</code></th>
+    <td>string</td>
+    <td>
+        Specifies the date format pattern used to display and parse the date value. If left empty, it is automatically resolved from the current culture using the value of DatePickerFormat and also applied to the placeholder.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DatePicker<DateTime>.DatePickerFormat)</code></th>
+    <td>@nameof(R_eDatePickerFormat) (R_eDatePickerFormat.Long)</td>
+    <td>
+        Determines whether the culture’s short or long date pattern is used when Format is not explicitly set. This value is used during initialization to generate the actual date format assigned to Format.
+    </td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DatePicker<DateTime>.ShowPickerButton)</code></th>
+    <td>bool (true)</td>
+    <td>
+        Controls whether the calendar button is displayed next to the date input field. When set to false, only the text input is shown and the picker button is hidden.
+    </td>
+    <td>Try</td>
+</tr>
+
+<R_DateInputComponentBaseParameter />

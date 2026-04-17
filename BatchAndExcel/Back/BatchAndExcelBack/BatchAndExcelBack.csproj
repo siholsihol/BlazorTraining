@@ -1,10 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EmailEngineCls.cs" />
+    <Compile Remove="SaveBatchWithBulkCopyCls.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
@@ -12,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\BatchAndExcelCommon\BatchAndExcelCommon.csproj" />
+    <ProjectReference Include="..\SaveBatchEmployeeWithResourcesResources\SaveBatchEmployeeWithResourcesResources.csproj" />
   </ItemGroup>
 
   <ItemGroup>

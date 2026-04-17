@@ -1,0 +1,15 @@
+﻿@using R_BlazorFrontEnd.Controls.Controls
+@inherits R_Page
+
+<R_GroupBox Title="RTFViewer">
+    <R_ItemLayout col="4">
+        <R_RTFViewer @bind-Value="@_textRTFViewer" Width="400px" SaveFileName="CustomFileName.rtf" ShowPreview>
+        </R_RTFViewer>
+    </R_ItemLayout>
+
+    <p>RTF Viewer value: @_textRTFViewer</p>
+</R_GroupBox>
+
+@code {
+    private string _textRTFViewer { get; set; }
+}

@@ -10,15 +10,17 @@ namespace BatchAndExcelService
     public class StorageController : ControllerBase
     {
         [HttpPost]
-        public EmployeeAttachmentDTO GetAttachment(EmployeeAttachmentDTO poParameter)
+        public StorageResultDTO<GetAttachmentDTO> GetAttachment(GetAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
-            EmployeeAttachmentDTO loRtn = default;
+            StorageResultDTO<GetAttachmentDTO> loRtn = new();
 
             try
             {
                 var loCls = new StorageCls();
-                loRtn = loCls.GetAttachment(poParameter);
+                var loResult = loCls.GetAttachment(poParameter.StorageId);
+
+                loRtn.Data = loResult;
             }
             catch (Exception ex)
             {
@@ -31,15 +33,20 @@ namespace BatchAndExcelService
         }
 
         [HttpPost]
-        public StorageResultDTO AddAttachment(EmployeeAttachmentDTO poParameter)
+        public StorageResultDTO<string> AddAttachment(AddAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
-            StorageResultDTO loResult = new();
+            StorageResultDTO<string> loResult = new();
 
             try
             {
                 var loCls = new StorageCls();
-                loCls.AddAttachment(poParameter);
+                var lcStorageId = loCls.AddAttachment(poParameter);
+
+                loResult = new StorageResultDTO<string>
+                {
+                    Data = lcStorageId
+                };
             }
             catch (Exception ex)
             {
@@ -52,14 +59,20 @@ namespace BatchAndExcelService
         }
 
         [HttpPost]
-        public void UpdateAttachment(EmployeeAttachmentDTO poParameter)
+        public StorageResultDTO<string> UpdateAttachment(UpdateAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
+            StorageResultDTO<string> loResult = new();
 
             try
             {
                 var loCls = new StorageCls();
-                loCls.UpdateAttachment(poParameter);
+                var lcStorageId = loCls.UpdateAttachment(poParameter);
+
+                loResult = new StorageResultDTO<string>
+                {
+                    Data = lcStorageId
+                };
             }
             catch (Exception ex)
             {
@@ -67,12 +80,15 @@ namespace BatchAndExcelService
             }
 
             loEx.ThrowExceptionIfErrors();
+
+            return loResult;
         }
 
         [HttpPost]
-        public void DeleteAttachment(EmployeeAttachmentDTO poParameter)
+        public StorageResultDTO DeleteAttachment(DeleteAttachmentParameterDTO poParameter)
         {
             var loEx = new R_Exception();
+            var loResult = new StorageResultDTO();
 
             try
             {
@@ -85,6 +101,8 @@ namespace BatchAndExcelService
             }
 
             loEx.ThrowExceptionIfErrors();
+
+            return loResult;
         }
     }
 }

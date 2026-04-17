@@ -1,0 +1,10 @@
+@inherits R_Page
+
+<R_ItemLayout xs="4">
+    <R_NumericTextBox @bind-Value=@_decimalValue />
+</R_ItemLayout>
+
+@code {
+    private decimal _decimalValue = -143232323.56m;
+    private int _intValue = 1234;
+}

@@ -15,13 +15,20 @@
                     AllowEditRow
                     AllowDeleteRow
                     R_ServiceGetListRecord="@R_ServiceGetListRecord"
+                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                    R_AfterSaveBatch="@R_AfterSaveBatch"
                     Height="400px"
                     Width="500px"
+
                     DragDrop
                     DragClueField="@nameof(ProductDTO.Name)"
+
                     R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<ProductDTO> args) => R_GridRowBeforeDrop(args))"
                     R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<ProductDTO> args) => R_GridRowAfterDrop(args))"
-                    TargetGridDrop="@_gridRef2">
+                   
+                    TargetGridDrop="@_gridRef2"
+                    >
                 <R_GridColumns>
                     <R_GridMultiHeaderColumn HeaderText="Test">
                         <R_GridNumericColumn FieldName="@nameof(ProductDTO.Id)"
@@ -59,6 +66,9 @@
                     AllowEditRow
                     AllowDeleteRow
                     R_ServiceGetListRecord="@R_ServiceGetListRecordGrid2"
+                    R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                    R_AfterSaveBatch="@R_AfterSaveBatch"
                     Height="400px"
                     Width="500px"
                     DragDrop
@@ -117,12 +127,8 @@
 
 <R_ConductorGrid @ref="@_conGridProductRef"
                  R_IsHeader
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+ />
 
 <R_ConductorGrid @ref="@_conGridProductRef2"
                  R_ConductorParent="@_conGridProductRef"
-                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
-                 R_AfterSaveBatch="@R_AfterSaveBatch" />
+ />

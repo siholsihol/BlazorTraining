@@ -1,4 +1,8 @@
-﻿/*** START: home ***/
+﻿/* ==========================================================================
+   1. Main
+   ========================================================================== */
+
+/*** START: home ***/
 :root {
     --bd-purple: #4c0bce;
     --bd-violet: #712cf9;
@@ -8,7 +12,12 @@
     --bd-pink-rgb: 214,51,132;
     --bd-teal-rgb: 32,201,151;
     --docsearch-primary-color: var(--bd-violet);
-    --docsearch-logo-color: var(--bd-violet)
+    --docsearch-logo-color: var(--bd-violet);
+    --falcon-card-bg-rgb: 255,255,255;
+}
+
+html.dark {
+    --falcon-card-bg-rgb: 18,30,45;
 }
 
 h1:focus-visible{
@@ -254,7 +263,7 @@ h1:focus-visible{
     position: relative;
     padding: 1rem;
     margin-top: 1rem;
-    border: solid #dee2e6;
+    border: solid var(--falcon-border-color);
     border-width: 1px;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
@@ -288,8 +297,8 @@ h1:focus-visible{
 .highlight {
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #f8f9fa;
-    border: solid #dee2e6;
+    background-color: var(--falcon-body-bg);
+    border: solid var(--falcon-border-color);
     border-width: 0 1px 1px 1px;
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
@@ -301,7 +310,7 @@ h1:focus-visible{
     }
 }
 
-.highlight pre {
+.highlight pre[class*=language-] {
     padding: 0;
     padding-bottom: 1rem !important;
     margin-top: .65rem;
@@ -311,16 +320,12 @@ h1:focus-visible{
     border: 0
 }
 
-    .highlight pre code {
-        font-size: inherit;
-        color: #212529;
+    .highlight pre[class*=language-] code {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        /*color: #212529;*/
         word-wrap: normal
     }
-
-.tab-pane.fade.active.show .highlight {
-    border: 1px solid #dee2e6;
-    border-top-width: 0;
-}
 
 .show-code-only {
     border-width: 1px;
@@ -367,4 +372,81 @@ h1:focus-visible{
         height: auto !important;
         overflow-y: auto !important;
     }
+}
+
+
+/* ==========================================================================
+   2. Tab
+   ========================================================================== */
+html body .k-tabstrip-items-wrapper {
+    border-color: var(--falcon-border-color);
+}
+
+    html body .k-tabstrip-items-wrapper .k-item {
+        color: var(--falcon-body-color);
+    }
+
+        html body .k-tabstrip-items-wrapper .k-item:active,
+        html body .k-tabstrip-items-wrapper .k-item.k-active,
+        html body .k-tabstrip-items-wrapper .k-item.k-selected {
+            border-color: var(--falcon-border-color);
+            background-color: transparent;
+        }
+
+        html body .k-tabstrip-items-wrapper .k-item:hover,
+        html body .k-tabstrip-items-wrapper .k-item.k-hover {
+            border-color: var(--falcon-border-color);
+        }
+
+html body .k-tabstrip-content,
+html body .k-tabstrip > .k-content {
+    border-color: var(--falcon-border-color);
+    color: var(--falcon-body-color);
+    background-color: transparent;
+}
+
+
+html body .k-vstack {
+    width: 200px;
+}
+
+div.demo .k-tabstrip-content,
+div.demo .k-tabstrip > .k-content {
+    padding: 0;
+}
+
+
+div.demo div.k-tabstrip-content div.bb-example,
+div.demo div.k-tabstrip-content div.highlight {
+    margin: 0;
+    border-width: 0;
+}
+
+/* ==========================================================================
+   3. Scroll Wrapper
+   ========================================================================== */
+
+.doc-scroll-wrapper {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    --fade-bottom: 0;
+}
+
+.doc-scroll-content {
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 48px;
+}
+
+.scroll-fade-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    pointer-events: none;
+    opacity: var(--fade-bottom);
+    transition: opacity .2s ease;
+    background: linear-gradient( to bottom, rgba(var(--falcon-card-bg-rgb), 0), rgba(var(--falcon-card-bg-rgb), 1) );
 }

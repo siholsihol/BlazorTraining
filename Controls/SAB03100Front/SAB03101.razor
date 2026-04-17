@@ -1,0 +1,17 @@
+@inherits R_Page
+@attribute [R_Page(Title = "Date & Time")]
+
+<VerticalTab Tabs="tabs" />
+
+@code {
+    private Dictionary<string, Type> tabs = new Dictionary<string, Type>();
+
+    protected override Task R_Init_From_Master(object poParameter)
+    {
+        tabs.Add("R_DateInput", typeof(DateInputMain));
+        tabs.Add("R_DatePicker", typeof(DatePickerMain));
+        tabs.Add("R_DateTimePicker", typeof(DateTimePickerMain));
+        tabs.Add("R_TimePicker", typeof(TimePickerMain));
+        return Task.CompletedTask;
+    }
+}

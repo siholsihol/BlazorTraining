@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorMenu.Resources;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Attributes;
@@ -6,17 +7,23 @@ using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Extensions;
 using R_BlazorFrontEnd.Helpers;
+using R_BlazorFrontEnd.Interfaces;
 using System.Reflection;
 
 namespace BlazorMenu.Shared.Tabs
 {
     public class MenuTabsRouteView : RouteView
     {
-        [Inject] public MenuTabSetTool TabSetTool { get; set; }
-        [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] private MenuTabSetTool TabSetTool { get; set; } = default!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        //[Inject] private IServiceProvider ServiceProvider { get; set; } = default!;
+
+        private R_ITenant? _tenant;
 
         protected override void Render(RenderTreeBuilder builder)
         {
+            //_tenant = ServiceProvider.GetTenantFromService();
+
             var leAccess = GetFullFormAccess();
 
             var url = "/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
@@ -50,8 +57,11 @@ namespace BlazorMenu.Shared.Tabs
             builder.CloseComponent();
 
             var url = "/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+            var tenantId = string.Empty;
+            if (_tenant is not null)
+                tenantId = _tenant.Identifier;
 
-            if (!url.Equals("/"))
+            if (!url.Equals("/" + tenantId))
             {
                 var selTab = TabSetTool.Tabs.FirstOrDefault(m => !m.IsInited);
 
@@ -73,7 +83,7 @@ namespace BlazorMenu.Shared.Tabs
                 {
                     selTab.Body = body;
                     selTab.IsActive = true;
-                    selTab.PageTitle = GetPageTitle(RouteData.PageType);
+                    selTab.PageTitle = GetPageTitle(RouteData.PageType, selTab.AssemblyResourceName);
 
                     if (isLoad)
                     {
@@ -106,7 +116,7 @@ namespace BlazorMenu.Shared.Tabs
             return page;
         }
 
-        private string GetPageTitle(Type poPageType)
+        private string GetPageTitle(Type poPageType, string pcAssemblyResourceName)
         {
             var loEx = new R_Exception();
             var lcRtn = string.Empty;
@@ -114,7 +124,7 @@ namespace BlazorMenu.Shared.Tabs
             try
             {
                 if (!poPageType.IsSubclassOf(typeof(R_Page)))
-                    throw new Exception("Type parameter is not inherited from R_Page.");
+                    throw new Exception(R_FrontUtility.R_GetMessage(typeof(BlazorMenuLocalizer), "Page_E001", pcResourceName: "BlazorMenuResources"));
 
                 var loAttributes = poPageType.GetCustomAttributes(true);
 
@@ -124,8 +134,7 @@ namespace BlazorMenu.Shared.Tabs
 
                     if (!string.IsNullOrWhiteSpace(loPageAttribute.ResourceId))
                     {
-                        var lcProgramId = NavigationManager.ToBaseRelativePath(NavigationManager.Uri) + "FrontResources";
-                        lcRtn = R_FrontUtility.R_GetMessage(lcProgramId, loPageAttribute.ResourceId);
+                        lcRtn = R_FrontUtility.R_GetMessage(pcAssemblyResourceName, loPageAttribute.ResourceId);
                     }
                 }
             }
