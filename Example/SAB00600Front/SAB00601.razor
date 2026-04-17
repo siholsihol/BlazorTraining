@@ -29,32 +29,45 @@
                      R_ServiceSaveBatch="@Grid_R_ServiceSaveBatch"
                      R_AfterSaveBatch="@Grid_R_AfterSaveBatch"
 
+                     R_Before_Open_Grid_Lookup="R_Before_Open_Grid_Lookup"
+                     R_After_Open_Grid_Lookup="R_After_Open_Grid_Lookup"
+
                      R_CheckGridAdd="R_CheckGridAdd"
                      R_CheckGridEdit="R_CheckGridEdit"
                      R_CheckGridDelete="R_CheckGridDelete"
                      R_CheckBoxSelectValueChanged="R_CheckBoxSelectValueChanged"
+                     R_CheckBoxSelectRender="R_CheckBoxSelectRender"
                      R_DisableDeleteConfirmation="false">
         @* R_RowRender="@R_RowRender" *@
         <R_GridColumns>
-            @* <R_GridCheckBoxSelectColumn FieldName="@nameof(CustomerDTO.Selected)" ShowSelectAllHeader
-                                        Width="100px" /> *@
+            <R_GridCheckBoxSelectColumn FieldName="@nameof(CustomerDTO.Selected)" ShowSelectAllHeader
+                                        Width="100px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.Id)"
                               HeaderText="Customer Id"
+                              R_EnableEdit
                               Width="100px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.CompanyName)"
                               HeaderText="Company Name"
                               Width="400px"
+                              R_EnableEdit
                               Ellipsis />
             @* R_CellRender="@R_CellRender" *@
+            <R_GridLookupColumn FieldName="@nameof(CustomerDTO.ProductId)"
+                                HeaderText="Product Id"
+                                Width="200px"
+                                R_EnableEdit
+                                TextboxEnabled />
             <R_GridComboBoxColumn Data=@CustomerViewModel.Genders
                                   ValueField="@nameof(GenderDTO.Id)"
                                   TextField="@nameof(GenderDTO.Name)"
                                   FieldName="@nameof(CustomerDTO.GenderId)"
                                   HeaderText="Gender Id"
+                                  R_EnableEdit
                                   Width="200px" />
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
                               Width="400px"
+                              R_EnableEdit
                               Ellipsis />
         </R_GridColumns>
     </R_BatchEditGrid>

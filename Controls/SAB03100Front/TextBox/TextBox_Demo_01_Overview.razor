@@ -1,7 +1,103 @@
 ﻿<p>TextBox value: @_stringValue</p>
 
-<R_TextBox @bind-Value="@_stringValue" />
+<p>TextBox value: @_stringValue</p>
+
+<R_TextBox AllowSpaces="false"
+           Class="my-style"
+           @ref="@_textBoxRef"
+           Style="font-size: 3rem;"
+           Value="@_stringValue"
+           ValueChanged="ValueChanged"
+           OnLostFocused="OnLostFocused_2"
+           OnChanged="OnChanged" 
+           Enabled="@_checkboxValue" />
+           @* OnLostFocus="OnLostFocused" *@
+
+<R_StackLayout Row>
+    <R_ItemLayout col="4">
+        <R_NumericTextBox @bind-Value="@_invalidValue" Enabled="false" ThemeConstant="R_eThemeConstant.Error"/>
+    </R_ItemLayout>
+    <R_ItemLayout col="4">
+        <R_NumericTextBox @bind-Value="@_validValue" Enabled="false" ThemeConstant="R_eThemeConstant.Success" />
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_ItemLayout col="4">
+        <R_NumericTextBox @bind-Value="@_invalidValue" Enabled="false" ThemeConstant="R_eThemeConstant.Error" FloatingLabel Label="Invalid" />
+    </R_ItemLayout>
+    <R_ItemLayout col="4">
+        <R_NumericTextBox @bind-Value="@_validValue" Enabled="false" ThemeConstant="R_eThemeConstant.Success" FloatingLabel Label="Valid" />
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_ItemLayout col="8">
+        <R_InputGroup Row>
+            <R_ItemLayout col="6">
+                <R_NumericTextBox @bind-Value="@_invalidValue" Enabled="false" ThemeConstant="R_eThemeConstant.Error" />
+            </R_ItemLayout>
+            <R_ItemLayout col="6">
+                <R_NumericTextBox @bind-Value="@_validValue" Enabled="false" ThemeConstant="R_eThemeConstant.Success" />
+            </R_ItemLayout>
+        </R_InputGroup>
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_ItemLayout col="8">
+    <R_InputGroup Row>
+        <R_ItemLayout col="6">
+            <R_NumericTextBox @bind-Value="@_invalidValue" Enabled="false" ThemeConstant="R_eThemeConstant.Error" FloatingLabel Label="Invalid" />
+        </R_ItemLayout>
+        <R_ItemLayout col="6">
+            <R_NumericTextBox @bind-Value="@_validValue" Enabled="false" ThemeConstant="R_eThemeConstant.Success" FloatingLabel Label="Valid" />
+        </R_ItemLayout>
+    </R_InputGroup>
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row>
+    <R_CheckBox @bind-Value="@_checkboxValue"></R_CheckBox>
+    <R_Label>Enable/Disable TextBox</R_Label>
+</R_StackLayout>
+
+<div>ValueChanged = @_stringValueValueChanged</div>
+<div>OnLostFocused = @_stringValueOnLostFocused</div>
+<div>OnChanged = @_stringValueOnChanged</div>
+<style>
+    .my-style{
+        font-size: 3rem;
+    }
+</style>
 
 @code {
     private string _stringValue { get; set; }
+    private string _stringValueValueChanged { get; set; }
+    private string _stringValueOnLostFocused { get; set; }
+    private string _stringValueOnChanged { get; set; }
+
+    private int _invalidValue { get; set; } = 2;
+    private int _validValue { get; set; } = 3;
+
+    private void ValueChanged(string value)
+    {
+        _stringValue = value;
+        _stringValueValueChanged = value;
+    }
+
+    private void OnLostFocused(object input)
+    {
+        _stringValueOnLostFocused = _stringValue;
+    }
+
+    private void OnLostFocused_2(object input)
+    {
+        _stringValueOnLostFocused = _stringValue + "eeedddd";
+    }
+
+    private void OnChanged(object input)
+    {
+        _stringValueOnChanged = _stringValue;
+    }
 }

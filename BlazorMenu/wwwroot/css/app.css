@@ -618,16 +618,16 @@ html, body {
 /* ==========================================================================
    10. Background Color Override
    ========================================================================== */
-
 /* Base is not used, each components has it's own base styling */
 /*.r-bg-base.r-bg-base.r-bg-base.r-bg-base {
     background-color: var(--falcon-input-bg) !important;
     color: var(--falcon-input-color) !important;
 }*/
 
-.k-button .k-button-text {
-    font-family: var(--falcon-font-sans-serif);
-    font-weight: 500;
+
+.r-bg-primary.r-bg-primary.r-bg-primary.r-bg-primary {
+    background-color: var(--falcon-primary) !important;
+    color: var(--falcon-gray-black) !important
 }
 
 .r-bg-secondary.r-bg-secondary.r-bg-secondary.r-bg-secondary {

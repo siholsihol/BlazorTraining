@@ -100,6 +100,7 @@ namespace BlazorMenu.Services
                 AddMenu("SAB00800", "TreeView Navigator");
                 AddMenu("SAB01300", "Navigator and Batch");
                 AddMenu("SAB01500", "Navigator and Navigator");
+                AddMenu("SAB02000", "GroupBox");
 
                 CreateControlPrograms(loResult);
                 CreateOtherPrograms(loResult);

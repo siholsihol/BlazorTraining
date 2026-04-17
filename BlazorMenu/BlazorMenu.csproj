@@ -16,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
-    <ProjectReference Include="..\..\Source Code\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd\R_BlazorFrontEnd.csproj" />
+    <ProjectReference Include="..\..\RealtaNetCoreLibrary\Library\R_BlazorFrontEnd.Controls\R_BlazorFrontEnd.Controls.csproj" />
     <ProjectReference Include="..\Controls\SAB03000Front\SAB03000Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03100Front\SAB03100Front.csproj" />
     <ProjectReference Include="..\Controls\SAB03200Front\SAB03200Front.csproj" />
@@ -34,7 +33,8 @@
     <ProjectReference Include="..\Example\SAB01400Front\SAB01400Front.csproj" />
     <ProjectReference Include="..\Example\SAB01500Front\SAB01500Front.csproj" />
     <ProjectReference Include="..\Example\SAB01900Front\SAB01900Front.csproj" />
-	  <ProjectReference Include="..\Example\SAB02400Front\SAB02400Front.csproj" />
+    <ProjectReference Include="..\Example\SAB02000Front\SAB02000Front.csproj" />
+    <ProjectReference Include="..\Example\SAB02400Front\SAB02400Front.csproj" />
     <ProjectReference Include="..\Other\SAB04000Front\SAB04000Front.csproj" />
   </ItemGroup>
 
@@ -63,6 +63,9 @@
     <Reference Include="R_BlazorFrontEnd.Authentication">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Authentication.dll</HintPath>
     </Reference>
+    <!--<Reference Include="R_BlazorFrontEnd.Controls">
+      <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.dll</HintPath>
+    </Reference>-->
     <Reference Include="R_BlazorFrontEnd.Controls.Captcha">
       <HintPath>..\Dll\Dll Front\R_BlazorFrontEnd.Controls.Captcha.dll</HintPath>
     </Reference>

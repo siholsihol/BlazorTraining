@@ -400,8 +400,14 @@ namespace SAB00600Front
         {
             //TODO Validation
             //eventArgs.Allow = false;
-            var Data = (CustomerDTO)eventArgs.Data;
-            if (Data.CompanyName.Contains("LLC"))
+
+            var item = (CustomerDTO)eventArgs.Data;
+            var index = _gridRef.DataSource.IndexOf(item);
+            if (index % 2 == 0)
+            {
+                eventArgs.Allow = true;
+            }
+            else
             {
                 eventArgs.Allow = false;
             }

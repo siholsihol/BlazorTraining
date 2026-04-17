@@ -98,10 +98,31 @@ namespace SAB03300Front
         #region Drag Drop
         private void R_GridRowBeforeDrop(R_GridDragDropBeforeDropEventArgs<ProductDTO> eventArgs)
         {
+            if (eventArgs.Items.FirstOrDefault(x => _viewModel.Products.IndexOf(x) == 0) != null)
+            {
+                eventArgs.Cancel = true;
+                return;
+            }
             //eventArgs.Cancel = true;
         }
 
         private void R_GridRowAfterDrop(R_GridDragDropAfterDropEventArgs<ProductDTO> eventArgs)
+        {
+
+        }
+
+        private void R_GridRowDropping(R_GridRowDroppingEventArgs eventArgs)
+        {
+            var items = (List<ProductDTO>)eventArgs.Items;
+            if (items.FirstOrDefault(x => _viewModel.Products.IndexOf(x) == 0) != null)
+            {
+                eventArgs.Cancel = true;
+                return;
+            }
+            //eventArgs.Cancel = true;
+        }
+
+        private void R_GridRowDropped(R_GridRowDroppedEventArgs eventArgs)
         {
 
         }
