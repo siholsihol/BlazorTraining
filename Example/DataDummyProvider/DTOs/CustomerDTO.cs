@@ -10,7 +10,8 @@
         public string Address { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
         public string GenderId { get; set; }
     }
 

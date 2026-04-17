@@ -94,7 +94,7 @@ namespace SAB02400Front
 
         private async Task OnClickBatch()
         {
-            await _conGridEmployeeRef.R_SaveBatch();
+            await _gridRef.R_SaveBatch();
         }
 
         private void R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)

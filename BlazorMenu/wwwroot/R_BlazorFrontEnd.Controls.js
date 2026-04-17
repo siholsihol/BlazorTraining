@@ -12,16 +12,36 @@ export function selectText(tbId) {
     }
 }
 
+export function unselectText() {
+    const selection = window.getSelection();
+    if (selection) {
+        selection.removeAllRanges();
+    }
+
+    // Also clear active selection in inputs/textareas if any
+    if (document.activeElement && typeof document.activeElement.blur === "function") {
+        document.activeElement.blur();
+    }
+}
+
 export async function downloadFileFromStream(fileName, contentStreamReference) {
-    const arrayBuffer = await contentStreamReference.arrayBuffer();
-    const blob = new Blob([arrayBuffer]);
-    const url = URL.createObjectURL(blob);
-    const anchorElement = document.createElement('a');
-    anchorElement.href = url;
-    anchorElement.download = fileName ?? '';
-    anchorElement.click();
-    anchorElement.remove();
-    URL.revokeObjectURL(URL);
+    try {
+        const arrayBuffer = await contentStreamReference.arrayBuffer();
+        const blob = new Blob([arrayBuffer]);
+        const url = URL.createObjectURL(blob);
+
+        const anchorElement = document.createElement('a');
+        anchorElement.href = url;
+        anchorElement.download = fileName ?? '';
+        document.body.appendChild(anchorElement);
+        anchorElement.click();
+        anchorElement.remove();
+
+        URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error("JS error in downloadFileFromStream", err);
+        throw err;
+    }
 }
 
 export function showBootstrapToast() {
@@ -186,6 +206,12 @@ export function changeAllControlStatus(elementId, status) {
         setElementEnabledState(elm, enabled);
         setElementEnabledClass(elm, enabled);
     });
+}
+
+export function setAriaDisabled(elementId, enabled) {
+    let element = document.getElementById(elementId);
+    element.setAttribute('aria-disabled', !enabled);
+}
 
     // Toggle helper class
     //container.classList.toggle('disabled');

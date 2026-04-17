@@ -1,0 +1,49 @@
+﻿@page "/fastreport"
+
+<div class="row">
+    <div class="col-2">
+        <R_NumericTextBox @bind-Value="@_countProduct" Min="0"></R_NumericTextBox>
+    </div>
+    <div class="col-2">
+        <R_Button OnClick="@GenerateReport">Generate Report</R_Button>
+    </div>
+</div>
+
+@code {
+    [Inject] private R_IReport _reportService { get; set; }
+
+    private int _countProduct = 0;
+
+    private async Task GenerateReport()
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            var loParam = new ProductParameterDTO()
+            {
+                GenerateCountProduct = _countProduct
+            };
+
+            // await _reportService.GetReport(
+            //    "R_DefaultServiceUrl",
+            //    "",
+            //    "api/Report/AllProductPost",
+            //    "api/Report/AllStreamProductGet",
+            //    loParam);
+
+            await _reportService.GetReport(
+                "R_DefaultServiceUrl",
+                "",
+                "rpt/UpdateReport/AllProductPost",
+                "rpt/UpdateReport/AllStreamProductGet",
+                loParam);
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+}

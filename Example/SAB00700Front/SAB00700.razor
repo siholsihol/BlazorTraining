@@ -70,6 +70,10 @@
         </R_ItemLayout>
     </R_StackLayout>
 
+    <R_StackLayout Row>
+        <R_TextBox Value="@_access" ValueChanged="(string value) => TextValueChanged(value)"></R_TextBox>
+    </R_StackLayout>
+
     <R_StackLayout Row Spacing="3" Class="mt-3">
         <R_ItemLayout col="1">
             <R_AddButton R_Conductor="@_conductorRef" TabIndex="5" />

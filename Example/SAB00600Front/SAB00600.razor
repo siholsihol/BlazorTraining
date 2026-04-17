@@ -57,30 +57,13 @@
             AllowAddNewRow
             AllowEditRow
             AllowDeleteRow
-            R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
             Height="300px"
-            R_CellValueChanged="@R_CellValueChanged"
-            R_ServiceGetRecord="@Grid_ServiceGetRecord" 
-            R_BeforeEdit="@Grid_BeforeEdit" 
-            R_BeforeCancel="@Grid_BeforeCancel" 
-            R_BeforeAdd="@Grid_BeforeAdd" 
-            R_AfterAdd="@Grid_AfterAdd" 
-            R_Validation="@Grid_Validation" 
-            R_Saving="@Grid_Saving" 
-            R_ServiceSave="@Grid_ServiceSave" 
-            R_AfterSave="@Grid_AfterSave" 
-            R_BeforeDelete="@Grid_BeforeDelete" 
-            R_ServiceDelete="@Grid_ServiceDelete" 
-            R_AfterDelete="@Grid_AfterDelete" 
-            R_Display="R_Display" 
-            R_CheckAdd="R_CheckAdd" 
-            R_CheckEdit="R_CheckEdit" 
-            R_CheckDelete="R_CheckDelete" 
-            R_CheckGridAdd="R_CheckGridAdd" 
-            R_CheckGridEdit="R_CheckGridEdit" 
+            R_ServiceGetListRecord="@Grid_ServiceGetListRecord"
+            R_ServiceGetRecord="@Grid_ServiceGetRecord"
+            R_Display="R_Display"
+            R_CheckGridAdd="R_CheckGridAdd"
+            R_CheckGridEdit="R_CheckGridEdit"
             R_CheckGridDelete="R_CheckGridDelete"
-            R_DisableDeleteConfirmation="false"
-            R_DisableCancelConfirmation
             R_SetAddGridColumn="@R_SetAddGridColumn"
             R_SetEditGridColumn="@R_SetEditGridColumn"
             R_CheckBoxSelectValueChanged="@R_CheckBoxSelectValueChanged"
@@ -103,7 +86,7 @@
                               HeaderText="Company Name"
                               R_EnableAdd
                               R_EnableEdit
-                              Width="400px" 
+                              Width="400px"
                               PrefixText="@_prefixText"
                               SuffixText="@_suffixText"
                               R_CellRender="@R_CellRender"
@@ -112,15 +95,9 @@
             <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
                               HeaderText="Contact Name"
                               R_EnableAdd="@_checkBoxValue"
-                              Visible="@_isContactNameColumnVisible" 
-                              Width="400px" 
-                              R_CellRender="@R_CellRender" Ellipsis />
-
-            @* <R_GridTextColumn FieldName="@nameof(CustomerDTO.ContactName)"
-                              HeaderText="Contact Name"
-                              Enabled="@_checkBoxValue"
                               Visible="@_isContactNameColumnVisible"
-                              Width="400px" /> *@
+                              Width="400px"
+                              Ellipsis />
         </R_GridColumns>
     </R_Grid>
 
@@ -163,6 +140,29 @@
                  R_IsHeader />
 <R_ConductorGrid @ref="@_conGridCustomerRef2"
                  R_ConductorParent="_conGridCustomerRef" />
+
+@*
+    List of Available Public Method dari grid
+    
+    _gridRef.AddAsync();
+    _gridRef.EditAsync();
+    _gridRef.DeleteAsync();
+    _gridRef.SaveAsync();
+    _gridRef.CancelAsync();
+
+    _gridRef.GetFilteredGridData();
+    _gridRef.R_SelectCurrentDataAsync();
+
+    
+    List<R_GridGroupDescriptor> loGroups = new List<R_GridGroupDescriptor>();
+    loGroups.Add(new R_GridGroupDescriptor()
+    {
+        FieldName = "GenderId"
+    });
+    await _gridRef.R_GroupBy(loGroups);
+*@
+
+<R_PredefinedDock R_InstantiateDock="R_InstantiateDock" Title="Batch Edit Grid"></R_PredefinedDock>
 
 <style>
     .k-grid .k-master-row.myCustomRowFormatting:hover {

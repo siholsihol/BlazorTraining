@@ -21,7 +21,7 @@ namespace SAB02400Front
             try
             {
                 var loExcel = new R_Excel();
-                var loDataSet = loExcel.R_ReadFromExcel(poExcelByte);
+                var loDataSet = loExcel.R_ReadExcel(poExcelByte);
 
                 var loResult = R_FrontUtility.R_ConvertTo<UserDTO>(loDataSet.Tables[0]);
 

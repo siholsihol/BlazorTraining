@@ -1,0 +1,29 @@
+<tr>
+    <th colspan="4">Date Input Base</th>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DateInputComponentBase<DateTime>.Width)</code></th>
+    <td>string?</td>
+    <td>Defines the width of the input component using any valid CSS width value (for example: px, %, rem, or auto). If not specified, the component uses its default layout width.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DateInputComponentBase<DateTime>.Min)</code></th>
+    <td>DateTime</td>
+    <td>Specifies the minimum selectable date. The assigned value is internally adjusted by subtracting one day to ensure the configured date itself remains selectable.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DateInputComponentBase<DateTime>.Max)</code></th>
+    <td>DateTime</td>
+    <td>Specifies the maximum selectable date. Dates greater than this value are not allowed.</td>
+    <td>Try</td>
+</tr>
+<tr>
+    <th scope="row"><code>@nameof(R_DateInputComponentBase<DateTime>.Placeholder)</code></th>
+    <td>string</td>
+    <td>Defines the placeholder text displayed when no date value is selected. This is typically set to the resolved date format if not explicitly provided.</td>
+    <td>Try</td>
+</tr>
+
+<R_InputWithValidationComponentBaseParameter />

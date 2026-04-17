@@ -10,10 +10,9 @@ namespace SAB00600Front
     public class SAB00600ViewModel : R_ViewModel<CustomerDTO>
     {
         public ObservableCollection<CustomerDTO> CustomerList { get; set; } = new ObservableCollection<CustomerDTO>();
-
         public CustomerDTO Customer = new();
         public List<GenderDTO> Genders { get; set; } = new List<GenderDTO>();
-
+        public ObservableCollection<CustomerDTO> SavedData { get; set; } = new ObservableCollection<CustomerDTO>();
         public void GetCustomerList()
         {
             var loEx = new R_Exception();
@@ -30,7 +29,6 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         public void GetCustomerById(string customerId)
         {
             var loEx = new R_Exception();
@@ -48,7 +46,6 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         public void SaveCustomer(CustomerDTO poNewEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
@@ -73,7 +70,6 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         public void DeleteCustomer(string customerId)
         {
             var loEx = new R_Exception();
@@ -90,12 +86,17 @@ namespace SAB00600Front
 
             loEx.ThrowExceptionIfErrors();
         }
-
         public void GetGenders()
         {
             var loGenders = CustomerService.GetGenders();
 
             Genders = loGenders;
+        }
+        public void SaveBatch(List<CustomerDTO> poList)
+        {
+            var loSavedData = new List<CustomerDTO>(SavedData);
+            loSavedData.AddRange(poList);
+            SavedData = new ObservableCollection<CustomerDTO>(loSavedData);
         }
     }
 }

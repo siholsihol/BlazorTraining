@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "R_ReportFastReportBack/1.0.0": {
         "dependencies": {
-          "FastReport.Core.Skia": "2023.3.0",
-          "FastReport.Web.Skia": "2023.3.0",
+          "FastReport.Core.Skia": "2025.1.0",
+          "FastReport.Web.Skia": "2025.1.0",
           "HarfBuzzSharp.NativeAssets.Linux": "2.8.2.5",
           "R_APICommon": "1.0.0",
           "SkiaSharp.NativeAssets.Linux": "2.88.5"
@@ -18,82 +18,81 @@
           "R_ReportFastReportBack.dll": {}
         }
       },
-      "FastReport.Compat.Skia/2023.3.0": {
+      "FastReport.Compat.Skia/2025.1.0": {
         "dependencies": {
-          "FastReport.SkiaDrawing": "2023.3.1",
-          "Microsoft.CodeAnalysis.CSharp": "4.3.1",
-          "Microsoft.CodeAnalysis.VisualBasic": "4.3.1"
+          "FastReport.SkiaDrawing": "2025.1.0",
+          "Microsoft.CodeAnalysis.CSharp": "4.0.1",
+          "Microsoft.CodeAnalysis.VisualBasic": "4.0.1"
         },
         "runtime": {
           "lib/net6.0/FastReport.Compat.Skia.dll": {
-            "assemblyVersion": "2023.3.0.0",
-            "fileVersion": "2023.3.0.0"
+            "assemblyVersion": "2025.1.0.0",
+            "fileVersion": "2025.1.0.0"
           }
         }
       },
-      "FastReport.Core.Skia/2023.3.0": {
+      "FastReport.Core.Skia/2025.1.0": {
         "dependencies": {
-          "FastReport.Compat.Skia": "2023.3.0",
-          "FastReport.DataVisualization.Skia": "2023.3.0",
+          "FastReport.Compat.Skia": "2025.1.0",
+          "FastReport.DataVisualization.Skia": "2025.1.0",
           "System.Security.Cryptography.Pkcs": "4.7.0"
         },
         "runtime": {
           "lib/net6.0/FastReport.dll": {
-            "assemblyVersion": "2023.3.0.0",
-            "fileVersion": "2023.3.0.0"
+            "assemblyVersion": "2025.1.0.0",
+            "fileVersion": "2025.1.0.0"
           }
         }
       },
-      "FastReport.DataVisualization.Skia/2023.3.0": {
+      "FastReport.DataVisualization.Skia/2025.1.0": {
         "dependencies": {
-          "FastReport.Compat.Skia": "2023.3.0"
+          "FastReport.Compat.Skia": "2025.1.0"
         },
         "runtime": {
-          "lib/netcoreapp3.0/FastReport.DataVisualization.Skia.dll": {
-            "assemblyVersion": "2023.3.0.0",
-            "fileVersion": "2023.3.0.0"
+          "lib/net6.0/FastReport.DataVisualization.Skia.dll": {
+            "assemblyVersion": "2025.1.0.0",
+            "fileVersion": "2025.1.0.0"
           }
         }
       },
-      "FastReport.SkiaDrawing/2023.3.1": {
+      "FastReport.SkiaDrawing/2025.1.0": {
         "dependencies": {
-          "SkiaSharp": "2.88.5",
-          "SkiaSharp.HarfBuzz": "2.88.3"
+          "SkiaSharp": "2.88.6",
+          "SkiaSharp.HarfBuzz": "2.88.6"
         },
         "runtime": {
-          "lib/netcoreapp3.0/FastReport.SkiaDrawing.dll": {
-            "assemblyVersion": "2023.3.1.0",
-            "fileVersion": "2023.3.1.0"
+          "lib/net6.0/FastReport.SkiaDrawing.dll": {
+            "assemblyVersion": "2025.1.0.0",
+            "fileVersion": "2025.1.0.0"
           }
         }
       },
-      "FastReport.Web.Skia/2023.3.0": {
+      "FastReport.Web.Skia/2025.1.0": {
         "dependencies": {
-          "FastReport.Compat.Skia": "2023.3.0",
-          "FastReport.Core.Skia": "2023.3.0"
+          "FastReport.Core.Skia": "2025.1.0"
         },
         "runtime": {
           "lib/net6.0/FastReport.Web.dll": {
-            "assemblyVersion": "2023.3.0.0",
-            "fileVersion": "2023.3.0.0"
+            "assemblyVersion": "2025.1.0.0",
+            "fileVersion": "2025.1.0.0"
           }
         }
       },
-      "HarfBuzzSharp/2.8.2.5": {
+      "HarfBuzzSharp/7.3.0": {
         "dependencies": {
-          "HarfBuzzSharp.NativeAssets.Win32": "2.8.2.5",
-          "HarfBuzzSharp.NativeAssets.macOS": "2.8.2.5"
+          "HarfBuzzSharp.NativeAssets.Win32": "7.3.0",
+          "HarfBuzzSharp.NativeAssets.macOS": "7.3.0"
         },
         "runtime": {
           "lib/net6.0/HarfBuzzSharp.dll": {
             "assemblyVersion": "1.0.0.0",
-            "fileVersion": "2.8.2.5"
+            "fileVersion": "7.3.0.0"
           }
         }
       },
       "HarfBuzzSharp.NativeAssets.Linux/2.8.2.5": {
         "dependencies": {
-          "HarfBuzzSharp": "2.8.2.5"
+          "HarfBuzzSharp": "7.3.0"
         },
         "runtimeTargets": {
           "runtimes/linux-arm/native/libHarfBuzzSharp.so": {
@@ -118,7 +117,7 @@
           }
         }
       },
-      "HarfBuzzSharp.NativeAssets.macOS/2.8.2.5": {
+      "HarfBuzzSharp.NativeAssets.macOS/7.3.0": {
         "runtimeTargets": {
           "runtimes/osx/native/libHarfBuzzSharp.dylib": {
             "rid": "osx",
@@ -127,7 +126,7 @@
           }
         }
       },
-      "HarfBuzzSharp.NativeAssets.Win32/2.8.2.5": {
+      "HarfBuzzSharp.NativeAssets.Win32/7.3.0": {
         "runtimeTargets": {
           "runtimes/win-arm64/native/libHarfBuzzSharp.dll": {
             "rid": "win-arm64",
@@ -146,11 +145,11 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.Analyzers/3.3.3": {},
-      "Microsoft.CodeAnalysis.Common/4.3.1": {
+      "Microsoft.CodeAnalysis.Analyzers/3.3.2": {},
+      "Microsoft.CodeAnalysis.Common/4.0.1": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Analyzers": "3.3.3",
-          "System.Collections.Immutable": "6.0.0",
+          "Microsoft.CodeAnalysis.Analyzers": "3.3.2",
+          "System.Collections.Immutable": "5.0.0",
           "System.Memory": "4.5.4",
           "System.Reflection.Metadata": "5.0.0",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
@@ -159,8 +158,8 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.CodeAnalysis.dll": {
-            "assemblyVersion": "4.3.0.0",
-            "fileVersion": "4.300.122.47918"
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.121.55815"
           }
         },
         "resources": {
@@ -205,14 +204,14 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.CSharp/4.3.1": {
+      "Microsoft.CodeAnalysis.CSharp/4.0.1": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Common": "4.3.1"
+          "Microsoft.CodeAnalysis.Common": "4.0.1"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.CodeAnalysis.CSharp.dll": {
-            "assemblyVersion": "4.3.0.0",
-            "fileVersion": "4.300.122.47918"
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.121.55815"
           }
         },
         "resources": {
@@ -257,14 +256,14 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.VisualBasic/4.3.1": {
+      "Microsoft.CodeAnalysis.VisualBasic/4.0.1": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Common": "4.3.1"
+          "Microsoft.CodeAnalysis.Common": "4.0.1"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.CodeAnalysis.VisualBasic.dll": {
-            "assemblyVersion": "4.3.0.0",
-            "fileVersion": "4.300.122.47918"
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.121.55815"
           }
         },
         "resources": {
@@ -367,33 +366,33 @@
           }
         }
       },
-      "SkiaSharp/2.88.5": {
+      "SkiaSharp/2.88.6": {
         "dependencies": {
-          "SkiaSharp.NativeAssets.Win32": "2.88.5",
-          "SkiaSharp.NativeAssets.macOS": "2.88.5"
+          "SkiaSharp.NativeAssets.Win32": "2.88.6",
+          "SkiaSharp.NativeAssets.macOS": "2.88.6"
         },
         "runtime": {
           "lib/net6.0/SkiaSharp.dll": {
             "assemblyVersion": "2.88.0.0",
-            "fileVersion": "2.88.5.0"
+            "fileVersion": "2.88.6.0"
           }
         }
       },
-      "SkiaSharp.HarfBuzz/2.88.3": {
+      "SkiaSharp.HarfBuzz/2.88.6": {
         "dependencies": {
-          "HarfBuzzSharp": "2.8.2.5",
-          "SkiaSharp": "2.88.5"
+          "HarfBuzzSharp": "7.3.0",
+          "SkiaSharp": "2.88.6"
         },
         "runtime": {
           "lib/net6.0/SkiaSharp.HarfBuzz.dll": {
             "assemblyVersion": "2.88.0.0",
-            "fileVersion": "2.88.3.0"
+            "fileVersion": "2.88.6.0"
           }
         }
       },
       "SkiaSharp.NativeAssets.Linux/2.88.5": {
         "dependencies": {
-          "SkiaSharp": "2.88.5"
+          "SkiaSharp": "2.88.6"
         },
         "runtimeTargets": {
           "runtimes/linux-arm/native/libSkiaSharp.so": {
@@ -418,7 +417,7 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.macOS/2.88.5": {
+      "SkiaSharp.NativeAssets.macOS/2.88.6": {
         "runtimeTargets": {
           "runtimes/osx/native/libSkiaSharp.dylib": {
             "rid": "osx",
@@ -427,7 +426,7 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.Win32/2.88.5": {
+      "SkiaSharp.NativeAssets.Win32/2.88.6": {
         "runtimeTargets": {
           "runtimes/win-arm64/native/libSkiaSharp.dll": {
             "rid": "win-arm64",
@@ -446,11 +445,7 @@
           }
         }
       },
-      "System.Collections.Immutable/6.0.0": {
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
+      "System.Collections.Immutable/5.0.0": {},
       "System.Configuration.ConfigurationManager/6.0.1": {
         "dependencies": {
           "System.Security.Cryptography.ProtectedData": "6.0.0",
@@ -562,12 +557,18 @@
           "System.Text.Encoding.CodePages": "6.0.0"
         },
         "runtime": {
-          "R_APICommon.dll": {}
+          "R_APICommon.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "R_APICommonDTO/1.0.0": {
         "runtime": {
-          "R_APICommonDTO.dll": {}
+          "R_APICommonDTO.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "R_CommonFrontBackAPI/1.0.0": {
@@ -581,7 +582,10 @@
           "System.Text.Encoding.CodePages": "6.0.0"
         },
         "runtime": {
-          "R_CommonFrontBackAPI.dll": {}
+          "R_CommonFrontBackAPI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "R_ContextBackEnd/1.0.0": {
@@ -590,12 +594,18 @@
           "R_ContextEnumAndInterface": "1.0.0"
         },
         "runtime": {
-          "R_ContextBackEnd.dll": {}
+          "R_ContextBackEnd.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "R_ContextEnumAndInterface/1.0.0": {
         "runtime": {
-          "R_ContextEnumAndInterface.dll": {}
+          "R_ContextEnumAndInterface.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "R_Security/1.0.0": {
@@ -603,7 +613,10 @@
           "System.Text.Encoding.CodePages": "6.0.0"
         },
         "runtime": {
-          "R_Security.dll": {}
+          "R_Security.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -614,47 +627,47 @@
       "serviceable": false,
       "sha512": ""
     },
-    "FastReport.Compat.Skia/2023.3.0": {
+    "FastReport.Compat.Skia/2025.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-uWlxzRtl3kNpsYs9BjuFC0GUKBFmPuDEsH+9OEU6i/1cG3cLPPXngWFyus3r1/Tj5LZL8dZr9y16Lm72Zw6IFQ==",
-      "path": "fastreport.compat.skia/2023.3.0",
-      "hashPath": "fastreport.compat.skia.2023.3.0.nupkg.sha512"
+      "sha512": "sha512-U9G0KoZ5i77sal9p0h4mryv9a0rKPHa5eXy5x2SveYn98l4GzVv3jPbw3sWztIDvwRL7VzlY5AYrHRmTSJw1iQ==",
+      "path": "fastreport.compat.skia/2025.1.0",
+      "hashPath": "fastreport.compat.skia.2025.1.0.nupkg.sha512"
     },
-    "FastReport.Core.Skia/2023.3.0": {
+    "FastReport.Core.Skia/2025.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QZcC6a7CEm63zRhdyF731gAeM93DgdrWi3DMiyMVbzr3BJxyRjjUC26HTRVefG18/6x2Gq+9zJOU05n7wIxulw==",
-      "path": "fastreport.core.skia/2023.3.0",
-      "hashPath": "fastreport.core.skia.2023.3.0.nupkg.sha512"
+      "sha512": "sha512-xcvg6HQ/HmME04W720rPPeh1qmoJjrmCLrlI05N+mJHtJR3JFovmXQ+2zU0D8XlD130a3mh4KumuIOGbtcnk8w==",
+      "path": "fastreport.core.skia/2025.1.0",
+      "hashPath": "fastreport.core.skia.2025.1.0.nupkg.sha512"
     },
-    "FastReport.DataVisualization.Skia/2023.3.0": {
+    "FastReport.DataVisualization.Skia/2025.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IbjgeuoNqNsu+XJlWL7z3/FnEGIMu0GtdDGjodY5fd8ijCPyPsrJMGdSC5vEPrpD9FxxrrTFTdyE5HKAZT6uSg==",
-      "path": "fastreport.datavisualization.skia/2023.3.0",
-      "hashPath": "fastreport.datavisualization.skia.2023.3.0.nupkg.sha512"
+      "sha512": "sha512-caJiyu/m1ECCdGfLz0gTUYqPPExQ8qhlZX65w37/LWErsy+DZB7K0++0ucNeTi1QUMY6/2hYt99sKT255mEWnw==",
+      "path": "fastreport.datavisualization.skia/2025.1.0",
+      "hashPath": "fastreport.datavisualization.skia.2025.1.0.nupkg.sha512"
     },
-    "FastReport.SkiaDrawing/2023.3.1": {
+    "FastReport.SkiaDrawing/2025.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-g7/ksMA5yt2uEqrBTurjWnRm19oz3J1AI9yzO5NtrI2d6GuR2jU8tNeVSDjJ5LBNQubibeHkK046hYvE2yvybg==",
-      "path": "fastreport.skiadrawing/2023.3.1",
-      "hashPath": "fastreport.skiadrawing.2023.3.1.nupkg.sha512"
+      "sha512": "sha512-4Ape1QIQ/hyfPq4W33BJ9qhiXhik2rVvnZZ/1cxeALkTdyWoZO0omnH6zETJdDQLIujYN2tgAarMbPKHkt+rAA==",
+      "path": "fastreport.skiadrawing/2025.1.0",
+      "hashPath": "fastreport.skiadrawing.2025.1.0.nupkg.sha512"
     },
-    "FastReport.Web.Skia/2023.3.0": {
+    "FastReport.Web.Skia/2025.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OQJBRGolUOd/aGQmCZJPKYykGczgzdn1995NEb5PopiJf3B1PtOK5eVYWkfxjUlN4jtVZgeEtv+P5HSTwQvGCA==",
-      "path": "fastreport.web.skia/2023.3.0",
-      "hashPath": "fastreport.web.skia.2023.3.0.nupkg.sha512"
+      "sha512": "sha512-bY0LrA0rQ39cLCseSCM9JUaK6xBzCUk38VXqcqPCDzJo3w//U23gRMNSVLr4d9bTskrJNEN2Cc9lzyUzlzfxVg==",
+      "path": "fastreport.web.skia/2025.1.0",
+      "hashPath": "fastreport.web.skia.2025.1.0.nupkg.sha512"
     },
-    "HarfBuzzSharp/2.8.2.5": {
+    "HarfBuzzSharp/7.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cw+5/IBmpX3i/cebrbZr14sP82DuXcE3lyHOOvHs9hqiOxR00O7pOpTEhFZEr4RE4WmxCdu7cZdFqqIL2ARWIA==",
-      "path": "harfbuzzsharp/2.8.2.5",
-      "hashPath": "harfbuzzsharp.2.8.2.5.nupkg.sha512"
+      "sha512": "sha512-OrQLaxtZMIeS2yHSUtsKzeSdk9CPaCpyJ/JCs+wLfRGatjE8MLUS6LGj6vdbGRxqRavcXs79C9O3oWe6FJR0JQ==",
+      "path": "harfbuzzsharp/7.3.0",
+      "hashPath": "harfbuzzsharp.7.3.0.nupkg.sha512"
     },
     "HarfBuzzSharp.NativeAssets.Linux/2.8.2.5": {
       "type": "package",
@@ -663,47 +676,47 @@
       "path": "harfbuzzsharp.nativeassets.linux/2.8.2.5",
       "hashPath": "harfbuzzsharp.nativeassets.linux.2.8.2.5.nupkg.sha512"
     },
-    "HarfBuzzSharp.NativeAssets.macOS/2.8.2.5": {
+    "HarfBuzzSharp.NativeAssets.macOS/7.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-nlDITOIUo9UrevzkXqeHqIS3bSzEu8n6SnZqjhEi5oI+rM/NiJ0obX7xQNu5QGWF7warmMwqNWDLqlc+vefXvQ==",
-      "path": "harfbuzzsharp.nativeassets.macos/2.8.2.5",
-      "hashPath": "harfbuzzsharp.nativeassets.macos.2.8.2.5.nupkg.sha512"
+      "sha512": "sha512-LWcFJ39j+dN0KK8c/GJJZPPZPL9TqT2FA42/LRGqzUMmSm5LYbINOMnPvUr7RuLR6RFSmKIrgrlgObR8G5ho2A==",
+      "path": "harfbuzzsharp.nativeassets.macos/7.3.0",
+      "hashPath": "harfbuzzsharp.nativeassets.macos.7.3.0.nupkg.sha512"
     },
-    "HarfBuzzSharp.NativeAssets.Win32/2.8.2.5": {
+    "HarfBuzzSharp.NativeAssets.Win32/7.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-478O/W0P50YbRWmcgDPzkHNWmH9ak6zsjQ0XEKY8LmGNcOtH5eIvrJE720Qa7lNq/JreRH7rRlHsGbNuK1+WvA==",
-      "path": "harfbuzzsharp.nativeassets.win32/2.8.2.5",
-      "hashPath": "harfbuzzsharp.nativeassets.win32.2.8.2.5.nupkg.sha512"
+      "sha512": "sha512-ulEewLMk+dNmbmpy15ny/YusI6JNUWqchF080TV2jgfFBXPXjWm767JleDi/S7hp8eDeEN6GYIIxpvNr5fLvIw==",
+      "path": "harfbuzzsharp.nativeassets.win32/7.3.0",
+      "hashPath": "harfbuzzsharp.nativeassets.win32.7.3.0.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Analyzers/3.3.3": {
+    "Microsoft.CodeAnalysis.Analyzers/3.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-j/rOZtLMVJjrfLRlAMckJLPW/1rze9MT1yfWqSIbUPGRu1m1P0fuo9PmqapwsmePfGB5PJrudQLvmUOAMF0DqQ==",
-      "path": "microsoft.codeanalysis.analyzers/3.3.3",
-      "hashPath": "microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512"
+      "sha512": "sha512-7xt6zTlIEizUgEsYAIgm37EbdkiMmr6fP6J9pDoKEpiGM4pi32BCPGr/IczmSJI9Zzp0a6HOzpr9OvpMP+2veA==",
+      "path": "microsoft.codeanalysis.analyzers/3.3.2",
+      "hashPath": "microsoft.codeanalysis.analyzers.3.3.2.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Common/4.3.1": {
+    "Microsoft.CodeAnalysis.Common/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wexpJffSEEwptwe6UTMxRDZCCtz+XubI4Qewl4JECnNhcQrtb0anhSUEV9Nz7WkoNfWkx1fptR8xh1egoxYrqw==",
-      "path": "microsoft.codeanalysis.common/4.3.1",
-      "hashPath": "microsoft.codeanalysis.common.4.3.1.nupkg.sha512"
+      "sha512": "sha512-SMREwaVD5SzatlWhh9aahQAtSWdb63NcE//f+bQzgHSECU6xtDtaxk0kwV+asdFfr6HtW38UeO6jvqdfzudg3w==",
+      "path": "microsoft.codeanalysis.common/4.0.1",
+      "hashPath": "microsoft.codeanalysis.common.4.0.1.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.CSharp/4.3.1": {
+    "Microsoft.CodeAnalysis.CSharp/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5C9VHvahL98tumlyaT/loB5rW+K/6q0UU7uLyT1Dv15YjZraRkqML9u2t2e8GaO7XqEOtBVqK/SlxXOPqwzxog==",
-      "path": "microsoft.codeanalysis.csharp/4.3.1",
-      "hashPath": "microsoft.codeanalysis.csharp.4.3.1.nupkg.sha512"
+      "sha512": "sha512-Q9RxxydPpUElj/x1/qykDTUGsRoKbJG8H5XUSeMGmMu54fBiuX1xyanom9caa1oQfh5JIW1BgLxobSaWs4WyHQ==",
+      "path": "microsoft.codeanalysis.csharp/4.0.1",
+      "hashPath": "microsoft.codeanalysis.csharp.4.0.1.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.VisualBasic/4.3.1": {
+    "Microsoft.CodeAnalysis.VisualBasic/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-V3yW779IRoi8skcbLYBhryviGgIgtKfkQ4EQKSLHUe6++olAT1pCuE+kbgwXxTpoHqhI4Wc1gEkjNNmgQ3MKgg==",
-      "path": "microsoft.codeanalysis.visualbasic/4.3.1",
-      "hashPath": "microsoft.codeanalysis.visualbasic.4.3.1.nupkg.sha512"
+      "sha512": "sha512-o67w8S4zO7tQvB0EQeeo7i5uJCT/CrLwnLUWkkbxU2aUsZPGuRd35diuqk7e+vwnfhu27AvNJsr+1Z6EUT+fDA==",
+      "path": "microsoft.codeanalysis.visualbasic/4.0.1",
+      "hashPath": "microsoft.codeanalysis.visualbasic.4.0.1.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
       "type": "package",
@@ -747,19 +760,19 @@
       "path": "newtonsoft.json/13.0.1",
       "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
     },
-    "SkiaSharp/2.88.5": {
+    "SkiaSharp/2.88.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-43t9YEvcZtT+tuMN4hHH8rV8h7ttk1DRv5Tptxamy+bPuE8Up51+ME1Y1TXYAQf75686tHO488a0YKAnmJaSNg==",
-      "path": "skiasharp/2.88.5",
-      "hashPath": "skiasharp.2.88.5.nupkg.sha512"
+      "sha512": "sha512-wdfeBAQrEQCbJIRgAiargzP1Uy+0grZiG4CSgBnhAgcJTsPzlifIaO73JRdwIlT3TyBoeU9jEqzwFUhl4hTYnQ==",
+      "path": "skiasharp/2.88.6",
+      "hashPath": "skiasharp.2.88.6.nupkg.sha512"
     },
-    "SkiaSharp.HarfBuzz/2.88.3": {
+    "SkiaSharp.HarfBuzz/2.88.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hH6v4ltTb34eqn5tx1qLSAN7O+ppZCV5DnZw0FR7RwxXYqCeQYbBNgsaPyrZ1nkvtCDD1pH79taeO6SvqG+IAg==",
-      "path": "skiasharp.harfbuzz/2.88.3",
-      "hashPath": "skiasharp.harfbuzz.2.88.3.nupkg.sha512"
+      "sha512": "sha512-s5yZTHdqbXKiTL06ns6zW3asELfX60dEceA4ZdYmNlOkz/OyWDfdjHAuu4HGDA7Mxx5iaUEzDZgPkEe+OVr/jg==",
+      "path": "skiasharp.harfbuzz/2.88.6",
+      "hashPath": "skiasharp.harfbuzz.2.88.6.nupkg.sha512"
     },
     "SkiaSharp.NativeAssets.Linux/2.88.5": {
       "type": "package",
@@ -768,26 +781,26 @@
       "path": "skiasharp.nativeassets.linux/2.88.5",
       "hashPath": "skiasharp.nativeassets.linux.2.88.5.nupkg.sha512"
     },
-    "SkiaSharp.NativeAssets.macOS/2.88.5": {
+    "SkiaSharp.NativeAssets.macOS/2.88.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-snAA6ghUHBeXSOEa/lbjYMUPDKdNh4YRjU+dBoU85EMDEPlAwtkM9gESTM8FKY67ozqX8tqLzad1RRDNistGsg==",
-      "path": "skiasharp.nativeassets.macos/2.88.5",
-      "hashPath": "skiasharp.nativeassets.macos.2.88.5.nupkg.sha512"
+      "sha512": "sha512-Sko9LFxRXSjb3OGh5/RxrVRXxYo48tr5NKuuSy6jB85GrYt8WRqVY1iLOLwtjPiVAt4cp+pyD4i30azanS64dw==",
+      "path": "skiasharp.nativeassets.macos/2.88.6",
+      "hashPath": "skiasharp.nativeassets.macos.2.88.6.nupkg.sha512"
     },
-    "SkiaSharp.NativeAssets.Win32/2.88.5": {
+    "SkiaSharp.NativeAssets.Win32/2.88.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-U0GuMsdtdbHjVmuyTPRbb+ifaTPYBIV8WvPFx81ZHwzfL2TVe8SQjum8AMXSZDDlf90rhxOC5slzaL33uoHUhA==",
-      "path": "skiasharp.nativeassets.win32/2.88.5",
-      "hashPath": "skiasharp.nativeassets.win32.2.88.5.nupkg.sha512"
+      "sha512": "sha512-7TzFO0u/g2MpQsTty4fyCDdMcfcWI+aLswwfnYXr3gtNS6VLKdMXPMeKpJa3pJSLnUBN6wD0JjuCe8OoLBQ6cQ==",
+      "path": "skiasharp.nativeassets.win32/2.88.6",
+      "hashPath": "skiasharp.nativeassets.win32.2.88.6.nupkg.sha512"
     },
-    "System.Collections.Immutable/6.0.0": {
+    "System.Collections.Immutable/5.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-l4zZJ1WU2hqpQQHXz1rvC3etVZN+2DLmQMO79FhOTZHMn8tDRr+WU287sbomD0BETlmKDn0ygUgVy9k5xkkJdA==",
-      "path": "system.collections.immutable/6.0.0",
-      "hashPath": "system.collections.immutable.6.0.0.nupkg.sha512"
+      "sha512": "sha512-FXkLXiK0sVVewcso0imKQoOxjoPAj42R8HtjjbSjVPAzwDfzoyoznWxgA3c38LDbN9SJux1xXoXYAhz98j7r2g==",
+      "path": "system.collections.immutable/5.0.0",
+      "hashPath": "system.collections.immutable.5.0.0.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/6.0.1": {
       "type": "package",
